@@ -1,10 +1,9 @@
 import React from "react";
-import Counter from "./components/Counter/Counter";
-
+import { Button } from "./components/base/Button/Button";
 function App() {
   return (
     <div className="App">
-      <Counter />
+      <Button label="Submit" size="md" />
     </div>
   );
 }
