@@ -1,24 +1,36 @@
 import React from "react";
+import { useState } from "react";
 import "./button.css";
 
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({ primary, backgroundColor, size, label, ...props }) => {
-  const mode = primary
-    ? "storybook-button--primary"
-    : "storybook-button--secondary";
+export const Button = ({ isFollowed }) => {
+  const [followState, setFollowState] = useState(isFollowed);
 
-  const onClickHandler = () => console.log("I got click handler");
+  let mode;
+  let label;
+  let onClickHandler;
+
+  if (followState) {
+    mode = "follow-btn";
+    label = "Follow";
+    onClickHandler = () => {
+      setFollowState(!followState);
+    };
+  } else {
+    mode = "unfollow-btn";
+    label = "Unfollow";
+    onClickHandler = () => {
+      setFollowState(!followState);
+    };
+  }
+
   return (
     <button
       type="button"
-      className={["storybook-button", `storybook-button--${size}`, mode].join(
-        " "
-      )}
+      className={["btn", mode].join(" ")}
       onClick={onClickHandler}
-      style={backgroundColor && { backgroundColor }}
-      {...props}
     >
       {label}
     </button>

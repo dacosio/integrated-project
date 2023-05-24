@@ -1,0 +1,57 @@
+.card-list {
+    padding: 1rem;
+}
+
+.card {
+    width: 320px;
+    height: 80px;
+    border-radius: 1rem;
+    border: 3px solid black;
+    display: grid;
+    grid-template-columns: repeat(2, auto) 1fr;
+    align-items: center;
+    margin-bottom: 1rem;
+    background-color: ghostwhite;
+}
+
+.card-image-wrapper {
+    padding: 1rem 0.5rem 1rem 1rem;
+}
+
+.card-name-wrapper {
+    font-weight: bold;
+}
+
+.card-button-wrapper {
+    padding: 1rem 1rem 1rem 0.5rem;
+    justify-self: end;
+}
+
+.card-image {
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+}
+
+.image1 {    
+    background-image: url("https://picsum.photos/300?random=1");
+}
+
+.image2 {    
+    background-image: url("https://picsum.photos/300?random=2");
+}
+
+.btn {
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+}
+
+.follow-btn {
+  background-color: GoldenRod;
+}
+
+.unfollow-btn {
+  background-color: white;
+}
