@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "./Button";
 import "./card.css";
+import { ButtonV2 } from "./ButtonV2";
 
 export const Card = ({ className, name, position, isFollowed }) => {
   return (
@@ -14,6 +15,7 @@ export const Card = ({ className, name, position, isFollowed }) => {
       </div>
       <div className="card-button-wrapper">
         <Button isFollowed={isFollowed === "true" ? true : false} />
+        <ButtonV2 />
       </div>
     </div>
   );
