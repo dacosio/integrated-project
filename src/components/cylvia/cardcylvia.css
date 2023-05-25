@@ -1,0 +1,39 @@
+.component {
+    text-align: center;
+    width: 200px;
+    border-radius: 50px;
+    padding: 16px 0px;
+    border: 3px solid black;
+    line-height: 1.5;
+}
+
+.component li {
+    margin-left: 23%;
+}
+
+.list {
+    padding: 0;
+    text-align: left;
+}
+
+.big-p {
+    font-size: 1.2rem;
+}
+
+.component-orange {
+    background-color: orange;
+}
+
+.component-lightblue {
+    background-color: lightblue;
+}
+
+.component-white {
+    background-color: white;
+    color: black;
+}
+
+.love-mode {
+    background-color: black;
+    color: white;
+}
