@@ -14,7 +14,7 @@ export const Card = ({ className, name, position, isFollowed }) => {
         <div className="card-position-wrapper">{position}</div>
       </div>
       <div className="card-button-wrapper">
-        <Button isFollowed={isFollowed === "true" ? true : false} />
+        {/* <Button isFollowed={isFollowed === "true" ? true : false} /> */}
         <ButtonV2 />
       </div>
     </div>
