@@ -1,50 +1,51 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { PageButton } from "./PageButton";
 
-export const Pagination = ({ results, resultNumber, pageNumber }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  resultNumber = Number(resultNumber);
-  pageNumber = Number(pageNumber);
+export const Pagination = ({
+  resultNumber,
+  resultNumberPerPage,
+  pageNumberPerGroup,
+  sendRownum,
+}) => {
+  const [currentPageIndex, setCurrentPageIndex] = useState(1);
+  resultNumberPerPage = Number(resultNumberPerPage);
+  pageNumberPerGroup = Number(pageNumberPerGroup);
 
-  const totalPageNumber = Math.ceil(results.length / resultNumber);
-  const currentGroupIndex = Math.ceil(currentPage / pageNumber);
+  const totalPageNumber = Math.ceil(resultNumber / resultNumberPerPage);
+  const currentGroupIndex = Math.ceil(currentPageIndex / pageNumberPerGroup);
   const hasPreviousGroup = 1 < currentGroupIndex;
   const hasNextGroup =
-    currentGroupIndex * pageNumber * resultNumber < results.length;
-  const startPageIndex = (currentGroupIndex - 1) * pageNumber + 1;
+    currentGroupIndex * pageNumberPerGroup * resultNumberPerPage < resultNumber;
+  const startPageIndex = (currentGroupIndex - 1) * pageNumberPerGroup + 1;
   const endPageIndex = hasNextGroup
-    ? currentGroupIndex * pageNumber
+    ? currentGroupIndex * pageNumberPerGroup
     : totalPageNumber;
+
+  if (totalPageNumber && totalPageNumber < currentPageIndex) {
+    setCurrentPageIndex(totalPageNumber);
+  }
 
   const pages = [];
   for (let i = startPageIndex; i <= endPageIndex; i++) {
     pages.push(i);
   }
 
-  //  I tried to use useState but it gives me
-  //  "react-dom.development.js:16317 Uncaught Error: Too many re-renders. React limits the number of renders to prevent an infinite loop."
-  //  message.
-  const currentResult = results.slice(
-    (currentPage - 1) * resultNumber,
-    (currentPage - 1) * resultNumber + resultNumber
-  );
+  let currentRownum = (currentPageIndex - 1) * resultNumberPerPage;
+
+  useEffect(() => {
+    sendRownum(currentRownum);
+  }, [currentRownum, sendRownum]);
 
   return (
     <div>
-      {/* Should I put a ul tag in the Pagination component? It is weird for me but I put that for the test. */}
-      <ul className="list-group">
-        {currentResult.map((result) => (
-          <li className="list-group-item" key={result.id}>
-            {result.value}
-          </li>
-        ))}
-      </ul>
       <ul className="pagination">
         <PageButton
           liClassName="page-item"
           buttonClassName="page-link"
-          onClick={() => setCurrentPage(1)}
+          onClick={() => {
+            setCurrentPageIndex(1);
+          }}
           label="<<"
           key={0}
         ></PageButton>
@@ -52,17 +53,21 @@ export const Pagination = ({ results, resultNumber, pageNumber }) => {
           <PageButton
             liClassName="page-item"
             buttonClassName="page-link"
-            onClick={() => setCurrentPage(startPageIndex - 1)}
+            onClick={() => {
+              setCurrentPageIndex(startPageIndex - 1);
+            }}
             label="<"
             key={startPageIndex - 1}
           ></PageButton>
         )}
         {pages.map((page) =>
-          page === currentPage ? (
+          page === currentPageIndex ? (
             <PageButton
               liClassName="page-item active"
               buttonClassName="page-link"
-              onClick={() => setCurrentPage(page)}
+              onClick={() => {
+                setCurrentPageIndex(page);
+              }}
               label={page}
               key={page}
             ></PageButton>
@@ -70,7 +75,9 @@ export const Pagination = ({ results, resultNumber, pageNumber }) => {
             <PageButton
               liClassName="page-item"
               buttonClassName="page-link"
-              onClick={() => setCurrentPage(page)}
+              onClick={() => {
+                setCurrentPageIndex(page);
+              }}
               label={page}
               key={page}
             ></PageButton>
@@ -80,7 +87,9 @@ export const Pagination = ({ results, resultNumber, pageNumber }) => {
           <PageButton
             liClassName="page-item"
             buttonClassName="page-link"
-            onClick={() => setCurrentPage(endPageIndex + 1)}
+            onClick={() => {
+              setCurrentPageIndex(endPageIndex + 1);
+            }}
             label=">"
             key={endPageIndex + 1}
           ></PageButton>
@@ -88,7 +97,9 @@ export const Pagination = ({ results, resultNumber, pageNumber }) => {
         <PageButton
           liClassName="page-item"
           buttonClassName="page-link"
-          onClick={() => setCurrentPage(totalPageNumber)}
+          onClick={() => {
+            setCurrentPageIndex(totalPageNumber ? totalPageNumber : 1);
+          }}
           label=">>"
           key={-1}
         ></PageButton>
