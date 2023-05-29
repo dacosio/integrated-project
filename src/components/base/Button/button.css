@@ -7,24 +7,50 @@
   display: inline-block;
   line-height: 1;
 }
+
 .storybook-button--primary {
   color: white;
   background-color: #1ea7fd;
 }
+
 .storybook-button--secondary {
   color: #333;
   background-color: transparent;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
 }
+
 .storybook-button--sm {
   font-size: 12px;
   padding: 10px 16px;
 }
+
 .storybook-button--md {
   font-size: 14px;
   padding: 11px 20px;
 }
+
 .storybook-button--lg {
   font-size: 16px;
   padding: 12px 24px;
+}
+
+.storybook-button--sm-block {
+  font-size: 12px;
+  padding: 10px 16px;
+  display: block;
+  width: 100%;
+}
+
+.storybook-button--md-block {
+  font-size: 14px;
+  padding: 11px 20px;
+  display: block;
+  width: 100%;
+}
+
+.storybook-button--lg-block {
+  font-size: 16px;
+  padding: 12px 24px;
+  display: block;
+  width: 100%;
 }
