@@ -1,0 +1,38 @@
+ul {
+  padding: 20px;
+}
+
+li {
+  display: inline;
+  list-style-type: none;
+  padding: 8px 12px;
+  border-bottom: lightgrey 1px solid;
+}
+
+li a {
+  text-decoration: none;
+  color: lightgrey;
+}
+
+.active.li-primary {
+  border-bottom: blue 2px solid;
+}
+
+.active.li-primary a {
+  color: black;
+}
+
+.li-secondary {
+  background-color: lightgray;
+}
+
+.li-secondary a {
+  color: grey;
+}
+.active.li-secondary {
+  background-color: blue;
+}
+
+.active.li-secondary a {
+  color: white;
+}
