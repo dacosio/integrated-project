@@ -6,6 +6,8 @@ import "./button.css";
  */
 export const Button = ({
   primary,
+  block,
+  round,
   size,
   onClick,
   backgroundColor,
@@ -25,9 +27,12 @@ export const Button = ({
   return (
     <button
       type="button"
-      className={["storybook-button", `storybook-button--${size}`, mode].join(
-        " "
-      )}
+      className={[
+        "storybook-button",
+        mode,
+        `storybook-button--${size}${round ? "--round" : ""}`,
+        block ? "storybook-button--block" : "",
+      ].join(" ")}
       onClick={onClick}
       style={style}
       {...props}

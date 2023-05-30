@@ -34,23 +34,47 @@
   padding: 12px 24px;
 }
 
-.storybook-button--sm-block {
+.storybook-button--sm--round {
   font-size: 12px;
-  padding: 10px 16px;
-  display: block;
-  width: 100%;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.storybook-button--md-block {
+.storybook-button--md--round {
   font-size: 14px;
-  padding: 11px 20px;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.storybook-button--lg--round {
+  font-size: 16px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.storybook-button--block {
   display: block;
   width: 100%;
 }
 
-.storybook-button--lg-block {
-  font-size: 16px;
-  padding: 12px 24px;
+.storybook-button--block {
+  display: block;
+  width: 100%;
+}
+
+.storybook-button--block {
   display: block;
   width: 100%;
 }
