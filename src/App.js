@@ -1,9 +1,11 @@
 import React from "react";
-import { Button } from "./components/base/Button/Button";
+// import { Button } from "./components/base/Button/Button";
+import DropdownMenu from "./components/Module/FilterDropdown";
+
 function App() {
   return (
     <div className="App">
-      <Button label="Submit" size="md" />
+      <DropdownMenu/>
     </div>
   );
 }
