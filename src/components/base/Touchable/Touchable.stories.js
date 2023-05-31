@@ -1,14 +1,14 @@
 import Touchable from "./Touchable";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
-Touchable.propTypes = {
-  onClick: PropTypes.func,
-  width: PropTypes.string,
-  height: PropTypes.string,
-  className: PropTypes.string,
-  borderRadius: PropTypes.string,
-  children: PropTypes.node,
-};
+// Touchable.propTypes = {
+//   onClick: PropTypes.func,
+//   width: PropTypes.string,
+//   height: PropTypes.string,
+//   className: PropTypes.string,
+//   borderRadius: PropTypes.string,
+//   children: PropTypes.node,
+// };
 
 Touchable.defaultProps = {
   onClick: () => {
