@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Touchable from "../Touchable/Touchable";
 
 const TextField = (props) => {
   const {
@@ -16,14 +17,12 @@ const TextField = (props) => {
     className = undefined,
     onBlur = () => null,
     style,
-    alert,
   } = props;
 
   const [showSecuredText, setShowSecuredText] = useState(false);
 
   const handleChange = (event) => {
-    onChange(event);
-    onChangeText(event.target.value);
+    onChange(event.target.value);
   };
 
   const VisibilityIcon = showSecuredText ? <>eyeOffSvg</> : <>eyeOnSvg</>;
@@ -31,7 +30,7 @@ const TextField = (props) => {
 
   return (
     <div className={className} style={style}>
-      <div>{label}</div>
+      <div className="typography">{label}</div>
       <div error={(error || "").length > 0}>
         {LeftComponent && <div>{LeftComponent}</div>}
         {prefix && <span>{prefix}</span>}
@@ -43,7 +42,19 @@ const TextField = (props) => {
           onBlur={onBlur}
           placeholder={placeholder}
         />
+        {secured && (
+          <div className="visibility-container">
+            <Touchable onClick={() => setShowSecuredText((v) => !v)}>
+              <VisibilityIcon />
+            </Touchable>
+          </div>
+        )}
       </div>
+      {(error || "").length > 0 && (
+        <div className="error typography" variant="caption" color="error">
+          {error}
+        </div>
+      )}
     </div>
   );
 };
