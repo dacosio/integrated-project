@@ -1,34 +1,31 @@
 .number-input-wrapper {
   display: flex;
+  border-radius: 8px;
+  border: 2px solid #333;
 }
 
 .number-input-wrapper button {
-  padding: 16px 24px;
-  font-size: 16px;
+  padding: 4px 12px;
+  font-size: 32px;
   background-color: #ccc;
-  border: 3px solid black;
-  color: black;
+  color: #333;
 }
 
 .number-input-wrapper button:first-of-type {
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-  border-right: none;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
 }
 
 .number-input-wrapper button:last-of-type {
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-  border-left: none;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 
 .number-input-wrapper div {
-  display: grid;
-  justify-items: center;
-  align-items: center;
   width: 100%;
-  color: black;
-  border-top: 3px solid black;
-  border-bottom: 3px solid black;
-  font-size: 16px;
+  color: #333;
+  font-size: 24px;
+  display: grid;
+  justify-content: center;
+  align-items: center;
 }

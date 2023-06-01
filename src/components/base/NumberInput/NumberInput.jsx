@@ -1,22 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./number-input.css";
 
 const NumberInput = ({
   minValue,
   currentValue,
   maxValue,
+  step,
   onChange,
   ...props
 }) => {
   const [value, setValue] = useState(currentValue);
 
+  useEffect(() => {
+    onChange(value);
+  }, [value]);
+
   return (
     <div className="number-input-wrapper">
       <button
         onClick={() => {
-          if (minValue <= value - 1) {
-            setValue(value - 1);
-            onChange(value - 1);
+          if (minValue <= value - step) {
+            setValue(value - step);
           }
         }}
       >
@@ -25,9 +29,8 @@ const NumberInput = ({
       <div>{value}</div>
       <button
         onClick={() => {
-          if (value + 1 <= maxValue) {
-            setValue(value + 1);
-            onChange(value + 1);
+          if (value + step <= maxValue) {
+            setValue(value + step);
           }
         }}
       >

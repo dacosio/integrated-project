@@ -8,16 +8,10 @@ export default {
     minValue: 0,
     currentValue: 1,
     maxValue: 5,
+    step: 1,
     onChange: (value) => console.log(value),
   },
-  argTypes: {
-    backgroundColor: { control: "color" },
-  },
+  argTypes: {},
 };
 
-export const Base = {
-  args: {
-    primary: true,
-    onClick: () => console.log("this.props.primary"),
-  },
-};
+export const Base = {};
