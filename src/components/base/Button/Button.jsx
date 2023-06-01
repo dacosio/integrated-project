@@ -7,7 +7,6 @@ import "./button.css";
 export const Button = ({
   primary,
   block,
-  round,
   size,
   onClick,
   backgroundColor,
@@ -15,9 +14,7 @@ export const Button = ({
   label,
   ...props
 }) => {
-  const mode = primary
-    ? "storybook-button--primary"
-    : "storybook-button--secondary";
+  const mode = primary ? "btn--primary" : "btn--secondary";
 
   const style = {
     backgroundColor: backgroundColor || null,
@@ -27,12 +24,9 @@ export const Button = ({
   return (
     <button
       type="button"
-      className={[
-        "storybook-button",
-        mode,
-        `storybook-button--${size}${round ? "--round" : ""}`,
-        block ? "storybook-button--block" : "",
-      ].join(" ")}
+      className={["btn", mode, `btn--${size}`, block ? "btn--block" : ""].join(
+        " "
+      )}
       onClick={onClick}
       style={style}
       {...props}
