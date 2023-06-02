@@ -1,30 +1,4 @@
-import { Button } from "./Button";
-import PropTypes from "prop-types";
-
-// More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
-
-Button.propTypes = {
-  /**
-   * Is this the principal call to action on the page?
-   */
-  primary: PropTypes.bool,
-  /**
-   * What background color to use
-   */
-  backgroundColor: PropTypes.string,
-  /**
-   * How large should the button be?
-   */
-  size: PropTypes.oneOf(["sm", "md", "lg"]),
-  /**
-   * Button contents
-   */
-  label: PropTypes.string.isRequired,
-  /**
-   * Optional click handler
-   */
-  onClick: PropTypes.func,
-};
+import Button from "./Button";
 
 Button.defaultProps = {
   backgroundColor: null,

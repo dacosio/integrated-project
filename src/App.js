@@ -1,15 +1,21 @@
+<<<<<<< HEAD
 import React from "react";
 import { Button } from "./components/base/Button/Button";
 import { Pagetabs } from "./components/module/pagetabs/pagetabs";
 import { Textinput } from "./components/base/Input/Input"
+=======
+import React, { useState } from "react";
+// import FirebaseSample from "./config/FirebaseSample";
+import Login from "./pages/Account/Login/Login.container";
+import MapSearch from "./components/base/MapSearch/MapSearch";
+>>>>>>> dev
 
 function App() {
+  const [value, setValue] = useState("");
   return (
     <div className="App">
-      <Button label="Submit" size="md" />
-      <Pagetabs primary item1="tab1" item2="tab2" item3="tab3"/>
-      <Pagetabs item1="tab1" item2="tab2" item3="tab3"/>
-      <Textinput></Textinput>
+      {/* <FirebaseSample /> */}
+      <Login />
     </div>
   );
 }
