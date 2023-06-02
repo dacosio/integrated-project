@@ -13,20 +13,6 @@ const Typography = ({ children, style, ...props }) => {
     Black: '900'
   };
 
-  // fontSize, type, color, lineHeight, textTransform, letterSpacing, fontWeight
-  // const style = `font-size: ${fontSize};
-  // line-height: ${lineHeight};
-  // font-weight: ${fontWeights[fontWeight]};
-  // color: ${color}`;
-  
-
-  // if (letterSpacing) {
-  //   style += `letter-spacing: ${letterSpacing};`;
-  // }
-
-  // if (textTransform) {
-  //   style += `text-transform: ${textTransform};`;
-  // }
 
   return (
     <div style={style} {...props}>
