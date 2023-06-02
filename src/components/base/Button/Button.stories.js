@@ -1,39 +1,29 @@
 import Button from "./Button";
 
-Button.defaultProps = {
-  backgroundColor: null,
-  primary: false,
-  size: "md",
-  onClick: () => {
-    console.log("Button");
-  },
-};
-
 export default {
   title: "Base/Button",
   component: Button,
   tags: ["autodocs"],
   args: {
+    primary: true,
+    block: false,
+    size: "md",
+    onClick: () => console.log("Button"),
     label: "Button",
   },
   argTypes: {
+    size: { control: "inline-radio", options: ["sm", "md", "lg"] },
     backgroundColor: { control: "color" },
+    color: { control: "color" },
   },
 };
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const Primary = {
-  args: {
-    primary: true,
-    onClick: () => console.log("this.props.primary"),
-  },
-};
+export const Primary = {};
 
-export const Secondary = {};
-
-export const Large = {
+export const Secondary = {
   args: {
-    size: "lg",
+    primary: false,
   },
 };
 
@@ -42,15 +32,44 @@ export const Small = {
     size: "sm",
   },
 };
-export const Red = {
+
+export const Medium = {
+  args: {
+    size: "md",
+  },
+};
+
+export const Large = {
+  args: {
+    size: "lg",
+  },
+};
+
+export const SmallBlock = {
   args: {
     size: "sm",
-    backgroundColor: "red",
+    block: true,
   },
-  argTypes: {
-    backgroundColor: {
-      control: "inline-radio",
-      options: ["red", "green", "blue"],
-    },
+};
+
+export const MediumBlock = {
+  args: {
+    size: "md",
+    block: true,
+  },
+};
+
+export const LargeBlock = {
+  args: {
+    size: "lg",
+    block: true,
+  },
+};
+
+export const Orange = {
+  args: {
+    size: "md",
+    backgroundColor: "orange",
+    color: "#333",
   },
 };
