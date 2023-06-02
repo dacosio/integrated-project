@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import "./dropdown.css";
 
-const Dropdown = ({ options, onChange, ...props }) => {
-  const [value, setValue] = useState("");
-
+const Dropdown = ({ selectedOption, setSelectedOption, options, ...props }) => {
   const handleOnChange = (event) => {
-    setValue(event.target.value);
-    onChange(event.target.value);
+    setSelectedOption(event.target.value);
   };
 
   return (
-    <select onChange={handleOnChange}>
+    <select onChange={handleOnChange} defaultValue="" style={props}>
+      <option value="" disabled>
+        Select an option
+      </option>
       {options.map((option, index) => (
         <option key={index} value={option.value}>
           {option.label}
