@@ -4,13 +4,21 @@ import Login from "./pages/Account/Login/Login.container";
 import MapSearch from "./components/base/MapSearch/MapSearch";
 import Carrousel from "./components/module/Carrousel";
 
+import Yuki from "./TestingComponents/Yuki";
+import Don from "./TestingComponents/Don";
+import Cylvia from "./TestingComponents/Cylvia";
+import Yuhwan from "./TestingComponents/Yuhwan";
+
 function App() {
-  const [value, setValue] = useState("");
   return (
     <div className="App">
       {/* <FirebaseSample /> */}
-      <Login />
-      <Carrousel />
+      {/* <Login /> */}
+
+      <Yuki />
+      <Don />
+      <Yuhwan />
+      <Cylvia />
     </div>
   );
 }
