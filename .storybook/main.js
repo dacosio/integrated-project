@@ -1,12 +1,11 @@
 /** @type { import('@storybook/react-webpack5').StorybookConfig } */
 const config = {
-  stories: ["../src/components/**/*.stories.@(js|jsx|ts|tsx)"],
+  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/preset-create-react-app",
     "@storybook/addon-interactions",
-    "storybook-addon-designs",
   ],
   framework: {
     name: "@storybook/react-webpack5",
@@ -15,6 +14,6 @@ const config = {
   docs: {
     autodocs: "tag",
   },
-  staticDirs: ["..\\public", "../public"],
+  staticDirs: ["../public"],
 };
 export default config;
