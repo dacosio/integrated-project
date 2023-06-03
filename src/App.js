@@ -20,6 +20,8 @@ const TransactionList = loadable(() =>
 const TransactionDetail = loadable(() =>
   import("./pages/Transactions/TransactionDetail")
 );
+const AddListing = loadable(() => import("./pages/Listing/AddListing"));
+const ListingDetail = loadable(() => import("./pages/Listing/ListingDetail"));
 
 function App() {
   // const [value, setValue] = useState("");
@@ -28,6 +30,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="listing">
+            <Route path="add" element={<AddListing />} />
+            <Route path=":listingId" element={<ListingDetail />} />
+          </Route>
 
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />

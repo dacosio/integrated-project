@@ -22,6 +22,9 @@ const Header = () => {
             <Link to="transaction">Transaction</Link>
           </li>
           <li>
+            <Link to="listing/add">Listing</Link>
+          </li>
+          <li>
             <Link to="user">User</Link>
           </li>
         </ul>
