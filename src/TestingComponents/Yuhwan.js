@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import NumberInput from "../components/base/NumberInput/NumberInput";
 
 const Yuhwan = (props) => {
-  const [first, setfirst] = useState(4);
+  const [first, setfirst] = useState(0);
 
   useEffect(() => {
     console.log(first);
@@ -16,9 +16,7 @@ const Yuhwan = (props) => {
         <NumberInput
           inputNumber={first}
           setInputNumber={setfirst}
-          minValue={-5}
           maxValue={10}
-          step={2}
         ></NumberInput>
       </div>
     </>

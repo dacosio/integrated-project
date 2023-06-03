@@ -4,12 +4,10 @@ import "./number-input.css";
 const NumberInput = ({
   inputNumber,
   setInputNumber,
-  minValue,
+  minValue = 0,
   maxValue,
-  step,
   ...props
 }) => {
-  const [value, setValue] = useState(inputNumber);
   const [error, setError] = useState("");
 
   const handleOnChange = (event) => {
@@ -17,17 +15,16 @@ const NumberInput = ({
 
     if (isNaN(input)) {
       setError("NaN");
-      setValue(input);
+      setInputNumber(input);
     } else if (Number(input) < minValue) {
       setError("< min");
-      setValue(Number(input));
+      setInputNumber(input);
     } else if (maxValue < Number(input)) {
       setError("max <");
-      setValue(Number(input));
+      setInputNumber(input);
     } else {
       setError("");
       setInputNumber(Number(input));
-      setValue(Number(input));
     }
   };
 
@@ -36,20 +33,18 @@ const NumberInput = ({
       <div className="number-input-header">
         <button
           onClick={() => {
-            if (error !== "NaN" && minValue <= value - step) {
-              setInputNumber((value) => value - step);
-              setValue((value) => value - step);
+            if (minValue <= inputNumber - 1) {
+              setInputNumber((value) => value - 1);
             }
           }}
         >
           -
         </button>
-        <input type="text" value={value} onChange={handleOnChange} />
+        <input type="text" value={inputNumber} onChange={handleOnChange} />
         <button
           onClick={() => {
-            if (error !== "NaN" && value + step <= maxValue) {
-              setInputNumber((value) => value + step);
-              setValue((value) => value + step);
+            if (inputNumber + 1 <= maxValue) {
+              setInputNumber((value) => value + 1);
             }
           }}
         >

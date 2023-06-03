@@ -10,7 +10,7 @@ export default {
 };
 
 export const Base = () => {
-  const [inputNumber, setInputNumber] = useState(4);
+  const [inputNumber, setInputNumber] = useState(0);
 
   useEffect(() => {
     console.log(inputNumber);
@@ -20,9 +20,7 @@ export const Base = () => {
     <NumberInput
       inputNumber={inputNumber}
       setInputNumber={setInputNumber}
-      minValue={-5}
       maxValue={10}
-      step={2}
     ></NumberInput>
   );
 };
