@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import FirebaseSample from "../config/FirebaseSample";
 
 const Don = (props) => {
-  const [first, setfirst] = useState();
-
   return (
     <div>
       <h1>Don</h1>
-      <div>Test here</div>
+      <div>
+        <FirebaseSample />
+      </div>
     </div>
   );
 };
