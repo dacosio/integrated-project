@@ -27,6 +27,9 @@ const Header = () => {
           <li>
             <Link to="user">User</Link>
           </li>
+          <li>
+            <Link to="testComponent">Test Components</Link>
+          </li>
         </ul>
       </nav>
     </header>

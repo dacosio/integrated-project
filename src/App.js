@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-// import FirebaseSample from "./config/FirebaseSample";
 import { Routes, Route, Navigate } from "react-router-dom";
 import loadable from "@loadable/component";
-import Yuki from "./TestingComponents/Yuki";
-import Don from "./TestingComponents/Don";
-import Cylvia from "./TestingComponents/Cylvia";
-import Yuhwan from "./TestingComponents/Yuhwan";
 import Layout from "./components/layout/Layout/Layout";
+import TestComponents from "./TestingComponents/TestComponents";
 
 // Lazy loading and suspense
 const Home = loadable(() => import("./pages/Home"));
@@ -48,17 +44,12 @@ function App() {
             <Route index element={<ProfileDetail />} />
           </Route>
 
+          <Route path="testComponent" element={<TestComponents />} />
+
           {/* Catch all - replace with 404 Not Found page if preferred */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
-
-      <>
-        <Yuki />
-        <Don />
-        <Cylvia />
-        <Yuhwan />
-      </>
     </div>
   );
 }
