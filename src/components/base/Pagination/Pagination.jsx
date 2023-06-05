@@ -1,36 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./pagination.css";
 
 const Pagination = ({
   hasPrevious,
   minPageIndex,
-  currentPageIndex: _currentPageIndex,
+  currentPageIndex,
   maxPageIndex,
   hasNext,
   totalPageNumber,
-  onClickPage,
+  onClick,
   ...props
 }) => {
-  const [currentPageIndex, setCurrentPageIndex] = useState(_currentPageIndex);
-
   const pages = [];
   for (let i = minPageIndex; i <= maxPageIndex; i++) {
     pages.push(i);
   }
 
-  useEffect(() => {
-    onClickPage(currentPageIndex);
-  }, [currentPageIndex]);
-
   return (
     <ul className="page-wrapper">
       <li>
-        <button
-          className="page-btn"
-          onClick={() => {
-            setCurrentPageIndex(1);
-          }}
-        >
+        <button className="page-btn" onClick={() => onClick(1)}>
           &lt;&lt;
         </button>
       </li>
@@ -38,9 +27,7 @@ const Pagination = ({
         <li>
           <button
             className="page-btn"
-            onClick={() => {
-              setCurrentPageIndex(minPageIndex - 1);
-            }}
+            onClick={() => onClick(minPageIndex - 1)}
           >
             &lt;
           </button>
@@ -50,12 +37,7 @@ const Pagination = ({
         if (item === currentPageIndex) {
           return (
             <li key={index}>
-              <button
-                className="page-btn active"
-                onClick={() => {
-                  setCurrentPageIndex(item);
-                }}
-              >
+              <button className="page-btn active" onClick={() => onClick(item)}>
                 {item}
               </button>
             </li>
@@ -63,12 +45,7 @@ const Pagination = ({
         } else {
           return (
             <li key={index}>
-              <button
-                className="page-btn"
-                onClick={() => {
-                  setCurrentPageIndex(item);
-                }}
-              >
+              <button className="page-btn" onClick={() => onClick(item)}>
                 {item}
               </button>
             </li>
@@ -79,21 +56,14 @@ const Pagination = ({
         <li>
           <button
             className="page-btn"
-            onClick={() => {
-              setCurrentPageIndex(maxPageIndex + 1);
-            }}
+            onClick={() => onClick(maxPageIndex + 1)}
           >
             &gt;
           </button>
         </li>
       )}
       <li>
-        <button
-          className="page-btn"
-          onClick={() => {
-            setCurrentPageIndex(totalPageNumber);
-          }}
-        >
+        <button className="page-btn" onClick={() => onClick(totalPageNumber)}>
           &gt;&gt;
         </button>
       </li>
