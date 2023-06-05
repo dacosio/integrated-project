@@ -19,13 +19,13 @@ const Header = () => {
             <Link to="forgot-password">Forgot Password</Link>
           </li>
           <li>
-            <Link to="transaction">Transaction</Link>
+            <Link to="transaction">Transaction(Private)</Link>
           </li>
           <li>
-            <Link to="listing/add">Listing</Link>
+            <Link to="listing/add">Listing(Private)</Link>
           </li>
           <li>
-            <Link to="user">User</Link>
+            <Link to="user">User(Private)</Link>
           </li>
           <li>
             <Link to="testComponent">Test Components</Link>

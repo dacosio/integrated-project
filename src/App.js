@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import loadable from "@loadable/component";
 import Layout from "./components/layout/Layout/Layout";
+import ProtectedRoute from "./components/layout/ProtectedRoute/ProtectedRoute";
 import TestComponents from "./TestingComponents/TestComponents";
 
 // Lazy loading and suspense
@@ -18,7 +19,6 @@ const TransactionDetail = loadable(() =>
 );
 const AddListing = loadable(() => import("./pages/Listing/AddListing"));
 const ListingDetail = loadable(() => import("./pages/Listing/ListingDetail"));
-
 function App() {
   // const [value, setValue] = useState("");
   return (
@@ -27,8 +27,22 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="listing">
-            <Route path="add" element={<AddListing />} />
-            <Route path=":listingId" element={<ListingDetail />} />
+            <Route
+              path="add"
+              element={
+                <ProtectedRoute>
+                  <AddListing />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path=":listingId"
+              element={
+                <ProtectedRoute>
+                  <ListingDetail />
+                </ProtectedRoute>
+              }
+            />
           </Route>
 
           <Route path="login" element={<Login />} />
@@ -36,12 +50,33 @@ function App() {
           <Route path="forgot-password" element={<ForgotPassword />} />
 
           <Route path="transaction">
-            <Route index element={<TransactionList />} />
-            <Route path=":transactionId" element={<TransactionDetail />} />
+            <Route
+              index
+              element={
+                <ProtectedRoute>
+                  <TransactionList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path=":transactionId"
+              element={
+                <ProtectedRoute>
+                  <TransactionDetail />
+                </ProtectedRoute>
+              }
+            />
           </Route>
 
           <Route path="user">
-            <Route index element={<ProfileDetail />} />
+            <Route
+              index
+              element={
+                <ProtectedRoute>
+                  <ProfileDetail />
+                </ProtectedRoute>
+              }
+            />
           </Route>
 
           <Route path="testComponent" element={<TestComponents />} />
