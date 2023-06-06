@@ -82,6 +82,7 @@ function App() {
           <Route path="testComponent" element={<TestComponents />} />
 
           {/* Catch all - replace with 404 Not Found page if preferred */}
+          {/* Catch all - replace with 404 Not Found page if preferred */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
