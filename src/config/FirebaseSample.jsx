@@ -7,23 +7,58 @@ import {
   doc,
   setDoc,
   deleteDoc,
+  query,
+  getDocs,
+  updateDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import db from "./firebaseConfig";
 
 const FirebaseSample = () => {
   // initial value of categories is array of object with title of an empty string
-  const [categories, setCategories] = useState([{ title: "" }]);
+  const [categories, setCategories] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [products, setProducts] = useState([]);
 
   useEffect(
     () =>
-      onSnapshot(collection(db, "category"), (snapshot) =>
-        setCategories(
+      onSnapshot(collection(db, "category"), (snapshot) => {
+        return setCategories(
           snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-        )
-      ),
+        );
+      }),
     []
   );
+
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "user"), (snapshot) => {
+        return setUsers(
+          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        );
+      }),
+    []
+  );
+
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "product"), (snapshot) => {
+        return setUsers(
+          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        );
+      }),
+    []
+  );
+
+  // useEffect(
+  //   () =>
+  //     onSnapshot(collection(db, "user"), (snapshot) => {
+  //       return setUsers(
+  //         snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+  //       );
+  //     }),
+  //   []
+  // );
 
   const handleNew = async () => {
     const title = prompt("Enter category title");
@@ -48,17 +83,20 @@ const FirebaseSample = () => {
     await deleteDoc(docRef);
   };
 
+  console.log(users);
+  console.log(categories);
+  console.log(products);
+
   return (
     <>
       <div>firebaseSample</div>
-
       <button onClick={handleNew}>Add New Category</button>
       <ul>
         {categories.map((category) => (
           <li key={category.id}>
             <button onClick={() => handleEdit(category.id)}>edit</button>
             <button onClick={() => handleDelete(category.id)}>delete</button>
-            <span>{category.title}</span>
+            <span>{category.label}</span>
           </li>
         ))}
       </ul>

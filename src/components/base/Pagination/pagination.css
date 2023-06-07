@@ -1,6 +1,7 @@
 .page-wrapper {
   display: flex;
   list-style-type: none;
+  justify-content: center;
 }
 
 .page-btn {

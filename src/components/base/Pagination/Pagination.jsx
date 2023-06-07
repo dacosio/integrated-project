@@ -2,34 +2,31 @@ import React from "react";
 import "./pagination.css";
 
 const Pagination = ({
-  hasPrevious,
-  minPageIndex,
   currentPageIndex,
-  maxPageIndex,
-  hasNext,
+  test,
   totalPageNumber,
+  previousButtonLabel = "Previous",
+  nextButtonLabel = "Next",
   onClick,
   ...props
 }) => {
+  const bias = Math.floor(test / 2);
   const pages = [];
-  for (let i = minPageIndex; i <= maxPageIndex; i++) {
-    pages.push(i);
+  for (let i = currentPageIndex - bias; i <= currentPageIndex + bias; i++) {
+    if (1 <= i && i <= totalPageNumber) {
+      pages.push(i);
+    }
   }
 
   return (
     <ul className="page-wrapper">
-      <li>
-        <button className="page-btn" onClick={() => onClick(1)}>
-          &lt;&lt;
-        </button>
-      </li>
-      {hasPrevious && (
+      {1 < currentPageIndex && (
         <li>
           <button
             className="page-btn"
-            onClick={() => onClick(minPageIndex - 1)}
+            onClick={() => onClick(currentPageIndex - 1)}
           >
-            &lt;
+            {previousButtonLabel}
           </button>
         </li>
       )}
@@ -52,21 +49,16 @@ const Pagination = ({
           );
         }
       })}
-      {hasNext && (
+      {currentPageIndex < totalPageNumber && (
         <li>
           <button
             className="page-btn"
-            onClick={() => onClick(maxPageIndex + 1)}
+            onClick={() => onClick(currentPageIndex + 1)}
           >
-            &gt;
+            {nextButtonLabel}
           </button>
         </li>
       )}
-      <li>
-        <button className="page-btn" onClick={() => onClick(totalPageNumber)}>
-          &gt;&gt;
-        </button>
-      </li>
     </ul>
   );
 };

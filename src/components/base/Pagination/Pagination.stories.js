@@ -1,24 +1,56 @@
+import React, { useState } from "react";
 import Pagination from "./Pagination";
 
 export default {
   title: "Base/Pagination",
   component: Pagination,
   tags: ["autodocs"],
-  args: {
-    hasPrevious: true,
-    minPageIndex: 6,
-    currentPageIndex: 8,
-    maxPageIndex: 10,
-    hasNext: true,
-    totalPageNumber: 15,
-    onClickPage: (pageIndex) => {
-      console.log(pageIndex);
-    },
-  },
-  argTypes: {
-    backgroundColor: { control: "color" },
-  },
+  args: {},
+  argTypes: {},
 };
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const Base = {};
+
+export const Desktop = (props) => {
+  const [currentPageIndex, setCurrentPageIndex] = useState(15);
+  const [maxPageNumber, setMaxPageNumber] = useState(5);
+  const [totalPageNumber, setTotalPageNumber] = useState(30);
+
+  const handleOnClick = (pageIndex) => {
+    setCurrentPageIndex(pageIndex);
+  };
+
+  return (
+    <div>
+      <Pagination
+        currentPageIndex={currentPageIndex}
+        test={maxPageNumber}
+        totalPageNumber={totalPageNumber}
+        onClick={handleOnClick}
+      ></Pagination>
+    </div>
+  );
+};
+
+export const Mobile = (props) => {
+  const [currentPageIndex, setCurrentPageIndex] = useState(15);
+  const [maxPageNumber, setMaxPageNumber] = useState(3);
+  const [totalPageNumber, setTotalPageNumber] = useState(30);
+
+  const handleOnClick = (pageIndex) => {
+    setCurrentPageIndex(pageIndex);
+  };
+
+  return (
+    <div>
+      <Pagination
+        currentPageIndex={currentPageIndex}
+        test={maxPageNumber}
+        totalPageNumber={totalPageNumber}
+        previousButtonLabel="<"
+        nextButtonLabel=">"
+        onClick={handleOnClick}
+      ></Pagination>
+    </div>
+  );
+};
