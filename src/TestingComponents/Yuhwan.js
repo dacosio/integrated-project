@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DatePicker from "../components/base/DatePicker/DatePicker";
+import TimePicker from "../components/base/TimePicker/TimePicker";
 
 const Yuhwan = (props) => {
   const [first, setfirst] = useState("");
@@ -8,7 +8,7 @@ const Yuhwan = (props) => {
     <div>
       <h1>Yuhwan</h1>
       <div>Test here</div>
-      <DatePicker date={first} setDate={setfirst}></DatePicker>
+      <TimePicker time={first} setTime={setfirst}></TimePicker>
       <div>{first}</div>
     </div>
   );
