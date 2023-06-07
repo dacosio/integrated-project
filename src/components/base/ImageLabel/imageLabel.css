@@ -1,0 +1,13 @@
+.image-label {
+display: inline;
+  background-color: white;
+  color: #0b5cbb;
+  padding: 4px 8px;
+  border-radius: 20px;
+  width: auto;
+}
+
+.image-label p {
+  display: inline;
+  padding: 0px 8px;
+}
