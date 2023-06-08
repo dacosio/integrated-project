@@ -1,35 +1,72 @@
 import { Link } from "react-router-dom";
+import styles from "./header.module.css";
+import { UserAuth } from "../../../context/AuthContext";
+import Button from "../../base/Button/Button";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import SearchField from "../../base/SearchField/SearchField";
+import { LuFilter } from "react-icons/lu";
 
 const Header = () => {
+  const { user, logout } = UserAuth();
+  const navigate = useNavigate();
+  const [search, setSearch] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
+  };
+
+  const handleSearchReset = () => {
+    setSearchValue("");
+  };
+  const handleLogOut = async () => {
+    await logout();
+  };
+
   return (
-    <header style={{ display: "flex" }}>
-      <h1>SplitShare</h1>
+    <header className={styles.header}>
+      <div className={styles.left}>
+        <div className={styles.title}>SplitShare</div>
+        <SearchField
+          value={searchValue}
+          resetValue={handleSearchReset}
+          onChange={handleSearchChange}
+          placeholder="What are you looking for?"
+        />
+        <LuFilter style={{ fontSize: "25px" }} />
+      </div>
       <nav>
-        <ul style={{ display: "flex", gap: "2rem", listStyleType: "none" }}>
+        <ul className={styles.nav}>
           <li>
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="login">Login</Link>
+            <Link to="transaction">Orders</Link>
           </li>
           <li>
-            <Link to="register">Register</Link>
+            <Link to="register">Settings</Link>
           </li>
           <li>
-            <Link to="forgot-password">Forgot Password</Link>
+            <Link to="user">Profile</Link>
           </li>
           <li>
-            <Link to="transaction">Transaction(Private)</Link>
+            <Button
+              variant="primary"
+              size="md"
+              onClickHandler={() => navigate("listing/add")}
+            >
+              Post Listing
+            </Button>
           </li>
-          <li>
-            <Link to="listing/add">Listing(Private)</Link>
-          </li>
-          <li>
-            <Link to="user">User(Private)</Link>
-          </li>
-          <li>
-            <Link to="testComponent">Test Components</Link>
-          </li>
+          {/* <li>
+            <Button
+              onClickHandler={handleLogOut}
+              variant="gray"
+              size="md"
+              label="Logout"
+            />
+          </li> */}
         </ul>
       </nav>
     </header>
