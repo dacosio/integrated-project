@@ -1,12 +1,20 @@
 import React, { useState } from "react";
-import TransactionCard from "../components/base/TransactionCard/TransactionCard";
+import ImageLabel from "../components/base/ImageLabel/imageLabel";
+import ActiveListingCard from "./../components/base/ActiveListingCard/ActiveListingCard";
 
 const Cylvia = (props) => {
   const [first, setfirst] = useState();
   return (
     <div>
       <h1>Cylvia</h1>
-      <TransactionCard type="buying" itemName="banana" time="1" portions="3" sellerName="jsx" price="10"/>
+      <ActiveListingCard
+        distance="1"
+        days="8"
+        source="https://picsum.photos/200/300"
+        itemname="banana"
+        price="4"
+        stock="8"
+      />
     </div>
   );
 };
