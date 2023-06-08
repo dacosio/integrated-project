@@ -1,10 +1,9 @@
 import React from "react";
-import "./imageLabel.css";
+import "./ImageLabel.css";
 
 export const ImageLabel = ({
   distance,
   days,
-  label,
   backgroundColor,
   color,
   ...props
@@ -42,8 +41,6 @@ export const ImageLabel = ({
       <div className="image-label">
         {p1}
         {p2}
-        {label && <p>{label}</p>}
-        
       </div>
     );
   };
