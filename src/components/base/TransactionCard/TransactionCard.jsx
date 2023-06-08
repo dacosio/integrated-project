@@ -12,13 +12,13 @@ const TransactionCard = (props) => {
   const buttons = () => {
     if (type === 'buying') {
       return (
-        <Button label="pending" />
+        <Button size='sm' variant='gray' label="Pending" disabled/>
       )
     } else {
         return (
           <>
-            <Button label="decline" />
-            <Button label="accept" />
+            <Button size='sm' variant='gray' label="Decline" />
+            <Button size='sm' variant='primary' label="Accept" />
           </>
         )
       }

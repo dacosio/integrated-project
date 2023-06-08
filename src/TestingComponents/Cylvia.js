@@ -6,7 +6,7 @@ const Cylvia = (props) => {
   return (
     <div>
       <h1>Cylvia</h1>
-      <TransactionCard type="selling" itemName="banana" time="1" portions="3" sellerName="jsx" price="10"/>
+      <TransactionCard type="buying" itemName="banana" time="1" portions="3" sellerName="jsx" price="10"/>
     </div>
   );
 };

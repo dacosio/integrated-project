@@ -1,15 +1,26 @@
 import React, { useState } from "react";
-import TimePicker from "../components/base/TimePicker/TimePicker";
+import Checkbox from "../components/base/Checkbox/Checkbox";
 
 const Yuhwan = (props) => {
-  const [first, setfirst] = useState("");
+  const [first, setfirst] = useState([]);
+
+  const options = [
+    { value: "cylvia", label: "Cylvia" },
+    { value: "don", label: "Don" },
+    { value: "yuhwan", label: "Yuhwan" },
+    { value: "yuki", label: "Yuki" },
+  ];
 
   return (
     <div>
       <h1>Yuhwan</h1>
       <div>Test here</div>
-      <TimePicker time={first} setTime={setfirst}></TimePicker>
-      <div>{first}</div>
+      <div>{first.toString()}</div>
+      <Checkbox
+        selectedOptions={first}
+        setSelectedOptions={setfirst}
+        options={options}
+      />
     </div>
   );
 };

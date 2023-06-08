@@ -1,26 +1,23 @@
 import React from "react";
-import "./button.css";
+import styles from "./button.module.css";
+import { Children } from "react";
 
-/**
- * Primary UI component for user interaction
- */
-const Button = ({ primary, backgroundColor, size, label, ...props }) => {
-  const mode = primary
-    ? "storybook-button--primary"
-    : "storybook-button--secondary";
-
-  const onClickHandler = () => console.log("I got click handler");
+const Button = ({
+  variant,
+  size,
+  label,
+  onClickHandler,
+  children,
+  ...props
+}) => {
   return (
     <button
       type="button"
-      className={["storybook-button", `storybook-button--${size}`, mode].join(
-        " "
-      )}
+      className={`${styles[size]} ${styles[variant]} ${styles.button}`}
       onClick={onClickHandler}
-      style={backgroundColor && { backgroundColor }}
       {...props}
     >
-      {label}
+      {label ? label : children}
     </button>
   );
 };
