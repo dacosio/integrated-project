@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ImageLabel from "../components/base/ImageLabel/ImageLabel";
+
 import ActiveListingCard from "./../components/base/ActiveListingCard/ActiveListingCard";
 
 const Cylvia = (props) => {
