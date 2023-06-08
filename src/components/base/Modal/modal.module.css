@@ -1,0 +1,25 @@
+.background {
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.wrapper {
+  width: 50vw;
+  padding: 16px;
+  margin: 10vh auto;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.btn-wrapper {
+  text-align: right;
+}
+
+.btn:hover {
+  background-color: #ccc;
+}

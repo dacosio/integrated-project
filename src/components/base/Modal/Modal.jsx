@@ -1,18 +1,28 @@
 import React from "react";
-import "./modal.css";
+import { GrClose } from "react-icons/gr";
+import styles from "./modal.module.css";
 
-const Modal = ({ children, onClose, ...props }) => {
-  const handleOnChange = (event) => setTime(event.target.value);
+const Modal = ({ children, visibility, onClose, ...props }) => {
+  // const handleOnClose = (event) => {};
 
   return (
-    <input
-      className="time-picker"
-      type="time"
-      value={time}
-      onChange={handleOnChange}
-      style={props}
-    ></input>
+    <>
+      {visibility && (
+        <div className={`${styles["background"]}`}>
+          <div className={`${styles["wrapper"]}`}>
+            <div className={`${styles["btn-wrapper"]}`}>
+              <GrClose
+                size={24}
+                className={`${styles["btn"]}`}
+                onClick={onClose}
+              />
+            </div>
+            {children}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
-export default React.memo(TimePicker);
+export default React.memo(Modal);
