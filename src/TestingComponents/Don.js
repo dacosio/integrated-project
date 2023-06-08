@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import FirebaseSample from "../config/FirebaseSample";
 import ImageUpload from "../components/base/ImageUpload/ImageUpload";
 import SearchField from "../components/base/SearchField/SearchField";
+import Button from "../components/base/Button/Button";
 
 const Don = (props) => {
   return (
@@ -15,6 +16,9 @@ const Don = (props) => {
       </div>
       <div>
         <SearchField />
+      </div>
+      <div>
+        <Button size="md" variant="primary" label="Login" />
       </div>
     </div>
   );

@@ -6,13 +6,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchField from "../../base/SearchField/SearchField";
 import { LuFilter } from "react-icons/lu";
+import useWindowSize from "../../../utils/useWindowSize";
 
 const Header = () => {
   const { user, logout } = UserAuth();
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [searchValue, setSearchValue] = useState("");
-
+  const [size] = useWindowSize();
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
   };
@@ -26,15 +27,27 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.left}>
+      <div className={styles.mobileTitle}>
         <div className={styles.title}>SplitShare</div>
+        {size < 768 ? (
+          <Button
+            onClickHandler={handleLogOut}
+            variant="gray"
+            size="md"
+            label="Logout"
+          />
+        ) : (
+          <></>
+        )}
+      </div>
+      <div className={styles.left}>
         <SearchField
           value={searchValue}
           resetValue={handleSearchReset}
           onChange={handleSearchChange}
           placeholder="What are you looking for?"
         />
-        <LuFilter style={{ fontSize: "25px" }} />
+        <LuFilter style={{ fontSize: "35px", color: "white" }} />
       </div>
       <nav>
         <ul className={styles.nav}>
@@ -59,14 +72,14 @@ const Header = () => {
               Post Listing
             </Button>
           </li>
-          {/* <li>
+          <li>
             <Button
               onClickHandler={handleLogOut}
               variant="gray"
               size="md"
               label="Logout"
             />
-          </li> */}
+          </li>
         </ul>
       </nav>
     </header>
