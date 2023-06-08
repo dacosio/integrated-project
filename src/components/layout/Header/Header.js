@@ -6,13 +6,15 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchField from "../../base/SearchField/SearchField";
 import { LuFilter } from "react-icons/lu";
+import useWindowSize from "../../../utils/useWindowSize";
+import Sidebar from "../Sidebar/Sidebar";
 
 const Header = () => {
   const { user, logout } = UserAuth();
   const navigate = useNavigate();
-  const [search, setSearch] = useState("");
+  const [width] = useWindowSize();
   const [searchValue, setSearchValue] = useState("");
-
+  console.log(width);
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
   };
@@ -20,12 +22,12 @@ const Header = () => {
   const handleSearchReset = () => {
     setSearchValue("");
   };
-  const handleLogOut = async () => {
-    await logout();
-  };
+  // const handleLogOut = async () => {
+  //   await logout();
+  // };
 
   return (
-    <header className={styles.header}>
+    <header id="Header" className={styles.header}>
       <div className={styles.left}>
         <div className={styles.title}>SplitShare</div>
         <SearchField
@@ -34,41 +36,8 @@ const Header = () => {
           onChange={handleSearchChange}
           placeholder="What are you looking for?"
         />
-        <LuFilter style={{ fontSize: "25px" }} />
       </div>
-      <nav>
-        <ul className={styles.nav}>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="transaction">Orders</Link>
-          </li>
-          <li>
-            <Link to="register">Settings</Link>
-          </li>
-          <li>
-            <Link to="user">Profile</Link>
-          </li>
-          <li>
-            <Button
-              variant="primary"
-              size="md"
-              onClickHandler={() => navigate("listing/add")}
-            >
-              Post Listing
-            </Button>
-          </li>
-          {/* <li>
-            <Button
-              onClickHandler={handleLogOut}
-              variant="gray"
-              size="md"
-              label="Logout"
-            />
-          </li> */}
-        </ul>
-      </nav>
+      <LuFilter style={{ fontSize: "25px" }} />
     </header>
   );
 };

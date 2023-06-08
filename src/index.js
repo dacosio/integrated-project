@@ -12,7 +12,7 @@ root.render(
   <React.StrictMode>
     <AuthContextProvider>
       <Router>
-        <Routes>
+        <Routes id="app-container">
           <Route path="/*" element={<App />} />
         </Routes>
       </Router>

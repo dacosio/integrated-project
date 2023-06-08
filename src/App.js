@@ -5,6 +5,7 @@ import Layout from "./components/layout/Layout/Layout";
 import ProtectedRoute from "./components/layout/ProtectedRoute/ProtectedRoute";
 import TestComponents from "./TestingComponents/TestComponents";
 import "./utils/variable.css";
+import Sidebar from "./components/layout/Sidebar/Sidebar";
 
 // Lazy loading and suspense
 const Home = loadable(() => import("./pages/Home"));
@@ -24,70 +25,77 @@ const ListingDetail = loadable(() => import("./pages/Listing/ListingDetail"));
 function App() {
   // const [value, setValue] = useState("");
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="listing">
-            <Route
-              path="add"
-              element={
-                <ProtectedRoute>
-                  <AddListing />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path=":listingId"
-              element={
-                <ProtectedRoute>
-                  <ListingDetail />
-                </ProtectedRoute>
-              }
-            />
+    <div id="outer-container" className="App">
+      <Sidebar
+        right
+        pageWrapId={"page-wrap"}
+        outerContainerId={"outer-container"}
+      />
+      <div id="page-wrap">
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="listing">
+              <Route
+                path="add"
+                element={
+                  <ProtectedRoute>
+                    <AddListing />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path=":listingId"
+                element={
+                  <ProtectedRoute>
+                    <ListingDetail />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
+
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="forgot-password" element={<ForgotPassword />} />
+
+            <Route path="transaction">
+              <Route
+                index
+                element={
+                  <ProtectedRoute>
+                    <TransactionList />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path=":transactionId"
+                element={
+                  <ProtectedRoute>
+                    <TransactionDetail />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
+
+            <Route path="user">
+              <Route
+                index
+                element={
+                  <ProtectedRoute>
+                    <ProfileDetail />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
+
+            <Route path="testComponent" element={<TestComponents />} />
+
+            {/* Catch all - replace with 404 Not Found page if preferred */}
+            {/* Catch all - replace with 404 Not Found page if preferred */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
-
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="forgot-password" element={<ForgotPassword />} />
-
-          <Route path="transaction">
-            <Route
-              index
-              element={
-                <ProtectedRoute>
-                  <TransactionList />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path=":transactionId"
-              element={
-                <ProtectedRoute>
-                  <TransactionDetail />
-                </ProtectedRoute>
-              }
-            />
-          </Route>
-
-          <Route path="user">
-            <Route
-              index
-              element={
-                <ProtectedRoute>
-                  <ProfileDetail />
-                </ProtectedRoute>
-              }
-            />
-          </Route>
-
-          <Route path="testComponent" element={<TestComponents />} />
-
-          {/* Catch all - replace with 404 Not Found page if preferred */}
-          {/* Catch all - replace with 404 Not Found page if preferred */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Route>
-      </Routes>
+        </Routes>
+      </div>
     </div>
   );
 }
