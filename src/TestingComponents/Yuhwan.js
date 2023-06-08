@@ -1,26 +1,14 @@
 import React, { useState } from "react";
-import Checkbox from "../components/base/Checkbox/Checkbox";
+import ImageInput from "../components/base/ImageInput/ImageInput";
 
 const Yuhwan = (props) => {
-  const [first, setfirst] = useState([]);
-
-  const options = [
-    { value: "cylvia", label: "Cylvia" },
-    { value: "don", label: "Don" },
-    { value: "yuhwan", label: "Yuhwan" },
-    { value: "yuki", label: "Yuki" },
-  ];
+  const [images, setImages] = useState([]);
 
   return (
     <div>
       <h1>Yuhwan</h1>
       <div>Test here</div>
-      <div>{first.toString()}</div>
-      <Checkbox
-        selectedOptions={first}
-        setSelectedOptions={setfirst}
-        options={options}
-      />
+      <ImageInput images={images} setImages={setImages}></ImageInput>
     </div>
   );
 };
