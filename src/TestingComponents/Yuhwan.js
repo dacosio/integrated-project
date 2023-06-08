@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import TimePicker from "../components/base/TimePicker/TimePicker";
+import ImageInput from "../components/base/ImageInput/ImageInput";
 
 const Yuhwan = (props) => {
-  const [first, setfirst] = useState("");
+  const [images, setImages] = useState([]);
 
   return (
     <div>
       <h1>Yuhwan</h1>
       <div>Test here</div>
-      <TimePicker time={first} setTime={setfirst}></TimePicker>
-      <div>{first}</div>
+      <ImageInput images={images} setImages={setImages}></ImageInput>
     </div>
   );
 };
