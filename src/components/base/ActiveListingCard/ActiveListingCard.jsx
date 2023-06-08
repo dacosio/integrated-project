@@ -1,9 +1,16 @@
 import React from "react";
-import ImageLabel from "../ImageLabel/ImageLabel";
+import ImageLabel from "../ImageLabel/imageLabel";
 import Image from "../Image/Image";
 import "./ActiveListingCard.css";
 
-const Imagewithdescription = ({distance, days, source,itemname, price, stock}) => {
+const Imagewithdescription = ({
+  distance,
+  days,
+  source,
+  itemname,
+  price,
+  stock,
+}) => {
   return (
     <div className="active-listing-card">
       <div className="image-container">

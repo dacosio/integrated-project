@@ -1,7 +1,7 @@
 import React from "react";
 import "./imageLabel.css";
 
-export const ImageLabel = ({
+export const imageLabel = ({
   distance,
   days,
   backgroundColor,
@@ -40,4 +40,4 @@ export const ImageLabel = ({
   );
 };
 
-export default React.memo(ImageLabel);
+export default React.memo(imageLabel);
