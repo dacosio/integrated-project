@@ -1,17 +1,17 @@
 .image-label {
-    background-color: white;
-    color: #0b5cbb;
-    padding: 2px 4px;
-    border-radius: 20px;
-    width: 96px;
-    height: 15px;
-    font-size: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .image-label p {
-    margin: 0;
-    padding: 0px 4px;
-  }
+  background-color: white;
+  color: #0b5cbb;
+  padding: 2px 4px;
+  border-radius: 20px;
+  width: 96px;
+  height: 15px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-label p {
+  margin: 0;
+  padding: 0px 4px;
+}
