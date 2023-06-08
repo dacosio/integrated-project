@@ -1,0 +1,40 @@
+.description-container {
+  width: 288px;
+  height: auto;
+  border-radius: 20px;
+  border: 1px solid black;
+  padding: 20px;
+}
+
+.description-container h2,
+.description-container p {
+  margin: 0;
+  padding: 0;
+}
+
+.description-container h2 {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.description-container p {
+  font-size: 16px;
+}
+
+.description-container div {
+  padding-bottom: 28px;
+}
+
+.description-container .button {
+  padding-bottom: 0px;
+}
+
+@media screen and (min-width: 1440px) {
+  .description-container {
+    color: #0b5cbb;
+  }
+
+  .description-container h2 {
+    color: #0b5cbb;
+  }
+}
