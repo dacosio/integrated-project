@@ -1,12 +1,12 @@
 import React from "react";
 import LoginView from "./Login.view";
 import * as Yup from "yup";
+import { UserAuth } from "../../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const login = () => {
-    console.log("Login");
-  };
-
+  const { signIn } = UserAuth();
+  const navigate = useNavigate();
   const initialValues = {
     email: "",
     password: "",
@@ -17,13 +17,13 @@ const Login = () => {
     password: Yup.string().required("Required"),
   });
 
-  const onSubmit = (values) => {
-    console.log("Form data", values);
+  const onSubmit = async ({ email, password }) => {
+    await signIn(email, password);
+    navigate("/");
   };
 
   const generatedProps = {
     // generated props here
-    login,
     initialValues,
     validationSchema,
     onSubmit,
