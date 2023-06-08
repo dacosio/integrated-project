@@ -1,21 +1,33 @@
 import React from "react";
-import CloseFilled from "../SVG/CloseFilled";
 import SearchSVG from "../SVG/SearchSVG";
-import "./searchField.css";
+import styles from "./searchField.module.css";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
-const SearchField = ({ value, resetValue, ...inputProps }) => {
+const SearchField = ({
+  value,
+  resetValue,
+  onChange,
+  placeholder,
+  ...inputProps
+}) => {
   return (
-    <div class="input-container">
+    <div className={styles.inputContainer}>
       <SearchSVG height={16} width={16} />
       <input
         type="text"
-        placeholder="Placeholder"
+        placeholder={placeholder}
+        className={styles.input}
         {...inputProps}
         value={value}
+        onChange={onChange}
       />
-      <div onClick={resetValue} className="close-svg-container">
-        {/* <CloseFilled height={100} width={100} /> */}x
-      </div>
+
+      <AiOutlineCloseCircle
+        onClick={resetValue}
+        size="20px"
+        color="black"
+        style={{ cursor: "pointer" }}
+      />
     </div>
   );
 };

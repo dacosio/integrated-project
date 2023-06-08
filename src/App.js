@@ -4,6 +4,7 @@ import loadable from "@loadable/component";
 import Layout from "./components/layout/Layout/Layout";
 import ProtectedRoute from "./components/layout/ProtectedRoute/ProtectedRoute";
 import TestComponents from "./TestingComponents/TestComponents";
+import "./utils/variable.css";
 
 // Lazy loading and suspense
 const Home = loadable(() => import("./pages/Home"));
@@ -19,6 +20,7 @@ const TransactionDetail = loadable(() =>
 );
 const AddListing = loadable(() => import("./pages/Listing/AddListing"));
 const ListingDetail = loadable(() => import("./pages/Listing/ListingDetail"));
+
 function App() {
   // const [value, setValue] = useState("");
   return (

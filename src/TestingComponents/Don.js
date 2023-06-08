@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import FirebaseSample from "../config/FirebaseSample";
 import ImageUpload from "../components/base/ImageUpload/ImageUpload";
+import SearchField from "../components/base/SearchField/SearchField";
 
 const Don = (props) => {
   return (
@@ -11,6 +12,9 @@ const Don = (props) => {
       </div> */}
       <div>
         <ImageUpload />
+      </div>
+      <div>
+        <SearchField />
       </div>
     </div>
   );
