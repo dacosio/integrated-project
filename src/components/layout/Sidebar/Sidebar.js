@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./sidebar.css";
-import { scaleRotate as Menu } from "react-burger-menu";
+import { slide as Menu } from "react-burger-menu";
 
 const Sidebar = () => {
   return (

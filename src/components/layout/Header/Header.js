@@ -36,8 +36,8 @@ const Header = () => {
           onChange={handleSearchChange}
           placeholder="What are you looking for?"
         />
+        <LuFilter style={{ fontSize: "25px" }} />
       </div>
-      <LuFilter style={{ fontSize: "25px" }} />
     </header>
   );
 };
