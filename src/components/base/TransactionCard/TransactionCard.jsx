@@ -9,6 +9,14 @@ const TransactionCard = (props) => {
       border: type === 'buying' ? '#0B5CBB 2px solid' : '#FFBF44 2px solid',
     };
 
+  const days = () => {
+    if (time==="1") {
+      return ("a day ago") 
+    } else {
+      return (`${days} days ago`)
+    }
+  }
+
   const buttons = () => {
     if (type === 'buying') {
       return (
@@ -32,7 +40,7 @@ const TransactionCard = (props) => {
           <h3>{itemName}</h3>
           <p className="price">${price}</p>
         </div>
-        <p className="time">{time} days ago</p>
+        <p className="time">{days()}</p>
         <p className="quantity">
           <strong>Quantity:</strong> {portions}
         </p>
@@ -45,7 +53,6 @@ const TransactionCard = (props) => {
       </div>
       <div className="button-container">
         {buttons()}
-        {/* {type === 'buying' ? <Button label="pending" /> : <><Button label="Accept" /><Button label="Cancel"/></>} */}
       </div>
     </div>
   );
