@@ -17,7 +17,10 @@ const Yuhwan = (props) => {
           inputNumber={first}
           setInputNumber={setfirst}
           maxValue={10}
-        ></NumberInput>
+        />
+        <div>
+          <br />
+        </div>
       </div>
     </>
   );

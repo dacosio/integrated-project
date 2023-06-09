@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./number-input.css";
+import { FaMinus, FaPlus } from "react-icons/fa";
+import styles from "./number-input.module.css";
 
 const NumberInput = ({
   inputNumber,
@@ -29,29 +30,36 @@ const NumberInput = ({
   };
 
   return (
-    <div className="number-input-wrapper">
-      <div className="number-input-header">
-        <button
+    <div className={`${styles["wrapper"]}`}>
+      <div className={`${styles["header"]}`}>
+        <div
+          className={`${styles["btn"]} ${styles["minus"]}`}
           onClick={() => {
             if (minValue <= inputNumber - 1) {
               setInputNumber((value) => value - 1);
             }
           }}
         >
-          -
-        </button>
-        <input type="text" value={inputNumber} onChange={handleOnChange} />
+          <FaMinus size={24} />
+        </div>
+        <input
+          className={`${styles["ipt"]}`}
+          type="text"
+          value={inputNumber}
+          onChange={handleOnChange}
+        />
         <button
+          className={`${styles["btn"]} ${styles["plus"]}`}
           onClick={() => {
             if (inputNumber + 1 <= maxValue) {
               setInputNumber((value) => value + 1);
             }
           }}
         >
-          +
+          <FaPlus size={24} />
         </button>
       </div>
-      <div className="number-input-footer">{error && <div>{error}</div>}</div>
+      <div className={`${styles["footer"]}`}>{error && <div>{error}</div>}</div>
     </div>
   );
 };

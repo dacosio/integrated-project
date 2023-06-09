@@ -1,37 +1,23 @@
 import React from "react";
-import "./button.css";
+import styles from "./button.module.css";
+import { Children } from "react";
 
-/**
- * Primary UI component for user interaction
- */
-export const Button = ({
-  primary,
-  block,
+const Button = ({
+  variant,
   size,
-  onClick,
-  backgroundColor,
-  color,
   label,
+  onClickHandler,
+  children,
   ...props
 }) => {
-  const mode = primary ? "btn--primary" : "btn--secondary";
-
-  const style = {
-    backgroundColor: backgroundColor || null,
-    color: color || null,
-  };
-
   return (
     <button
       type="button"
-      className={["btn", mode, `btn--${size}`, block ? "btn--block" : ""].join(
-        " "
-      )}
-      onClick={onClick}
-      style={style}
+      className={`${styles[size]} ${styles[variant]} ${styles.button}`}
+      onClick={onClickHandler}
       {...props}
     >
-      {label}
+      {label ? label : children}
     </button>
   );
 };
