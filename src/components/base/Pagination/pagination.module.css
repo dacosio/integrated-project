@@ -1,10 +1,10 @@
-.page-wrapper {
+.wrapper {
   display: flex;
   list-style-type: none;
   justify-content: center;
 }
 
-.page-btn {
+.btn {
   background-color: white;
   font-size: 16px;
   padding: 8px 16px;
@@ -12,11 +12,11 @@
   color: #333;
 }
 
-.page-btn:hover {
+.btn:hover {
   background-color: #ccc;
 }
 
-.page-btn.active {
+.btn.active {
   color: white;
   background-color: #1ea7fd;
 }

@@ -1,0 +1,31 @@
+.button {
+  border-radius: 100px;
+  border: 2px solid black;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.primary {
+  background-color: #0b5cbb;
+  color: white;
+}
+
+.secondary {
+  background-color: transparent;
+  color: black;
+}
+
+.gray {
+  background-color: #636363;
+  color: white;
+}
+
+.md {
+  font-size: 16px;
+  padding: 8px 20px !important;
+}
+
+.sm {
+  font-size: 12px;
+  padding: 4px 20px;
+}

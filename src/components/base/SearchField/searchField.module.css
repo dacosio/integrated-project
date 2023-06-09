@@ -1,20 +1,15 @@
-.input-container {
+.inputContainer {
   background: #ffffff;
-  border: 1px solid black;
+  border: 2px solid black;
   box-sizing: border-box;
-  border-radius: 100px;
+  border-radius: 28px;
   width: 100%;
-  padding: 10px 15px;
-
+  padding: 6px 11px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.close-svg-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+  margin-right: 21px;
 }
 
 input {
@@ -31,4 +26,8 @@ input:focus {
 
 input::placeholder {
   color: gray;
+}
+
+.searchReset {
+  cursor: pointer;
 }

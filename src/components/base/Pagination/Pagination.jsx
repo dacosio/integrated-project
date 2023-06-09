@@ -1,16 +1,16 @@
 import React from "react";
-import "./pagination.css";
+import styles from "./pagination.module.css";
 
 const Pagination = ({
   currentPageIndex,
-  test,
+  pageNumber,
   totalPageNumber,
   previousButtonLabel = "Previous",
   nextButtonLabel = "Next",
   onClick,
   ...props
 }) => {
-  const bias = Math.floor(test / 2);
+  const bias = Math.floor(pageNumber / 2);
   const pages = [];
   for (let i = currentPageIndex - bias; i <= currentPageIndex + bias; i++) {
     if (1 <= i && i <= totalPageNumber) {
@@ -19,11 +19,11 @@ const Pagination = ({
   }
 
   return (
-    <ul className="page-wrapper">
+    <ul className={`${styles["wrapper"]}`}>
       {1 < currentPageIndex && (
         <li>
           <button
-            className="page-btn"
+            className={`${styles["btn"]}`}
             onClick={() => onClick(currentPageIndex - 1)}
           >
             {previousButtonLabel}
@@ -34,7 +34,10 @@ const Pagination = ({
         if (item === currentPageIndex) {
           return (
             <li key={index}>
-              <button className="page-btn active" onClick={() => onClick(item)}>
+              <button
+                className={`${styles["btn"]} ${styles["active"]}`}
+                onClick={() => onClick(item)}
+              >
                 {item}
               </button>
             </li>
@@ -42,7 +45,10 @@ const Pagination = ({
         } else {
           return (
             <li key={index}>
-              <button className="page-btn" onClick={() => onClick(item)}>
+              <button
+                className={`${styles["btn"]}`}
+                onClick={() => onClick(item)}
+              >
                 {item}
               </button>
             </li>
@@ -52,7 +58,7 @@ const Pagination = ({
       {currentPageIndex < totalPageNumber && (
         <li>
           <button
-            className="page-btn"
+            className={`${styles["btn"]}`}
             onClick={() => onClick(currentPageIndex + 1)}
           >
             {nextButtonLabel}
