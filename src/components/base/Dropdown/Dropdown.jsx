@@ -1,15 +1,26 @@
 import React from "react";
-import "./dropdown.css";
+import styles from "./dropdown.module.css";
 
-const Dropdown = ({ selectedOption, setSelectedOption, options, ...props }) => {
+const Dropdown = ({
+  selectedOption,
+  setSelectedOption,
+  options,
+  label,
+  ...props
+}) => {
   const handleOnChange = (event) => {
     setSelectedOption(event.target.value);
   };
 
   return (
-    <select onChange={handleOnChange} defaultValue="" style={props}>
+    <select
+      className={`${styles["select"]}`}
+      onChange={handleOnChange}
+      defaultValue=""
+      style={props}
+    >
       <option value="" disabled>
-        Select an option
+        {label}
       </option>
       {options.map((option, index) => (
         <option key={index} value={option.value}>

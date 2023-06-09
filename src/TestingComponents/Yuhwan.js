@@ -25,6 +25,7 @@ const Yuhwan = (props) => {
         selectedOption={selectedOption}
         setSelectedOption={setSelectedOption}
         options={options}
+        label="Select an option"
       ></Dropdown>
     </div>
   );
