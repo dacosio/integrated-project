@@ -1,8 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
 import Dropdown from "../components/base/Dropdown/Dropdown";
+import React, { useEffect, useState, useMemo } from "react";
+import NumberInput from "../components/base/NumberInput/NumberInput";
 
 const Yuhwan = (props) => {
   const [selectedOption, setSelectedOption] = useState("");
+  const [first, setfirst] = useState(1);
 
   const options = useMemo(
     () => [
@@ -27,6 +29,14 @@ const Yuhwan = (props) => {
         options={options}
         label="Select an option"
       ></Dropdown>
+      <div>
+        {" "}
+        <NumberInput
+          inputNumber={first}
+          setInputNumber={setfirst}
+          maxValue={10}
+        />
+      </div>
     </div>
   );
 };
