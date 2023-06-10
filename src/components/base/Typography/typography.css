@@ -1,3 +1,5 @@
+/* Typography */
+
 .h1-graphik-bold {
   font-family: "Graphik";
   font-style: normal;
@@ -68,4 +70,22 @@
   font-weight: 600;
   font-size: 14px;
   line-height: 20px;
+}
+
+/* Color */
+
+.color-heading-body-grey {
+  color: #404040;
+}
+
+.color-heading-body-white {
+  color: #fff;
+}
+
+.color-placeholder {
+  color: #959595;
+}
+
+.color-heading-body-black {
+  color: black;
 }

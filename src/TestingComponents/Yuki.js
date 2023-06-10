@@ -16,6 +16,14 @@ const Yuki = () => {
         <Typography className="body-3-regular">body-3-regular</Typography>
         <Typography className="body-4-regular">body-4-regular</Typography>
         <Typography className="button-regular">button-regular</Typography>
+        <Typography className="color-heading-body-grey">Color: Grey</Typography>
+        <Typography className="color-heading-body-black">Color: Black</Typography>
+        <div style={{ "background-color": "black" }}>
+          <Typography className="color-heading-body-white">
+            Color: white
+          </Typography>
+        </div>
+        <Typography className="color-placeholder">placeholder: grey</Typography>
         <hr />
       </section>
     </div>
