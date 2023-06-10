@@ -29,7 +29,7 @@
 @media screen and (min-width: 769px) {
   .header {
     display: flex;
-    /* justify-content: space-between; */
+    justify-content: space-between;
     padding: 20px 16px;
     margin: 0;
     color: var(--white);
@@ -43,10 +43,10 @@
     margin: 0;
   }
 
-  .nav {
+  /* .nav {
     font-size: 16px;
     display: flex;
-    /* background-color: var(--gray); */
+    background-color: var(--gray);
     list-style-type: none;
     align-items: center;
     gap: 8px;
@@ -54,17 +54,17 @@
     padding: 0;
     margin: 0;
     justify-content: flex-end;
-  }
+  } */
 
-  nav a {
+  /* nav a {
     color: var(--white);
-  }
+  } */
 
-  .title {
+  /* .title {
     font-size: 32px;
     font-weight: bold;
     margin-right: auto;
-  }
+  } */
 
   /* .left {
     display: flex;
