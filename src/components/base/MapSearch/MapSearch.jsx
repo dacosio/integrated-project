@@ -3,14 +3,19 @@ import useGoogle from "react-google-autocomplete/lib/usePlacesAutocompleteServic
 import "./mapSearch.css";
 
 const MapSearch = () => {
-  const { placePredictions, getPlacePredictions, isPlacePredictionsLoading } =
-    useGoogle({
-      apiKey: process.env.REACT_APP_MAPS_API_KEY,
-    });
+  const {
+    placesService,
+    placePredictions,
+    getPlacePredictions,
+
+    isPlacePredictionsLoading,
+  } = useGoogle({
+    apiKey: process.env.REACT_APP_MAPS_API_KEY,
+  });
   const [value, setValue] = useState("");
 
-  const handleSubmit = () => {
-    console.log(value);
+  const handleSubmit = (item) => {
+    console.log(item);
   };
 
   return (
@@ -21,6 +26,7 @@ const MapSearch = () => {
         placeholder="Search location"
         onChange={(evt) => {
           getPlacePredictions({ input: evt.target.value });
+          console.log(evt.target.value);
           setValue(evt.target.value);
         }}
         // loading={isPlacePredictionsLoading}
@@ -37,12 +43,9 @@ const MapSearch = () => {
         }}
       >
         {!isPlacePredictionsLoading && (
-          <ul>
+          <ul style={{ border: "1px solid black" }}>
             {placePredictions.map((item) => (
-              <li
-                key={item.description}
-                onClick={() => setValue(item.description)}
-              >
+              <li key={item.description} onClick={() => handleSubmit(item)}>
                 {item.description}
               </li>
             ))}

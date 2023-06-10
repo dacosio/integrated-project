@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import FirebaseSample from "../config/FirebaseSample";
 import ImageUpload from "../components/base/ImageUpload/ImageUpload";
 import SearchField from "../components/base/SearchField/SearchField";
+import MapSearch from "../components/base/MapSearch/MapSearch";
 
 const Don = (props) => {
   return (
@@ -15,6 +15,9 @@ const Don = (props) => {
       </div>
       <div>
         <SearchField />
+      </div>
+      <div>
+        <MapSearch />
       </div>
     </div>
   );
