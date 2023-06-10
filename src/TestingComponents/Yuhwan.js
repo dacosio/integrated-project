@@ -1,15 +1,28 @@
-import React, { useState } from "react";
-import ImageInput from "../components/base/ImageInput/ImageInput";
+import React, { useEffect, useState } from "react";
+import NumberInput from "../components/base/NumberInput/NumberInput";
 
 const Yuhwan = (props) => {
-  const [images, setImages] = useState([]);
+  const [first, setfirst] = useState(0);
+
+  useEffect(() => {
+    console.log(first);
+  }, [first]);
 
   return (
-    <div>
-      <h1>Yuhwan</h1>
-      <div>Test here</div>
-      <ImageInput images={images} setImages={setImages}></ImageInput>
-    </div>
+    <>
+      <div>
+        <h1>Yuhwan</h1>
+        <div>Test here</div>
+        <NumberInput
+          inputNumber={first}
+          setInputNumber={setfirst}
+          maxValue={10}
+        />
+        <div>
+          <br />
+        </div>
+      </div>
+    </>
   );
 };
 
