@@ -1,5 +1,8 @@
 import { Formik, Form } from "formik";
 import FormikControl from "../../../components/base/FormikControl/FormikControl";
+import Button from "./../../../components/base/Button/Button"
+import "./Login.css"
+import { BsFacebook } from "react-icons/bs"
 
 const LoginView = (props) => {
   const { initialValues, validationSchema, onSubmit } = props;
@@ -27,16 +30,15 @@ const LoginView = (props) => {
                 name="password"
               />
               <button type="submit" disabled={!formik.isValid}>
-                Submit
+                Log In
               </button>
             </Form>
           );
         }}
       </Formik>
-      <Button />
-      <Button />
-      <Button />
-      <a>No account yet? Create one.</a>
+      <Button label="Log in with Google" />
+      <Button label="Log in with Facebook"/>
+      <a href="#">No account yet? Create one.</a>
     </div>
   );
 };
