@@ -2,47 +2,41 @@ import React from "react";
 import Typography from "../components/base/Typography/Typography";
 
 const typographyStyles = {
-  title1: {
-    fontSize: "62px",
-    lineHeight: "72px",
-  },
-  title2: {
-    fontSize: "48px",
-    lineHeight: "56px",
-  },
-  title3: {
+  h1: {
     fontSize: "40px",
-    lineHeight: "48px",
+    fontFamily: "Graphik Bold",
   },
-  title4: {
+  h2: {
     fontSize: "32px",
-    lineHeight: "40px",
+    fontFamily: "Graphik Bold",
   },
-  title5: {
-    fontSize: "24px",
-    lineHeight: "32px",
+  h3: {
+    fontSize: "28px",
+    fontFamily: "Graphik Bold",
   },
-  body: {
+  h4: {
     fontSize: "16px",
-    lineHeight: "24px",
+    fontFamily: "Graphik Bold",
   },
-  label: {
-    fontSize: "14px",
-    lineHeight: "24px",
+  body1: {
+    fontSize: "16px",
+    fontFamily: "Graphik Medium",
   },
-  caption: {
+  body2: {
+    fontSize: "16px",
+    fontFamily: "Graphik Regular",
+  },
+  body3: {
     fontSize: "12px",
-    lineHeight: "16px",
+    fontFamily: "Graphil Medium",
   },
-  small: {
-    fontSize: "10px",
-    lineHeight: "12px",
+  body4: {
+    fontSize: "12px",
+    fontFamily: "Graphik Regular",
   },
-  overline: {
-    fontSize: "11px",
-    lineHeight: "12px",
-    textTransform: "uppercase",
-    letterSpacing: "2px",
+  button: {
+    fontSize: "16px",
+    fontFamily: "Graphik Semiold",
   },
 };
 
@@ -52,10 +46,15 @@ const Yuki = () => {
       <section>
         <h1 style={{ textDecoration: "underline" }}>Yuki</h1>
         <h3>Typography</h3>
-        <div style={typographyStyles.title2}>title2</div>
-        <div style={typographyStyles.overline}>overline</div>
-        <div style={typographyStyles.small}>small</div>
-        <div style={typographyStyles.label}>label</div>
+        <div style={typographyStyles.h1}>heading 1</div>
+        <div style={typographyStyles.h2}>heading 2</div>
+        <div style={typographyStyles.h3}>heading 3</div>
+        <div style={typographyStyles.h4}>heading 4</div>
+        <div style={typographyStyles.body1}>Body 1</div>
+        <div style={typographyStyles.body2}>Body 2</div>
+        <div style={typographyStyles.body3}>Body 3</div>
+        <div style={typographyStyles.body4}>Body 4</div>
+        <div style={typographyStyles.button}>Button</div>
         <hr />
       </section>
     </div>
