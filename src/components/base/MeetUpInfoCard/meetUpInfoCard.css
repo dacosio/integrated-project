@@ -18,13 +18,13 @@
   border-radius: 20px;
 }
 
-.title-container {
+.meet-up-info-card .title-container {
   flex: none;
   order: 0;
   flex-grow: 0;
 }
 
-.meet-up-info-description {
+.meet-up-info-card .meet-up-info-description {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -41,7 +41,7 @@
   flex-grow: 0;
 }
 
-.date-container {
+.meet-up-info-card .date-container {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
@@ -58,7 +58,7 @@
   flex-grow: 0;
 }
 
-.time-container {
+.meet-up-info-card .time-container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -75,7 +75,7 @@
   flex-grow: 0;
 }
 
-.location-container {
+.meet-up-info-card .location-container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -92,7 +92,7 @@
   flex-grow: 0;
 }
 
-.map-container {
+.meet-up-info-card .map-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -131,7 +131,7 @@
     border-radius: 20px;
   }
 
-  .title-container {
+  .meet-up-info-card .title-container {
     width: 221px;
     height: 30px;
     flex: none;
@@ -139,7 +139,7 @@
     flex-grow: 0;
   }
 
-  .meet-up-info-description {
+  .meet-up-info-card .meet-up-info-description {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -156,7 +156,7 @@
     flex-grow: 0;
   }
 
-  .date-container {
+  .meet-up-info-card .date-container {
     display: flex;
     flex-direction: row;
     align-items: flex-end;
@@ -173,7 +173,7 @@
     flex-grow: 0;
   }
 
-  .time-container {
+  .meet-up-info-card .time-container {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -190,7 +190,7 @@
     flex-grow: 0;
   }
 
-  .location-container {
+  .meet-up-info-card .location-container {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -207,7 +207,7 @@
     flex-grow: 0;
   }
 
-  .map-container {
+  .meet-up-info-card .map-container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
