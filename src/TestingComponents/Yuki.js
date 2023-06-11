@@ -2,6 +2,7 @@ import React from "react";
 import Typography from "../components/base/Typography/Typography";
 import SellingItemCard from "../components/base/SellingItemCard/SellingItemCard";
 import BuyerContactCard from "../components/base/BuyerContactCard/BuyerContactCard";
+import MeetUpInfoCard from "../components/base/MeetUpInfoCard/MeetUpInfoCard";
 
 const Yuki = () => {
   return (
@@ -56,7 +57,13 @@ const Yuki = () => {
             email="aisha@email.com"
           />
         </div>
-
+        <div>
+          <MeetUpInfoCard
+            date="Jan 2, 2023"
+            time="14:00"
+            location="100 W 49th Ave, Vancouver, BC V5Y 2Z6"
+          />
+        </div>
         <hr />
       </section>
     </div>
