@@ -18,7 +18,9 @@ const Yuki = () => {
         <Typography className="body-4-regular">body-4-regular</Typography>
         <Typography className="button-regular">button-regular</Typography>
         <Typography className="color-heading-body-grey">Color: Grey</Typography>
-        <Typography className="color-heading-body-black">Color: Black</Typography>
+        <Typography className="color-heading-body-black">
+          Color: Black
+        </Typography>
         <Typography className="color-primary-1">Color: primary-1</Typography>
         <Typography className="color-primary-2">Color: primary-2</Typography>
         <Typography className="color-primary-3">Color: primary-3</Typography>
@@ -44,6 +46,16 @@ const Yuki = () => {
             price="11"
           />
         </div>
+
+        <div>
+          <BuyerContactCard
+            source="https://picsum.photos/200"
+            nameOfBuyer="aishaells"
+            contactTel="(+1)000-0000"
+            email="aisha@email.com"
+          />
+        </div>
+
         <hr />
       </section>
     </div>
