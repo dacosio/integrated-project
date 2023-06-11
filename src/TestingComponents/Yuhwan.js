@@ -6,6 +6,7 @@ import ImageInput from "../components/base/ImageInput/ImageInput";
 import NumberInput from "../components/base/NumberInput/NumberInput";
 import DatePicker from "../components/base/DatePicker/DatePicker";
 import TimePicker from "../components/base/TimePicker/TimePicker";
+import Dropdown from "../components/base/Dropdown/Dropdown";
 
 const Yuhwan = (props) => {
   /* Pagination */
@@ -67,18 +68,8 @@ const Yuhwan = (props) => {
   /* SingleImageInput */
   const [singleImage, setSingleImage] = useState([]);
 
-  const singleImageInputStyles = {
-    width: "10%",
-    margin: "auto",
-  };
-
   /* MultipleImageInput */
   const [multipleImages, setMultipleImages] = useState([]);
-
-  const multipleImageInputStyles = {
-    width: "30%",
-    margin: "auto",
-  };
 
   /* NumberInput */
   const [number, setNumber] = useState(0);
@@ -88,6 +79,14 @@ const Yuhwan = (props) => {
 
   /* TimePicker */
   const [time, setTime] = useState("");
+
+  /* Dropdown */
+  const [selectedOption, setSelectedOption] = useState("");
+  const options = [
+    { value: "value1", label: "label1" },
+    { value: "value2", label: "label2" },
+    { value: "value3", label: "label3" },
+  ];
 
   return (
     <div>
@@ -115,13 +114,13 @@ const Yuhwan = (props) => {
       </div>
       <div>
         <h2>SingleImageInput</h2>
-        <div style={singleImageInputStyles}>
+        <div style={{ width: "10%", margin: "auto" }}>
           <SingleImageInput images={singleImage} setImages={setSingleImage} />
         </div>
       </div>
       <div>
         <h2>ImageInput</h2>
-        <div style={multipleImageInputStyles}>
+        <div style={{ width: "30%", margin: "auto" }}>
           <ImageInput images={multipleImages} setImages={setMultipleImages} />
         </div>
       </div>
@@ -141,6 +140,16 @@ const Yuhwan = (props) => {
         <h2>TimePicker</h2>
         <TimePicker time={time} setTime={setTime} />
       </div>
+      <div>
+        <h2>Dropdown</h2>
+        <Dropdown
+          selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}
+          options={options}
+          label="Select"
+        />
+      </div>
+      <div style={{ width: "100%", height: "500px" }}></div>
     </div>
   );
 };
