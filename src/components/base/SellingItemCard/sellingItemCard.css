@@ -12,7 +12,7 @@
   top: 253px;
 }
 
-.image-container {
+.selling-item-card .image-container {
   width: 161.78px;
   height: 167px;
 
@@ -23,7 +23,7 @@
   flex-grow: 0;
 }
 
-.selling-item-description {
+.selling-item-card .selling-item-description {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -40,7 +40,7 @@
   flex-grow: 0;
 }
 
-.item-name {
+.selling-item-card .item-name {
   width: 156px;
   height: 30px;
   flex: none;
@@ -48,7 +48,7 @@
   flex-grow: 0;
 }
 
-.date-approved-container {
+.selling-item-card .date-approved-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -65,7 +65,7 @@
   flex-grow: 0;
 }
 
-.quantity-container {
+.selling-item-card .quantity-container {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
@@ -81,7 +81,7 @@
   flex-grow: 0;
 }
 
-.price-container {
+.selling-item-card .price-container {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
@@ -118,7 +118,7 @@
     border-radius: 20px;
   }
 
-  .image-container {
+  .selling-item-card .image-container {
     width: 193.75px;
     height: 200px;
 
@@ -129,7 +129,7 @@
     flex-grow: 0;
   }
 
-  .selling-item-description {
+  .selling-item-card .selling-item-description {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -146,7 +146,7 @@
     flex-grow: 0;
   }
 
-  .item-name {
+  .selling-item-card .item-name {
     width: 156px;
     height: 42px;
     flex: none;
@@ -171,7 +171,7 @@
     flex-grow: 0;
   }
 
-  .quantity-container {
+  .selling-item-card .quantity-container {
     display: flex;
     flex-direction: row;
     align-items: flex-end;
@@ -187,7 +187,7 @@
     flex-grow: 0;
   }
 
-  .price-container {
+  .selling-item-card .price-container {
     display: flex;
     flex-direction: row;
     align-items: flex-end;
