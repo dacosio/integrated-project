@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Page from "../components/base/Page/Page";
 import Pagination from "../components/base/Pagination/Pagination";
+import SingleImageInput from "../components/base/SingleImageInput/SingleImageInput";
 
 const Yuhwan = (props) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
@@ -8,8 +9,14 @@ const Yuhwan = (props) => {
   const [totalPageNumber, setTotalPageNumber] = useState();
   const [items, setItems] = useState([]);
 
+  const [singleImage, setSingleImage] = useState([]);
+
   const itemNumber = 10;
   const columns = ["id", "category", "title", "price"];
+
+  const SingleImageInputStyles = {
+    width: "30%",
+  };
 
   useState(() => {
     fetch(
@@ -58,43 +65,37 @@ const Yuhwan = (props) => {
       });
   };
 
-  // *Only for test from here
-  const handleOnChange = (event) => {
-    setPageNumber(event.target.value);
-  };
-  // to here
-
   return (
     <div>
       <h1>Yuhwan</h1>
       <div>Test here</div>
-      {/* *Only for test from here */}
-      <div>*Only for test</div>
-      <input
-        type="number"
-        onChange={handleOnChange}
-        defaultValue={pageNumber}
-        step={2}
-        min={1}
-      ></input>
-      {/* to here */}
-      <Page items={items} columns={columns} />
-      <div>For desktop</div>
-      <Pagination
-        currentPageIndex={currentPageIndex}
-        pageNumber={pageNumber}
-        totalPageNumber={totalPageNumber}
-        onClick={handleOnClick}
-      />
-      <div>For mobile</div>
-      <Pagination
-        currentPageIndex={currentPageIndex}
-        pageNumber={pageNumber}
-        totalPageNumber={totalPageNumber}
-        previousButtonLabel="<"
-        nextButtonLabel=">"
-        onClick={handleOnClick}
-      />
+      <div>
+        <h2>Page</h2>
+        <Page items={items} columns={columns} />
+        <h2>Pagination - for desktop</h2>
+        <Pagination
+          currentPageIndex={currentPageIndex}
+          pageNumber={pageNumber}
+          totalPageNumber={totalPageNumber}
+          onClick={handleOnClick}
+        />
+        <h2>Pagination - for mobile</h2>
+        <Pagination
+          currentPageIndex={currentPageIndex}
+          pageNumber={pageNumber}
+          totalPageNumber={totalPageNumber}
+          previousButtonLabel="<"
+          nextButtonLabel=">"
+          onClick={handleOnClick}
+        />
+      </div>
+      <div style={SingleImageInputStyles}>
+        <h2>SingleImageInput</h2>
+        <SingleImageInput
+          images={singleImage}
+          setImages={setSingleImage}
+        ></SingleImageInput>
+      </div>
     </div>
   );
 };
