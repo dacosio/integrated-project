@@ -1,0 +1,25 @@
+.quantity-title {
+    font-weight: bold;
+    display: inline;
+}
+
+.quantity {
+    display: inline;
+}
+
+.selling-item-card .image-container img{
+    width: 161.78px;
+    height: 167px;
+    border-radius: 20px;
+}
+
+
+.selling-item-card {
+    display: flex;
+    gap: 20px;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 5px;
+    width: 340px;
+}
+
