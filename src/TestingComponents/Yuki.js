@@ -44,11 +44,6 @@ const Yuki = () => {
             price="11"
           />
         </div>
-
-      
-
-
-
         <hr />
       </section>
     </div>
