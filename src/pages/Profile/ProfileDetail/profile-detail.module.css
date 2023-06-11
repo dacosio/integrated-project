@@ -1,0 +1,10 @@
+.wrapper {
+  padding: 1rem;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(calc(50% - 1rem), 1fr));
+  justify-items: center;
+  gap: 1rem;
+}
