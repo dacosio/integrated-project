@@ -18,7 +18,7 @@
   border-radius: 20px;
 }
 
-.title-container {
+.buyer-contact-card .title-container {
   width: 112px;
   height: 30px;
   flex: none;
@@ -26,7 +26,7 @@
   flex-grow: 0;
 }
 
-.buyer-description {
+.buyer-contact-card .buyer-description {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -43,21 +43,19 @@
   flex-grow: 0;
 }
 
-.image-container {
+.buyer-contact-card .image-container {
   width: 80px;
   height: 80px;
   flex: none;
   order: 0;
   flex-grow: 0;
-
 }
 
-.image-container img{
-    border-radius: 500px;
+.buyer-contact-card .image-container img {
+  border-radius: 500px;
 }
 
-
-.buyer-contact-description {
+.buyer-contact-card .buyer-contact-description {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -74,7 +72,7 @@
   flex-grow: 0;
 }
 
-.name-container {
+.buyer-contact-card .name-container {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
@@ -91,7 +89,7 @@
   flex-grow: 0;
 }
 
-.conatct-tel-container {
+.buyer-contact-card .conatct-tel-container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -108,7 +106,7 @@
   flex-grow: 0;
 }
 
-.email-container {
+.buyer-contact-card .email-container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -146,7 +144,7 @@
     border-radius: 20px;
   }
 
-  .title-container {
+  .buyer-contact-card .title-container {
     width: 112px;
     height: 30px;
     flex: none;
@@ -154,7 +152,7 @@
     flex-grow: 0;
   }
 
-  .buyer-description {
+  .buyer-contact-card .buyer-description {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -171,7 +169,7 @@
     flex-grow: 0;
   }
 
-  .image-container {
+  .buyer-contact-card .image-container {
     width: 80px;
     height: 80px;
 
@@ -182,7 +180,7 @@
     flex-grow: 0;
   }
 
-  .buyer-contact-description {
+  .buyer-contact-card .buyer-contact-description {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -199,7 +197,7 @@
     flex-grow: 0;
   }
 
-  .name-container {
+  .buyer-contact-card .name-container {
     width: 152px;
     height: 24px;
 
@@ -210,7 +208,7 @@
     flex-grow: 0;
   }
 
-  .conatct-tel-container {
+  .buyer-contact-card .conatct-tel-container {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -227,7 +225,7 @@
     flex-grow: 0;
   }
 
-  .email-container {
+  .buyer-contact-card .email-container {
     display: flex;
     flex-direction: row;
     align-items: center;
