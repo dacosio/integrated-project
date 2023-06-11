@@ -13,7 +13,7 @@ const SellingItemCard = ({
   return (
     <div className="selling-item-card">
       <div className="image-container">
-        <Image source={source} />
+        <Image source={source} style={{ borderRadius: "10px" }} />
       </div>
       <div className="selling-item-description">
         <Typography className="item-name color-primary-1 h3-graphik-bold">

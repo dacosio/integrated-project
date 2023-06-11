@@ -1,12 +1,11 @@
 import React from "react";
 
 export const Image = ({ source, alt, ...props }) => {
-  
-  const styles = {
-    width: "100%",
-  };
+  // const styles = {
+  //   width: "100%",
+  // };
 
-  return <img src={source} alt={alt} style={styles} />;
+  return <img src={source} alt={alt} {...props} />;
 };
 
 export default React.memo(Image);
