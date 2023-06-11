@@ -1,6 +1,7 @@
 import React from "react";
 import Typography from "../components/base/Typography/Typography";
 import SellingItemCard from "../components/base/SellingItemCard/SellingItemCard";
+import BuyerContactCard from "../components/base/BuyerContactCard/BuyerContactCard";
 
 const Yuki = () => {
   return (
