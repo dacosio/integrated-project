@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "../Button/Button";
+import Image from "../Image/Image"
 import "./TransactionCard.css";
 
 const TransactionCard = (props) => {
@@ -34,13 +35,15 @@ const TransactionCard = (props) => {
 
   return (
     <div className={["transaction-card", { type }].join(" ")} style={cardStyle}>
-      <div className="image-container"></div>
+      <div className="image-container">
+        <Image source="https://picsum.photos/200"/>
+      </div>
       <div className="product-information">
         <div>
           <h3>{itemName}</h3>
           <p className="price">${price}</p>
         </div>
-        <p className="time">{days()}</p>
+        <p className="time">{days}</p>
         <p className="quantity">
           <strong>Quantity:</strong> {portions}
         </p>

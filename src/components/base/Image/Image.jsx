@@ -6,7 +6,7 @@ export const Image = ({ source, alt, ...props }) => {
     width: "100%",
   };
 
-  return <img src={source} alt={alt} style={styles} />;
+  return (<img src={source} alt={alt} style={styles} />)
 };
 
 export default React.memo(Image);

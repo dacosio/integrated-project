@@ -3,6 +3,7 @@ import FormikControl from "../../../components/base/FormikControl/FormikControl"
 import Button from "./../../../components/base/Button/Button"
 import "./Login.css"
 import { BsFacebook } from "react-icons/bs"
+import { BsGoogle } from "react-icons/bs"
 
 const LoginView = (props) => {
   const { initialValues, validationSchema, onSubmit } = props;
@@ -36,9 +37,10 @@ const LoginView = (props) => {
           );
         }}
       </Formik>
-      <Button label="Log in with Google" />
-      <Button label="Log in with Facebook"/>
-      <a href="#">No account yet? Create one.</a>
+      
+      <Button><BsGoogle />Log in with Google</Button>
+      <Button><BsFacebook />Log in with Facebook</Button>
+            <a href="#">No account yet? Create one.</a>
     </div>
   );
 };

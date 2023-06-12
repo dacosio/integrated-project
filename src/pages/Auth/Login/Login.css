@@ -44,20 +44,25 @@
 }
 
 .login-wrapper > button {
-    align-self: center;
-    justify-self: center;
-    width: 100%;
-    padding: 10px 24px;
-    background-color: white;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  align-self: center;
+  justify-self: center;
+  width: 100%;
+  padding: 10px 24px;
+  background-color: white;
 }
 
 .login-wrapper a {
-    color: black;
-    text-align: center;
+  color: black;
+  text-align: center;
 }
 
 @media screen and (min-width: 768px) {
-.login-wrapper {
+  .login-wrapper {
     padding: 0 30vw;
-}
+  }
 }

@@ -9,10 +9,7 @@ const DescriptionCard = ({description, portionDescription}) => {
         <h2>Description</h2>
         <p>{description}</p>
         </div>
-        <div className="portion-description">
-        <h2>Each portion contains</h2>
-        <p>{portionDescription}</p>
-        </div>
+
         <div className="button">
         <Button size="lg" variant="primary" label="Request Purchase"/>
         </div>
