@@ -1,0 +1,28 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+.prediction {
+  padding-top: 1rem;
+  position: absolute;
+  top: 100%;
+}
+
+.predictionItem {
+  max-width: 500px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  border-bottom: 1px dotted black;
+  padding: 0.5rem 0;
+  padding-left: 1rem;
+}
+
+.predictionItem:hover {
+  background-color: tomato;
+  color: white;
+  border-radius: 8px;
+}

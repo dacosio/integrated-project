@@ -4,9 +4,10 @@ import Button from "./../../../components/base/Button/Button";
 import "./Login.css";
 import { BsFacebook } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 const LoginView = (props) => {
-  const { initialValues, validationSchema, onSubmit } = props;
+  const { initialValues, validationSchema, loginWithGoogle, onSubmit } = props;
 
   return (
     <div className="login-wrapper">
@@ -37,10 +38,12 @@ const LoginView = (props) => {
           );
         }}
       </Formik>
-      <Button label="Log in with Google" />
-      <Button label="Log in with Facebook" />
+      <Button onClickHandler={loginWithGoogle} label="Log in with Google" />
       <div>
         No account yet? <Link to="/register">Create one.</Link>
+      </div>
+      <div>
+        <ToastContainer position="top-center" />
       </div>
     </div>
   );

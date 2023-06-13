@@ -87,4 +87,4 @@ function ImageInput({ images, setImages, maxImageNumber = 8, ...props }) {
   );
 }
 
-export default ImageInput;
+export default React.memo(ImageInput);

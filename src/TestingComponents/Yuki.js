@@ -31,7 +31,7 @@ const Yuki = () => {
         <Typography className="color-accent-2">Color: accent-2</Typography>
         <Typography className="color-accent-3">Color: accent-3</Typography>
         <Typography className="color-accent-4">Color: accent-4</Typography>
-        <div style={{ "background-color": "black" }}>
+        <div style={{ backgroundColor: "black" }}>
           <Typography className="color-heading-body-white">
             Color: white
           </Typography>
