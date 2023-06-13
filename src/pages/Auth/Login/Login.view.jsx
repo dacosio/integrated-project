@@ -1,12 +1,13 @@
 import { Formik, Form } from "formik";
 import FormikControl from "../../../components/base/FormikControl/FormikControl";
-import Button from "./../../../components/base/Button/Button"
-import "./Login.css"
-import { BsFacebook } from "react-icons/bs"
-import { BsGoogle } from "react-icons/bs"
+import Button from "./../../../components/base/Button/Button";
+import "./Login.css";
+import { BsFacebook } from "react-icons/bs";
+import { Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 const LoginView = (props) => {
-  const { initialValues, validationSchema, onSubmit } = props;
+  const { initialValues, validationSchema, loginWithGoogle, onSubmit } = props;
 
   return (
     <div className="login-wrapper">
@@ -37,10 +38,9 @@ const LoginView = (props) => {
           );
         }}
       </Formik>
-      
-      <Button><BsGoogle />Log in with Google</Button>
-      <Button><BsFacebook />Log in with Facebook</Button>
-            <a href="#">No account yet? Create one.</a>
+      <Button label="Log in with Google" />
+      <Button label="Log in with Facebook"/>
+      <a href="#">No account yet? Create one.</a>
     </div>
   );
 };

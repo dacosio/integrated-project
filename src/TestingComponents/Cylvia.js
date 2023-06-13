@@ -14,10 +14,6 @@ const Cylvia = (props) => {
     <div>
       <h1>Cylvia</h1>
       <LoginView/>
-      <ActiveListingCard distance="3" days="3" source="https://picsum.photos/200" itemname="banana" price="40" stock="8"/>
-      <DescriptionCard description="banana for sale, bought yesterday" portionDescription="each portion contains two bananas"/>
-      <ImageLabel distance="8" days="1"/>
-      <TransactionCard type="buying" itemName="banana" time="3" portions="4" sellerName="cylvito" price="20" />
     </div>
   );
 };
