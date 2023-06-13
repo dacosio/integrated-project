@@ -32,6 +32,8 @@ const MapSearch = () => {
       (placeDetails) => setPlace(placeDetails)
     );
   };
+
+  console.log(place.geometry.location.lat(), place.geometry.location.lng());
   return (
     <div className={wrapper}>
       <SearchField
