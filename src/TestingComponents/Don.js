@@ -5,7 +5,7 @@ import SearchField from "../components/base/SearchField/SearchField";
 import MapLeaflet from "../components/module/MapLeaflet/MapLeaflet";
 import Autocomplete from "react-google-autocomplete";
 import usePlacesService from "react-google-autocomplete/lib/usePlacesAutocompleteService";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import MapSearch from "../components/base/MapSearch/MapSearch";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -33,7 +33,7 @@ const Don = (props) => {
         <ImageUpload />
       </div>
       <div style={wrapper}>
-        <SearchField />
+        <SearchField placeholder="What are you looking for?" />
       </div>
 
       <div style={wrapper}>

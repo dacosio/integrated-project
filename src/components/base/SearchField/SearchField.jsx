@@ -15,9 +15,9 @@ const SearchField = ({
   return (
     <div className={styles.inputContainer}>
       {location ? (
-        <CiLocationOn height={16} width={16} />
+        <CiLocationOn height={16} width={16} fill={"#9C9C9C"} />
       ) : (
-        <SearchSVG height={16} width={16} />
+        <SearchSVG height={16} width={16} fill={"#9C9C9C"} />
       )}
 
       <input
