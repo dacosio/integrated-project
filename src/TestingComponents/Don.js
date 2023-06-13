@@ -43,10 +43,10 @@ const Don = (props) => {
         />
       </div>
 
-      {/* <div style={wrapper}>
+      <div style={wrapper}>
         <MapSearch />
-      </div> */}
-      {/* <div style={wrapper}>
+      </div>
+      <div style={wrapper}>
         <MapLeaflet
           style={{ height: "50rem", width: "50rem" }}
           zoom={zoom}
@@ -54,7 +54,7 @@ const Don = (props) => {
           direction="top"
           permanent
         />
-      </div> */}
+      </div>
     </div>
   );
 };
