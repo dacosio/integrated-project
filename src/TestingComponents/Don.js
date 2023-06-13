@@ -23,17 +23,24 @@ const Don = (props) => {
     { id: 2, lat: 49.19, long: -123.122, location: "Bridgeport" },
   ];
 
+  const [searchValue, setSearchValue] = useState("");
+
   return (
     <div>
       <h1>Don</h1>
       {/* <div>
         <FirebaseSample />
       </div> */}
-      <div style={wrapper}>
+      {/* <div style={wrapper}>
         <ImageUpload />
-      </div>
+      </div> */}
       <div style={wrapper}>
-        <SearchField placeholder="What are you looking for?" />
+        <SearchField
+          placeholder="What are you looking for?"
+          onChange={(e) => setSearchValue(e.target.value)}
+          value={searchValue}
+          resetValue={() => setSearchValue("")}
+        />
       </div>
 
       <div style={wrapper}>
