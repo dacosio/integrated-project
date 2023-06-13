@@ -86,6 +86,14 @@ const Yuhwan = (props) => {
         totalPageNumber={totalPageNumber}
         onClick={handleOnClick}
       />
+      <Pagination
+        currentPageIndex={currentPageIndex}
+        pageNumber={pageNumber}
+        totalPageNumber={totalPageNumber}
+        onClick={handleOnClick}
+        padding="4px 12px"
+        borderRadius="32px"
+      />
       <div>For mobile</div>
       <Pagination
         currentPageIndex={currentPageIndex}
