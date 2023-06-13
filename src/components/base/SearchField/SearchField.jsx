@@ -2,22 +2,29 @@ import React from "react";
 import SearchSVG from "../SVG/SearchSVG";
 import styles from "./searchField.module.css";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { CiLocationOn } from "react-icons/ci";
 
 const SearchField = ({
   value,
   resetValue,
   onChange,
   placeholder,
-  ...inputProps
+  location = false,
+  ...props
 }) => {
   return (
     <div className={styles.inputContainer}>
-      <SearchSVG height={16} width={16} />
+      {location ? (
+        <CiLocationOn height={16} width={16} />
+      ) : (
+        <SearchSVG height={16} width={16} />
+      )}
+
       <input
         type="text"
         placeholder={placeholder}
         className={styles.input}
-        {...inputProps}
+        {...props}
         value={value}
         onChange={onChange}
       />
