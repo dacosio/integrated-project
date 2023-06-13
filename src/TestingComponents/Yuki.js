@@ -18,7 +18,9 @@ const Yuki = () => {
         <Typography className="body-4-regular">body-4-regular</Typography>
         <Typography className="button-regular">button-regular</Typography>
         <Typography className="color-heading-body-grey">Color: Grey</Typography>
-        <Typography className="color-heading-body-black">Color: Black</Typography>
+        <Typography className="color-heading-body-black">
+          Color: Black
+        </Typography>
         <Typography className="color-primary-1">Color: primary-1</Typography>
         <Typography className="color-primary-2">Color: primary-2</Typography>
         <Typography className="color-primary-3">Color: primary-3</Typography>
@@ -27,7 +29,7 @@ const Yuki = () => {
         <Typography className="color-accent-2">Color: accent-2</Typography>
         <Typography className="color-accent-3">Color: accent-3</Typography>
         <Typography className="color-accent-4">Color: accent-4</Typography>
-        <div style={{ "background-color": "black" }}>
+        <div style={{ backgroundColor: "black" }}>
           <Typography className="color-heading-body-white">
             Color: white
           </Typography>

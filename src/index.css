@@ -16,6 +16,7 @@
   src: local("Graphik"), url("./fonts/GraphikRegular.otf") format("opentype");
 }
 
+html,
 body {
   margin: 0;
   font-family: "Graphik", sans-serif;
@@ -24,10 +25,13 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: "Graphik", sans-serif;
 }
 
 a {
   text-decoration: none;
+}
+
+input {
+  font-family: "Graphik", sans-serif;
 }
