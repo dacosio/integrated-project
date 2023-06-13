@@ -1,50 +1,6 @@
 import React from "react";
 import Typography from "../components/base/Typography/Typography";
-
-const typographyStyles = {
-  title1: {
-    fontSize: "62px",
-    lineHeight: "72px",
-  },
-  title2: {
-    fontSize: "48px",
-    lineHeight: "56px",
-  },
-  title3: {
-    fontSize: "40px",
-    lineHeight: "48px",
-  },
-  title4: {
-    fontSize: "32px",
-    lineHeight: "40px",
-  },
-  title5: {
-    fontSize: "24px",
-    lineHeight: "32px",
-  },
-  body: {
-    fontSize: "16px",
-    lineHeight: "24px",
-  },
-  label: {
-    fontSize: "14px",
-    lineHeight: "24px",
-  },
-  caption: {
-    fontSize: "12px",
-    lineHeight: "16px",
-  },
-  small: {
-    fontSize: "10px",
-    lineHeight: "12px",
-  },
-  overline: {
-    fontSize: "11px",
-    lineHeight: "12px",
-    textTransform: "uppercase",
-    letterSpacing: "2px",
-  },
-};
+import SellingItemCard from "../components/base/SellingItemCard/SellingItemCard";
 
 const Yuki = () => {
   return (
@@ -52,10 +8,44 @@ const Yuki = () => {
       <section>
         <h1 style={{ textDecoration: "underline" }}>Yuki</h1>
         <h3>Typography</h3>
-        <div style={typographyStyles.title2}>title2</div>
-        <div style={typographyStyles.overline}>overline</div>
-        <div style={typographyStyles.small}>small</div>
-        <div style={typographyStyles.label}>label</div>
+        <Typography className="h1-graphik-bold">h1-graphik-bold</Typography>
+        <Typography className="h2-graphik-bold">h2-graphik-bold</Typography>
+        <Typography className="h3-graphik-bold">h3-graphik-bold</Typography>
+        <Typography className="h4-graphik-bold">h4-graphik-bold</Typography>
+        <Typography className="body-1-regular">body-1-regular</Typography>
+        <Typography className="body-2-regular">body-2-regular</Typography>
+        <Typography className="body-3-regular">body-3-regular</Typography>
+        <Typography className="body-4-regular">body-4-regular</Typography>
+        <Typography className="button-regular">button-regular</Typography>
+        <Typography className="color-heading-body-grey">Color: Grey</Typography>
+        <Typography className="color-heading-body-black">
+          Color: Black
+        </Typography>
+        <Typography className="color-primary-1">Color: primary-1</Typography>
+        <Typography className="color-primary-2">Color: primary-2</Typography>
+        <Typography className="color-primary-3">Color: primary-3</Typography>
+        <Typography className="color-primary-4">Color: primary-4</Typography>
+        <Typography className="color-accent-1">Color: accent-1</Typography>
+        <Typography className="color-accent-2">Color: accent-2</Typography>
+        <Typography className="color-accent-3">Color: accent-3</Typography>
+        <Typography className="color-accent-4">Color: accent-4</Typography>
+        <div style={{ backgroundColor: "black" }}>
+          <Typography className="color-heading-body-white">
+            Color: white
+          </Typography>
+        </div>
+        <Typography className="color-placeholder">placeholder: grey</Typography>
+
+        <h3>Selling Detail Card</h3>
+        <div>
+          <SellingItemCard
+            source="https://picsum.photos/200"
+            itemName="Item Name"
+            dateApproved="June 10, 2023"
+            quantity="1"
+            price="11"
+          />
+        </div>
         <hr />
       </section>
     </div>

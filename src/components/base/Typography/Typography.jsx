@@ -5,17 +5,11 @@ import "./typography.css";
  * Primary UI component for user interaction
  */
 
-const Typography = ({ children, style, ...props }) => {
-
-  const fontWeights = {
-    Regular: '400',
-    Medium: '500',
-    Black: '900'
-  };
+const Typography = ({ children, className, ...props }) => {
 
 
   return (
-    <div style={style} {...props}>
+    <div class={className} {...props}>
       {children}
     </div>
   );

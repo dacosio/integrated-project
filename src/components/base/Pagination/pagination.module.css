@@ -7,29 +7,38 @@
 }
 
 .btn {
-  background-color: #9c9c9c;
-  font-size: 16px;
-  padding: 4px 12px;
-  border: none;
   border-radius: 8px;
-  color: white;
+  padding: 4px 12px;
+  font-size: 16px;
 }
 
-.btn:hover {
-  background-color: #9c9c9c;
+.inactive {
+  background-color: transparent;
+  color: black;
+  border: none;
 }
 
-.btn.active {
-  color: white;
+.inactive:hover {
+  background-color: #dcdcdc;
+  color: black;
+}
+
+.active {
   background-color: #0b5cbb;
-  border: 3px solid black;
+  color: white;
+  border: 2px solid black;
   box-shadow: 2px 2px black;
 }
 
-.btn.previous,
-.btn.next {
+.previous,
+.next {
   background-color: transparent;
   color: black;
   border: none;
   box-shadow: none;
+}
+
+.previous:hover,
+.next:hover {
+  text-decoration: underline;
 }
