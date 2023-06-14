@@ -5,8 +5,6 @@ const Pagination = ({
   currentPageIndex,
   pageNumber,
   totalPageNumber,
-  previousButtonLabel = "Previous",
-  nextButtonLabel = "Next",
   onClick,
   ...props
 }) => {
@@ -23,10 +21,11 @@ const Pagination = ({
       {1 < currentPageIndex && (
         <li>
           <button
-            className={`${styles["btn"]}`}
+            className={`${styles["btn"]} ${styles["previous"]}`}
             onClick={() => onClick(currentPageIndex - 1)}
+            style={props}
           >
-            {previousButtonLabel}
+            &lt; Previous
           </button>
         </li>
       )}
@@ -37,6 +36,7 @@ const Pagination = ({
               <button
                 className={`${styles["btn"]} ${styles["active"]}`}
                 onClick={() => onClick(item)}
+                style={props}
               >
                 {item}
               </button>
@@ -46,8 +46,9 @@ const Pagination = ({
           return (
             <li key={index}>
               <button
-                className={`${styles["btn"]}`}
+                className={`${styles["btn"]} ${styles["inactive"]}`}
                 onClick={() => onClick(item)}
+                style={props}
               >
                 {item}
               </button>
@@ -58,10 +59,11 @@ const Pagination = ({
       {currentPageIndex < totalPageNumber && (
         <li>
           <button
-            className={`${styles["btn"]}`}
+            className={`${styles["btn"]} ${styles["next"]}`}
             onClick={() => onClick(currentPageIndex + 1)}
+            style={props}
           >
-            {nextButtonLabel}
+            Next &gt;
           </button>
         </li>
       )}
