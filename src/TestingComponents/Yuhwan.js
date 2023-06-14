@@ -75,7 +75,7 @@ const Yuhwan = (props) => {
   const [number, setNumber] = useState(0);
 
   /* DatePicker */
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState();
 
   /* TimePicker */
   const [time, setTime] = useState("");
