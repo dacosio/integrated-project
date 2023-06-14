@@ -2,21 +2,43 @@
   display: flex;
   list-style-type: none;
   justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
 .btn {
-  background-color: white;
+  border-radius: 8px;
+  padding: 4px 12px;
   font-size: 16px;
-  padding: 8px 16px;
+}
+
+.inactive {
+  background-color: transparent;
+  color: black;
   border: none;
-  color: #333;
 }
 
-.btn:hover {
-  background-color: #ccc;
+.inactive:hover {
+  background-color: #dcdcdc;
+  color: black;
 }
 
-.btn.active {
+.active {
+  background-color: #0b5cbb;
   color: white;
-  background-color: #1ea7fd;
+  border: 2px solid black;
+  box-shadow: 2px 2px black;
+}
+
+.previous,
+.next {
+  background-color: transparent;
+  color: black;
+  border: none;
+  box-shadow: none;
+}
+
+.previous:hover,
+.next:hover {
+  text-decoration: underline;
 }

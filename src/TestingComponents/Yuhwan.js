@@ -94,23 +94,14 @@ const Yuhwan = (props) => {
       <div>Test here</div>
       <div>
         <h2>Page</h2>
+        <h2>Pagination</h2>
+        <Pagination
+          currentPageIndex={currentPageIndex}
+          pageNumber={pageNumber}
+          totalPageNumber={totalPageNumber}
+          onClick={handleOnClick}
+        />
         <Page items={items} columns={columns} />
-        <h2>Pagination - for desktop</h2>
-        <Pagination
-          currentPageIndex={currentPageIndex}
-          pageNumber={pageNumber}
-          totalPageNumber={totalPageNumber}
-          onClick={handleOnClick}
-        />
-        <h2>Pagination - for mobile</h2>
-        <Pagination
-          currentPageIndex={currentPageIndex}
-          pageNumber={pageNumber}
-          totalPageNumber={totalPageNumber}
-          previousButtonLabel="<"
-          nextButtonLabel=">"
-          onClick={handleOnClick}
-        />
       </div>
       <div>
         <h2>SingleImageInput</h2>
