@@ -1,205 +1,53 @@
-.selling-item-card {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  padding: 0px;
-  gap: 16px;
+.selling-item-wrapper {
+  width: 80%;
+}
 
-  /* position: absolute; */
-  width: 326.78px;
-  height: 168px;
-  left: 17px;
-  top: 253px;
+.selling-item-card {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  height: auto;
+  padding: 1rem;
+  gap: 1rem;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.selling-item-description {
+  display: flex;
+  flex-flow: column;
+}
+
+.selling-item-description .h3-graphik-bold {
+  color: var(--blue);
+  margin-bottom: 0.5rem;
 }
 
 .selling-item-card .image-container {
-  width: 161.78px;
-  height: 167px;
-
-  /* Inside auto layout */
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+  width: 100%;
+  height: auto;
 }
 
-.selling-item-card .selling-item-description {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 8px;
-
-  width: 149px;
-  height: 168px;
-
-  /* Inside auto layout */
-
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-}
-
-.selling-item-card .item-name {
-  width: 156px;
-  height: 30px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
-
-.selling-item-card .date-approved-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  padding: 0px;
-
-  width: 118px;
-  height: 48px;
-
-  /* Inside auto layout */
-
-  flex: none;
-  order: 1;
-  flex-grow: 0;
+.selling-item-card .image-container img {
+  width: 100%;
+  height: auto;
 }
 
 .selling-item-card .quantity-container {
   display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  padding: 0px;
-
-  width: 156px;
-  height: 24px;
-
-  /* Inside auto layout */
-
-  flex: none;
-  order: 2;
-  flex-grow: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  height: auto;
 }
 
-.selling-item-card .price-container {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  padding: 0px;
-
-  width: 156px;
-  height: 42px;
-
-  /* Inside auto layout */
-
-  flex: none;
-  order: 3;
-  flex-grow: 0;
+.quantity-container .body-1-regular {
+  margin-left: 0.5rem;
 }
 
 @media screen and (min-width: 1440px) {
-  .selling-item-card {
-    box-sizing: border-box;
-
-    /* Auto layout */
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 20px;
-    gap: 30px;
-
-    width: 440px;
-    height: 266px;
-    left: 159px;
-    top: 253px;
-
-    border: 1px solid #000000;
+  /* .selling-item-card {
+    border: 1px solid var(--black);
     border-radius: 20px;
-  }
-
-  .selling-item-card .image-container {
-    width: 193.75px;
-    height: 200px;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-  }
-
-  .selling-item-card .selling-item-description {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 8px;
-
-    width: 187px;
-    height: 180px;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 1;
-    flex-grow: 0;
-  }
-
-  .selling-item-card .item-name {
-    width: 156px;
-    height: 42px;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-  }
-
-  .date-approved-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-    padding: 0px;
-
-    width: 118px;
-    height: 48px;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 1;
-    flex-grow: 0;
-  }
-
-  .selling-item-card .quantity-container {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    padding: 0px;
-
-    width: 156px;
-    height: 24px;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 2;
-    flex-grow: 0;
-  }
-
-  .selling-item-card .price-container {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    padding: 0px;
-
-    width: 156px;
-    height: 42px;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 3;
-    flex-grow: 0;
-  }
+  } */
 }

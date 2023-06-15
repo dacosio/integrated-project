@@ -1,5 +1,6 @@
 import React from "react";
 import Typography from "../components/base/Typography/Typography";
+import DescriptionCard from "../components/base/SellingItemCard/SellingItemCard";
 import SellingItemCard from "../components/base/SellingItemCard/SellingItemCard";
 
 const Yuki = () => {
@@ -17,25 +18,7 @@ const Yuki = () => {
         <Typography className="body-3-regular">body-3-regular</Typography>
         <Typography className="body-4-regular">body-4-regular</Typography>
         <Typography className="button-regular">button-regular</Typography>
-        <Typography className="color-heading-body-grey">Color: Grey</Typography>
-        <Typography className="color-heading-body-black">
-          Color: Black
-        </Typography>
-        <Typography className="color-primary-1">Color: primary-1</Typography>
-        <Typography className="color-primary-2">Color: primary-2</Typography>
-        <Typography className="color-primary-3">Color: primary-3</Typography>
-        <Typography className="color-primary-4">Color: primary-4</Typography>
-        <Typography className="color-accent-1">Color: accent-1</Typography>
-        <Typography className="color-accent-2">Color: accent-2</Typography>
-        <Typography className="color-accent-3">Color: accent-3</Typography>
-        <Typography className="color-accent-4">Color: accent-4</Typography>
-        <div style={{ backgroundColor: "black" }}>
-          <Typography className="color-heading-body-white">
-            Color: white
-          </Typography>
-        </div>
-        <Typography className="color-placeholder">placeholder: grey</Typography>
-
+    
         <h3>Selling Detail Card</h3>
         <div>
           <SellingItemCard
@@ -46,6 +29,10 @@ const Yuki = () => {
             price="11"
           />
         </div>
+
+      <div>
+        <DescriptionCard description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis no"/>
+       </div>
         <hr />
       </section>
     </div>
