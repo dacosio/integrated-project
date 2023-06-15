@@ -1,6 +1,7 @@
 import React from "react";
 import Typography from "../components/base/Typography/Typography";
 import SellingItemCard from "../components/base/SellingItemCard/SellingItemCard";
+import DescriptionCard from "../components/base/DescriptionCard/DescriptionCard";
 
 const Yuki = () => {
   return (
@@ -46,6 +47,10 @@ const Yuki = () => {
             price="11"
           />
         </div>
+
+        <div>
+        <DescriptionCard description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis no"/>
+       </div>
         <hr />
       </section>
     </div>
