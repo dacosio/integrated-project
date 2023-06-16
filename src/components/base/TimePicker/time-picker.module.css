@@ -1,5 +1,10 @@
-.select {
+.wrapper {
   width: 100%;
+  display: flex;
+}
+
+.input {
+  flex-grow: 1;
   font-size: 16px;
   padding: 4px 12px;
   box-sizing: border-box;

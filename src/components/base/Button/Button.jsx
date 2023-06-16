@@ -3,17 +3,18 @@ import styles from "./button.module.css";
 import { Children } from "react";
 
 const Button = ({
-  variant,
-  size,
-  label,
+  variant = "primary",
+  size = "lg",
+  label = "Button",
   onClickHandler,
+  hoverable,
   children,
   ...props
 }) => {
   return (
     <button
       type="button"
-      className={`${styles[size]} ${styles[variant]} ${styles.button}`}
+      className={`${styles[variant]} ${styles[size]} ${styles["button"]} ${hoverable && styles["hover"]}`}
       onClick={onClickHandler}
       {...props}
     >
