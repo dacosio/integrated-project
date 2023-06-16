@@ -12,6 +12,7 @@ import "leaflet/dist/leaflet.css";
 import SellerInfoCard from "../components/base/SellerInfoCard/SellerInfoCard";
 import Grid from "../components/layout/Grid/Grid";
 import useMediaQuery from "../utils/useMediaQuery";
+import SelectDropdown from "../components/base/SelectDropdown/SelectDropdown";
 
 const wrapper = {
   padding: "1rem",
@@ -25,6 +26,17 @@ const Don = (props) => {
     { id: 2, lat: 49.19, long: -123.122, location: "Bridgeport" },
   ];
 
+  const options = [
+    {
+      value: 1,
+      label: "Leanne Graham",
+    },
+    {
+      value: 2,
+      label: "Ervin Howell",
+    },
+  ];
+
   const [searchValue, setSearchValue] = useState("");
 
   const isDesktop = useMediaQuery("(min-width: 1200px)");
@@ -34,9 +46,7 @@ const Don = (props) => {
   return (
     <div>
       <h1>Don</h1>
-      <div>
-        <FirebaseSample />
-      </div>
+      <div>{/* <FirebaseSample /> */}</div>
       <div style={wrapper}>
         <SearchField
           placeholder="What are you looking for?"
@@ -46,9 +56,7 @@ const Don = (props) => {
         />
       </div>
 
-      <div style={wrapper}>
-        <MapSearch />
-      </div>
+      <div style={wrapper}>{/* <MapSearch /> */}</div>
       <div style={wrapper}>
         <MapLeaflet
           style={{ height: "50rem", width: "50rem" }}
@@ -75,6 +83,15 @@ const Don = (props) => {
           <div>Cell 8</div>
           <div>Cell 9</div>
         </Grid>
+      </div>
+
+      <div style={wrapper}>
+        <SelectDropdown
+          options={options}
+          placeholder="Search location.."
+          clearable
+          backspaceDelete
+        />
       </div>
     </div>
   );

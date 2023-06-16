@@ -17,7 +17,6 @@ const Yuki = () => {
         <Typography className="body-2-regular">body-2-regular</Typography>
         <Typography className="body-3-regular">body-3-regular</Typography>
         <Typography className="body-4-regular">body-4-regular</Typography>
-        <Typography className="button-regular">button-regular</Typography>
 
         <h3>Selling Detail Card</h3>
         <div>
