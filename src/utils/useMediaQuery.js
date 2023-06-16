@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function useMediaQuery(queryg) {
+export function useMediaQuery(query) {
   const getMatches = (query) => {
     // Prevents SSR issues
     if (typeof window !== "undefined") {
@@ -9,7 +9,7 @@ export function useMediaQuery(queryg) {
     return false;
   };
 
-  const [matches, setMatches] = useState < boolean > getMatches(query);
+  const [matches, setMatches] = useState(getMatches(query));
 
   function handleChange() {
     setMatches(getMatches(query));
@@ -22,15 +22,15 @@ export function useMediaQuery(queryg) {
     handleChange();
 
     // Listen matchMedia
-    if (matchMedia.addListener) {
-      matchMedia.addListener(handleChange);
+    if (matchMedia.addEventListener) {
+      matchMedia.addEventListener(handleChange);
     } else {
       matchMedia.addEventListener("change", handleChange);
     }
 
     return () => {
-      if (matchMedia.removeListener) {
-        matchMedia.removeListener(handleChange);
+      if (matchMedia.removeEventListener) {
+        matchMedia.removeEventListener(handleChange);
       } else {
         matchMedia.removeEventListener("change", handleChange);
       }
