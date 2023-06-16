@@ -2,6 +2,7 @@ import React from "react";
 import Typography from "../components/base/Typography/Typography";
 import DescriptionCard from "../components/base/SellingItemCard/SellingItemCard";
 import SellingItemCard from "../components/base/SellingItemCard/SellingItemCard";
+import DescriptionCard from "../components/base/DescriptionCard/DescriptionCard";
 
 const Yuki = () => {
   return (
@@ -30,9 +31,18 @@ const Yuki = () => {
           />
         </div>
 
+<<<<<<< HEAD
       <div>
         <DescriptionCard description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis no"/>
        </div>
+=======
+        <div>
+          <DescriptionCard
+            onClick={() => console.log("test")}
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis no"
+          />
+        </div>
+>>>>>>> dev
         <hr />
       </section>
     </div>
