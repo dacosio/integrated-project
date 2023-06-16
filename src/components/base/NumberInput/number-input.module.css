@@ -1,41 +1,53 @@
 .wrapper {
   display: grid;
+  width: 50%;
 }
 
 .header {
+  border: none;
   display: flex;
-  border-radius: 8px;
-  border: 2px solid #ccc;
+  align-content: stretch;
 }
 
 .btn {
   padding: 4px 12px;
-  border: none;
-  font-size: 32px;
-  background-color: #ccc;
-  color: #333;
+  border: 2px solid var(--black);
+  color: var(--black);
+  background-color: var(--light-blue);
   display: grid;
   align-items: center;
   justify-items: center;
 }
 
+.btn:hover {
+  background-color: var(--black);
+  color: var(--white);
+}
+
 .minus {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
 }
 
 .plus {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .ipt {
   width: 100%;
-  border: none;
-  text-align: center;
-  font-size: 24px;
-  box-sizing: border-box;
+  height: 100%;
+  font-size: 16px;
   padding: 4px 12px;
+  box-sizing: border-box;
+  border-top: 2px solid var(--black);
+  border-right: none;
+  border-bottom: 2px solid var(--black);
+  border-left: none;
+  border-radius: 0;
+  color: var(--black);
+  background-color: var(--white);
+  text-align: center;
 }
 
 .ipt:focus {
