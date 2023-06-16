@@ -3,6 +3,7 @@ import FormikControl from "../../../components/base/FormikControl/FormikControl"
 import Button from "./../../../components/base/Button/Button";
 import "./Login.css";
 import { BsFacebook } from "react-icons/bs";
+import { BsGoogle } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
@@ -38,8 +39,8 @@ const LoginView = (props) => {
           );
         }}
       </Formik>
-      <Button label="Log in with Google" />
-      <Button label="Log in with Facebook"/>
+      <Button variant="white"><BsGoogle/>Log in with Google</Button>
+      <Button variant="white"><BsFacebook/>Log in with Facebook</Button>
       <a href="#">No account yet? Create one.</a>
     </div>
   );

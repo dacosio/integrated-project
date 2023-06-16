@@ -1,7 +1,7 @@
 .login-wrapper {
   display: grid;
   grid-template-rows: repeat(4, auto);
-  padding: 16px;
+  padding: calc(8px + 10vw);
   gap: 12px;
 }
 
