@@ -1,7 +1,11 @@
 import React from "react";
 import Typography from "../components/base/Typography/Typography";
 import SellingItemCard from "../components/base/SellingItemCard/SellingItemCard";
+<<<<<<< HEAD
 import BuyerContactCard from "../components/base/BuyerContactCard/BuyerContactCard";
+=======
+import DescriptionCard from "../components/base/DescriptionCard/DescriptionCard";
+>>>>>>> dev
 
 const Yuki = () => {
   return (
@@ -30,7 +34,7 @@ const Yuki = () => {
         <Typography className="color-accent-2">Color: accent-2</Typography>
         <Typography className="color-accent-3">Color: accent-3</Typography>
         <Typography className="color-accent-4">Color: accent-4</Typography>
-        <div style={{ "background-color": "black" }}>
+        <div style={{ backgroundColor: "black" }}>
           <Typography className="color-heading-body-white">
             Color: white
           </Typography>
@@ -49,6 +53,7 @@ const Yuki = () => {
         </div>
 
         <div>
+<<<<<<< HEAD
           <BuyerContactCard
             source="https://picsum.photos/200"
             nameOfBuyer="aishaells"
@@ -57,6 +62,13 @@ const Yuki = () => {
           />
         </div>
 
+=======
+          <DescriptionCard
+            onClick={() => console.log("test")}
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis no"
+          />
+        </div>
+>>>>>>> dev
         <hr />
       </section>
     </div>
