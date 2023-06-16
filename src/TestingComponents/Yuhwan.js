@@ -7,6 +7,7 @@ import NumberInput from "../components/base/NumberInput/NumberInput";
 import DatePicker from "../components/base/DatePicker/DatePicker";
 import TimePicker from "../components/base/TimePicker/TimePicker";
 import Dropdown from "../components/base/Dropdown/Dropdown";
+import ImageList from "../components/base/ImageList/ImageList";
 
 const Yuhwan = (props) => {
   /* Pagination */
@@ -88,6 +89,15 @@ const Yuhwan = (props) => {
     { value: "value3", label: "label3" },
   ];
 
+  /* ImageList */
+  const images = [
+    "https://picsum.photos/id/10/200/300",
+    "https://picsum.photos/id/20/200/300",
+    "https://picsum.photos/id/30/200/300",
+    "https://picsum.photos/id/40/200/300",
+    "https://picsum.photos/id/50/200/300",
+  ];
+
   return (
     <div>
       <h1>Yuhwan</h1>
@@ -139,6 +149,15 @@ const Yuhwan = (props) => {
           options={options}
           label="Select"
         />
+      </div>
+      <div>
+        <h2>ImageList</h2>
+        <div style={{ width: "30%", margin: "auto" }}>
+          <ImageList images={images} />
+        </div>
+        <div style={{ width: "30%", margin: "auto" }}>
+          <ImageList images={images} mode="vertical" />
+        </div>
       </div>
       <div style={{ width: "100%", height: "500px" }}></div>
     </div>
