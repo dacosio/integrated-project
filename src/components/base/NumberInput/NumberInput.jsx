@@ -40,7 +40,7 @@ const NumberInput = ({
             }
           }}
         >
-          <FaMinus size={24} />
+          <FaMinus size={16} />
         </div>
         <input
           className={`${styles["ipt"]}`}
@@ -48,7 +48,7 @@ const NumberInput = ({
           value={inputNumber}
           onChange={handleOnChange}
         />
-        <button
+        <div
           className={`${styles["btn"]} ${styles["plus"]}`}
           onClick={() => {
             if (inputNumber + 1 <= maxValue) {
@@ -56,8 +56,8 @@ const NumberInput = ({
             }
           }}
         >
-          <FaPlus size={24} />
-        </button>
+          <FaPlus size={16} />
+        </div>
       </div>
       <div className={`${styles["footer"]}`}>{error && <div>{error}</div>}</div>
     </div>

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import SellerInfoCard from "./../components/base/SellerInfoCard/SellerInfoCard";
+import LoginView from "./../pages/Auth/Login/Login.view";
+import SearchField from "./../components/base/SearchField/SearchField";
 
 const Cylvia = (props) => {
   const [first, setfirst] = useState();
   return (
     <div>
       <h1>Cylvia</h1>
-      <SellerInfoCard source="https://picsum.photos/200" username="cylvito" location="hornby island, bc" items="1"/>
+      {/* <LoginView/> */}
     </div>
   );
 };
