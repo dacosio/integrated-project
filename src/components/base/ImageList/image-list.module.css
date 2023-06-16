@@ -1,0 +1,50 @@
+.wrapper {
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+  gap: 8px;
+}
+
+.horizontal {
+  grid-template-rows: 3fr 1fr;
+}
+
+.vertical {
+  grid-template-columns: 3fr 1fr;
+}
+
+.image {
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.footer {
+  display: grid;
+  gap: 8px;
+}
+
+.horizontal .footer {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.vertical .footer {
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.more {
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
