@@ -10,6 +10,7 @@ import MapSearch from "../components/base/MapSearch/MapSearch";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import SellerInfoCard from "../components/base/SellerInfoCard/SellerInfoCard";
+import Grid from "../components/layout/Grid/Grid";
 
 const wrapper = {
   padding: "1rem",
@@ -51,6 +52,20 @@ const Don = (props) => {
           direction="top"
           permanent
         />
+      </div>
+
+      <div style={wrapper}>
+        <Grid rows={2} columns={3} style={{ justifyItems: "center" }}>
+          <div>Cell 1</div>
+          <div>Cell 2</div>
+          <div>Cell 3</div>
+          <div>Cell 4</div>
+          <div>Cell 5</div>
+          <div>Cell 6</div>
+          <div>Cell 7</div>
+          <div>Cell 8</div>
+          <div>Cell 9</div>
+        </Grid>
       </div>
     </div>
   );
