@@ -1,8 +1,6 @@
 import React from "react";
 import Typography from "../components/base/Typography/Typography";
 import SellingItemCard from "../components/base/SellingItemCard/SellingItemCard";
-import BuyerContactCard from "../components/base/BuyerContactCard/BuyerContactCard";
-import MeetUpInfoCard from "../components/base/MeetUpInfoCard/MeetUpInfoCard";
 
 const Yuki = () => {
   return (
@@ -18,25 +16,48 @@ const Yuki = () => {
         <Typography className="body-2-regular">body-2-regular</Typography>
         <Typography className="body-3-regular">body-3-regular</Typography>
         <Typography className="body-4-regular">body-4-regular</Typography>
-        <Typography className="button-regular">button-regular</Typography>
-        <Typography className="color-heading-body-grey">Color: Grey</Typography>
-        <Typography className="color-heading-body-black">
-          Color: Black
+        <Typography className="button-regular" style={{ color: "var(--gray)" }}>
+          button-regular
         </Typography>
-        <Typography className="color-primary-1">Color: primary-1</Typography>
-        <Typography className="color-primary-2">Color: primary-2</Typography>
-        <Typography className="color-primary-3">Color: primary-3</Typography>
-        <Typography className="color-primary-4">Color: primary-4</Typography>
-        <Typography className="color-accent-1">Color: accent-1</Typography>
-        <Typography className="color-accent-2">Color: accent-2</Typography>
-        <Typography className="color-accent-3">Color: accent-3</Typography>
-        <Typography className="color-accent-4">Color: accent-4</Typography>
-        <div style={{ backgroundColor: "black" }}>
-          <Typography className="color-heading-body-white">
-            Color: white
-          </Typography>
-        </div>
-        <Typography className="color-placeholder">placeholder: grey</Typography>
+        <Typography
+          className="button-regular"
+          style={{ color: "var(--light-gray)" }}
+        >
+          button-regular
+        </Typography>
+        <Typography
+          className="button-regular"
+          style={{ color: "var(--dark-blue)" }}
+        >
+          button-regular
+        </Typography>
+        <Typography className="button-regular" style={{ color: "var(--blue)" }}>
+          button-regular
+        </Typography>
+        <Typography
+          className="button-regular"
+          style={{ color: "var(--light-blue)" }}
+        >
+          button-regular
+        </Typography>
+        <Typography
+          className="button-regular"
+          style={{ color: "var(--yellow)" }}
+        >
+          button-regular
+        </Typography>
+        <Typography
+          className="button-regular"
+          style={{ color: "var(--black)" }}
+        >
+          button-regular
+        </Typography>
+        <Typography
+          className="button-regular"
+          style={{ color: "var(--white)", backgroundColor: "black" }}
+        >
+          button-regular
+        </Typography>
 
         <h3>Selling Detail Card</h3>
         <div>
@@ -49,21 +70,7 @@ const Yuki = () => {
           />
         </div>
 
-        <div>
-          <BuyerContactCard
-            source="https://picsum.photos/200"
-            nameOfBuyer="aishaells"
-            contactTel="(+1)000-0000"
-            email="aisha@email.com"
-          />
-        </div>
-        <div>
-          <MeetUpInfoCard
-            date="Jan 2, 2023"
-            time="14:00"
-            location="100 W 49th Ave, Vancouver, BC V5Y 2Z6"
-          />
-        </div>
+
         <hr />
       </section>
     </div>

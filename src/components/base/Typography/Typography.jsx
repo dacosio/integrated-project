@@ -6,16 +6,11 @@ import "./typography.css";
  */
 
 const Typography = ({ children, className, ...props }) => {
-
-
   return (
-    <div class={className} {...props}>
+    <div className={className} {...props}>
       {children}
     </div>
   );
 };
 
 export default React.memo(Typography);
-
-
-

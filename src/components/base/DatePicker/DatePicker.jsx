@@ -1,17 +1,19 @@
 import React from "react";
-import "./date-picker.css";
+import styles from "./date-picker.module.css";
 
 const DatePicker = ({ date, setDate, ...props }) => {
   const handleOnChange = (event) => setDate(event.target.value);
 
   return (
-    <input
-      className="date-picker"
-      type="date"
-      value={date}
-      onChange={handleOnChange}
-      style={props}
-    ></input>
+    <div className={`${styles["wrapper"]}`}>
+      <input
+        className={`${styles["input"]}`}
+        type="date"
+        value={date}
+        onChange={handleOnChange}
+        style={props}
+      ></input>
+    </div>
   );
 };
 

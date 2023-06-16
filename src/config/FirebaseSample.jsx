@@ -43,7 +43,7 @@ const FirebaseSample = () => {
   useEffect(
     () =>
       onSnapshot(collection(db, "product"), (snapshot) => {
-        return setUsers(
+        return setProducts(
           snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         );
       }),
