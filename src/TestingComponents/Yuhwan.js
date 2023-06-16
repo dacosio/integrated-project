@@ -8,6 +8,7 @@ import DatePicker from "../components/base/DatePicker/DatePicker";
 import TimePicker from "../components/base/TimePicker/TimePicker";
 import Dropdown from "../components/base/Dropdown/Dropdown";
 import ImageList from "../components/base/ImageList/ImageList";
+import Button from "../components/base/Button/Button";
 
 const Yuhwan = (props) => {
   /* Pagination */
@@ -157,6 +158,44 @@ const Yuhwan = (props) => {
         </div>
         <div style={{ width: "30%", margin: "auto" }}>
           <ImageList images={images} mode="vertical" />
+        </div>
+      </div>
+      <div>
+        <h2>Button</h2>
+        <div>
+          <Button variant="black" size="sm" label="Button" hoverable />
+          <Button variant="dark-blue" size="sm" label="Button" hoverable />
+          <Button variant="light-blue" size="sm" label="Button" hoverable />
+          <Button variant="yellow" size="sm" label="Button" hoverable />
+          <Button variant="white" size="sm" label="Button" hoverable />
+
+          <Button variant="black" size="sm" label="Button" disabled />
+        </div>
+        <div>
+          <Button variant="black" size="md" label="Button" hoverable />
+          <Button variant="dark-blue" size="md" label="Button" hoverable />
+          <Button variant="light-blue" size="md" label="Button" hoverable />
+          <Button variant="yellow" size="md" label="Button" hoverable />
+          <Button variant="white" size="md" label="Button" hoverable />
+
+          <Button variant="black" size="md" label="Button" disabled />
+        </div>
+
+        <div>
+          <Button variant="black" size="lg" label="Button" hoverable />
+          <Button variant="dark-blue" size="lg" label="Button" hoverable />
+          <Button variant="light-blue" size="lg" label="Button" hoverable />
+          <Button variant="yellow" size="lg" label="Button" hoverable />
+          <Button variant="white" size="lg" label="Button" hoverable />
+
+          <Button variant="black" size="lg" label="Button" disabled />
+        </div>
+        <div>
+          <Button variant="black" size="lg" label="Button" />
+          <Button variant="dark-blue" size="lg" label="Button" />
+          <Button variant="light-blue" size="lg" label="Button" />
+          <Button variant="yellow" size="lg" label="Button" />
+          <Button variant="white" size="lg" label="Button" />
         </div>
       </div>
       <div style={{ width: "100%", height: "500px" }}></div>
