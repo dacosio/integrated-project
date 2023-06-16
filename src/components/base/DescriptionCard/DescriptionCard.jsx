@@ -4,7 +4,7 @@ import Button from "./../Button/Button";
 import Typography from "../Typography/Typography";
 // import { EvalDevToolModulePlugin } from "webpack";
 
-const DescriptionCard = ({ description }) => {
+const DescriptionCard = ({ description, onClick }) => {
   return (
     <div className="dcwrapper">
       <div className="description-container">
@@ -17,7 +17,12 @@ const DescriptionCard = ({ description }) => {
         <p>{portionDescription}</p>
         </div> */}
         <div className="button">
-          <Button size="lg" variant="primary" label="Request Purchase" />
+          <Button
+            onClickHandler={onClick}
+            size="lg"
+            variant="primary"
+            label="Request Purchase"
+          />
         </div>
       </div>
     </div>

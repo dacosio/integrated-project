@@ -49,8 +49,11 @@ const Yuki = () => {
         </div>
 
         <div>
-        <DescriptionCard description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis no"/>
-       </div>
+          <DescriptionCard
+            onClick={() => console.log("test")}
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis no"
+          />
+        </div>
         <hr />
       </section>
     </div>
