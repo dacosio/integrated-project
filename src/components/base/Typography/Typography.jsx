@@ -9,7 +9,7 @@ const Typography = ({ children, className, ...props }) => {
 
 
   return (
-    <div class={className} {...props}>
+    <div className={className} {...props}>
       {children}
     </div>
   );

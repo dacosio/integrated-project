@@ -90,8 +90,8 @@
   color: black;
 }
 
-.color-primary-1 {
-  color: #0b5cbb;
+.color-blue {
+  color: var(--blue);
 }
 .color-primary-2 {
   color: #569ae0;
