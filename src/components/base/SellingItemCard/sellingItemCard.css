@@ -44,10 +44,3 @@
 .quantity-container .body-1-regular {
   margin-left: 0.5rem;
 }
-
-@media screen and (min-width: 1440px) {
-  /* .selling-item-card {
-    border: 1px solid var(--black);
-    border-radius: 20px;
-  } */
-}
