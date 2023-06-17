@@ -110,16 +110,18 @@ const Don = (props) => {
           active={selected1}
         />
       </div>
-      <div>
-        {/* <ActiveListingCard
+      <div style={wrapper}>
+        <ActiveListingCard
           distance={2}
           days={2}
-          source="https://picsum.photos/200"
+          source="https://picsum.photos/400"
           itemname="Banana"
           price={1.25}
           stock={5}
-        /> */}
-        <ImageLabel distance={2} days={1} />
+          alt="Banana"
+          onClick={() => console.log("activelistingcard")}
+        />
+        {/* <ImageLabel distance={2} days={1} /> */}
       </div>
     </div>
   );
