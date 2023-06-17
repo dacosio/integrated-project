@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import FirebaseSample from "../config/FirebaseSample";
-import ImageUpload from "../components/base/ImageUpload/ImageUpload";
 import SearchField from "../components/base/SearchField/SearchField";
+import Badge from "../components/base/Badge/Badge";
 import MapLeaflet from "../components/module/MapLeaflet/MapLeaflet";
 import Autocomplete from "react-google-autocomplete";
 import usePlacesService from "react-google-autocomplete/lib/usePlacesAutocompleteService";
-import { useEffect, useRef } from "react";
 import MapSearch from "../components/base/MapSearch/MapSearch";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -20,6 +19,8 @@ const wrapper = {
 
 const Don = (props) => {
   const [zoom, setZoom] = useState(100);
+  const [selected, setSelected] = useState(false);
+  const [selected1, setSelected1] = useState(false);
 
   const data = [
     { id: 1, lat: 49.225, long: -123.107, location: "Langara" },
@@ -93,6 +94,18 @@ const Don = (props) => {
           placeholder="Search location.."
           clearable
           backspaceDelete
+        />
+      </div>
+      <div style={wrapper}>
+        <Badge
+          label="Nearby"
+          onClick={() => setSelected(!selected)}
+          active={selected}
+        />
+        <Badge
+          label="Price - High to Low"
+          onClick={() => setSelected1(!selected1)}
+          active={selected1}
         />
       </div>
     </div>
