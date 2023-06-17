@@ -1,53 +1,60 @@
 import React, { useEffect, useState } from "react";
 import useGoogle from "react-google-autocomplete/lib/usePlacesAutocompleteService";
-import "./mapSearch.css";
+import styles from "./mapSearch.module.css";
+import SearchField from "../SearchField/SearchField";
+
+const { wrapper, prediction, predictionItem } = styles;
 
 const MapSearch = () => {
-  const { placePredictions, getPlacePredictions, isPlacePredictionsLoading } =
-    useGoogle({
-      apiKey: process.env.REACT_APP_MAPS_API_KEY,
-    });
+  const {
+    placesService,
+    placePredictions,
+    getPlacePredictions,
+    isPlacePredictionsLoading,
+  } = useGoogle({
+    apiKey: process.env.REACT_APP_MAPS_API_KEY,
+  });
   const [value, setValue] = useState("");
+  const [place, setPlace] = useState("");
 
-  const handleSubmit = () => {
-    console.log(value);
+  const handleReset = () => {
+    setValue("");
+    getPlacePredictions({ input: "" });
   };
 
+  const handleSelectPlace = (item) => {
+    getPlacePredictions({ input: "" });
+    setValue(item.description);
+    placesService?.getDetails(
+      {
+        placeId: item.place_id,
+      },
+      (placeDetails) => setPlace(placeDetails)
+    );
+  };
   return (
-    <div className="wrapper" style={{ width: "250px" }}>
-      <input
-        style={{ color: "black" }}
+    <div className={wrapper}>
+      <SearchField
         value={value}
-        placeholder="Search location"
+        resetValue={handleReset}
         onChange={(evt) => {
           getPlacePredictions({ input: evt.target.value });
           setValue(evt.target.value);
         }}
-        // loading={isPlacePredictionsLoading}
+        placeholder="Search location"
+        location
       />
-      <div
-        style={{
-          marginTop: "20px",
-          width: "200px",
-          height: "200px",
-          display: "flex",
-          flex: "1",
-          flexDirection: "column",
-          marginBottom: "100px",
-        }}
-      >
-        {!isPlacePredictionsLoading && (
-          <ul>
-            {placePredictions.map((item) => (
-              <li
-                key={item.description}
-                onClick={() => setValue(item.description)}
-              >
-                {item.description}
-              </li>
-            ))}
-          </ul>
-        )}
+      <div className={prediction}>
+        {!isPlacePredictionsLoading &&
+          placePredictions.map((item) => (
+            <div
+              className={predictionItem}
+              key={item.description}
+              onClick={() => handleSelectPlace(item)}
+            >
+              {item.description}
+            </div>
+          ))}
       </div>
     </div>
   );
