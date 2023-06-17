@@ -1,6 +1,6 @@
 {
-  "short_name": "SplitShare",
   "name": "SplitShare",
+  "short_name": "SplitShare",
   "icons": [
     {
       "src": "logo48.png",
@@ -39,8 +39,9 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "theme_color": "#0b5cbb",
+  "background_color": "#ffffff",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "scope": "/",
+  "start_url": "/"
 }

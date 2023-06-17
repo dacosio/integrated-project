@@ -26,6 +26,7 @@ const Yuki = () => {
         <Typography className="button-regular" style={{"color": "var(--black)"}}>button-regular</Typography>
         <Typography className="button-regular" style={{"color": "var(--white)", "backgroundColor" : "black"}}>button-regular</Typography>
 
+
       <div>
           <BuyerContactCard
             source="https://picsum.photos/200"
