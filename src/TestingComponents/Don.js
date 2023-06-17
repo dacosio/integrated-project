@@ -13,6 +13,7 @@ import SellerInfoCard from "../components/base/SellerInfoCard/SellerInfoCard";
 import Grid from "../components/layout/Grid/Grid";
 import useMediaQuery from "../utils/useMediaQuery";
 import SelectDropdown from "../components/base/SelectDropdown/SelectDropdown";
+import TomMap from "../components/module/TomMap/TomMap";
 
 const wrapper = {
   padding: "1rem",
@@ -46,6 +47,9 @@ const Don = (props) => {
   return (
     <div>
       <h1>Don</h1>
+      <div>
+        <TomMap />
+      </div>
       <div>
         <FirebaseSample />
       </div>
