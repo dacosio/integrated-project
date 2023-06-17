@@ -1,4 +1,11 @@
 import React, { useState } from "react";
+import { storage } from "../config/firebaseConfig";
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  listAll,
+} from "firebase/storage";
 import Page from "../components/base/Page/Page";
 import Pagination from "../components/base/Pagination/Pagination";
 import SingleImageInput from "../components/base/SingleImageInput/SingleImageInput";
@@ -70,8 +77,101 @@ const Yuhwan = (props) => {
   /* SingleImageInput */
   const [singleImage, setSingleImage] = useState([]);
 
+  const handleOnSingleUpload = () => {
+    if (singleImage.length !== 0) {
+      for (const image of singleImage) {
+        const file = image.file;
+
+        const fileRef = ref(storage, "image/" + file.name);
+
+        const uploadTask = uploadBytesResumable(fileRef, file);
+
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+            console.log(progress + "% Done.");
+          },
+          (error) => {
+            console.log(error);
+          },
+          () => {
+            getDownloadURL(fileRef).then((url) => {
+              console.log(url);
+            });
+          }
+        );
+      }
+
+      setSingleImage([]);
+    }
+  };
+
   /* MultipleImageInput */
   const [multipleImages, setMultipleImages] = useState([]);
+
+  /* ImageInput */
+  const [uploadedImages, setUploadedImages] = useState([]);
+
+  const handleOnMultipleUpload = () => {
+    if (multipleImages.length !== 0) {
+      for (const image of multipleImages) {
+        const file = image.file;
+
+        const fileRef = ref(storage, "image/" + file.name);
+
+        const uploadTask = uploadBytesResumable(fileRef, file);
+
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+            console.log(progress + "% Done.");
+          },
+          (error) => {
+            console.log(error);
+          },
+          () => {
+            getDownloadURL(fileRef).then((url) => {
+              console.log(url);
+            });
+          }
+        );
+      }
+
+      setMultipleImages([]);
+    }
+  };
+
+  // useEffect(() => {
+  //   console.log("Changed");
+  // }, [uploadedImages]);
+
+  const handleOnRefresh = () => {
+    const directoryRef = ref(storage, "image");
+
+    listAll(directoryRef)
+      .then(async (res) => {
+        const files = [];
+
+        const promises = res.items.map(async (fileRef, index) => {
+          await getDownloadURL(fileRef).then((url) => {
+            files.push(url);
+          });
+        });
+
+        await Promise.all(promises);
+
+        setUploadedImages([...files.sort()]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   /* NumberInput */
   const [number, setNumber] = useState(0);
@@ -119,14 +219,33 @@ const Yuhwan = (props) => {
       </div>
       <div>
         <h2>SingleImageInput</h2>
-        <div style={{ width: "10%", margin: "auto" }}>
+        <div style={{ width: "100%", maxWidth: "300px", margin: "auto" }}>
           <SingleImageInput images={singleImage} setImages={setSingleImage} />
+          <Button
+            size="lg"
+            label="Upload Test!!!!!"
+            onClickHandler={handleOnSingleUpload}
+            hoverable
+          />
         </div>
       </div>
       <div>
         <h2>ImageInput</h2>
-        <div style={{ width: "30%", margin: "auto" }}>
+        <div style={{ width: "100%", maxWidth: "500px", margin: "auto" }}>
           <ImageInput images={multipleImages} setImages={setMultipleImages} />
+          <Button
+            size="lg"
+            label="Upload Test!!!!!"
+            onClickHandler={handleOnMultipleUpload}
+            hoverable
+          />
+          <Button
+            size="lg"
+            label="Refresh!!!!!"
+            onClickHandler={handleOnRefresh}
+            hoverable
+          />
+          <ImageList images={uploadedImages} />
         </div>
       </div>
       <div>
@@ -156,7 +275,7 @@ const Yuhwan = (props) => {
       </div>
       <div>
         <h2>ImageList</h2>
-        <div style={{ minWidth: "300px", width: "50%", margin: "auto" }}>
+        <div style={{ width: "100%", maxWidth: "500px", margin: "auto" }}>
           <ImageList images={images} />
           <br />
           <br />

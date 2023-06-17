@@ -1,14 +1,17 @@
-.wrapper {
+.header {
   display: grid;
+  text-align: center;
+  font-size: 16px;
   width: 100%;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+  gap: 0.75vw;
+  grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
 }
 
 .image,
 .input {
   border-radius: 8px;
   box-sizing: border-box;
+  border: 2px solid black;
 }
 
 .image {
@@ -23,7 +26,7 @@
   display: grid;
   align-items: center;
   justify-items: center;
-  background-color: #ccc;
+  background-color: var(--light-gray);
 }
 
 .half {
@@ -32,4 +35,40 @@
 
 .full {
   aspect-ratio: 1;
+}
+
+.footer {
+  padding: 8px 0;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.flex-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.grid-center {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.text-light-gray {
+  color: var(--light-gray);
 }
