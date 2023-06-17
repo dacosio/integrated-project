@@ -1,0 +1,10 @@
+.wrapper {
+  display: inline-block;
+  border-radius: 20px;
+  padding: 2px 10px;
+  background-color: var(--white);
+}
+
+.imageLabel {
+  display: flex;
+}

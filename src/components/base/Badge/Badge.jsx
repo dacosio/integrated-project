@@ -12,7 +12,7 @@ const Badge = (props) => {
       className={`${styles.wrapper} ${active ? styles.selected : ""}`}
       {...props}
     >
-      <Typography {...props} className="button-semibold">
+      <Typography {...props} variant="button-semibold">
         {label}
       </Typography>
     </div>

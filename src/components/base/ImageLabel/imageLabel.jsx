@@ -1,5 +1,6 @@
 import React from "react";
-import "./imageLabel.css";
+import style from "./imageLabel.module.css";
+import Typography from "../Typography/Typography";
 
 export const imageLabel = ({
   distance,
@@ -8,34 +9,23 @@ export const imageLabel = ({
   color,
   ...props
 }) => {
-  const p1style = {
-    borderRight: `#0b5cbb 1px solid`,
-    fontWeight: `bold`,
-  };
-
-  let p1;
-  let p2;
-
-  if (distance) {
-    if (distance == 1) {
-      p1 = <p style={p1style}>{distance} km</p>;
-    } else {
-      p1 = <p style={p1style}>{distance} kms</p>;
-    }
-  }
-
-  if (days) {
-    if (days == 1) {
-      p2 = <p>{days} day ago</p>;
-    } else {
-      p2 = <p>{days} days ago</p>;
-    }
-  }
-
   return (
-    <div className="image-label">
-      {p1}
-      {p2}
+    <div className={style.wrapper}>
+      <div className={style.imageLabel}>
+        <Typography variant="body-4-regular" color="dark-blue">
+          {distance == 1 ? distance + " km" : distance + " kms"}
+        </Typography>
+        <div
+          style={{
+            borderRight: "2px solid var(--dark-blue)",
+            paddingLeft: "5px",
+            marginRight: "5px",
+          }}
+        ></div>
+        <Typography variant="body-4-regular" color="dark-blue">
+          {days == 1 ? days + " day ago" : days + " days ago"}
+        </Typography>
+      </div>
     </div>
   );
 };

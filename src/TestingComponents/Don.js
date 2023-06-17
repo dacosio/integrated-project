@@ -13,6 +13,7 @@ import SellerInfoCard from "../components/base/SellerInfoCard/SellerInfoCard";
 import Grid from "../components/layout/Grid/Grid";
 import useMediaQuery from "../utils/useMediaQuery";
 import SelectDropdown from "../components/base/SelectDropdown/SelectDropdown";
+import ImageLabel from "../components/base/ImageLabel/imageLabel";
 
 const wrapper = {
   padding: "1rem",
@@ -110,14 +111,15 @@ const Don = (props) => {
         />
       </div>
       <div>
-        <ActiveListingCard
+        {/* <ActiveListingCard
           distance={2}
           days={2}
           source="https://picsum.photos/200"
           itemname="Banana"
           price={1.25}
           stock={5}
-        />
+        /> */}
+        <ImageLabel distance={2} days={1} />
       </div>
     </div>
   );
