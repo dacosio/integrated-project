@@ -1,6 +1,8 @@
 import React from "react";
 import Typography from "../components/base/Typography/Typography";
-import SellingItemCard from "../components/base/SellingItemCard/SellingItemCard";
+import MeetUpInfoCard from "../components/base/MeetUpInfoCard/MeetUpInfoCard";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
 const Yuki = () => {
   return (
@@ -58,18 +60,14 @@ const Yuki = () => {
         >
           button-regular
         </Typography>
-
-        <h3>Selling Detail Card</h3>
         <div>
-          <SellingItemCard
-            source="https://picsum.photos/200"
-            itemName="Item Name"
-            dateApproved="June 10, 2023"
-            quantity="1"
-            price="11"
+          <MeetUpInfoCard 
+            date="Jun 23, 2023"
+            time="14:00"
+            location="100 W 49th Ave, Vancouver,
+            BC V5Y 2Z6"
           />
         </div>
-
 
         <hr />
       </section>

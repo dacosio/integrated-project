@@ -1,227 +1,44 @@
+.meet-up-info-card-wrapper {
+  margin: 1rem;
+  width: 70%;
+}
+
 .meet-up-info-card {
-  box-sizing: border-box;
-
-  /* Auto layout */
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 20px 20px 28px;
-  gap: 8px;
-
-  width: 330px;
-  height: 427px;
-  left: 14px;
-  top: 635px;
-
+  display: grid;
+  padding: 1rem;
+  gap: 1rem;
+  width: 100%;
+  height: auto;
   border: 1px solid #000000;
   border-radius: 20px;
 }
 
-.meet-up-info-card .title-container {
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
-
-.meet-up-info-card .meet-up-info-description {
+.meet-up-info-description {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px;
-  gap: 8px;
-
-  width: 293px;
-  height: 341px;
-
-  /* Inside auto layout */
-
-  flex: none;
-  order: 1;
-  flex-grow: 0;
 }
 
-.meet-up-info-card .date-container {
+.date-container,
+.time-container,
+.location-container {
   display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  padding: 0px;
-  gap: 20px;
-
-  width: 153px;
-  height: 24px;
-
-  /* Inside auto layout */
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
-
-.meet-up-info-card .time-container {
-  display: flex;
-  flex-direction: row;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  justify-items: center;
   align-items: center;
-  padding: 0px;
-  gap: 20px;
-
-  width: 156px;
-  height: 24px;
-
-  /* Inside auto layout */
-
-  flex: none;
-  order: 1;
-  flex-grow: 0;
 }
 
-.meet-up-info-card .location-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0px;
-  gap: 20px;
+.location-container {
+  flex-wrap: row;
+}
 
-  width: 300px;
-  height: 48px;
-
-  /* Inside auto layout */
-
-  flex: none;
+.location-container .body-1-regular {
   order: 2;
-  flex-grow: 0;
+  flex-grow: 1;
 }
 
-.meet-up-info-card .map-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 10px 0px 0px;
-  gap: 10px;
-
-  width: 293px;
-  height: 221px;
-
-  /* Inside auto layout */
-
-  flex: none;
-  order: 3;
-  flex-grow: 0;
-}
-
-@media screen and (min-width: 1440px) {
-  .meet-up-info-card {
-    box-sizing: border-box;
-
-    /* Auto layout */
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 20px 20px 28px;
-    gap: 8px;
-
-    width: 665px;
-    height: 474px;
-    left: 620px;
-    top: 253px;
-
-    border: 1px solid #000000;
-    border-radius: 20px;
-  }
-
-  .meet-up-info-card .title-container {
-    width: 221px;
-    height: 30px;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-  }
-
-  .meet-up-info-card .meet-up-info-description {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 8px;
-
-    width: 621px;
-    height: 383px;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 1;
-    flex-grow: 0;
-  }
-
-  .meet-up-info-card .date-container {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    padding: 0px;
-    gap: 20px;
-
-    width: 153px;
-    height: 24px;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-  }
-
-  .meet-up-info-card .time-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0px;
-    gap: 20px;
-
-    width: 156px;
-    height: 24px;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 1;
-    flex-grow: 0;
-  }
-
-  .meet-up-info-card .location-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0px;
-    gap: 20px;
-
-    width: 360px;
-    height: 29px;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 2;
-    flex-grow: 0;
-  }
-
-  .meet-up-info-card .map-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 10px 0px 0px;
-    gap: 10px;
-
-    width: 621px;
-    height: 282px;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 3;
-    flex-grow: 0;
-  }
+.locationsvg {
+  order: 1;
+  flex-shrink: 0;
 }
