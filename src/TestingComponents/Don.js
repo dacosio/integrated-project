@@ -46,7 +46,9 @@ const Don = (props) => {
   return (
     <div>
       <h1>Don</h1>
-      <div>{/* <FirebaseSample /> */}</div>
+      <div>
+        <FirebaseSample />
+      </div>
       <div style={wrapper}>
         <SearchField
           placeholder="What are you looking for?"

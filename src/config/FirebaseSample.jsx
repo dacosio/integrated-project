@@ -20,6 +20,20 @@ const FirebaseSample = () => {
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
 
+  useEffect(() => {
+    const q = query(collection(db, "category"));
+    onSnapshot(q, { includeMetadataChanges: true }, (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+          console.log("New Category: ", change.doc.data());
+        }
+
+        const source = snapshot.metadata.fromCache ? "local cache" : "server";
+        console.log("Data came from " + source);
+      });
+    });
+  }, []);
+
   useEffect(
     () =>
       onSnapshot(collection(db, "category"), (snapshot) => {
@@ -61,11 +75,12 @@ const FirebaseSample = () => {
   // );
 
   const handleNew = async () => {
-    const title = prompt("Enter category title");
+    const label = prompt("Enter category label");
 
     const collectionRef = collection(db, "category");
-    const payload = { title };
+    const payload = { label, value: label };
     const docRef = await addDoc(collectionRef, payload);
+    setCategories((prevState) => [...prevState, payload]);
     console.log("The new ID is: " + docRef.id);
   };
 
