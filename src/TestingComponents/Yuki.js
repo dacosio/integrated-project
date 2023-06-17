@@ -1,8 +1,6 @@
 import React from "react";
 import Typography from "../components/base/Typography/Typography";
 import MeetUpInfoCard from "../components/base/MeetUpInfoCard/MeetUpInfoCard";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
 
 const Yuki = () => {
   return (
