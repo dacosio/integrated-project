@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import FirebaseSample from "../config/FirebaseSample";
 import SearchField from "../components/base/SearchField/SearchField";
+import ActiveListingCard from "../components/base/ActiveListingCard/ActiveListingCard";
 import Badge from "../components/base/Badge/Badge";
 import MapLeaflet from "../components/module/MapLeaflet/MapLeaflet";
 import Autocomplete from "react-google-autocomplete";
@@ -106,6 +107,16 @@ const Don = (props) => {
           label="Price - High to Low"
           onClick={() => setSelected1(!selected1)}
           active={selected1}
+        />
+      </div>
+      <div>
+        <ActiveListingCard
+          distance={2}
+          days={2}
+          source="https://picsum.photos/200"
+          itemname="Banana"
+          price={1.25}
+          stock={5}
         />
       </div>
     </div>

@@ -17,7 +17,7 @@ export const imageLabel = ({
   let p2;
 
   if (distance) {
-    if (distance === "1") {
+    if (distance == 1) {
       p1 = <p style={p1style}>{distance} km</p>;
     } else {
       p1 = <p style={p1style}>{distance} kms</p>;
@@ -25,8 +25,8 @@ export const imageLabel = ({
   }
 
   if (days) {
-    if (days === "1") {
-      p2 = <p>a day ago</p>;
+    if (days == 1) {
+      p2 = <p>{days} day ago</p>;
     } else {
       p2 = <p>{days} days ago</p>;
     }

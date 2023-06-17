@@ -79,3 +79,29 @@
   font-size: 14px;
   line-height: 20px;
 }
+
+.black {
+  color: var(--black);
+}
+.white {
+  color: var(--white);
+}
+.gray {
+  color: var(--gray);
+}
+.light-gray {
+  color: var(--light-gray);
+}
+.dark-blue {
+  color: var(--dark-blue);
+}
+.light-blue {
+  color: var(--light-blue);
+}
+.yellow {
+  color: var(--yellow);
+}
+
+.blue {
+  color: var(--blue);
+}
