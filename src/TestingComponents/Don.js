@@ -73,7 +73,6 @@ const Don = (props) => {
           // permanent
         />
       </div> */}
-
       <div style={wrapper}>
         <Grid
           rows={2}
