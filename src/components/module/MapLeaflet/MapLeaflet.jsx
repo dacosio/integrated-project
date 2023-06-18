@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import "./mapLeaflet.css";
 import SellerInfoCard from "../../base/SellerInfoCard/SellerInfoCard";
 import MarkerClusterGroup from "react-leaflet-cluster";
+import MarkerSVG from "../../base/SVG/MarkerSVG";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -12,6 +13,12 @@ L.Icon.Default.mergeOptions({
   iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
   iconUrl: require("leaflet/dist/images/marker-icon.png"),
   shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+});
+
+// Custom icon
+const customIcon = L.icon({
+  iconUrl: require("./Marker.png"),
+  iconSize: [20, 32],
 });
 
 const MapLeaflet = ({
@@ -54,6 +61,7 @@ const MapLeaflet = ({
                 onMouseOut={(e) => {
                   e.target.closePopup();
                 }}
+                icon={customIcon}
               >
                 <Tooltip permanent={permanent} direction={direction}>
                   <SellerInfoCard
