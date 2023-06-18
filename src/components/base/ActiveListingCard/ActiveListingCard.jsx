@@ -13,12 +13,12 @@ const ActiveListingCard = (props) => {
     price,
     stock,
     alt,
-    maxWidth,
-    imageWidth,
+    maxwidth,
+    width,
   } = props;
   return (
     <div {...props} className={styles.activeListingCard}>
-      <div className={styles.box} style={{ maxWidth, width: imageWidth }}>
+      <div className={styles.box} style={{ maxWidth: maxwidth, width }}>
         <ImageLabel
           className={styles.boxTitle}
           distance={distance}

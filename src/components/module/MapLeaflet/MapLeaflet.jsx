@@ -24,13 +24,14 @@ const MapLeaflet = ({
   component,
   width,
   height,
+  borderRadius,
   ...props
 }) => {
   let bounds = markerData && markerData.map((d) => [d.lat, d.long]);
 
   return (
     <MapContainer
-      style={{ width, height }}
+      style={{ width, height, borderRadius }}
       {...props}
       bounds={bounds}
       scrollWheelZoom
@@ -44,7 +45,16 @@ const MapLeaflet = ({
         {markerData &&
           markerData.map((el) => {
             return (
-              <Marker key={el.id} position={[el.lat, el.long]}>
+              <Marker
+                key={el.id}
+                position={[el.lat, el.long]}
+                onMouseOver={(e) => {
+                  e.target.openPopup();
+                }}
+                onMouseOut={(e) => {
+                  e.target.closePopup();
+                }}
+              >
                 <Tooltip permanent={permanent} direction={direction}>
                   <SellerInfoCard
                     source="https://picsum.photos/200"

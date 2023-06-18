@@ -132,8 +132,8 @@ const Don = (props) => {
           stock={5}
           alt="Banana"
           onClick={() => console.log("activelistingcard")}
-          maxWidth="250px"
-          imageWidth="250px"
+          maxW="250px"
+          width="250px"
         />
         {/* <ImageLabel distance={2} days={1} /> */}
       </div>
