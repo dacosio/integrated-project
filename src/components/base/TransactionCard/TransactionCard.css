@@ -1,0 +1,56 @@
+.transaction-card div, .transaction-card h3, .transaction-card p {
+    margin: 0;
+    padding: 4px 0;
+}
+
+.transaction-card {
+    width: 305px;
+    height: 180px;
+    border-radius: 20px;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 16px;
+}
+
+.transaction-card .price {
+    font-weight: bold;
+}
+
+.product-information {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-information div {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.button-container {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.product-information .seller-container {
+    justify-content: flex-start;
+    gap: 3px;
+}
+
+.product-information h3, .product-information .seller-container p:last-child {
+    color: #0B5CBB;
+}
+
+@media screen and (min-width: 768px) {
+    .transaction-card {
+        width: 412px;
+        grid-template-columns: 0.5fr 1.5fr;
+    }
+
+    .button-container {
+        justify-content: flex-end;
+    }
+}
