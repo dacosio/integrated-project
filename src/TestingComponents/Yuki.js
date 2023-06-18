@@ -45,6 +45,14 @@ const Yuki = () => {
           />
         </div>
 
+        <div>
+        <div>
+          <DescriptionCard 
+          description="
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed ante elementum, bibendum lectus in, aliquet urna. Vestibulum eget tristique mi. Donec elit purus, ornare sed libero eu"
+          />
+        </div>
+        </div>
         <hr />
       </section>
     </div>
