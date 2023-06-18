@@ -22,12 +22,20 @@ const MapLeaflet = ({
   permanent,
   direction,
   component,
+  width,
+  height,
   ...props
 }) => {
   let bounds = markerData && markerData.map((d) => [d.lat, d.long]);
 
   return (
-    <MapContainer {...props} bounds={bounds} scrollWheelZoom>
+    <MapContainer
+      style={{ width, height }}
+      {...props}
+      bounds={bounds}
+      scrollWheelZoom
+      zoomControl={false}
+    >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

@@ -27,6 +27,8 @@ const Don = (props) => {
   const data = [
     { id: 1, lat: 49.225, long: -123.107, location: "Langara" },
     { id: 2, lat: 49.19, long: -123.122, location: "Bridgeport" },
+    { id: 3, lat: 49.19, long: -123.122, location: "Bridgeport" },
+    { id: 4, lat: 49.19, long: -123.122, location: "Bridgeport" },
   ];
 
   const options = [
@@ -62,15 +64,15 @@ const Don = (props) => {
       </div>
 
       <div style={wrapper}>{/* <MapSearch /> */}</div>
-      <div style={wrapper}>
+      {/* <div style={wrapper}>
         <MapLeaflet
           style={{ height: "50rem", width: "50rem" }}
           zoom={zoom}
           markerData={data}
           direction="top"
-          permanent
+          // permanent
         />
-      </div>
+      </div> */}
 
       <div style={wrapper}>
         <Grid
