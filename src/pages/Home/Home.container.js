@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import useMediaQuery from "../../utils/useMediaQuery";
 import { collection, onSnapshot } from "firebase/firestore";
 import db from "../../config/firebaseConfig";
+import { SearchContext } from "../../context/SearchContext";
+import useDebounce from "../../utils/useDebounce";
+import { useContext } from "react";
 
 const Home = () => {
   const { user, logout } = UserAuth();
@@ -47,6 +50,13 @@ const Home = () => {
   const handleOnClick = (pageIndex) => {
     setCurrentPageIndex(pageIndex);
   };
+
+  // global search value
+
+  const { searchValue } = useContext(SearchContext);
+  const debouncedValue = useDebounce(searchValue, 500);
+
+  console.log(debouncedValue);
 
   const generatedProps = {
     // generated props here
