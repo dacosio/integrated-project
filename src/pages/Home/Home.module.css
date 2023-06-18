@@ -23,6 +23,7 @@
   padding: 26px 30px;
   border-radius: 20px;
   box-shadow: 5px 5px 2px var(--black);
+  background-color: var(--white);
 }
 
 .mapDesktop {
