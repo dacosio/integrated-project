@@ -24,7 +24,6 @@ const Home = (props) => {
 
   return (
     <div>
-      <h1>Home Screen</h1>
       {user && <button onClick={handleLogOut}>logout</button>}
 
       {xl ? (
