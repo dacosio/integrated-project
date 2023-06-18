@@ -3,7 +3,8 @@ import SearchSVG from "../SVG/SearchSVG";
 import styles from "./searchField.module.css";
 import { AiOutlineCloseCircle, AiOutlineSearch } from "react-icons/ai";
 import { CiLocationOn } from "react-icons/ci";
-import { useEffect } from "react";
+import { useContext } from "react";
+import { SearchContext } from "../../../context/SearchContext";
 
 const SearchField = ({
   value,
@@ -15,6 +16,12 @@ const SearchField = ({
   ...props
 }) => {
   const [fill, setFill] = useState("9C9C9C");
+
+  const { searchValue, updateSearchValue } = useContext(SearchContext);
+
+  const handleInputChange = (event) => {
+    updateSearchValue(event.target.value);
+  };
 
   return (
     <div className={styles.inputContainer}>
@@ -30,8 +37,8 @@ const SearchField = ({
         type="text"
         placeholder={placeholder}
         className={styles.input}
-        value={value}
-        onChange={onChange}
+        value={searchValue}
+        onChange={updateSearchValue}
         {...props}
       />
 
