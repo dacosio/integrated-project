@@ -10,7 +10,7 @@ const BuyerContactCard = ({ source, nameOfBuyer, contactTel, email }) => {
   return (
     <div className="buyer-contact-card-wrapper">
       <div className="buyer-contact-card">
-        <Typography className="h3-graphik-bold">Sold to</Typography>
+        <Typography varient="h3-graphik-bold">Sold to</Typography>
         <div className="image-container">
           <Image source={source} />
         </div>
@@ -18,16 +18,16 @@ const BuyerContactCard = ({ source, nameOfBuyer, contactTel, email }) => {
           <div className="buyer-contact-description">
             <div className="name-container">
               <UserSVG height={21} width={18} fill={"none"}/>
-              <Typography className="body-1-regular">{nameOfBuyer}</Typography>
+              <Typography varient="body-1-regular">{nameOfBuyer}</Typography>
             </div>
 
             <div className="conatct-tel-container">
               <PhoneSVG height={20} width={20} fill={"none"}/>
-              <Typography className="body-1-regular">{contactTel}</Typography>
+              <Typography varient="body-1-regular">{contactTel}</Typography>
             </div>
             <div className="email-container">
               <EnvelopeSVG height={14} width={20} fill={"none"}/>
-              <Typography className="body-1-regular">{email}</Typography>
+              <Typography varient="body-1-regular">{email}</Typography>
             </div>
           </div>
         </div>
@@ -36,4 +36,4 @@ const BuyerContactCard = ({ source, nameOfBuyer, contactTel, email }) => {
   );
 };
 
-export default BuyerContactCard;
+export default React.memo(BuyerContactCard);
