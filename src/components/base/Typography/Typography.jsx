@@ -1,10 +1,13 @@
 import React from "react";
-import styles from "./typography.module.css";
+import "./typography.css";
 
-const Typography = (props) => {
-  const { children, variant, color = "black" } = props;
+/**
+ * Primary UI component for user interaction
+ */
+
+const Typography = ({ children, className, ...props }) => {
   return (
-    <div className={`${styles[variant]} ${styles[color]}`} {...props}>
+    <div className={className} {...props}>
       {children}
     </div>
   );

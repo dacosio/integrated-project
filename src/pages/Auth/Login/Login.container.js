@@ -3,11 +3,7 @@ import LoginView from "./Login.view";
 import * as Yup from "yup";
 import { UserAuth } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import {
-  GoogleAuthProvider,
-  browserPopupRedirectResolver,
-  signInWithPopup,
-} from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../../config/firebaseConfig";
 import { toast } from "react-toastify";
 
@@ -32,7 +28,7 @@ const Login = () => {
   const loginWithGoogle = async () => {
     const provider = await new GoogleAuthProvider();
 
-    return signInWithPopup(auth, provider, browserPopupRedirectResolver)
+    return signInWithPopup(auth, provider)
       .then((result) => {
         navigate("/");
       })

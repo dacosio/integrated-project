@@ -8,4 +8,3 @@ export { default as TimeSVG } from "./TimeSVG";
 export { default as AddPhotosSVG } from "./AddPhotosSVG";
 export { default as PlusSVG } from "./PlusSVG";
 export { default as MinusSVG } from "./MinusSVG";
-export { default as MapMarkerSVG } from "./MapMarkerSVG";

@@ -17,7 +17,7 @@ const Pagination = ({
   }
 
   return (
-    <ul style={{ padding: 0 }} className={`${styles["wrapper"]}`}>
+    <ul className={`${styles["wrapper"]}`}>
       {1 < currentPageIndex && (
         <li>
           <button

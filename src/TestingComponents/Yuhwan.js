@@ -92,14 +92,11 @@ const Yuhwan = (props) => {
 
   /* ImageList */
   const images = [
-    "https://picsum.photos/id/10/900/600",
-    "https://picsum.photos/id/20/900/600",
-    "https://picsum.photos/id/30/900/600",
-    "https://picsum.photos/id/40/900/600",
-    "https://picsum.photos/id/50/900/600",
-    "https://picsum.photos/id/60/900/600",
-    "https://picsum.photos/id/70/900/600",
-    "https://picsum.photos/id/80/900/600",
+    "https://picsum.photos/id/10/200/300",
+    "https://picsum.photos/id/20/200/300",
+    "https://picsum.photos/id/30/200/300",
+    "https://picsum.photos/id/40/200/300",
+    "https://picsum.photos/id/50/200/300",
   ];
 
   return (
@@ -156,11 +153,10 @@ const Yuhwan = (props) => {
       </div>
       <div>
         <h2>ImageList</h2>
-        <div style={{ minWidth: "300px", width: "50%", margin: "auto" }}>
+        <div style={{ width: "30%", margin: "auto" }}>
           <ImageList images={images} />
-          <br />
-          <br />
-          <br />
+        </div>
+        <div style={{ width: "30%", margin: "auto" }}>
           <ImageList images={images} mode="vertical" />
         </div>
       </div>

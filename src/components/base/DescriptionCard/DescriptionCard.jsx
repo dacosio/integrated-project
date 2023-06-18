@@ -9,8 +9,8 @@ const DescriptionCard = ({ description, onClick }) => {
     <div className="dcwrapper">
       <div className="description-container">
         <div className="item-description">
-          <Typography variant="h4-graphik-bold">Description</Typography>
-          <Typography variant="body-2-regular">{description}</Typography>
+          <Typography className="h4-graphik-bold">Description</Typography>
+          <Typography className="body-2-regular">{description}</Typography>
         </div>
         {/* <div className="portion-description">
         <h2>Each portion contains</h2>
@@ -29,4 +29,4 @@ const DescriptionCard = ({ description, onClick }) => {
   );
 };
 
-export default React.memo(DescriptionCard);
+export default DescriptionCard;

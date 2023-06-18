@@ -1,7 +1,6 @@
 import React from "react";
 import Typography from "../components/base/Typography/Typography";
-import SellingItemCard from "../components/base/SellingItemCard/SellingItemCard";
-import DescriptionCard from "../components/base/DescriptionCard/DescriptionCard";
+import MeetUpInfoCard from "../components/base/MeetUpInfoCard/MeetUpInfoCard";
 
 const Yuki = () => {
   return (
@@ -9,50 +8,65 @@ const Yuki = () => {
       <section>
         <h1 style={{ textDecoration: "underline" }}>Yuki</h1>
         <h3>Typography</h3>
-        <Typography variant="h1-graphik-bold" color="black">
-          h1-graphik-bold
+        <Typography className="h1-graphik-bold">h1-graphik-bold</Typography>
+        <Typography className="h2-graphik-bold">h2-graphik-bold</Typography>
+        <Typography className="h3-graphik-bold">h3-graphik-bold</Typography>
+        <Typography className="h4-graphik-bold">h4-graphik-bold</Typography>
+        <Typography className="body-1-regular">body-1-regular</Typography>
+        <Typography className="body-2-regular">body-2-regular</Typography>
+        <Typography className="body-3-regular">body-3-regular</Typography>
+        <Typography className="body-4-regular">body-4-regular</Typography>
+        <Typography className="button-regular" style={{ color: "var(--gray)" }}>
+          button-regular
         </Typography>
-        <Typography variant="h2-graphik-bold" color="light-blue">
-          h2-graphik-bold
+        <Typography
+          className="button-regular"
+          style={{ color: "var(--light-gray)" }}
+        >
+          button-regular
         </Typography>
-        <Typography variant="h3-graphik-bold" color="gray">
-          h3-graphik-bold
+        <Typography
+          className="button-regular"
+          style={{ color: "var(--dark-blue)" }}
+        >
+          button-regular
         </Typography>
-        <Typography variant="h4-graphik-bold" color="yellow">
-          h4-graphik-bold
+        <Typography className="button-regular" style={{ color: "var(--blue)" }}>
+          button-regular
         </Typography>
-        <Typography variant="body-1-regular" color="blue">
-          body-1-regular
+        <Typography
+          className="button-regular"
+          style={{ color: "var(--light-blue)" }}
+        >
+          button-regular
         </Typography>
-        <Typography variant="body-2-regular" color="dark-blue">
-          body-2-regular
+        <Typography
+          className="button-regular"
+          style={{ color: "var(--yellow)" }}
+        >
+          button-regular
         </Typography>
-        <Typography variant="body-3-regular" color="light-gray">
-          body-3-regular
+        <Typography
+          className="button-regular"
+          style={{ color: "var(--black)" }}
+        >
+          button-regular
         </Typography>
-        <Typography variant="body-4-regular" color="light-blue">
-          body-4-regular
+        <Typography
+          className="button-regular"
+          style={{ color: "var(--white)", backgroundColor: "black" }}
+        >
+          button-regular
         </Typography>
-
-        <h3>Selling Detail Card</h3>
         <div>
-          <SellingItemCard
-            source="https://picsum.photos/200"
-            itemName="Item Name"
-            dateApproved="June 10, 2023"
-            quantity="1"
-            price="11"
+          <MeetUpInfoCard 
+            date="Jun 23, 2023"
+            time="14:00"
+            location="100 W 49th Ave, Vancouver,
+            BC V5Y 2Z6"
           />
         </div>
 
-        <div>
-        <div>
-          <DescriptionCard 
-          description="
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed ante elementum, bibendum lectus in, aliquet urna. Vestibulum eget tristique mi. Donec elit purus, ornare sed libero eu"
-          />
-        </div>
-        </div>
         <hr />
       </section>
     </div>
