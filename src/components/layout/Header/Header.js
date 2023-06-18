@@ -2,27 +2,27 @@ import { Link } from "react-router-dom";
 import styles from "./header.module.css";
 import { UserAuth } from "../../../context/AuthContext";
 import Button from "../../base/Button/Button";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchField from "../../base/SearchField/SearchField";
 import { LuFilter } from "react-icons/lu";
 import useWindowSize from "../../../utils/useWindowSize";
+import { SearchContext } from "../../../context/SearchContext";
+import { FilterSVG } from "../../base/SVG";
 
 const Header = () => {
   const { user, logout } = UserAuth();
   const navigate = useNavigate();
-  const [search, setSearch] = useState("");
-  const [searchValue, setSearchValue] = useState("");
   const [size] = useWindowSize();
-  const handleSearchChange = (event) => {
-    setSearchValue(event.target.value);
-  };
 
-  const handleSearchReset = () => {
-    setSearchValue("");
-  };
   const handleLogOut = async () => {
     await logout();
+  };
+  const { searchValue, updateSearchValue, resetSearchValue } =
+    useContext(SearchContext);
+
+  const handleInputChange = (event) => {
+    updateSearchValue(event.target.value);
   };
 
   return (
@@ -43,11 +43,12 @@ const Header = () => {
       <div className={styles.left}>
         <SearchField
           value={searchValue}
-          resetValue={handleSearchReset}
-          onChange={handleSearchChange}
+          resetValue={resetSearchValue}
+          onChange={handleInputChange}
           placeholder="What are you looking for?"
         />
         <LuFilter style={{ fontSize: "35px", color: "white" }} />
+        <FilterSVG height={20} width={25} />
       </div>
       <nav>
         <ul className={styles.nav}>

@@ -52,16 +52,17 @@ const Don = (props) => {
   return (
     <div>
       <h1>Don</h1>
-      <div>
-        <FirebaseSample />
-      </div>
+      <div>{/* <FirebaseSample /> */}</div>
       <div style={wrapper}>
-        <SearchField
+        {/* <SearchField
           placeholder="What are you looking for?"
-          onChange={(e) => setSearchValue(e.target.value)}
+          onChange={(e) => {
+            setSearchValue(e.target.value);
+            console.log(e.target.value);
+          }}
           value={searchValue}
           resetValue={() => setSearchValue("")}
-        />
+        /> */}
       </div>
 
       <div style={wrapper}>{/* <MapSearch /> */}</div>
