@@ -17,12 +17,6 @@ const SearchField = ({
 }) => {
   const [fill, setFill] = useState("9C9C9C");
 
-  const { searchValue, updateSearchValue } = useContext(SearchContext);
-
-  const handleInputChange = (event) => {
-    updateSearchValue(event.target.value);
-  };
-
   return (
     <div className={styles.inputContainer}>
       {location ? (
@@ -37,8 +31,8 @@ const SearchField = ({
         type="text"
         placeholder={placeholder}
         className={styles.input}
-        value={searchValue}
-        onChange={updateSearchValue}
+        value={value}
+        onChange={onChange}
         {...props}
       />
 

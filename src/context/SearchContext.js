@@ -11,8 +11,13 @@ export const SearchProvider = ({ children }) => {
     setSearchValue(value);
   };
 
+  const resetSearchValue = (value) => {
+    setSearchValue("");
+  };
   return (
-    <SearchContext.Provider value={{ searchValue, updateSearchValue }}>
+    <SearchContext.Provider
+      value={{ searchValue, updateSearchValue, resetSearchValue }}
+    >
       {children}
     </SearchContext.Provider>
   );
