@@ -19,7 +19,7 @@ function ImageList({ images, mode = "horizontal", ...props }) {
       ))}
       {3 < images.length && (
         <div className={`${styles["item"]}`}>
-          <img src={images[4]} className={`${styles["image"]}`} />
+          <img src={images[3]} className={`${styles["image"]}`} />
           <div className={`${styles["more-wrapper"]}`}>
             <div>+ {images.length - 3}</div>
           </div>
