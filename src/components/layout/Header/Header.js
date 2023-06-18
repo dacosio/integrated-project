@@ -5,8 +5,8 @@ import Button from "../../base/Button/Button";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchField from "../../base/SearchField/SearchField";
-import { LuFilter } from "react-icons/lu";
 import { SearchContext } from "../../../context/SearchContext";
+import { FilterSVG } from "../../base/SVG";
 
 const Header = () => {
   const { user, logout } = UserAuth();
@@ -30,7 +30,7 @@ const Header = () => {
           onChange={handleInputChange}
           placeholder="What are you looking for?"
         />
-        <LuFilter style={{ fontSize: "25px" }} />
+        <FilterSVG height={20} width={25} />
       </div>
       <nav>
         <ul className={styles.nav}>
