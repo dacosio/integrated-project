@@ -17,22 +17,22 @@ const SellingItemCard = ({
           <Image source={source} style={{ borderRadius: "10px" }} />
         </div>
         <div className="selling-item-description">
-          <Typography className="item-name h3-graphik-bold">
+          <Typography varient="item-name h3-graphik-bold">
             {itemName}
           </Typography>
-          <Typography className="h4-graphik-bold">Date approved: </Typography>
-          <Typography className="date-approved body-1-regular">
+          <Typography varient="h4-graphik-bold">Date approved: </Typography>
+          <Typography varient="date-approved body-1-regular">
             {dateApproved}
           </Typography>
           <div className="quantity-container">
-            <Typography className="h4-graphik-bold">Quantity: </Typography>
-            <Typography className="body-1-regular">{quantity}</Typography>
+            <Typography varient="h4-graphik-bold">Quantity: </Typography>
+            <Typography varient="body-1-regular">{quantity}</Typography>
           </div>
-          <Typography className="h1-graphik-bold">${price}</Typography>
+          <Typography varient="h1-graphik-bold">${price}</Typography>
         </div>
       </div>
     </div>
   );
 };
 
-export default SellingItemCard;
+export default React.memo(SellingItemCard);
