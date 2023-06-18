@@ -2,6 +2,9 @@ import React from "react";
 import Typography from "../components/base/Typography/Typography";
 import BuyerContactCard from "../components/base/BuyerContactCard/BuyerContactCard";
 import DescriptionCard from "../components/base/DescriptionCard/DescriptionCard"
+import MeetUpInfoCard from "../components/base/MeetUpInfoCard/MeetUpInfoCard";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
 const Yuki = () => {
   return (
@@ -40,6 +43,55 @@ const Yuki = () => {
           <DescriptionCard
             onClick={() => console.log("test")}
             description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis no"
+
+        <Typography className="button-regular" style={{ color: "var(--gray)" }}>
+          button-regular
+        </Typography>
+        <Typography
+          className="button-regular"
+          style={{ color: "var(--light-gray)" }}
+        >
+          button-regular
+        </Typography>
+        <Typography
+          className="button-regular"
+          style={{ color: "var(--dark-blue)" }}
+        >
+          button-regular
+        </Typography>
+        <Typography className="button-regular" style={{ color: "var(--blue)" }}>
+          button-regular
+        </Typography>
+        <Typography
+          className="button-regular"
+          style={{ color: "var(--light-blue)" }}
+        >
+          button-regular
+        </Typography>
+        <Typography
+          className="button-regular"
+          style={{ color: "var(--yellow)" }}
+        >
+          button-regular
+        </Typography>
+        <Typography
+          className="button-regular"
+          style={{ color: "var(--black)" }}
+        >
+          button-regular
+        </Typography>
+        <Typography
+          className="button-regular"
+          style={{ color: "var(--white)", backgroundColor: "black" }}
+        >
+          button-regular
+        </Typography>
+        <div>
+          <MeetUpInfoCard 
+            date="Jun 23, 2023"
+            time="14:00"
+            location="100 W 49th Ave, Vancouver,
+            BC V5Y 2Z6"
           />
         </div>
 
