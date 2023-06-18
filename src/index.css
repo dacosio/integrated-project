@@ -12,7 +12,7 @@
 
 @font-face {
   font-family: "Graphik";
-  font-weight: "medium";
+  font-weight: "normal";
   src: local("Graphik"), url("./fonts/GraphikRegular.otf") format("opentype");
 }
 
