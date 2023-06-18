@@ -1,13 +1,37 @@
+@font-face {
+  font-family: "Graphik";
+  font-weight: "bold";
+  src: local("Graphik"), url("./fonts/GraphikBold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Graphik";
+  font-weight: "medium";
+  src: local("Graphik"), url("./fonts/GraphikMedium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Graphik";
+  font-weight: "normal";
+  src: local("Graphik"), url("./fonts/GraphikRegular.otf") format("opentype");
+}
+
+html,
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Graphik", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: "Graphik", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+input {
+  font-family: "Graphik", sans-serif;
 }
