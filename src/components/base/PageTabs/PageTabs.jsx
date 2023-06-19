@@ -12,27 +12,26 @@ const PageTabs = ({ primary, item1, item2, item3 }) => {
     console.log(activeLink);
   }, [activeLink]);
 
-  const layout = primary ? "li-primary" : "li-secondary";
-
   return (
-    <nav>
+    <nav className="order-tabs">
       <ul>
         <li
-          className={[activeLink === item1 ? "active" : "", layout].join(' ')}
+          className={activeLink === item1 ? "active" : ""}
+          onClick={() => handleLinkClick(item1)}
         >
-          <a href="#item1" onClick={() => handleLinkClick(item1)}>
+          <a href="#item1" >
             {item1}
           </a>
         </li>
         <li
-          className={[activeLink === item2 ? "active" : "", layout].join(' ')}
+          className={activeLink === item2 ? "active" : ""}
         >
           <a href="#item2" onClick={() => handleLinkClick(item2)}>
             {item2}
           </a>
         </li>
         <li
-          className={[activeLink === item3 ? "active" : "", layout].join(' ')}
+          className={activeLink === item3 ? "active" : ""}
         >
           <a href="#item3" onClick={() => handleLinkClick(item3)}>
             {item3}

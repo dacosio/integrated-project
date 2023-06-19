@@ -1,5 +1,4 @@
 import React from 'react'
-import Image from './../Image/Image'
 import { BsPinMapFill } from 'react-icons/bs'
 import './SellerInfoCard.css'
 
@@ -13,7 +12,7 @@ const SellerInfoCard = ({source, username, location, items}) => {
     <div className='seller-information'>
       <h2>Splitter Information</h2>
       <div className="image-container">
-        <Image source={source}/>
+        <img src="#" alt="" />
       </div>
       <div className="seller-details">
         <p className="username">{username}</p>

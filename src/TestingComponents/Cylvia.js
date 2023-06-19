@@ -6,7 +6,7 @@ const Cylvia = (props) => {
   return (
     <div>
       <h1>Cylvia</h1>
-      <PageTabs/>
+      <PageTabs item1="Active" item2="Request" item3="Complete"/>
     </div>
   );
 };
