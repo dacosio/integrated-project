@@ -9,55 +9,29 @@ const Yuki = () => {
       <section>
         <h1 style={{ textDecoration: "underline" }}>Yuki</h1>
         <h3>Typography</h3>
-        <Typography className="h1-graphik-bold">h1-graphik-bold</Typography>
-        <Typography className="h2-graphik-bold">h2-graphik-bold</Typography>
-        <Typography className="h3-graphik-bold">h3-graphik-bold</Typography>
-        <Typography className="h4-graphik-bold">h4-graphik-bold</Typography>
-        <Typography className="body-1-regular">body-1-regular</Typography>
-        <Typography className="body-2-regular">body-2-regular</Typography>
-        <Typography className="body-3-regular">body-3-regular</Typography>
-        <Typography className="body-4-regular">body-4-regular</Typography>
-        <Typography className="button-regular" style={{ color: "var(--gray)" }}>
-          button-regular
+        <Typography variant="h1-graphik-bold" color="black">
+          h1-graphik-bold
         </Typography>
-        <Typography
-          className="button-regular"
-          style={{ color: "var(--light-gray)" }}
-        >
-          button-regular
+        <Typography variant="h2-graphik-bold" color="light-blue">
+          h2-graphik-bold
         </Typography>
-        <Typography
-          className="button-regular"
-          style={{ color: "var(--dark-blue)" }}
-        >
-          button-regular
+        <Typography variant="h3-graphik-bold" color="gray">
+          h3-graphik-bold
         </Typography>
-        <Typography className="button-regular" style={{ color: "var(--blue)" }}>
-          button-regular
+        <Typography variant="h4-graphik-bold" color="yellow">
+          h4-graphik-bold
         </Typography>
-        <Typography
-          className="button-regular"
-          style={{ color: "var(--light-blue)" }}
-        >
-          button-regular
+        <Typography variant="body-1-regular" color="blue">
+          body-1-regular
         </Typography>
-        <Typography
-          className="button-regular"
-          style={{ color: "var(--yellow)" }}
-        >
-          button-regular
+        <Typography variant="body-2-regular" color="dark-blue">
+          body-2-regular
         </Typography>
-        <Typography
-          className="button-regular"
-          style={{ color: "var(--black)" }}
-        >
-          button-regular
+        <Typography variant="body-3-regular" color="light-gray">
+          body-3-regular
         </Typography>
-        <Typography
-          className="button-regular"
-          style={{ color: "var(--white)", backgroundColor: "black" }}
-        >
-          button-regular
+        <Typography variant="body-4-regular" color="light-blue">
+          body-4-regular
         </Typography>
 
         <h3>Selling Detail Card</h3>
@@ -72,10 +46,12 @@ const Yuki = () => {
         </div>
 
         <div>
-          <DescriptionCard
-            onClick={() => console.log("test")}
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis no"
+        <div>
+          <DescriptionCard 
+          description="
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed ante elementum, bibendum lectus in, aliquet urna. Vestibulum eget tristique mi. Donec elit purus, ornare sed libero eu"
           />
+        </div>
         </div>
         <hr />
       </section>

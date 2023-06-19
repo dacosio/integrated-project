@@ -1,29 +1,46 @@
 import React from "react";
 import ImageLabel from "../ImageLabel/imageLabel";
 import Image from "../Image/Image";
-import "./ActiveListingCard.css";
+import styles from "./activeListingCard.module.css";
+import Typography from "../Typography/Typography";
 
-const Imagewithdescription = ({
-  distance,
-  days,
-  source,
-  itemname,
-  price,
-  stock,
-}) => {
+const ActiveListingCard = (props) => {
+  const {
+    distance,
+    days,
+    source,
+    itemname,
+    price,
+    stock,
+    alt,
+    maxwidth,
+    width,
+  } = props;
   return (
-    <div className="active-listing-card">
-      <div className="image-container">
-        <ImageLabel distance={distance} days={days} />
-        <Image source={source} />
+    <div {...props} className={styles.activeListingCard}>
+      <div className={styles.box} style={{ maxWidth: maxwidth, width }}>
+        <ImageLabel
+          className={styles.boxTitle}
+          distance={distance}
+          days={days}
+        />
+        <img src={source} alt={alt} />
       </div>
-      <div className="listing-description">
-        <p className="itemname">{itemname}</p>
-        <p className="price">${price}</p>
-        <p className="stock">{stock} available</p>
+      <div>
+        <div className={styles.item}>
+          <Typography variant="h4-graphik-bold" color="dark-blue">
+            {itemname}
+          </Typography>
+        </div>
+        <div className={styles.itemPriceStock}>
+          <Typography variant="h4-graphik-bold">${price}</Typography>
+          <Typography variant="body-4-regular" color="gray">
+            {stock} available
+          </Typography>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Imagewithdescription;
+export default React.memo(ActiveListingCard);

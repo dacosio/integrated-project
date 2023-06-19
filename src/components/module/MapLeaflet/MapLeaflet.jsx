@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import "./mapLeaflet.css";
 import SellerInfoCard from "../../base/SellerInfoCard/SellerInfoCard";
 import MarkerClusterGroup from "react-leaflet-cluster";
+import MarkerSVG from "../../base/SVG/MarkerSVG";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -12,6 +13,12 @@ L.Icon.Default.mergeOptions({
   iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
   iconUrl: require("leaflet/dist/images/marker-icon.png"),
   shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+});
+
+// Custom icon
+const customIcon = L.icon({
+  iconUrl: require("./Marker.png"),
+  iconSize: [20, 32],
 });
 
 const MapLeaflet = ({
@@ -22,12 +29,21 @@ const MapLeaflet = ({
   permanent,
   direction,
   component,
+  width,
+  height,
+  borderRadius,
   ...props
 }) => {
   let bounds = markerData && markerData.map((d) => [d.lat, d.long]);
 
   return (
-    <MapContainer {...props} bounds={bounds} scrollWheelZoom>
+    <MapContainer
+      style={{ width, height, borderRadius }}
+      {...props}
+      bounds={bounds}
+      scrollWheelZoom
+      zoomControl={false}
+    >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -36,7 +52,17 @@ const MapLeaflet = ({
         {markerData &&
           markerData.map((el) => {
             return (
-              <Marker key={el.id} position={[el.lat, el.long]}>
+              <Marker
+                key={el.id}
+                position={[el.lat, el.long]}
+                onMouseOver={(e) => {
+                  e.target.openPopup();
+                }}
+                onMouseOut={(e) => {
+                  e.target.closePopup();
+                }}
+                icon={customIcon}
+              >
                 <Tooltip permanent={permanent} direction={direction}>
                   <SellerInfoCard
                     source="https://picsum.photos/200"
