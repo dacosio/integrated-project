@@ -75,6 +75,7 @@ const Home = (props) => {
                 width="100%"
                 height="100%"
                 borderRadius="20px"
+                zIndex={2}
               />
             </div>
           </Grid>
