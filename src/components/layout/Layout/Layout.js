@@ -22,7 +22,9 @@ const Layout = () => {
       <main className="App">
         <Outlet />
       </main>
-      <BottomNav style={bottomNavStyle} />
+      <div style={{ position: "sticky", bottom: 0, zIndex: 5 }}>
+        <BottomNav style={bottomNavStyle} />
+      </div>
     </>
   );
 };
