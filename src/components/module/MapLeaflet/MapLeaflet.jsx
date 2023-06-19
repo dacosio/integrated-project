@@ -32,13 +32,14 @@ const MapLeaflet = ({
   width,
   height,
   borderRadius,
+  zIndex,
   ...props
 }) => {
   let bounds = markerData && markerData.map((d) => [d.lat, d.long]);
 
   return (
     <MapContainer
-      style={{ width, height, borderRadius }}
+      style={{ width, height, borderRadius, zIndex }}
       {...props}
       bounds={bounds}
       scrollWheelZoom

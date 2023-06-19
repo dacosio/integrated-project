@@ -13,6 +13,7 @@ import SellerInfoCard from "../components/base/SellerInfoCard/SellerInfoCard";
 import Grid from "../components/layout/Grid/Grid";
 import useMediaQuery from "../utils/useMediaQuery";
 import SelectDropdown from "../components/base/SelectDropdown/SelectDropdown";
+import Button from "../components/base/Button/Button";
 import ImageLabel from "../components/base/ImageLabel/imageLabel";
 
 const wrapper = {
