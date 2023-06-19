@@ -3,38 +3,38 @@ import Button from "../Button/Button";
 import "./TransactionCard.css";
 
 const TransactionCard = (props) => {
-  const { type, itemName, time, portions, sellerName, price } = props;
-
-  const cardStyle = {
-      border: type === 'buying' ? '#0B5CBB 2px solid' : '#FFBF44 2px solid',
-    };
+  const { type, source, itemName, time, portions, sellerName, price } = props;
 
   const days = () => {
     if (time==="1") {
       return ("a day ago") 
     } else {
-      return (`${days} days ago`)
+      return (`${time} days ago`)
     }
   }
 
   const buttons = () => {
     if (type === 'buying') {
       return (
-        <Button size='sm' variant='gray' label="Pending" disabled/>
+        <Button size='sm' variant='gray' label="Cancel" />
       )
-    } else {
+    } else if (type === 'selling') {
         return (
           <>
-            <Button size='sm' variant='gray' label="Decline" />
-            <Button size='sm' variant='primary' label="Accept" />
+            <Button size='sm' variant='decline' label="Decline" />
+            <Button size='sm' variant='accept' label="Accept" />
           </>
         )
+      } else {
+        return (<></>)
       }
     }
 
   return (
-    <div className={["transaction-card", { type }].join(" ")} style={cardStyle}>
-      <div className="image-container"></div>
+    <div className={["transaction-card", { type }].join(" ")}>
+      <div className="image-container">
+        <img src={source} alt="" />
+      </div>
       <div className="product-information">
         <div>
           <h3>{itemName}</h3>
@@ -50,6 +50,7 @@ const TransactionCard = (props) => {
           </p>
           <p>{sellerName}</p>
         </div>
+        
       </div>
       <div className="button-container">
         {buttons()}

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import "./PageTabs.css";
+import styles from "./PageTabs.module.css";
 
-const PageTabs = ({ primary, item1, item2, item3 }) => {
+const { ordertabs, active } = styles;
+
+const PageTabs = ({ item1, item2, item3, item4 }) => {
   const [activeLink, setActiveLink] = useState(item1);
 
   const handleLinkClick = (link) => {
@@ -13,10 +15,9 @@ const PageTabs = ({ primary, item1, item2, item3 }) => {
   }, [activeLink]);
 
   return (
-    <nav className="order-tabs">
-      <ul>
+      <ul className={ordertabs}>
         <li
-          className={activeLink === item1 ? "active" : ""}
+          className={activeLink === item1 ? active : ""}
           onClick={() => handleLinkClick(item1)}
         >
           <a href="#item1" >
@@ -24,21 +25,27 @@ const PageTabs = ({ primary, item1, item2, item3 }) => {
           </a>
         </li>
         <li
-          className={activeLink === item2 ? "active" : ""}
+          className={activeLink === item2 ? active : ""}
         >
           <a href="#item2" onClick={() => handleLinkClick(item2)}>
             {item2}
           </a>
         </li>
         <li
-          className={activeLink === item3 ? "active" : ""}
+          className={activeLink === item3 ? active : ""}
         >
           <a href="#item3" onClick={() => handleLinkClick(item3)}>
             {item3}
           </a>
         </li>
+        <li
+          className={activeLink === item4 ? active : ""}
+        >
+          <a href="#item4" onClick={() => handleLinkClick(item4)}>
+            {item4}
+          </a>
+        </li>
       </ul>
-    </nav>
   );
 };
 

@@ -1,0 +1,48 @@
+.title-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  width: 328px;
+  box-sizing: border-box;
+  row-gap: 12px;
+  padding: 16px 20px;
+  border-radius: 20px;
+  border: 2px solid black;
+  box-shadow: 2px 2px black;
+  box-sizing: border-box;
+}
+
+.title-wrapper ul {
+  grid-column: 1 / -1;
+}
+
+@media screen and (min-width: 1440px) {
+.title-wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.title-wrapper div {
+    flex-basis: 10%;
+}
+
+.title-wrapper select {
+    flex-basis: 10%;
+}
+
+.title-wrapper ul {
+    flex-basis: 80%;
+    align-items: end;
+}
+
+  .orders {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 24px;
+    margin: auto;
+  }
+
+  .orders .transaction-card {
+    flex-basis: 30%;
+  }
+}
