@@ -1,17 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styles from "./header.module.css";
 import { UserAuth } from "../../../context/AuthContext";
 import Button from "../../base/Button/Button";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchField from "../../base/SearchField/SearchField";
-import { LuFilter } from "react-icons/lu";
 import useWindowSize from "../../../utils/useWindowSize";
 import { SearchContext } from "../../../context/SearchContext";
 import { FilterSVG, LogoSVG } from "../../base/SVG";
+import useMediaQuery from "../../../utils/useMediaQuery";
+import Grid from "../Grid/Grid";
 
 const Header = () => {
   const { user, logout } = UserAuth();
+  const [filterSelected, setFilterSelected] = useState(false);
   const navigate = useNavigate();
   const [size] = useWindowSize();
 
@@ -25,73 +27,145 @@ const Header = () => {
     updateSearchValue(event.target.value);
   };
 
-  let headerContent;
+  const location = useLocation();
 
-  return (
-    <header className={styles.header}>
-      <div className={styles.mobileTitle}>
-        <div className={styles.title}>
-          <LogoSVG width="40vw" height="3.5vh" />
-        </div>
-        {size < 768 ? (
+  // const sm = useMediaQuery("(min-width: 360px) and (max-width: 599px)");
+  const sm = useMediaQuery("(min-width: 360px) and (max-width:1200px)");
+  const xl = useMediaQuery("(min-width: 1201px");
+
+  let headerMobile = () => {
+    return (
+      <div className={styles.mobileWrapper}>
+        <div className={styles.mobileTitle}>
+          <LogoSVG width={150} height={31} />
           <Button
-            variant="dark-blue"
+            variant="light-blue"
             size="sm"
             label="Logout"
             hoverable
             onClickHandler={handleLogOut}
           />
-        ) : (
-          <></>
-        )}
+        </div>
+        <div className={styles.mobileFilter}>
+          <SearchField
+            value={searchValue}
+            resetValue={resetSearchValue}
+            onChange={handleInputChange}
+            placeholder="What are you looking for?"
+          />
+          <FilterSVG
+            height={22}
+            width={25}
+            fill={"var(--white)"}
+            selected={filterSelected}
+            onClick={() => setFilterSelected(!filterSelected)}
+          />
+        </div>
       </div>
-      <div className={styles.left}>
-        <SearchField
-          value={searchValue}
-          resetValue={resetSearchValue}
-          onChange={handleInputChange}
-          placeholder="What are you looking for?"
-        />
-        <FilterSVG height={20} width={25} fill={"var(--white)"} />
-      </div>
-      <nav>
-        <ul className={styles.nav}>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="transaction">Orders</Link>
-          </li>
-          <li>
-            <Link to="register">Settings</Link>
-          </li>
-          <li>
-            <Link to="user">Profile</Link>
-          </li>
-          <li>
-            <Button
-              variant="primary"
-              size="md"
-              onClickHandler={() => navigate("listing/add")}
-            >
-              Post Listing
-            </Button>
-          </li>
-          {user && (
+    );
+  };
+
+  let headerXl = () => {
+    return (
+      <div className={styles.xlWrapper}>
+        <div className={styles.xlLeft}>
+          <div style={{ marginRight: "41px" }}>
+            <LogoSVG width={200} height={41} />
+          </div>
+
+          <SearchField
+            value={searchValue}
+            resetValue={resetSearchValue}
+            onChange={handleInputChange}
+            placeholder="What are you looking for?"
+          />
+          <FilterSVG
+            height={22}
+            width={25}
+            fill={"var(--white)"}
+            selected={filterSelected}
+            onClick={() => setFilterSelected(!filterSelected)}
+          />
+        </div>
+        <div className={styles.xlRight}>
+          <ul>
+            <li>
+              <Link
+                style={
+                  location.pathname === "/"
+                    ? { color: "var(--yellow)" }
+                    : { color: "var(--white)" }
+                }
+                to="/"
+              >
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                style={
+                  location.pathname === "/transaction"
+                    ? { color: "var(--yellow)" }
+                    : { color: "var(--white)" }
+                }
+                to="transaction"
+              >
+                Orders
+              </Link>
+            </li>
+            <li>
+              <Link
+                style={
+                  location.pathname === "/register"
+                    ? { color: "var(--yellow)" }
+                    : { color: "var(--white)" }
+                }
+                to="register"
+              >
+                Settings
+              </Link>
+            </li>
+            <li>
+              <Link
+                style={
+                  location.pathname === "/user"
+                    ? { color: "var(--yellow)" }
+                    : { color: "var(--white)" }
+                }
+                to="user"
+              >
+                Profile
+              </Link>
+            </li>
             <li>
               <Button
-                variant="dark-blue"
-                size="sm"
-                label="Logout"
+                variant="yellow"
                 hoverable
-                onClickHandler={handleLogOut}
+                size="sm"
+                onClickHandler={() => navigate("listing/add")}
+                label="Post Listing"
               />
             </li>
-          )}
-        </ul>
-      </nav>
-    </header>
-  );
+            {user && (
+              <li>
+                <Button
+                  variant="light-blue"
+                  size="sm"
+                  label="Logout"
+                  hoverable
+                  onClickHandler={handleLogOut}
+                />
+              </li>
+            )}
+          </ul>
+        </div>
+      </div>
+    );
+  };
+
+  let content = sm ? headerMobile() : headerXl();
+
+  return <>{content}</>;
 };
 
 export default Header;

@@ -24,8 +24,6 @@ const Home = (props) => {
 
   return (
     <div>
-      {user && <button onClick={handleLogOut}>logout</button>}
-
       {xl ? (
         <div className={style.desktopWrapper}>
           <Grid columns={7} gap="31px">
