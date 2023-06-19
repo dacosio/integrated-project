@@ -19,7 +19,8 @@
 @media screen and (min-width: 1440px) {
 .title-wrapper {
     display: flex;
-    width: 100%;
+    width: 91%;
+    margin: auto;
 }
 
 .title-wrapper div {
@@ -36,13 +37,12 @@
 }
 
   .orders {
-    display: flex;
-    flex-flow: row wrap;
-    gap: 24px;
-    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
   }
 
   .orders .transaction-card {
-    flex-basis: 30%;
+    
   }
 }
