@@ -16,11 +16,13 @@ const Layout = () => {
 
   return (
     <>
-      <Header />
+      <header style={{ position: "sticky", top: 0, zIndex: 5 }}>
+        <Header />
+      </header>
       <main className="App">
         <Outlet />
       </main>
-      {size <= 768 ? <BottomNav style={bottomNavStyle} /> : <></>}
+      <BottomNav style={bottomNavStyle} />
     </>
   );
 };

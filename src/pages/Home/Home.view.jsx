@@ -89,6 +89,7 @@ const Home = (props) => {
               // permanent
               width="100%"
               height="10rem"
+              zIndex={2}
             />
           </div>
           <div className={style.resultsWrapper}>
