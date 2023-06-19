@@ -8,6 +8,7 @@ import DatePicker from "../components/base/DatePicker/DatePicker";
 import TimePicker from "../components/base/TimePicker/TimePicker";
 import Dropdown from "../components/base/Dropdown/Dropdown";
 import ImageList from "../components/base/ImageList/ImageList";
+import InfinitePagination from "../components/base/InfinitePagination/InfinitePagination";
 import Button from "../components/base/Button/Button";
 
 const Yuhwan = (props) => {
@@ -101,6 +102,38 @@ const Yuhwan = (props) => {
     "https://picsum.photos/id/70/900/600",
     "https://picsum.photos/id/80/900/600",
   ];
+
+  /* InfinitePagination */
+  const [scrollItems, setScrollItems] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+
+  const handleOnScroll = () => {
+    setTimeout(() => {
+      fetch(
+        `https://dummyjson.com/products?limit=30&skip=${scrollItems.length}&select=category,title,price`
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          if (data.products.length !== 0) {
+            const _scrollItems = [];
+
+            for (const product of data.products) {
+              _scrollItems.push(
+                <div key={product.id}>
+                  {product.id} :: {product.title}
+                </div>
+              );
+            }
+
+            setScrollItems((oldItems) => [...oldItems, ..._scrollItems]);
+          } else {
+            setHasMore(false);
+          }
+        });
+    }, 1500);
+  };
 
   return (
     <div>
@@ -202,7 +235,17 @@ const Yuhwan = (props) => {
           <Button variant="white" size="lg" label="Button" />
         </div>
       </div>
-      <div style={{ width: "100%", height: "500px" }}></div>
+      <div>
+        <h2>InfinitePagination</h2>
+        <div style={{ minWidth: "300px", width: "50%", margin: "auto" }}>
+          <InfinitePagination
+            items={scrollItems}
+            hasMore={hasMore}
+            onScroll={handleOnScroll}
+          />
+        </div>
+      </div>
+      <div style={{ width: "100%", height: "100px" }}></div>
     </div>
   );
 };
