@@ -8,7 +8,7 @@ import SearchField from "../../base/SearchField/SearchField";
 import { LuFilter } from "react-icons/lu";
 import useWindowSize from "../../../utils/useWindowSize";
 import { SearchContext } from "../../../context/SearchContext";
-import { FilterSVG } from "../../base/SVG";
+import { FilterSVG, LogoSVG } from "../../base/SVG";
 
 const Header = () => {
   const { user, logout } = UserAuth();
@@ -25,16 +25,21 @@ const Header = () => {
     updateSearchValue(event.target.value);
   };
 
+  let headerContent;
+
   return (
     <header className={styles.header}>
       <div className={styles.mobileTitle}>
-        <div className={styles.title}>SplitShare</div>
+        <div className={styles.title}>
+          <LogoSVG width="40vw" height="3.5vh" />
+        </div>
         {size < 768 ? (
           <Button
-            onClickHandler={handleLogOut}
-            variant="gray"
-            size="md"
+            variant="dark-blue"
+            size="sm"
             label="Logout"
+            hoverable
+            onClickHandler={handleLogOut}
           />
         ) : (
           <></>
@@ -47,8 +52,7 @@ const Header = () => {
           onChange={handleInputChange}
           placeholder="What are you looking for?"
         />
-        <LuFilter style={{ fontSize: "35px", color: "white" }} />
-        <FilterSVG height={20} width={25} />
+        <FilterSVG height={20} width={25} fill={"var(--white)"} />
       </div>
       <nav>
         <ul className={styles.nav}>
@@ -73,14 +77,17 @@ const Header = () => {
               Post Listing
             </Button>
           </li>
-          <li>
-            <Button
-              onClickHandler={handleLogOut}
-              variant="gray"
-              size="md"
-              label="Logout"
-            />
-          </li>
+          {user && (
+            <li>
+              <Button
+                variant="dark-blue"
+                size="sm"
+                label="Logout"
+                hoverable
+                onClickHandler={handleLogOut}
+              />
+            </li>
+          )}
         </ul>
       </nav>
     </header>
