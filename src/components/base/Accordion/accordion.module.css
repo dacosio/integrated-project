@@ -1,0 +1,18 @@
+.wrapper {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: 2px solid black;
+  box-shadow: 2px 2px black;
+  padding: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer {
+  margin-top: 16px;
+}

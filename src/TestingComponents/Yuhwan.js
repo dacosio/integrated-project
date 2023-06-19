@@ -8,6 +8,7 @@ import DatePicker from "../components/base/DatePicker/DatePicker";
 import TimePicker from "../components/base/TimePicker/TimePicker";
 import Dropdown from "../components/base/Dropdown/Dropdown";
 import ImageList from "../components/base/ImageList/ImageList";
+import Accordion from "../components/base/Accordion/Accordion";
 import Button from "../components/base/Button/Button";
 
 const Yuhwan = (props) => {
@@ -102,6 +103,17 @@ const Yuhwan = (props) => {
     "https://picsum.photos/id/80/900/600",
   ];
 
+  /* Accordion */
+  const [visibility, setVisibility] = useState(false);
+
+  const handleOnOpen = () => {
+    setVisibility(true);
+  };
+
+  const handleOnClose = () => {
+    setVisibility(false);
+  };
+
   return (
     <div>
       <h1>Yuhwan</h1>
@@ -162,6 +174,27 @@ const Yuhwan = (props) => {
           <br />
           <br />
           <ImageList images={images} mode="vertical" />
+        </div>
+      </div>
+      <div>
+        <h2>Accordion</h2>
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "500px",
+            padding: "16px",
+            margin: "auto",
+            boxSizing: "border-box",
+          }}
+        >
+          <Accordion
+            visibility={visibility}
+            label="Lorem ipsum"
+            onOpen={handleOnOpen}
+            onClose={handleOnClose}
+          >
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </Accordion>
         </div>
       </div>
       <div>
