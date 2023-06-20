@@ -40,8 +40,8 @@ const Home = () => {
     data.push({ id: i, lat: 49.225, long: -123.107, location: "Langara" });
   }
 
-  const xl = useMediaQuery("(min-width: 1201px");
-  const lg = useMediaQuery("(min-width: 800px) and (max-width: 1200px)");
+  const xl = useMediaQuery("(min-width: 1270px");
+  const lg = useMediaQuery("(min-width: 800px) and (max-width: 1269px)");
   const md = useMediaQuery("(min-width: 600px) and (max-width: 799px)");
   const sm = useMediaQuery("(min-width: 360px) and (max-width: 599px");
 
