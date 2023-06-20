@@ -22,12 +22,29 @@ const MapLeaflet = ({
   permanent,
   direction,
   component,
+<<<<<<< HEAD
+=======
+  width,
+  height,
+  borderRadius,
+  zIndex,
+>>>>>>> cff3a55ccd583e56622dec5021b4fafeceeb5908
   ...props
 }) => {
   let bounds = markerData && markerData.map((d) => [d.lat, d.long]);
 
   return (
+<<<<<<< HEAD
     <MapContainer {...props} bounds={bounds} scrollWheelZoom>
+=======
+    <MapContainer
+      style={{ width, height, borderRadius, zIndex }}
+      {...props}
+      bounds={bounds}
+      scrollWheelZoom
+      zoomControl={false}
+    >
+>>>>>>> cff3a55ccd583e56622dec5021b4fafeceeb5908
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

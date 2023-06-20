@@ -31,6 +31,8 @@ const BuyerContactCard = ({ source, nameOfBuyer, contactTel, email }) => {
             </div>
           </div>
         </div>
-
-
+      </div>
+    </div> 
+  )
+}
 export default React.memo(BuyerContactCard);

@@ -13,6 +13,11 @@ import SellerInfoCard from "../components/base/SellerInfoCard/SellerInfoCard";
 import Grid from "../components/layout/Grid/Grid";
 import useMediaQuery from "../utils/useMediaQuery";
 import SelectDropdown from "../components/base/SelectDropdown/SelectDropdown";
+<<<<<<< HEAD
+=======
+import Button from "../components/base/Button/Button";
+import ImageLabel from "../components/base/ImageLabel/imageLabel";
+>>>>>>> cff3a55ccd583e56622dec5021b4fafeceeb5908
 
 const wrapper = {
   padding: "1rem",
@@ -48,12 +53,15 @@ const Don = (props) => {
       <h1>Don</h1>
       <div>{/* <FirebaseSample /> */}</div>
       <div style={wrapper}>
-        <SearchField
+        {/* <SearchField
           placeholder="What are you looking for?"
-          onChange={(e) => setSearchValue(e.target.value)}
+          onChange={(e) => {
+            setSearchValue(e.target.value);
+            console.log(e.target.value);
+          }}
           value={searchValue}
           resetValue={() => setSearchValue("")}
-        />
+        /> */}
       </div>
 
       <div style={wrapper}>{/* <MapSearch /> */}</div>
