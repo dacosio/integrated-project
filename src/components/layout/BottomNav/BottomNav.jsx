@@ -1,57 +1,85 @@
 import React from "react";
 import styles from "./bottomNav.module.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import PlusSVG from "../../base/SVG/PlusSVG";
+import { HomeSVG, OrderSVG, ProfileSVG, SettingsSVG } from "../../base/SVG";
+import Typography from "../../base/Typography/Typography";
 
-import { AiOutlineHome, AiOutlineUser } from "react-icons/ai";
-import { BiPackage } from "react-icons/bi";
-import { BsGear, BsFillPlusCircleFill } from "react-icons/bs";
+const BottomNav = (props) => {
+  const location = useLocation();
+  const darkblue = "var(--dark-blue)";
+  const lightgray = "var(--light-gray)";
+  const typoLightGray = "light-gray";
+  const typoDarkBlue = "dark-blue";
 
-const { nav } = styles;
+  const activeColor = () => {
+    let color = {
+      svgColor: lightgray,
+      typoColor: typoLightGray,
+    };
+    if (location.pathname === "/transaction") {
+      color.svgColor = darkblue;
+      color.typoColor = typoDarkBlue;
+    } else if (location.pathname === "/") {
+      color.svgColor = darkblue;
+      color.typoColor = typoDarkBlue;
+    }
 
-const BottomNav = ({ ...props }) => {
+    return color;
+  };
+
+  console.log(location.pathname);
+
   return (
-    <div {...props}>
+    <div className={styles.wrapper} {...props}>
       <nav>
-        <ul className={nav}>
+        <ul className={styles.nav}>
           <li>
             <Link to="/">
-              <AiOutlineHome fontSize="30px" />
-              Home
+              <HomeSVG stroke={activeColor().svgColor} width={26} height={23} />
+              <Typography
+                variant="body-3-medium"
+                color={activeColor().typoColor}
+              >
+                Home
+              </Typography>
             </Link>
           </li>
           <li>
             <Link to="transaction">
-              <BiPackage fontSize="30px" />
-              Orders
+              <OrderSVG stroke={activeColor().svgColor} />
+              <Typography
+                variant="body-3-medium"
+                color={activeColor().typoColor}
+              >
+                Orders
+              </Typography>
             </Link>
           </li>
           <li>
             <Link to="listing/add">
-              <BsFillPlusCircleFill fontSize="30px" color={"#0b5cbb"} />
-              Post
+              <PlusSVG height={30} width={30} fill="var(--dark-blue)" />
+              <Typography variant="body-3-medium" color="light-gray">
+                Post
+              </Typography>
             </Link>
           </li>
           <li>
             <Link to="register">
-              <BsGear fontSize="30px" />
-              Settings
+              <SettingsSVG stroke="var(--light-gray)" />
+              <Typography variant="body-3-medium" color="light-gray">
+                Settings
+              </Typography>
             </Link>
           </li>
           <li>
             <Link to="user">
-              <AiOutlineUser fontSize="30px" />
-              Profile
+              <ProfileSVG fill="var(--light-gray)" />
+              <Typography variant="body-3-medium" color="light-gray">
+                Profile
+              </Typography>
             </Link>
           </li>
-          {/* <li>
-            <Button
-              variant="primary"
-              size="md"
-              onClickHandler={() => navigate("listing/add")}
-            >
-              Post Listing
-            </Button>
-          </li> */}
         </ul>
       </nav>
     </div>

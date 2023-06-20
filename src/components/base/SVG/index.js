@@ -10,3 +10,7 @@ export { default as PlusSVG } from "./PlusSVG";
 export { default as MinusSVG } from "./MinusSVG";
 export { default as MapMarkerSVG } from "./MapMarkerSVG";
 export { default as LogoSVG } from "./LogoSVG";
+export { default as HomeSVG } from "./HomeSVG";
+export { default as OrderSVG } from "./OrderSVG";
+export { default as SettingsSVG } from "./SettingsSVG";
+export { default as ProfileSVG } from "./ProfileSVG";

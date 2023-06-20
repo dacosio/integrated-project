@@ -15,6 +15,7 @@ import useMediaQuery from "../utils/useMediaQuery";
 import SelectDropdown from "../components/base/SelectDropdown/SelectDropdown";
 import Button from "../components/base/Button/Button";
 import ImageLabel from "../components/base/ImageLabel/imageLabel";
+import BottomNav from "../components/layout/BottomNav/BottomNav";
 
 const wrapper = {
   padding: "1rem",
@@ -138,6 +139,7 @@ const Don = (props) => {
           width="250px"
         />
         {/* <ImageLabel distance={2} days={1} /> */}
+        <BottomNav />
       </div>
     </div>
   );
