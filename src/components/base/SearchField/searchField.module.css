@@ -5,12 +5,12 @@
   border-radius: 28px;
   padding: 6px 11px;
   width: 100%;
-  max-width: 281px;
+  /* max-width: 281px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 32px;
-  margin-right: 21px;
+  /* margin-right: 21px; */
 }
 
 .input {

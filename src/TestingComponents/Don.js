@@ -55,7 +55,7 @@ const Don = (props) => {
       <h1>Don</h1>
       <div>{/* <FirebaseSample /> */}</div>
       <div style={wrapper}>
-        {/* <SearchField
+        <SearchField
           placeholder="What are you looking for?"
           onChange={(e) => {
             setSearchValue(e.target.value);
@@ -63,7 +63,7 @@ const Don = (props) => {
           }}
           value={searchValue}
           resetValue={() => setSearchValue("")}
-        /> */}
+        />
       </div>
 
       <div style={wrapper}>{/* <MapSearch /> */}</div>
