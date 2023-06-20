@@ -29,8 +29,8 @@ const Header = () => {
 
   const location = useLocation();
 
-  // const sm = useMediaQuery("(min-width: 360px) and (max-width: 599px)");
-  const sm = useMediaQuery("(min-width: 360px) and (max-width:1270x)");
+  const sm = useMediaQuery("(min-width: 360px) and (max-width:576px)");
+  const md = useMediaQuery("(min-width: 577px) and (max-width:799px)");
   const xl = useMediaQuery("(min-width: 1271px");
 
   let headerMobile = () => {
@@ -162,8 +162,16 @@ const Header = () => {
       </div>
     );
   };
-
-  let content = sm ? headerMobile() : xl ? headerXl() : headerMobile();
+  console.log(sm, xl);
+  let content = sm ? (
+    headerMobile()
+  ) : md ? (
+    <div>nill</div>
+  ) : xl ? (
+    headerXl()
+  ) : (
+    ""
+  );
 
   return <>{content}</>;
 };
