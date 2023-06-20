@@ -1,0 +1,28 @@
+.wrapper {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: 2px solid black;
+  box-shadow: 2px 2px black;
+}
+
+.header {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.footer {
+  box-sizing: border-box;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.expand {
+  margin-top: 16px;
+  overflow: unset;
+  max-height: unset;
+  transition-duration: 0.1s;
+}
