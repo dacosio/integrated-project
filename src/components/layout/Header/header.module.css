@@ -7,6 +7,8 @@
   color: var(--white);
   display: flex;
   justify-content: space-between;
+  max-width: 375px;
+  margin: auto;
 }
 
 .mobileFilter {
@@ -14,6 +16,8 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 21px;
+  max-width: 375px;
+  margin: auto;
 }
 
 .filterSVG {

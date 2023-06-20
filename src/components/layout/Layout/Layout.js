@@ -22,8 +22,18 @@ const Layout = () => {
       <main className="App">
         <Outlet />
       </main>
-      <div style={{ position: "sticky", bottom: 0, zIndex: 5 }}>
-        <BottomNav style={bottomNavStyle} />
+      <div
+        style={{
+          position: "fixed",
+          bottom: 10,
+          zIndex: 5,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        <BottomNav />
       </div>
     </>
   );

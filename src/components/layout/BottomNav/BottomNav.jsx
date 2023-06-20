@@ -1,60 +1,90 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./bottomNav.module.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import PlusSVG from "../../base/SVG/PlusSVG";
+import { HomeSVG, OrderSVG, ProfileSVG, SettingsSVG } from "../../base/SVG";
+import Typography from "../../base/Typography/Typography";
+import useMediaQuery from "../../../utils/useMediaQuery";
 
-import { AiOutlineHome, AiOutlineUser } from "react-icons/ai";
-import { BiPackage } from "react-icons/bi";
-import { BsGear, BsFillPlusCircleFill } from "react-icons/bs";
+const BottomNav = (props) => {
+  const location = useLocation();
+  const [link, setLink] = useState("/");
 
-const { nav } = styles;
+  const darkblue = "var(--dark-blue)";
+  const lightgray = "var(--light-gray)";
+  const typoLightGray = "light-gray";
+  const typoDarkBlue = "dark-blue";
 
-const BottomNav = ({ ...props }) => {
+  const colorSVG = (uri) => {
+    return location.pathname === uri ? darkblue : lightgray;
+  };
+
+  const colorTypo = (uri) => {
+    return location.pathname === uri ? typoDarkBlue : typoLightGray;
+  };
+
+  const sm = useMediaQuery("(min-width: 360px) and (max-width:576px)");
+
   return (
-    <div {...props}>
-      <nav>
-        <ul className={nav}>
-          <li>
-            <Link to="/">
-              <AiOutlineHome fontSize="30px" />
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link to="transaction">
-              <BiPackage fontSize="30px" />
-              Orders
-            </Link>
-          </li>
-          <li>
-            <Link to="listing/add">
-              <BsFillPlusCircleFill fontSize="30px" color={"#0b5cbb"} />
-              Post
-            </Link>
-          </li>
-          <li>
-            <Link to="register">
-              <BsGear fontSize="30px" />
-              Settings
-            </Link>
-          </li>
-          <li>
-            <Link to="user">
-              <AiOutlineUser fontSize="30px" />
-              Profile
-            </Link>
-          </li>
-          {/* <li>
-            <Button
-              variant="primary"
-              size="md"
-              onClickHandler={() => navigate("listing/add")}
-            >
-              Post Listing
-            </Button>
-          </li> */}
-        </ul>
-      </nav>
-    </div>
+    <>
+      {sm && (
+        <div className={styles.wrapper} {...props}>
+          <nav>
+            <ul className={styles.nav}>
+              <li>
+                <Link to="/">
+                  <HomeSVG stroke={colorSVG("/")} width={26} height={23} />
+                  <Typography variant="body-3-medium" color={colorTypo("/")}>
+                    Home
+                  </Typography>
+                </Link>
+              </li>
+              <li>
+                <Link to="transaction">
+                  <OrderSVG stroke={colorSVG("/transaction")} />
+                  <Typography
+                    variant="body-3-medium"
+                    color={colorTypo("/transaction")}
+                  >
+                    Orders
+                  </Typography>
+                </Link>
+              </li>
+              <li>
+                <Link to="listing/add">
+                  <PlusSVG height={30} width={30} fill="var(--dark-blue)" />
+                  <Typography variant="body-3-medium" color="light-gray">
+                    Post
+                  </Typography>
+                </Link>
+              </li>
+              <li>
+                <Link to="register">
+                  <SettingsSVG stroke={colorSVG("/register")} />
+                  <Typography
+                    variant="body-3-medium"
+                    color={colorTypo("/register")}
+                  >
+                    Settings
+                  </Typography>
+                </Link>
+              </li>
+              <li>
+                <Link to="user">
+                  <ProfileSVG fill={colorSVG("/user")} />
+                  <Typography
+                    variant="body-3-medium"
+                    color={colorTypo("/user")}
+                  >
+                    Profile
+                  </Typography>
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      )}
+    </>
   );
 };
 
