@@ -200,14 +200,10 @@ const Yuhwan = (props) => {
   ];
 
   /* Accordion */
-  const [visibility, setVisibility] = useState(false);
+  const [accordionVisibility, setAccordionVisibility] = useState(false);
 
-  const handleOnOpen = () => {
-    setVisibility(true);
-  };
-
-  const handleOnClose = () => {
-    setVisibility(false);
+  const handleOnToggle = () => {
+    setAccordionVisibility((oldValue) => !oldValue);
   };
 
   return (
@@ -303,10 +299,9 @@ const Yuhwan = (props) => {
           }}
         >
           <Accordion
-            visibility={visibility}
+            visibility={accordionVisibility}
             label="Lorem ipsum"
-            onOpen={handleOnOpen}
-            onClose={handleOnClose}
+            onToggle={handleOnToggle}
           >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </Accordion>

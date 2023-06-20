@@ -4,15 +4,15 @@
   border-radius: 8px;
   border: 2px solid black;
   box-shadow: 2px 2px black;
-  padding: 16px;
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 16px;
 }
 
 .footer {
-  margin-top: 16px;
+  padding: 16px;
 }
