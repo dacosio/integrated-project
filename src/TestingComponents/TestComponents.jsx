@@ -8,9 +8,9 @@ const TestComponents = () => {
   return (
     <div>
       <Yuki />
-      {/* <Don />
+      <Don />
       <Cylvia />
-      <Yuhwan /> */}
+      <Yuhwan />
     </div>
   );
 };

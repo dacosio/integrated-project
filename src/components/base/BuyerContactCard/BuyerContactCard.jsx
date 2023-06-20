@@ -10,29 +10,29 @@ const BuyerContactCard = ({ source, nameOfBuyer, contactTel, email }) => {
   return (
     <div className="buyer-contact-card-wrapper">
       <div className="buyer-contact-card">
-        <Typography variant="h3-graphik-bold">Sold to</Typography>
+        <Typography variant="h4-graphik-bold" style={{"grid-column": "1/-1"}}>Sold to</Typography>
         <div className="image-container">
           <Image source={source} />
         </div>
         <div className="buyer-description">
           <div className="buyer-contact-description">
             <div className="name-container">
-              <UserSVG height={21} width={18} fill={"none"}/>
+              <UserSVG height={21} width={21} fill={"none"} />
               <Typography variant="body-1-regular">{nameOfBuyer}</Typography>
             </div>
 
             <div className="conatct-tel-container">
-              <PhoneSVG height={20} width={20} fill={"none"}/>
+              <PhoneSVG height={22} width={21} fill={"none"} />
               <Typography variant="body-1-regular">{contactTel}</Typography>
             </div>
             <div className="email-container">
-              <EnvelopeSVG height={14} width={20} fill={"none"}/>
+              <EnvelopeSVG height={14} width={21} fill={"none"} />
               <Typography variant="body-1-regular">{email}</Typography>
             </div>
           </div>
         </div>
       </div>
-    </div> 
-  )
-}
+    </div>
+  );
+};
 export default React.memo(BuyerContactCard);

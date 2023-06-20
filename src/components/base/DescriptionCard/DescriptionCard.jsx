@@ -9,18 +9,18 @@ const DescriptionCard = ({ description, onClick }) => {
     <div className="dcwrapper">
       <div className="description-container">
         <div className="item-description">
-          <Typography className="h4-graphik-bold">Description</Typography>
-          <Typography className="body-2-regular">{description}</Typography>
+          <Typography variant="h4-graphik-bold" style={{"margin":".5rem 0"}}>Description</Typography>
+          <Typography variant="body-2-regular" color="gray">{description}</Typography>
         </div>
         {/* <div className="portion-description">
         <h2>Each portion contains</h2>
         <p>{portionDescription}</p>
         </div> */}
-        <div className="button">
+        <div className="button" style={{"margin":"1rem 0"}}>
           <Button
             onClickHandler={onClick}
             size="lg"
-            variant="primary"
+            variant="yellow"
             label="Request Purchase"
           />
         </div>
@@ -29,4 +29,4 @@ const DescriptionCard = ({ description, onClick }) => {
   );
 };
 
-export default DescriptionCard;
+export default React.memo(DescriptionCard);

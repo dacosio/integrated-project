@@ -11,34 +11,21 @@
   height: auto;
   border: 1px solid #000000;
   border-radius: 20px;
+  box-shadow: 2px 2px black;
 }
 
 .meet-up-info-description {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 }
 
-.date-container,
 .time-container,
-.location-container {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-  justify-items: center;
+.date-container,
+.location-container
+{
+  display: grid;
+  grid-template-columns: .1fr 1.5fr;
   align-items: center;
+  margin-bottom: .3rem;
 }
 
-.location-container {
-  flex-wrap: row;
-}
-
-.location-container .body-1-regular {
-  order: 2;
-  flex-grow: 1;
-}
-
-.locationsvg {
-  order: 1;
-  flex-shrink: 0;
-}

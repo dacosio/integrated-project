@@ -15,16 +15,16 @@ const MeetUpInfoCard = ({ date, time, location }) => {
         </div>
         <div className="meet-up-info-description">
           <div className="date-container">
-            <CalendarSVG height={23} width={18} />
-            <Typography variant="body-1-regular">{date}</Typography>
+            <CalendarSVG height={23} width={20} />
+            <Typography variant="body-1-medium">{date}</Typography>
           </div>
           <div className="time-container">
             <ClockSVG height={23} width={20} />
-            <Typography variant="body-1-regular">{time}</Typography>
+            <Typography variant="body-1-medium">{time}</Typography>
           </div>
           <div className="location-container">
-            <LocationSVG className="locationsvg" height={23} width={20} />
-            <Typography variant="body-1-regular">
+            <LocationSVG style={{"grid-colu": "0"}}height={23} width={20} />
+            <Typography variant="body-1-medium">
               {location}
             </Typography>
           </div>
