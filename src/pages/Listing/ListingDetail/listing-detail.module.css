@@ -1,0 +1,13 @@
+.wrapper {
+  padding: 16px;
+  margin-bottom: 300px;
+  background-color: var(--light-blue);
+}
+
+.card {
+  background-color: white;
+  padding: 16px;
+  border-radius: 20px;
+  border: 2px solid var(--black);
+  box-shadow: 2px 2px var(--black);
+}
