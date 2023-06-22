@@ -1,5 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import store from "../config/firebaseConfig";
 import { storage } from "../config/firebaseConfig";
+import {
+  collection,
+  query,
+  orderBy,
+  startAfter,
+  limit,
+  getDocs,
+} from "firebase/firestore";
+
 import {
   ref,
   uploadBytesResumable,
@@ -18,6 +28,7 @@ import ImageList from "../components/base/ImageList/ImageList";
 import InfinitePagination from "../components/base/InfinitePagination/InfinitePagination";
 import Accordion from "../components/base/Accordion/Accordion";
 import Button from "../components/base/Button/Button";
+import ActiveListingCard from "../components/base/ActiveListingCard/ActiveListingCard";
 
 const Yuhwan = (props) => {
   /* Pagination */
@@ -29,26 +40,43 @@ const Yuhwan = (props) => {
   const itemNumber = 10;
   const columns = ["id", "category", "title", "price"];
 
-  useState(() => {
-    fetch(
-      `https://dummyjson.com/products?limit=${itemNumber}&skip=0&select=category,title,price`
-    )
+  useEffect(() => {
+    const q = query(
+      collection(store, "product"),
+      orderBy("createdAt"),
+      limit(12)
+    );
+
+    getDocs(q)
       .then((response) => {
-        return response.json();
+        const _items = [];
+        response.docs.forEach((doc) => {
+          _items.push(doc.data());
+        });
+        setItems([..._items]);
       })
-      .then((data) => {
-        setItems(data.products);
+      .catch((error) => {
+        console.log(error);
       });
 
-    fetch(
-      `https://dummyjson.com/products?limit=0&skip=0&select=category,title,price`
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setTotalPageNumber(Math.ceil(data.products.length / itemNumber));
-      });
+    // fetch(
+    //   `https://dummyjson.com/products?limit=${itemNumber}&skip=0&select=category,title,price`
+    // )
+    //   .then((response) => {
+    //     return response.json();
+    //   })
+    //   .then((data) => {
+    //     setItems(data.products);
+    //   });
+    // fetch(
+    //   `https://dummyjson.com/products?limit=0&skip=0&select=category,title,price`
+    // )
+    //   .then((response) => {
+    //     return response.json();
+    //   })
+    //   .then((data) => {
+    //     setTotalPageNumber(Math.ceil(data.products.length / itemNumber));
+    //   });
   }, []);
 
   const handleOnClick = (pageIndex) => {
@@ -252,7 +280,17 @@ const Yuhwan = (props) => {
           totalPageNumber={totalPageNumber}
           onClick={handleOnClick}
         />
-        <Page items={items} columns={columns} />
+        {/* <Page items={items} columns={columns} /> */}
+        {items.map((item, index) => {
+          return (
+            <ActiveListingCard
+              itemname={item.name}
+              price={item.price}
+              stock={item.qty}
+              key={index}
+            />
+          );
+        })}
       </div>
       <div>
         <h2>SingleImageInput</h2>
