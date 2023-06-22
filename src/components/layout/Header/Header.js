@@ -26,6 +26,10 @@ const Header = () => {
 
   const location = useLocation();
 
+  const handleLogin = () => {
+    navigate("/login");
+  };
+
   const sm = useMediaQuery("(min-width: 360px) and (max-width:576px)");
   const md = useMediaQuery("(min-width: 577px) and (max-width:799px)");
   const lg = useMediaQuery("(min-width: 800px) and (max-width:1270px)");
@@ -39,9 +43,9 @@ const Header = () => {
           <Button
             variant="light-blue"
             size="sm"
-            label="Logout"
+            label={user ? "Logout" : "Login"}
             hoverable
-            onClickHandler={handleLogOut}
+            onClickHandler={user ? handleLogOut : handleLogin}
           />
         </div>
         <div className={styles.mobileFilter}>
@@ -81,9 +85,9 @@ const Header = () => {
             <Button
               variant="light-blue"
               size="sm"
-              label="Logout"
+              label={user ? "Logout" : "Login"}
               hoverable
-              onClickHandler={handleLogOut}
+              onClickHandler={user ? handleLogOut : handleLogin}
             />
           </div>
         </div>
@@ -176,9 +180,9 @@ const Header = () => {
             <Button
               variant="light-blue"
               size="sm"
-              label="Logout"
+              label={user ? "Logout" : "Login"}
               hoverable
-              onClickHandler={handleLogOut}
+              onClickHandler={user ? handleLogOut : handleLogin}
             />
           </div>
         </div>
@@ -337,17 +341,15 @@ const Header = () => {
                 label="Post Listing"
               />
             </li>
-            {user && (
-              <li>
-                <Button
-                  variant="light-blue"
-                  size="sm"
-                  label="Logout"
-                  hoverable
-                  onClickHandler={handleLogOut}
-                />
-              </li>
-            )}
+            <li>
+              <Button
+                variant="light-blue"
+                size="sm"
+                label={user ? "Logout" : "Login"}
+                hoverable
+                onClickHandler={user ? handleLogOut : handleLogin}
+              />
+            </li>
           </ul>
         </div>
       </div>

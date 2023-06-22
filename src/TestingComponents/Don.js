@@ -16,6 +16,7 @@ import SelectDropdown from "../components/base/SelectDropdown/SelectDropdown";
 import Button from "../components/base/Button/Button";
 import ImageLabel from "../components/base/ImageLabel/imageLabel";
 import BottomNav from "../components/layout/BottomNav/BottomNav";
+import FilterModal from "../components/module/FilterModal/FilterModal";
 
 const wrapper = {
   padding: "1rem",
@@ -49,6 +50,16 @@ const Don = (props) => {
   const isDesktop = useMediaQuery("(min-width: 1200px)");
   const isTablet = useMediaQuery("(min-width: 960px)");
   const isMobile = useMediaQuery("(min-width: 360px)");
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div>
@@ -142,6 +153,16 @@ const Don = (props) => {
         />
         {/* <ImageLabel distance={2} days={1} /> */}
         <BottomNav />
+      </div>
+
+      <div style={wrapper}>
+        <div>
+          <button onClick={openModal}>Open Modal</button>
+          <filterModal isOpen={isModalOpen} onClose={closeModal}>
+            <h2>Modal Content</h2>
+            <p>This is the content of the modal.</p>
+          </filterModal>
+        </div>
       </div>
     </div>
   );

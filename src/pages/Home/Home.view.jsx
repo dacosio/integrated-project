@@ -113,7 +113,7 @@ const Home = (props) => {
                 direction="top"
                 // permanent
                 width="100%"
-                height="10rem"
+                height="30vh"
                 zIndex={2}
                 bounds={bounds}
               />
