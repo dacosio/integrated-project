@@ -2,7 +2,6 @@ import React from "react";
 
 const FilterSVG = ({ width, height, fill, selected, onClick, ...props }) => {
   let bgColor;
-  console.log(bgColor, selected);
 
   let selectedStyles = {
     border: "2px solid var(--black)",
@@ -13,8 +12,11 @@ const FilterSVG = ({ width, height, fill, selected, onClick, ...props }) => {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    cursor: "pointer",
   };
-  let foo = selected ? selectedStyles : { padding: "3px 5px" };
+  let foo = selected
+    ? selectedStyles
+    : { padding: "3px 5px", cursor: "pointer" };
 
   return (
     <div style={foo} onClick={onClick}>
