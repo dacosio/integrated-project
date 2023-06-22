@@ -10,6 +10,7 @@ import {
   query,
   getDocs,
   updateDoc,
+  serverTimestamp,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import db from "./firebaseConfig";
@@ -63,7 +64,6 @@ const FirebaseSample = () => {
       }),
     []
   );
-
   // useEffect(
   //   () =>
   //     onSnapshot(collection(db, "user"), (snapshot) => {
@@ -98,8 +98,9 @@ const FirebaseSample = () => {
     await deleteDoc(docRef);
   };
 
-  console.log(users);
-  console.log(categories);
+  // console.log(users);
+  // console.log(categories);
+  // const b = products.map((el) => [el.location._lat, el.location._long]);
   console.log(products);
 
   return (

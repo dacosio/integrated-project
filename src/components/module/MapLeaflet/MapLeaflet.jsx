@@ -6,6 +6,7 @@ import "./mapLeaflet.css";
 import SellerInfoCard from "../../base/SellerInfoCard/SellerInfoCard";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import MarkerSVG from "../../base/SVG/MarkerSVG";
+import ActiveListingCard from "../../base/ActiveListingCard/ActiveListingCard";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -33,50 +34,58 @@ const MapLeaflet = ({
   height,
   borderRadius,
   zIndex,
+  bounds,
   ...props
 }) => {
-  let bounds = markerData && markerData.map((d) => [d.lat, d.long]);
-
   return (
-    <MapContainer
-      style={{ width, height, borderRadius, zIndex }}
-      {...props}
-      bounds={bounds}
-      scrollWheelZoom
-      zoomControl={false}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <MarkerClusterGroup chunkedLoading>
-        {markerData &&
-          markerData.map((el) => {
-            return (
-              <Marker
-                key={el.id}
-                position={[el.lat, el.long]}
-                onMouseOver={(e) => {
-                  e.target.openPopup();
-                }}
-                onMouseOut={(e) => {
-                  e.target.closePopup();
-                }}
-                icon={customIcon}
-              >
-                <Tooltip permanent={permanent} direction={direction}>
-                  <SellerInfoCard
-                    source="https://picsum.photos/200"
-                    username="cylvito"
-                    location={el.location}
-                    items="1"
-                  />
-                </Tooltip>
-              </Marker>
-            );
-          })}
-      </MarkerClusterGroup>
-    </MapContainer>
+    <>
+      <MapContainer
+        style={{ width, height, borderRadius, zIndex }}
+        {...props}
+        bounds={[[49.225693, -123.107326]]}
+        scrollWheelZoom
+        zoomControl={false}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <MarkerClusterGroup chunkedLoading>
+          {markerData &&
+            markerData.map((el) => {
+              return (
+                <Marker
+                  key={el.id}
+                  position={[el.location._lat, el.location._long]}
+                  onMouseOver={(e) => {
+                    e.target.openPopup();
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.closePopup();
+                  }}
+                  icon={customIcon}
+                >
+                  <Tooltip permanent={permanent} direction={direction}>
+                    <ActiveListingCard
+                      key={el.id}
+                      distance={2}
+                      days={2}
+                      source={`https://picsum.photos/400?random=${el.id}`}
+                      itemname="Banana"
+                      price={1.25}
+                      stock={5}
+                      alt="Banana"
+                      onClick={() => console.log(el.id)}
+                      maxwidth={"150px"}
+                      width={"150px"}
+                    />
+                  </Tooltip>
+                </Marker>
+              );
+            })}
+        </MarkerClusterGroup>
+      </MapContainer>
+    </>
   );
 };
 

@@ -20,6 +20,8 @@ const Home = (props) => {
     pageNumber,
     totalPageNumber,
     handleOnClick,
+    products,
+    bounds,
   } = props;
 
   return (
@@ -40,8 +42,8 @@ const Home = (props) => {
                 </Typography>
               </div>
               <Grid columns={2} style={{ justifyItems: "center" }}>
-                {data &&
-                  data.slice(0, 4).map((d) => {
+                {products &&
+                  products.slice(0, 4).map((d) => {
                     return (
                       <ActiveListingCard
                         key={d.id}
@@ -69,13 +71,14 @@ const Home = (props) => {
             <div className={style.mapDesktop}>
               <MapLeaflet
                 zoom={zoom}
-                markerData={data}
+                markerData={products}
                 direction="top"
                 // permanent
                 width="100%"
                 height="100%"
                 borderRadius="20px"
                 zIndex={2}
+                bounds={bounds}
               />
             </div>
           </Grid>
@@ -85,12 +88,13 @@ const Home = (props) => {
           <div>
             <MapLeaflet
               zoom={zoom}
-              markerData={data}
+              markerData={products}
               direction="top"
               // permanent
               width="100%"
               height="10rem"
               zIndex={2}
+              bounds={bounds}
             />
           </div>
           <div className={style.resultsWrapper}>
@@ -107,17 +111,17 @@ const Home = (props) => {
             </div>
 
             <Grid columns={columns} style={{ justifyItems: "center" }}>
-              {data &&
-                data.map((d) => {
+              {products &&
+                products.map((d) => {
                   return (
                     <ActiveListingCard
                       key={d.id}
                       distance={2}
                       days={2}
                       source={`https://picsum.photos/400?random=${d.id}`}
-                      itemname="Banana"
-                      price={1.25}
-                      stock={5}
+                      itemname={d.name}
+                      price={d.price}
+                      stock={d.qty}
                       alt="Banana"
                       onClick={() => console.log(d.id)}
                       maxwidth={lg ? "180px" : "150px"}

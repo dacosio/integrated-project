@@ -17,6 +17,7 @@ const Home = () => {
   const [currentPageIndex, setCurrentPageIndex] = useState(2);
   const [pageNumber, setPageNumber] = useState(5);
   const [totalPageNumber, setTotalPageNumber] = useState(10);
+  const [bounds, setBounds] = useState([]);
 
   const navigate = useNavigate();
   const handleLogOut = async () => {
@@ -34,11 +35,12 @@ const Home = () => {
     []
   );
 
-  const data = [];
+  useEffect(() => {
+    if (products)
+      setBounds(products.map((el) => [el.location._lat, el.location._long]));
+  }, [products]);
 
-  for (let i = 0; i < 10; i++) {
-    data.push({ id: i, lat: 49.225, long: -123.107, location: "Langara" });
-  }
+  console.log(bounds);
 
   const xl = useMediaQuery("(min-width: 1270px");
   const lg = useMediaQuery("(min-width: 800px) and (max-width: 1269px)");
@@ -55,14 +57,16 @@ const Home = () => {
 
   const { searchValue } = useContext(SearchContext);
   const debouncedValue = useDebounce(searchValue, 500);
+  // const data = [];
 
-  console.log(debouncedValue);
-
+  // for (let i = 0; i < 10; i++) {
+  //   data.push({ id: i, lat: 49.225, long: -123.107, location: "Langara" });
+  // }
   const generatedProps = {
     // generated props here
     handleLogOut,
     user,
-    data,
+    products,
     columns,
     lg,
     xl,
@@ -70,6 +74,7 @@ const Home = () => {
     currentPageIndex,
     pageNumber,
     totalPageNumber,
+    bounds,
     handleOnClick,
   };
   return <HomeView {...generatedProps} />;
