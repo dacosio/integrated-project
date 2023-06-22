@@ -8,11 +8,26 @@ import SearchField from "../../base/SearchField/SearchField";
 import { SearchContext } from "../../../context/SearchContext";
 import { FilterSVG, LogoSVG } from "../../base/SVG";
 import useMediaQuery from "../../../utils/useMediaQuery";
+import Filter from "../../module/Filter/Filter";
 
 const Header = () => {
   const { user, logout } = UserAuth();
   const [filterSelected, setFilterSelected] = useState(false);
   const navigate = useNavigate();
+
+  const [sortHigh, setSortHigh] = useState(false);
+  const [sortLow, setSortLow] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(false);
+  const options = [
+    {
+      value: 1,
+      label: "Leanne Graham",
+    },
+    {
+      value: 2,
+      label: "Ervin Howell",
+    },
+  ];
 
   const handleLogOut = async () => {
     await logout();
@@ -34,6 +49,7 @@ const Header = () => {
   const md = useMediaQuery("(min-width: 577px) and (max-width:799px)");
   const lg = useMediaQuery("(min-width: 800px) and (max-width:1270px)");
   const xl = useMediaQuery("(min-width: 1271px");
+  const filterSize = useMediaQuery("(min-width: 990px");
 
   let headerSm = () => {
     return (
@@ -365,7 +381,37 @@ const Header = () => {
     ? headerXl()
     : headerXl();
 
-  return <>{content}</>;
+  return (
+    <>
+      {content}
+      <div
+        style={{
+          maxHeight: filterSelected ? "1000px" : "0",
+          transition: "max-height 0.3s ease-in-out",
+        }}
+      >
+        {filterSelected && (
+          <Filter
+            selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
+            options={options}
+            sortLowHandler={() => {
+              console.log("sorted low handler");
+              setSortLow(!sortLow);
+            }}
+            sortHighHandler={() => {
+              console.log("sorted high handler");
+              setSortHigh(!sortHigh);
+            }}
+            sortHigh={sortHigh}
+            sortLow={sortLow}
+            placeholder="All Categories"
+            screenSize={filterSize}
+          />
+        )}
+      </div>
+    </>
+  );
 };
 
 export default Header;
