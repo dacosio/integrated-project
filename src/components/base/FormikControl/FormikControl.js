@@ -6,7 +6,11 @@ function FormikControl(props) {
   const { control, icon, ...rest } = props;
   switch (control) {
     case "input":
-      return <InputField {...rest} />;
+      return (
+        <InputField
+          {...rest}
+        />
+      );
     case "textarea":
       return <TextArea {...rest} />;
     default:

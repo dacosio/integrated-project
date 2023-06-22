@@ -14,3 +14,6 @@ export { default as HomeSVG } from "./HomeSVG";
 export { default as OrderSVG } from "./OrderSVG";
 export { default as SettingsSVG } from "./SettingsSVG";
 export { default as ProfileSVG } from "./ProfileSVG";
+export { default as GoogleSVG } from "./GoogleSVG";
+export { default as LoginLogoSVG } from "./LoginLogoSVG";
+export { default as DropShadowLogoSVG } from "./DropShadowLogoSVG";
