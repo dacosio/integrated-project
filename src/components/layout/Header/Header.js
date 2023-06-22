@@ -14,6 +14,7 @@ const Header = () => {
   const { user, logout } = UserAuth();
   const [filterSelected, setFilterSelected] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [sortHigh, setSortHigh] = useState(false);
   const [sortLow, setSortLow] = useState(false);
@@ -38,8 +39,6 @@ const Header = () => {
   const handleInputChange = (event) => {
     updateSearchValue(event.target.value);
   };
-
-  const location = useLocation();
 
   const handleLogin = () => {
     navigate("/login");

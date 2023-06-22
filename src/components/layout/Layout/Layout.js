@@ -1,7 +1,8 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "../Header/Header";
 import BottomNav from "../BottomNav/BottomNav";
 import useWindowSize from "../../../utils/useWindowSize";
+import { useEffect } from "react";
 
 const bottomNavStyle = {
   position: "absolute",
@@ -11,10 +12,23 @@ const bottomNavStyle = {
 };
 
 const Layout = () => {
+  const location = useLocation();
+  useEffect(() => {
+    const body = document.querySelector("body");
+    if (location.pathname === "/login") {
+      body.style.backgroundColor = "var(--dark-blue)"; // Set the desired background color for the login page
+    } else {
+      body.style.backgroundColor = "white"; // Set the desired background color for other pages
+    }
+    return () => {
+      body.style.backgroundColor = ""; // Reset the background color when the component unmounts
+    };
+  }, [location.pathname]);
+
   return (
-    <>
+    <div>
       <header style={{ position: "sticky", top: 0, zIndex: 5 }}>
-        <Header />
+        {location.pathname === "/login" ? <></> : <Header />}
       </header>
       <main className="App">
         <Outlet />
@@ -30,9 +44,9 @@ const Layout = () => {
           width: "100%",
         }}
       >
-        <BottomNav />
+        {location.pathname === "/login" ? <></> : <BottomNav />}
       </div>
-    </>
+    </div>
   );
 };
 
