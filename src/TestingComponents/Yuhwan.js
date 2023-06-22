@@ -18,6 +18,7 @@ import ImageList from "../components/base/ImageList/ImageList";
 import InfinitePagination from "../components/base/InfinitePagination/InfinitePagination";
 import Accordion from "../components/base/Accordion/Accordion";
 import Button from "../components/base/Button/Button";
+import Modal from "../components/base/Modal/Modal";
 
 const Yuhwan = (props) => {
   /* Pagination */
@@ -239,6 +240,17 @@ const Yuhwan = (props) => {
     setAccordionVisibility((oldValue) => !oldValue);
   };
 
+  /* Modal */
+  const [modalVisibility, setModalVisibility] = useState(false);
+
+  const handleOnOpen = () => {
+    setModalVisibility(true);
+  };
+
+  const handleOnClose = () => {
+    setModalVisibility(false);
+  };
+
   return (
     <div>
       <h1>Yuhwan</h1>
@@ -377,6 +389,24 @@ const Yuhwan = (props) => {
           <Button variant="yellow" size="lg" label="Button" />
           <Button variant="white" size="lg" label="Button" />
         </div>
+      </div>
+      <div>
+        <h2>Modal</h2>
+        <div style={{ width: "100%", maxWidth: "300px", margin: "auto" }}>
+          <Button
+            variant="yellow"
+            size="lg"
+            label="Open Modal"
+            onClickHandler={handleOnOpen}
+          />
+        </div>
+        <Modal
+          width="30vw"
+          visibility={modalVisibility}
+          onClose={handleOnClose}
+        >
+          <ImageList images={images} />
+        </Modal>
       </div>
       <div>
         <h2>InfinitePagination</h2>
