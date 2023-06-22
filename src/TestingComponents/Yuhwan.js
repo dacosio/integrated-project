@@ -17,7 +17,10 @@ import Dropdown from "../components/base/Dropdown/Dropdown";
 import ImageList from "../components/base/ImageList/ImageList";
 import InfinitePagination from "../components/base/InfinitePagination/InfinitePagination";
 import Accordion from "../components/base/Accordion/Accordion";
+import Card from "../components/base/Card/Card";
+import MapLeaflet from "../components/module/MapLeaflet/MapLeaflet";
 import Button from "../components/base/Button/Button";
+import Typography from "../components/base/Typography/Typography";
 
 const Yuhwan = (props) => {
   /* Pagination */
@@ -239,6 +242,9 @@ const Yuhwan = (props) => {
     setAccordionVisibility((oldValue) => !oldValue);
   };
 
+  /* MapLeaflet */
+  const [zoom, setZoom] = useState(1);
+
   return (
     <div>
       <h1>Yuhwan</h1>
@@ -338,6 +344,38 @@ const Yuhwan = (props) => {
           >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </Accordion>
+        </div>
+      </div>
+      <div>
+        <h2>MapLeaflet</h2>
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "300px",
+            height: "300px",
+            margin: "auto",
+          }}
+        >
+          <Card>
+            <Typography>Test</Typography>
+            <Card nopadding noshadow aspectRatio={1.3}>
+              <MapLeaflet
+                markerData={[
+                  {
+                    id: 0,
+                    lat: 49.225,
+                    long: -123.107,
+                    location: "Langara College",
+                  },
+                ]}
+                direction="top"
+                width="100%"
+                height="100%"
+                borderRadius="20px"
+                zIndex={2}
+              />
+            </Card>
+          </Card>
         </div>
       </div>
       <div>

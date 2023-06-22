@@ -1,22 +1,40 @@
 import React from "react";
 import useMediaQuery from "../../../utils/useMediaQuery";
 import ImageList from "../../../components/base/ImageList/ImageList";
+import Card from "../../../components/base/Card/Card";
 import DescriptionCard from "../../../components/base/DescriptionCard/DescriptionCard";
+import ProductInfoCard from "../../../components/base/ProductInfoCard/ProductInfoCard";
 import styles from "./listing-detail.module.css";
 import Typography from "../../../components/base/Typography/Typography";
 import SellerInfoCard from "../../../components/base/SellerInfoCard/SellerInfoCard";
 
 const ListingDetail = (props) => {
-  const { product, user, images } = props;
+  const { product, user, items, images } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1200px)");
   const isTablet = useMediaQuery("(min-width: 1200px)");
   const isMobile = useMediaQuery("(min-width: 360px)");
 
+  let date = "";
+
+  if (product.createdAt !== undefined) {
+    const today = new Date();
+    let createdAt = new Date(product.createdAt.toDate());
+    createdAt.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+    const timeDiff = today.getTime() - createdAt.getTime();
+    date = Math.abs(Math.floor(timeDiff / (1000 * 60 * 60 * 24)));
+  }
+
   if (isDesktop) {
     return (
-      <div className={`${styles["wrapper"]}`}>
-        <div className={`${styles["card"]}`}>
+      <div className={`${styles.wrapper}`}>
+        <div className={`${styles.card}`}>
+          <ProductInfoCard
+            title={product.name}
+            price={product.price}
+            quantity={product.qty}
+          />
           <ImageList images={images} />
         </div>
         <DescriptionCard description={product.description} />
@@ -24,18 +42,31 @@ const ListingDetail = (props) => {
     );
   } else {
     return (
-      <div className={`${styles["wrapper"]}`}>
-        <div className={`${styles["card"]}`}>
-          <Typography variant="h3-graphik-bold" color="dark-blue">
-            {product.name}
-          </Typography>
+      <div className={`${styles.wrapper}`}>
+        <Card>
+          <div style={{ marginBottom: "16px" }}>
+            <ProductInfoCard
+              title={product.name}
+              price={product.price}
+              quantity={product.qty}
+              date={date && date}
+              name={`${user.firstName} ${user.lastName}`}
+              address={user.address}
+            />
+          </div>
           <ImageList images={images} />
-        </div>
-        <DescriptionCard description={product.description} />
-        <SellerInfoCard
-          username={user.username}
-          location={`${user.city}, ${user.state}`}
-        />
+        </Card>
+        <Card nopadding noborder>
+          <DescriptionCard description={product.description} />
+        </Card>
+        <Card nopadding noborder>
+          <SellerInfoCard
+            source={user.imageUrl}
+            username={`${user.firstName} ${user.lastName}`}
+            location={user.address}
+            items={items}
+          />
+        </Card>
       </div>
     );
   }
