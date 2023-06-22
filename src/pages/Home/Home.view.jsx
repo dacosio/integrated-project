@@ -6,6 +6,7 @@ import { MapMarkerSVG } from "../../components/base/SVG";
 import Grid from "../../components/layout/Grid/Grid";
 import ActiveListingCard from "../../components/base/ActiveListingCard/ActiveListingCard";
 import Pagination from "../../components/base/Pagination/Pagination";
+import getDistance from "geolib/es/getDistance";
 
 const Home = (props) => {
   const {
@@ -21,11 +22,13 @@ const Home = (props) => {
     totalPageNumber,
     handleOnClick,
     products,
+    latitude,
+    longitude,
+    error,
     bounds,
   } = props;
 
-  console.log(products);
-
+  // console.log(bounds);
   return (
     <div>
       {xl ? (
@@ -46,10 +49,23 @@ const Home = (props) => {
               <Grid columns={2} style={{ justifyItems: "center" }}>
                 {products &&
                   products.slice(0, 4).map((d) => {
+                    let tmp = {
+                      latitude: d.location._lat,
+                      longitude: d.location._long,
+                    };
+                    let distance = 0;
+                    if (latitude && longitude) {
+                      distance = getDistance(tmp, {
+                        latitude,
+                        longitude,
+                      });
+                      distance = Math.ceil(Number(distance) / 1000);
+                    }
+
                     return (
                       <ActiveListingCard
                         key={d.id}
-                        distance={2}
+                        distance={!!error ? 0 : distance}
                         days={2}
                         source={`https://picsum.photos/400?random=${d.id}`}
                         itemname={d.name}
@@ -120,10 +136,22 @@ const Home = (props) => {
               {products &&
                 bounds &&
                 products.map((d) => {
+                  let tmp = {
+                    latitude: d.location._lat,
+                    longitude: d.location._long,
+                  };
+                  let distance = 0;
+                  if (latitude && longitude) {
+                    distance = getDistance(tmp, {
+                      latitude,
+                      longitude,
+                    });
+                    distance = Math.ceil(Number(distance) / 1000);
+                  }
                   return (
                     <ActiveListingCard
                       key={d.id}
-                      distance={2}
+                      distance={!!error ? 0 : distance}
                       days={2}
                       source={`https://picsum.photos/400?random=${d.id}`}
                       itemname={d.name}

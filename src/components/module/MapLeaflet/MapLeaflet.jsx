@@ -1,12 +1,16 @@
 import React from "react";
 import L from "leaflet";
-import { MapContainer, TileLayer, Marker, Tooltip } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Tooltip,
+  useMap,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import "./mapLeaflet.css";
-import SellerInfoCard from "../../base/SellerInfoCard/SellerInfoCard";
 import MarkerClusterGroup from "react-leaflet-cluster";
-import MarkerSVG from "../../base/SVG/MarkerSVG";
 import ActiveListingCard from "../../base/ActiveListingCard/ActiveListingCard";
+import { useEffect } from "react";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -40,8 +44,8 @@ const MapLeaflet = ({
   return (
     <>
       <MapContainer
-        style={{ width, height, borderRadius, zIndex }}
         {...props}
+        style={{ width, height, borderRadius, zIndex }}
         bounds={bounds}
         scrollWheelZoom
         zoomControl={false}

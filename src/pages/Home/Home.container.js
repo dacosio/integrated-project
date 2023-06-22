@@ -8,6 +8,8 @@ import db from "../../config/firebaseConfig";
 import { SearchContext } from "../../context/SearchContext";
 import useDebounce from "../../utils/useDebounce";
 import { useContext } from "react";
+import { usePosition } from "../../utils/usePosition";
+import { useCollection } from "react-firebase-hooks/firestore";
 
 const Home = () => {
   const { user, logout } = UserAuth();
@@ -19,29 +21,26 @@ const Home = () => {
   const [totalPageNumber, setTotalPageNumber] = useState(10);
   const [bounds, setBounds] = useState([[49.225693, -123.107326]]);
 
+  const [value, loading, err] = useCollection(collection(db, "product"), {
+    snapshotListenOptions: { includeMetadataChanges: true },
+  });
   const navigate = useNavigate();
   const handleLogOut = async () => {
     await logout();
     navigate("/login");
   };
 
-  useEffect(
-    () =>
-      onSnapshot(collection(db, "product"), (snapshot) => {
-        return setProducts(
-          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-        );
-      }),
-    []
-  );
-
   useEffect(() => {
-    if (products)
-      setBounds((prev) => [
-        ...prev,
-        products.map((el) => [el.location._lat, el.location._long]),
-      ]);
-  }, [products]);
+    if (value) {
+      setProducts(value.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      setBounds(
+        value.docs.map((doc) => [
+          doc.data().location._lat,
+          doc.data().location._long,
+        ])
+      );
+    }
+  }, [value]);
 
   const xl = useMediaQuery("(min-width: 1270px");
   const lg = useMediaQuery("(min-width: 800px) and (max-width: 1269px)");
@@ -50,24 +49,18 @@ const Home = () => {
 
   const columns = sm ? 2 : md ? 3 : lg ? 4 : 2;
 
-  console.log(bounds.forEach((b) => console.log(b)));
-
   const handleOnClick = (pageIndex) => {
     setCurrentPageIndex(pageIndex);
   };
 
   // global search value
-
   const { searchValue } = useContext(SearchContext);
   const debouncedValue = useDebounce(searchValue, 500);
-  // const data = [];
 
-  // for (let i = 0; i < 10; i++) {
-  //   data.push({ id: i, lat: 49.225, long: -123.107, location: "Langara" });
-  // }
+  const { latitude, longitude, error } = usePosition();
+
   const generatedProps = {
     // generated props here
-    handleLogOut,
     user,
     products,
     columns,
@@ -78,6 +71,10 @@ const Home = () => {
     pageNumber,
     totalPageNumber,
     bounds,
+    latitude,
+    longitude,
+    error,
+    handleLogOut,
     handleOnClick,
   };
   return <HomeView {...generatedProps} />;

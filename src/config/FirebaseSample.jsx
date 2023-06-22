@@ -9,8 +9,12 @@ import {
   deleteDoc,
   query,
   getDocs,
-  updateDoc,
-  serverTimestamp,
+  // updateDoc,
+  // serverTimestamp,
+  orderBy,
+  limit,
+  startAfter,
+  endBefore,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import db from "./firebaseConfig";
@@ -101,7 +105,6 @@ const FirebaseSample = () => {
   // console.log(users);
   // console.log(categories);
   // const b = products.map((el) => [el.location._lat, el.location._long]);
-  console.log(products);
 
   return (
     <>
