@@ -41,7 +41,15 @@ const Filter = ({
           Location
         </Typography>
         <div className={style.mapContainer}>
-          <MapSearch />
+          {/* <MapSearch /> */}
+          <SelectDropdown
+            options={options}
+            placeholder={placeholder}
+            clearable
+            backspaceDelete
+            onChange={onChange}
+            searchable={false}
+          />
         </div>
       </div>
       <div>
