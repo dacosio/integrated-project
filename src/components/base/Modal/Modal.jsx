@@ -3,7 +3,6 @@ import { GrClose } from "react-icons/gr";
 import styles from "./modal.module.css";
 
 const Modal = ({
-  top = "25vh",
   width = "50vw",
   hasBackground = true,
   visibility,
@@ -19,7 +18,7 @@ const Modal = ({
             className={`${styles.wrapper} ${
               hasBackground ? styles["inner-background"] : null
             }`}
-            style={{ width: width }}
+            // style={{ width: width }}
           >
             <div className={`${styles["btn-wrapper"]} `}>
               <GrClose
@@ -28,7 +27,7 @@ const Modal = ({
                 onClick={onClose}
               />
             </div>
-            {children}
+            <div className={`${styles["content-wrapper"]} `}>{children}</div>
           </div>
         </div>
       )}

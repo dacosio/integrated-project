@@ -1,5 +1,5 @@
 .outer-background {
-  z-index: 1;
+  z-index: 10;
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
@@ -12,9 +12,12 @@
 }
 
 .wrapper {
-  padding: 16px;
+  padding: 20px;
   border-radius: 20px;
-  z-index: 999;
+  display: grid;
+  gap: 20px;
+  width: 75vw;
+  max-width: 500px;
 }
 
 .inner-background {
@@ -23,9 +26,14 @@
 
 .btn-wrapper {
   text-align: right;
-  margin-bottom: 20px;
 }
 
 .btn:hover {
   background-color: #ccc;
+}
+
+.content-wrapper {
+  width: 100%;
+  max-height: 75vh;
+  overflow: auto;
 }
