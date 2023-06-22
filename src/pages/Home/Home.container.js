@@ -17,7 +17,7 @@ const Home = () => {
   const [currentPageIndex, setCurrentPageIndex] = useState(2);
   const [pageNumber, setPageNumber] = useState(5);
   const [totalPageNumber, setTotalPageNumber] = useState(10);
-  const [bounds, setBounds] = useState([]);
+  const [bounds, setBounds] = useState([[49.225693, -123.107326]]);
 
   const navigate = useNavigate();
   const handleLogOut = async () => {
@@ -37,10 +37,11 @@ const Home = () => {
 
   useEffect(() => {
     if (products)
-      setBounds(products.map((el) => [el.location._lat, el.location._long]));
+      setBounds((prev) => [
+        ...prev,
+        products.map((el) => [el.location._lat, el.location._long]),
+      ]);
   }, [products]);
-
-  console.log(bounds);
 
   const xl = useMediaQuery("(min-width: 1270px");
   const lg = useMediaQuery("(min-width: 800px) and (max-width: 1269px)");
@@ -48,6 +49,8 @@ const Home = () => {
   const sm = useMediaQuery("(min-width: 360px) and (max-width: 599px");
 
   const columns = sm ? 2 : md ? 3 : lg ? 4 : 2;
+
+  console.log(bounds.forEach((b) => console.log(b)));
 
   const handleOnClick = (pageIndex) => {
     setCurrentPageIndex(pageIndex);

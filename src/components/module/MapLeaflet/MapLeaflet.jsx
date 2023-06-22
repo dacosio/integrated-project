@@ -42,7 +42,7 @@ const MapLeaflet = ({
       <MapContainer
         style={{ width, height, borderRadius, zIndex }}
         {...props}
-        bounds={[[49.225693, -123.107326]]}
+        bounds={bounds}
         scrollWheelZoom
         zoomControl={false}
       >

@@ -24,6 +24,8 @@ const Home = (props) => {
     bounds,
   } = props;
 
+  console.log(products);
+
   return (
     <div>
       {xl ? (
@@ -50,10 +52,10 @@ const Home = (props) => {
                         distance={2}
                         days={2}
                         source={`https://picsum.photos/400?random=${d.id}`}
-                        itemname="Banana"
-                        price={1.25}
-                        stock={5}
-                        alt="Banana"
+                        itemname={d.name}
+                        price={d.price}
+                        stock={d.qty}
+                        alt={d.name}
                         onClick={() => console.log(d.id)}
                         maxwidth={lg ? "180px" : "150px"}
                         width={lg ? "180px" : "150px"}
@@ -69,33 +71,37 @@ const Home = (props) => {
               />
             </div>
             <div className={style.mapDesktop}>
-              <MapLeaflet
-                zoom={zoom}
-                markerData={products}
-                direction="top"
-                // permanent
-                width="100%"
-                height="100%"
-                borderRadius="20px"
-                zIndex={2}
-                bounds={bounds}
-              />
+              {products && (
+                <MapLeaflet
+                  zoom={zoom}
+                  markerData={products}
+                  direction="top"
+                  // permanent
+                  width="100%"
+                  height="100%"
+                  borderRadius="20px"
+                  zIndex={2}
+                  bounds={bounds}
+                />
+              )}
             </div>
           </Grid>
         </div>
       ) : (
         <>
           <div>
-            <MapLeaflet
-              zoom={zoom}
-              markerData={products}
-              direction="top"
-              // permanent
-              width="100%"
-              height="10rem"
-              zIndex={2}
-              bounds={bounds}
-            />
+            {products && bounds && (
+              <MapLeaflet
+                zoom={zoom}
+                markerData={products}
+                direction="top"
+                // permanent
+                width="100%"
+                height="10rem"
+                zIndex={2}
+                bounds={bounds}
+              />
+            )}
           </div>
           <div className={style.resultsWrapper}>
             <div className={style.title}>
@@ -112,6 +118,7 @@ const Home = (props) => {
 
             <Grid columns={columns} style={{ justifyItems: "center" }}>
               {products &&
+                bounds &&
                 products.map((d) => {
                   return (
                     <ActiveListingCard
