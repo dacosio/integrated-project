@@ -49,6 +49,7 @@ const Header = () => {
   const md = useMediaQuery("(min-width: 577px) and (max-width:799px)");
   const lg = useMediaQuery("(min-width: 800px) and (max-width:1270px)");
   const xl = useMediaQuery("(min-width: 1271px");
+  const filterSize = useMediaQuery("(min-width: 990px");
 
   let headerSm = () => {
     return (
@@ -405,7 +406,7 @@ const Header = () => {
             sortHigh={sortHigh}
             sortLow={sortLow}
             placeholder="All Categories"
-            screenSize={lg}
+            screenSize={filterSize}
           />
         )}
       </div>

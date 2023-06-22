@@ -21,5 +21,7 @@
   background-color: var(--dark-blue);
   padding: 32px 16px;
   border-bottom: 2px solid var(--black);
-  justify-content: space-between;
+  justify-content: center;
+  gap: 3rem;
+  align-items: center;
 }
