@@ -1,0 +1,10 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.spinner,
+.wrapper > p {
+  margin-top: 10vh;
+  grid-column: 1 / -1;
+}
