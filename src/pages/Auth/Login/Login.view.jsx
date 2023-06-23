@@ -74,7 +74,11 @@ const LoginView = (props) => {
         <Typography variant="h4-graphik-bold" color="white">
           Or log in with
         </Typography>
-        <div className={style.svg} onClick={loginWithGoogle}>
+        <div
+          className={style.svg}
+          onClick={loginWithGoogle}
+          style={{ cursor: "pointer" }}
+        >
           <GoogleSVG />
         </div>
         <div className={style.createAcct}>
