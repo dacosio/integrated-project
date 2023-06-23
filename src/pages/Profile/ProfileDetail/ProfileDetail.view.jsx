@@ -5,10 +5,12 @@ import Avatar from "react-avatar";
 import Typography from "../../../components/base/Typography/Typography";
 import ActiveListingCard from "../../../components/base/ActiveListingCard/ActiveListingCard";
 import useMediaQuery from "../../../utils/useMediaQuery";
+import useWindowSize from "../../../utils/useWindowSize";
 
 const ProfileDetail = (props) => {
-  const sm = useMediaQuery("(min-width: 360px) and (max-width:675px)");
-
+  const sm = useMediaQuery("(min-width: 360px) and (max-width:800px)");
+  const [test] = useWindowSize();
+  console.log(test);
   return (
     <div className={style.wrapper}>
       {/* <div>
@@ -43,11 +45,24 @@ const ProfileDetail = (props) => {
         </div>
       </div>
 
-      <div className={style.listings}>
-        <Typography variant="h1-graphik-bold" style={{ marginBottom: "24px" }}>
+      <div
+        className={style.listings}
+        style={sm ? { padding: "0 16px" } : { margin: "0 180px" }}
+      >
+        <Typography
+          variant="h1-graphik-bold"
+          style={
+            sm
+              ? { padding: "0 16px", marginBottom: "24px" }
+              : { margin: "0 180px", marginBottom: "24px" }
+          }
+        >
           Active Listings
         </Typography>
-        <div className={sm ? style.cardsSmall : style.cardsBig}>
+        <div
+          className={sm ? style.cardsSmall : style.cardsBig}
+          style={sm ? { padding: "0 16px" } : { margin: "0 180px" }}
+        >
           <ActiveListingCard
             distance={2}
             days={2}
@@ -57,8 +72,8 @@ const ProfileDetail = (props) => {
             stock={5}
             alt="Banana"
             onClick={() => console.log("activelistingcard")}
-            maxW={sm ? "100%" : "200px"}
-            width={sm ? "100%" : "200px"}
+            maxW={sm ? "100%" : "250px"}
+            width={sm ? "100%" : "250px"}
           />
           <ActiveListingCard
             distance={2}
@@ -69,8 +84,8 @@ const ProfileDetail = (props) => {
             stock={5}
             alt="Banana"
             onClick={() => console.log("activelistingcard")}
-            maxW={sm ? "100%" : "200px"}
-            width={sm ? "100%" : "200px"}
+            maxW={sm ? "100%" : "250px"}
+            width={sm ? "100%" : "250px"}
           />
           <ActiveListingCard
             distance={2}
@@ -81,8 +96,8 @@ const ProfileDetail = (props) => {
             stock={5}
             alt="Banana"
             onClick={() => console.log("activelistingcard")}
-            maxW={sm ? "100%" : "200px"}
-            width={sm ? "100%" : "200px"}
+            maxW={sm ? "100%" : "250px"}
+            width={sm ? "100%" : "250px"}
           />
           <ActiveListingCard
             distance={2}
@@ -93,8 +108,8 @@ const ProfileDetail = (props) => {
             stock={5}
             alt="Banana"
             onClick={() => console.log("activelistingcard")}
-            maxW={sm ? "100%" : "200px"}
-            width={sm ? "100%" : "200px"}
+            maxW={sm ? "100%" : "250px"}
+            width={sm ? "100%" : "250px"}
           />
           <ActiveListingCard
             distance={2}
@@ -105,8 +120,8 @@ const ProfileDetail = (props) => {
             stock={5}
             alt="Banana"
             onClick={() => console.log("activelistingcard")}
-            maxW={sm ? "100%" : "200px"}
-            width={sm ? "100%" : "200px"}
+            maxW={sm ? "100%" : "250px"}
+            width={sm ? "100%" : "250px"}
           />
           <ActiveListingCard
             distance={2}
@@ -117,8 +132,8 @@ const ProfileDetail = (props) => {
             stock={5}
             alt="Banana"
             onClick={() => console.log("activelistingcard")}
-            maxW={sm ? "100%" : "200px"}
-            width={sm ? "100%" : "200px"}
+            maxW={sm ? "100%" : "250px"}
+            width={sm ? "100%" : "250px"}
           />
           <ActiveListingCard
             distance={2}
@@ -129,8 +144,8 @@ const ProfileDetail = (props) => {
             stock={5}
             alt="Banana"
             onClick={() => console.log("activelistingcard")}
-            maxW={sm ? "100%" : "200px"}
-            width={sm ? "100%" : "200px"}
+            maxW={sm ? "100%" : "250px"}
+            width={sm ? "100%" : "250px"}
           />
           <ActiveListingCard
             distance={2}
@@ -141,8 +156,8 @@ const ProfileDetail = (props) => {
             stock={5}
             alt="Banana"
             onClick={() => console.log("activelistingcard")}
-            maxW={sm ? "100%" : "200px"}
-            width={sm ? "100%" : "200px"}
+            maxW={sm ? "100%" : "250px"}
+            width={sm ? "100%" : "250px"}
           />
         </div>
       </div>
