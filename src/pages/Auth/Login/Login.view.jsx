@@ -41,6 +41,7 @@ const LoginView = (props) => {
                   type="password"
                   label="Password"
                   name="password"
+                  placeholder="Type your password"
                   style={{
                     borderRadius: "12px",
                     padding: "6px 16px",
