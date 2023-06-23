@@ -13,7 +13,10 @@ import SellerInfoCard from "../components/base/SellerInfoCard/SellerInfoCard";
 import Grid from "../components/layout/Grid/Grid";
 import useMediaQuery from "../utils/useMediaQuery";
 import SelectDropdown from "../components/base/SelectDropdown/SelectDropdown";
+import Button from "../components/base/Button/Button";
 import ImageLabel from "../components/base/ImageLabel/imageLabel";
+import BottomNav from "../components/layout/BottomNav/BottomNav";
+import Filter from "../components/module/Filter/Filter";
 
 const wrapper = {
   padding: "1rem",
@@ -43,10 +46,15 @@ const Don = (props) => {
   ];
 
   const [searchValue, setSearchValue] = useState("");
+  const [sortHigh, setSortHigh] = useState(false);
+  const [sortLow, setSortLow] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(false);
 
   const isDesktop = useMediaQuery("(min-width: 1200px)");
   const isTablet = useMediaQuery("(min-width: 960px)");
   const isMobile = useMediaQuery("(min-width: 360px)");
+
+  const [openFilter, setOpenFilter] = useState(false);
 
   return (
     <div>
@@ -57,7 +65,10 @@ const Don = (props) => {
       <div style={wrapper}>
         <SearchField
           placeholder="What are you looking for?"
-          onChange={(e) => setSearchValue(e.target.value)}
+          onChange={(e) => {
+            setSearchValue(e.target.value);
+            console.log(e.target.value);
+          }}
           value={searchValue}
           resetValue={() => setSearchValue("")}
         />
@@ -98,6 +109,8 @@ const Don = (props) => {
           placeholder="Search location.."
           clearable
           backspaceDelete
+          onChange={(value) => console.log(value)}
+          searchable={false}
         />
       </div>
       <div style={wrapper}>
@@ -136,6 +149,40 @@ const Don = (props) => {
           width="250px"
         />
         {/* <ImageLabel distance={2} days={1} /> */}
+        <BottomNav />
+      </div>
+
+      <div style={wrapper}>
+        <div>
+          <button onClick={() => setOpenFilter(!openFilter)}>
+            open filter
+          </button>
+        </div>
+        <div
+          style={{
+            maxHeight: openFilter ? "1000px" : "0",
+            overflow: "hidden",
+            transition: "max-height 0.3s ease-in-out",
+          }}
+        >
+          {openFilter && (
+            <Filter
+              selectedOption={selectedOption}
+              setSelectedOption={setSelectedOption}
+              options={options}
+              sortLowHandler={() => {
+                console.log("sorted low handler");
+                setSortLow(!sortLow);
+              }}
+              sortHighHandler={() => {
+                console.log("sorted high handler");
+                setSortHigh(!sortHigh);
+              }}
+              sortHigh={sortHigh}
+              sortLow={sortLow}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

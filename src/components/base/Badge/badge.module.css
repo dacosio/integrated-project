@@ -9,6 +9,10 @@
 
 .wrapper:hover {
   background-color: var(--black);
+}
+
+.wrapper div:hover {
+  background-color: var(--black);
   color: var(--white);
 }
 

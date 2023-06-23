@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import RegisterView from "./Register.view";
 import { UserAuth } from "../../../context/AuthContext";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Register = () => {
   const { createUser } = UserAuth();
   const navigate = useNavigate();
+  const [singleImage, setSingleImage] = useState([]);
 
   const initialValues = {
     email: "",
@@ -35,6 +36,9 @@ const Register = () => {
     initialValues,
     validationSchema,
     onSubmit,
+
+    singleImage,
+    setSingleImage,
   };
   return <RegisterView {...generatedProps} />;
 };

@@ -6,6 +6,7 @@ import { MapMarkerSVG } from "../../components/base/SVG";
 import Grid from "../../components/layout/Grid/Grid";
 import ActiveListingCard from "../../components/base/ActiveListingCard/ActiveListingCard";
 import Pagination from "../../components/base/Pagination/Pagination";
+import getDistance from "geolib/es/getDistance";
 
 const Home = (props) => {
   const {
@@ -20,12 +21,16 @@ const Home = (props) => {
     pageNumber,
     totalPageNumber,
     handleOnClick,
+    products,
+    latitude,
+    longitude,
+    error,
+    bounds,
   } = props;
 
+  // console.log(bounds);
   return (
     <div>
-      {user && <button onClick={handleLogOut}>logout</button>}
-
       {xl ? (
         <div className={style.desktopWrapper}>
           <Grid columns={7} gap="31px">
@@ -42,18 +47,31 @@ const Home = (props) => {
                 </Typography>
               </div>
               <Grid columns={2} style={{ justifyItems: "center" }}>
-                {data &&
-                  data.slice(0, 4).map((d) => {
+                {products &&
+                  products.slice(0, 4).map((d) => {
+                    let tmp = {
+                      latitude: d.location._lat,
+                      longitude: d.location._long,
+                    };
+                    let distance = 0;
+                    if (latitude && longitude) {
+                      distance = getDistance(tmp, {
+                        latitude,
+                        longitude,
+                      });
+                      distance = Math.ceil(Number(distance) / 1000);
+                    }
+
                     return (
                       <ActiveListingCard
                         key={d.id}
-                        distance={2}
+                        distance={!!error ? 0 : distance}
                         days={2}
                         source={`https://picsum.photos/400?random=${d.id}`}
-                        itemname="Banana"
-                        price={1.25}
-                        stock={5}
-                        alt="Banana"
+                        itemname={d.name}
+                        price={d.price}
+                        stock={d.qty}
+                        alt={d.name}
                         onClick={() => console.log(d.id)}
                         maxwidth={lg ? "180px" : "150px"}
                         width={lg ? "180px" : "150px"}
@@ -69,29 +87,37 @@ const Home = (props) => {
               />
             </div>
             <div className={style.mapDesktop}>
-              <MapLeaflet
-                zoom={zoom}
-                markerData={data}
-                direction="top"
-                // permanent
-                width="100%"
-                height="100%"
-                borderRadius="20px"
-              />
+              {products && (
+                <MapLeaflet
+                  zoom={zoom}
+                  markerData={products}
+                  direction="top"
+                  // permanent
+                  width="100%"
+                  height="100%"
+                  borderRadius="20px"
+                  zIndex={2}
+                  bounds={bounds}
+                />
+              )}
             </div>
           </Grid>
         </div>
       ) : (
         <>
           <div>
-            <MapLeaflet
-              zoom={zoom}
-              markerData={data}
-              direction="top"
-              // permanent
-              width="100%"
-              height="10rem"
-            />
+            {products && bounds && (
+              <MapLeaflet
+                zoom={zoom}
+                markerData={products}
+                direction="top"
+                // permanent
+                width="100%"
+                height="30vh"
+                zIndex={2}
+                bounds={bounds}
+              />
+            )}
           </div>
           <div className={style.resultsWrapper}>
             <div className={style.title}>
@@ -107,17 +133,30 @@ const Home = (props) => {
             </div>
 
             <Grid columns={columns} style={{ justifyItems: "center" }}>
-              {data &&
-                data.map((d) => {
+              {products &&
+                bounds &&
+                products.map((d) => {
+                  let tmp = {
+                    latitude: d.location._lat,
+                    longitude: d.location._long,
+                  };
+                  let distance = 0;
+                  if (latitude && longitude) {
+                    distance = getDistance(tmp, {
+                      latitude,
+                      longitude,
+                    });
+                    distance = Math.ceil(Number(distance) / 1000);
+                  }
                   return (
                     <ActiveListingCard
                       key={d.id}
-                      distance={2}
+                      distance={!!error ? 0 : distance}
                       days={2}
                       source={`https://picsum.photos/400?random=${d.id}`}
-                      itemname="Banana"
-                      price={1.25}
-                      stock={5}
+                      itemname={d.name}
+                      price={d.price}
+                      stock={d.qty}
                       alt="Banana"
                       onClick={() => console.log(d.id)}
                       maxwidth={lg ? "180px" : "150px"}

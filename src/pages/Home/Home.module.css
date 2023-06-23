@@ -22,17 +22,19 @@
   border: 2px solid var(--black);
   padding: 26px 30px;
   border-radius: 20px;
-  box-shadow: 5px 5px 2px var(--black);
+  box-shadow: 5px 5px 0px var(--black);
+  background-color: var(--white);
 }
 
 .mapDesktop {
   grid-column: 4/-1;
   border-radius: 20px;
-  box-shadow: 5px 5px 2px var(--black);
+  box-shadow: 5px 5px 0px var(--black);
+  height: 70vh;
 }
 
 .desktopWrapper {
   padding: 80px 150px;
   height: 85vh;
-  background-color: var(--light-blue);
+  background-color: var(--bg-gray);
 }

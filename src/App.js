@@ -22,9 +22,8 @@ const AddListing = loadable(() => import("./pages/Listing/AddListing"));
 const ListingDetail = loadable(() => import("./pages/Listing/ListingDetail"));
 
 function App() {
-  // const [value, setValue] = useState("");
   return (
-    <div className="App">
+    <div>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
