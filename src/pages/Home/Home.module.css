@@ -36,5 +36,5 @@
 .desktopWrapper {
   padding: 80px 150px;
   height: 85vh;
-  background-color: var(--light-blue);
+  background-color: var(--bg-gray);
 }

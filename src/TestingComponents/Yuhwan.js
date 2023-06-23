@@ -29,6 +29,7 @@ import Accordion from "../components/base/Accordion/Accordion";
 import Button from "../components/base/Button/Button";
 import Grid from "../components/layout/Grid/Grid";
 import ActiveListingCard from "../components/base/ActiveListingCard/ActiveListingCard";
+import Modal from "../components/base/Modal/Modal";
 
 const Yuhwan = (props) => {
   /* Pagination */
@@ -347,6 +348,17 @@ const Yuhwan = (props) => {
     setAccordionVisibility((oldValue) => !oldValue);
   };
 
+  /* Modal */
+  const [modalVisibility, setModalVisibility] = useState(false);
+
+  const handleOnOpen = () => {
+    setModalVisibility(true);
+  };
+
+  const handleOnClose = () => {
+    setModalVisibility(false);
+  };
+
   return (
     <div>
       <h1>Yuhwan</h1>
@@ -494,20 +506,40 @@ const Yuhwan = (props) => {
         </div>
       </div>
       <div style={{ marginBottom: "300px" }}>
-        <h2>InfinitePagination</h2>
-        <div
-          style={{
-            width: "100%",
-            maxWidth: "800px",
-            margin: "auto",
-            boxSizing: "border-box",
-          }}
-        >
-          <InfinitePagination
-            items={scrollItems}
-            hasMore={hasMore}
-            onScroll={handleOnScroll}
-          />
+        <div>
+          <h2>Modal</h2>
+          <div style={{ width: "100%", maxWidth: "300px", margin: "auto" }}>
+            <Button
+              variant="yellow"
+              size="lg"
+              label="Open Modal"
+              onClickHandler={handleOnOpen}
+            />
+          </div>
+          <Modal
+            width="30vw"
+            visibility={modalVisibility}
+            onClose={handleOnClose}
+          >
+            <ImageList images={images} />
+          </Modal>
+        </div>
+        <div>
+          <h2>InfinitePagination</h2>
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "800px",
+              margin: "auto",
+              boxSizing: "border-box",
+            }}
+          >
+            <InfinitePagination
+              items={scrollItems}
+              hasMore={hasMore}
+              onScroll={handleOnScroll}
+            />
+          </div>
         </div>
       </div>
     </div>

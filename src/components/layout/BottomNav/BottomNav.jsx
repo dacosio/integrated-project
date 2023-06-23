@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import styles from "./bottomNav.module.css";
 import { Link, useLocation } from "react-router-dom";
@@ -5,10 +6,12 @@ import PlusSVG from "../../base/SVG/PlusSVG";
 import { HomeSVG, OrderSVG, ProfileSVG, SettingsSVG } from "../../base/SVG";
 import Typography from "../../base/Typography/Typography";
 import useMediaQuery from "../../../utils/useMediaQuery";
+import { ToastContainer, toast } from "react-toastify";
+import { UserAuth } from "../../../context/AuthContext";
 
 const BottomNav = (props) => {
   const location = useLocation();
-  const [link, setLink] = useState("/");
+  const { user } = UserAuth();
 
   const darkblue = "var(--dark-blue)";
   const lightgray = "var(--light-gray)";
@@ -40,48 +43,116 @@ const BottomNav = (props) => {
                 </Link>
               </li>
               <li>
-                <Link to="transaction">
-                  <OrderSVG stroke={colorSVG("/transaction")} />
-                  <Typography
-                    variant="body-3-medium"
-                    color={colorTypo("/transaction")}
+                {user ? (
+                  <Link to="transaction">
+                    <OrderSVG stroke={colorSVG("/transaction")} />
+                    <Typography
+                      variant="body-3-medium"
+                      color={colorTypo("/transaction")}
+                    >
+                      Orders
+                    </Typography>
+                  </Link>
+                ) : (
+                  <a
+                    href="#"
+                    onClick={() => {
+                      toast.warning("Log in to view post orders");
+                    }}
                   >
-                    Orders
-                  </Typography>
-                </Link>
+                    <OrderSVG stroke={colorSVG("/transaction")} />
+                    <Typography
+                      variant="body-3-medium"
+                      color={colorTypo("/transaction")}
+                    >
+                      Orders
+                    </Typography>
+                  </a>
+                )}
               </li>
               <li>
-                <Link to="listing/add">
-                  <PlusSVG height={30} width={30} fill="var(--dark-blue)" />
-                  <Typography variant="body-3-medium" color="light-gray">
-                    Post
-                  </Typography>
-                </Link>
+                {user ? (
+                  <Link to="listing/add">
+                    <PlusSVG height={30} width={30} fill="var(--dark-blue)" />
+                    <Typography variant="body-3-medium" color="light-gray">
+                      Post
+                    </Typography>
+                  </Link>
+                ) : (
+                  <a
+                    href="#"
+                    onClick={() => {
+                      toast.warning("Log in to view post listing");
+                    }}
+                  >
+                    <PlusSVG height={30} width={30} fill="var(--dark-blue)" />
+                    <Typography variant="body-3-medium" color="light-gray">
+                      Post
+                    </Typography>
+                  </a>
+                )}
               </li>
               <li>
-                <Link to="register">
-                  <SettingsSVG stroke={colorSVG("/register")} />
-                  <Typography
-                    variant="body-3-medium"
-                    color={colorTypo("/register")}
+                {user ? (
+                  <Link to="register">
+                    <SettingsSVG stroke={colorSVG("/register")} />
+                    <Typography
+                      variant="body-3-medium"
+                      color={colorTypo("/register")}
+                    >
+                      Settings
+                    </Typography>
+                  </Link>
+                ) : (
+                  <a
+                    href="#"
+                    onClick={() => {
+                      toast.warning("Log in to view settings");
+                    }}
                   >
-                    Settings
-                  </Typography>
-                </Link>
+                    <SettingsSVG stroke={colorSVG("/register")} />
+                    <Typography
+                      variant="body-3-medium"
+                      color={colorTypo("/register")}
+                    >
+                      Settings
+                    </Typography>
+                  </a>
+                )}
               </li>
               <li>
-                <Link to="user">
-                  <ProfileSVG fill={colorSVG("/user")} />
-                  <Typography
-                    variant="body-3-medium"
-                    color={colorTypo("/user")}
+                {user ? (
+                  <Link to="user">
+                    <ProfileSVG fill={colorSVG("/user")} />
+                    <Typography
+                      variant="body-3-medium"
+                      color={colorTypo("/user")}
+                    >
+                      Profile
+                    </Typography>
+                  </Link>
+                ) : (
+                  <a
+                    href="#"
+                    onClick={() => {
+                      toast.warning("Log in to view profile");
+                    }}
                   >
-                    Profile
-                  </Typography>
-                </Link>
+                    <ProfileSVG fill={colorSVG("/user")} />
+                    <Typography
+                      variant="body-3-medium"
+                      color={colorTypo("/user")}
+                    >
+                      Profile
+                    </Typography>
+                  </a>
+                )}
               </li>
             </ul>
           </nav>
+          <div>
+            <ToastContainer position="top-center" />
+          </div>
         </div>
       )}
     </>
