@@ -12,7 +12,6 @@ const RegisterView = (props) => {
   const {
     initialValues,
     validationSchema,
-    loginWithGoogle,
     onSubmit,
     singleImage,
     setSingleImage,
@@ -116,7 +115,7 @@ const RegisterView = (props) => {
                   <Button
                     variant="yellow"
                     size="md"
-                    label="Log In"
+                    label="Create Account"
                     hoverable
                     disable={!formik.isValid}
                   />

@@ -28,7 +28,6 @@ const Home = (props) => {
     bounds,
   } = props;
 
-  // console.log(bounds);
   return (
     <div>
       {xl ? (
