@@ -166,4 +166,6 @@
 }
 .xlRight a:hover {
   color: var(--black) !important;
+  border-bottom: 2px solid var(--yellow);
+  padding-bottom: 6px;
 }
