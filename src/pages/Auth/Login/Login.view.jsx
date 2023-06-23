@@ -61,6 +61,7 @@ const LoginView = (props) => {
                     label="Log In"
                     hoverable
                     disable={!formik.isValid}
+                    type="submit"
                   />
                 </div>
               </Form>

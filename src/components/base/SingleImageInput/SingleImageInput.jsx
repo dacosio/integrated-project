@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { CgProfile } from "react-icons/cg";
 import styles from "./single-image-input.module.css";
 
-function SingleImageInput({ images, setImages, ...props }) {
+function SingleImageInput({ images, setImages, disableLabel, ...props }) {
   const onChange = (imageList) => {
     setImages(imageList);
   };
@@ -50,16 +50,19 @@ function SingleImageInput({ images, setImages, ...props }) {
                     className={`${styles["image"]}`}
                     src={image.data_url}
                     onClick={onImageUpload}
+                    alt={`${image}-${index}`}
                   />
                 ))}
               </div>
             )}
-            <Button
-              onClick={onImageUpload}
-              variant="primary"
-              size="md"
-              label="Upload Photo"
-            ></Button>
+            {!disableLabel && (
+              <Button
+                onClick={onImageUpload}
+                variant="primary"
+                size="md"
+                label="Upload Photo"
+              ></Button>
+            )}
           </div>
         )}
       </ImageUploading>

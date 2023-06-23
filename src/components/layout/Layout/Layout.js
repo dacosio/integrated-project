@@ -15,7 +15,7 @@ const Layout = () => {
   const location = useLocation();
   useEffect(() => {
     const body = document.querySelector("body");
-    if (location.pathname === "/login") {
+    if (location.pathname === "/login" || location.pathname === "/register") {
       body.style.backgroundColor = "var(--dark-blue)"; // Set the desired background color for the login page
     } else {
       body.style.backgroundColor = "white"; // Set the desired background color for other pages
@@ -28,7 +28,11 @@ const Layout = () => {
   return (
     <div>
       <header style={{ position: "sticky", top: 0, zIndex: 5 }}>
-        {location.pathname === "/login" ? <></> : <Header />}
+        {location.pathname === "/login" || location.pathname === "/register" ? (
+          <></>
+        ) : (
+          <Header />
+        )}
       </header>
       <main className="App">
         <Outlet />
@@ -44,7 +48,11 @@ const Layout = () => {
           width: "100%",
         }}
       >
-        {location.pathname === "/login" ? <></> : <BottomNav />}
+        {location.pathname === "/login" || location.pathname === "/register" ? (
+          <></>
+        ) : (
+          <BottomNav />
+        )}
       </div>
     </div>
   );

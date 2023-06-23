@@ -1,14 +1,54 @@
 import { Formik, Form } from "formik";
 import FormikControl from "../../../components/base/FormikControl/FormikControl";
-import React from "react";
+import Button from "./../../../components/base/Button/Button";
+import style from "./Register.module.css";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import Typography from "../../../components/base/Typography/Typography";
+import { GoogleSVG, LoginLogoSVG } from "../../../components/base/SVG";
+import SingleImageInput from "../../../components/base/SingleImageInput/SingleImageInput";
 
-const Register = (props) => {
-  const { initialValues, validationSchema, onSubmit } = props;
+const RegisterView = (props) => {
+  const {
+    initialValues,
+    validationSchema,
+    loginWithGoogle,
+    onSubmit,
+    singleImage,
+    setSingleImage,
+  } = props;
+  const navigate = useNavigate();
 
+  const formikStyle = {
+    borderRadius: "12px",
+    padding: "6px 16px",
+    minWidth: "289px",
+  };
   return (
-    <div>
-      <h1>Create Account</h1>
-      <div>
+    <div className={style.loginWrapper}>
+      <LoginLogoSVG />
+      {/* <DropShadowLogoSVG /> */}
+
+      <div className={style.formikContainer}>
+        <Typography variant="h3-graphik-bold" style={{ alignSelf: "start" }}>
+          Create Account
+        </Typography>
+
+        <div className={style.imageUpload}>
+          <SingleImageInput
+            images={singleImage}
+            setImages={setSingleImage}
+            disableLabel
+          />
+          <Typography
+            color="gray"
+            variant="body-2-regular"
+            style={{ textAlign: "center" }}
+          >
+            Upload Photo
+          </Typography>
+        </div>
+
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -20,30 +60,67 @@ const Register = (props) => {
                 <FormikControl
                   control="input"
                   type="email"
-                  label="Email"
+                  label="Email*"
                   name="email"
+                  placeholder="Type your email"
+                  style={formikStyle}
+                />
+                <FormikControl
+                  control="input"
+                  type="text"
+                  label="First Name*"
+                  name="firstName"
+                  placeholder="Type your first name"
+                  style={formikStyle}
+                />
+                <FormikControl
+                  control="input"
+                  type="text"
+                  label="Last Name*"
+                  name="lastName"
+                  placeholder="Type your last name"
+                  style={formikStyle}
                 />
                 <FormikControl
                   control="input"
                   type="password"
-                  label="Password"
+                  label="Password*"
                   name="password"
+                  placeholder="Type your password"
+                  style={formikStyle}
                 />
                 <FormikControl
                   control="input"
                   type="password"
-                  label="Confirm Password"
+                  label="Confirm Password*"
                   name="confirmPassword"
+                  placeholder="Confirm your password"
+                  style={formikStyle}
                 />
-                {/* <FormikControl
+                <FormikControl
                   control="input"
                   type="text"
                   label="Contact Number"
                   name="contactNumber"
-                /> */}
-                <button type="submit" disabled={!formik.isValid}>
-                  Create Account
-                </button>
+                  placeholder="Type your number"
+                  style={formikStyle}
+                />
+                <div className={style.buttonWrapper}>
+                  <Button
+                    variant="white"
+                    size="md"
+                    label="Back"
+                    hoverable
+                    onClickHandler={() => navigate(-1)}
+                  />
+                  <Button
+                    variant="yellow"
+                    size="md"
+                    label="Log In"
+                    hoverable
+                    disable={!formik.isValid}
+                  />
+                </div>
               </Form>
             );
           }}
@@ -53,4 +130,4 @@ const Register = (props) => {
   );
 };
 
-export default Register;
+export default RegisterView;
