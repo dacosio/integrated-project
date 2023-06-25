@@ -64,10 +64,12 @@
   border: none;
   background-color: var(--white);
   box-shadow: none;
+  padding: 4px 16px;
 }
 
 .accept {
   color: var(--black);
   background-color: var(--yellow);
   box-shadow: none;
+  padding: 4px 16px;
 }

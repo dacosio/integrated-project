@@ -12,7 +12,7 @@ const SellerInfoCard = ({source, username, location, items}) => {
     <div className='seller-information'>
       <h2>Splitter Information</h2>
       <div className="image-container">
-        <img src="#" alt="" />
+        <img src={source} alt="" />
       </div>
       <div className="seller-details">
         <p className="username">{username}</p>

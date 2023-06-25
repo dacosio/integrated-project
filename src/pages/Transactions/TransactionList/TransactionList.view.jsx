@@ -10,10 +10,11 @@ const TransactionList = (props) => {
   const options = [
     { value: "value1", label: "Selling" },
     { value: "value2", label: "Buying" },
+    { value: "value3", label: "Completed"},
   ];
 
   return (
-    <div>
+    <div className="orders-list">
       <div className="title-wrapper">
         <Typography variant="h3-graphik-bold">Orders</Typography>
         <Dropdown
@@ -35,7 +36,6 @@ const TransactionList = (props) => {
         <TransactionCard type="buying" itemName="banana" time="2" portions="10" sellerName="cylvito" price="5" source="https://picsum.photos/200/400"/>
         <TransactionCard type="completed" itemName="banana" time="2" portions="10" sellerName="cylvito" price="5" source="https://picsum.photos/200/400"/>
         <TransactionCard type="selling" itemName="banana" time="2" portions="10" sellerName="cylvito" price="5" source="https://picsum.photos/200/400"/>
-        
       </div>
     </div>
   );

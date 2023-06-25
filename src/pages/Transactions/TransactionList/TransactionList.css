@@ -1,3 +1,6 @@
+.orders-list {
+  padding: 0px 16px;
+}
 .title-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -9,17 +12,20 @@
   border-radius: 20px;
   border: 2px solid black;
   box-shadow: 2px 2px black;
-  box-sizing: border-box;
 }
 
 .title-wrapper ul {
   grid-column: 1 / -1;
 }
 
+.orders .transaction-card {
+    margin: 16px 0px;
+}
+
 @media screen and (min-width: 1440px) {
 .title-wrapper {
     display: flex;
-    width: 91%;
+    width: 80%;
     margin: auto;
 }
 
@@ -37,9 +43,11 @@
 }
 
   .orders {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    justify-items: center;
+    display: flex;
+    flex-flow: row wrap;
+    width: 80%;
+    margin: auto;
+    justify-content: space-between;
   }
 
   .orders .transaction-card {

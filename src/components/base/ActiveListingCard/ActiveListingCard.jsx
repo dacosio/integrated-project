@@ -1,6 +1,5 @@
 import React from "react";
 import ImageLabel from "../ImageLabel/imageLabel";
-// import Image from "../Image/Image";
 import styles from "./activeListingCard.module.css";
 import Typography from "../Typography/Typography";
 
