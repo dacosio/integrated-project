@@ -1,16 +1,16 @@
-.selling-item-wrapper {
-  width: 80%;
-}
-
 .selling-item-card {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  width: 100%;
-  height: auto;
-  padding: 1rem;
-  gap: 1rem;
+  width: 328px;
+  height: 224px;
+  padding: 20px 16px;
+  gap: 12px;
   align-items: center;
   box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 20px;
+  box-shadow: 2px 2px black;
+  align-content: center;
 }
 
 .selling-item-description {
@@ -18,19 +18,14 @@
   flex-flow: column;
 }
 
-.selling-item-description .h3-graphik-bold {
-  color: var(--blue);
-  margin-bottom: 0.5rem;
-}
-
 .selling-item-card .image-container {
-  width: 100%;
-  height: auto;
+  width: 140px;
+  height: 140px;
 }
-
 .selling-item-card .image-container img {
-  width: 100%;
-  height: auto;
+  width: 140px;
+  height: 140px;
+  border: 2px solid black;
 }
 
 .selling-item-card .quantity-container {
@@ -41,6 +36,14 @@
   height: auto;
 }
 
-.quantity-container .body-1-regular {
-  margin-left: 0.5rem;
+@media screen and (min-width: 1440px) {
+  .selling-item-card {
+    width: 438px;
+    height: 224px;
+  }
+
+  .selling-item-card {
+    display: grid;
+    grid-template-columns: 0.6fr 1fr;
+  }
 }
