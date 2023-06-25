@@ -1,6 +1,6 @@
 import React from "react";
 
-const HomeSVG = ({ width, height, fill, stroke, ...props }) => {
+const LocationSVG = ({ width, height, fill, stroke, ...props }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -17,4 +17,4 @@ const HomeSVG = ({ width, height, fill, stroke, ...props }) => {
   );
 };
 
-export default HomeSVG;
+export default LocationSVG;
