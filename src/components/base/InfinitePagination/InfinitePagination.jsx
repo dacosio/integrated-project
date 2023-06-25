@@ -4,6 +4,7 @@ import BeatLoader from "react-spinners/BeatLoader";
 import styles from "./infinite-pagination.module.css";
 
 const InfinitePagination = ({
+  columns,
   items,
   onScroll,
   hasMore,
@@ -26,6 +27,7 @@ const InfinitePagination = ({
           <b>No more items.</b>
         </p>
       }
+      style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
       className={`${styles.wrapper}`}
     >
       {items}

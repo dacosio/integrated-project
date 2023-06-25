@@ -43,7 +43,7 @@ const Yuhwan = (props) => {
   useEffect(() => {
     const productsQuery = query(
       collection(store, "product"),
-      orderBy("createdAt")
+      orderBy("createdAt", "desc")
     );
 
     getDocs(productsQuery)
@@ -366,13 +366,23 @@ const Yuhwan = (props) => {
       <div>
         <h2>Page</h2>
         <h2>Pagination</h2>
-        <Pagination
-          currentPageIndex={currentPageIndex}
-          pageNumber={pageNumber}
-          totalPageNumber={totalPageNumber}
-          onClick={handleOnClick}
-        />
-        <Grid columns={4}>{items.map((item, index) => item)}</Grid>
+
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "800px",
+            margin: "auto",
+            boxSizing: "border-box",
+          }}
+        >
+          <Pagination
+            currentPageIndex={currentPageIndex}
+            pageNumber={pageNumber}
+            totalPageNumber={totalPageNumber}
+            onClick={handleOnClick}
+          />
+          <Grid columns={4}>{items.map((item, index) => item)}</Grid>
+        </div>
       </div>
       <div>
         <h2>SingleImageInput</h2>
@@ -535,6 +545,7 @@ const Yuhwan = (props) => {
             }}
           >
             <InfinitePagination
+              columns={4}
               items={scrollItems}
               hasMore={hasMore}
               onScroll={handleOnScroll}
