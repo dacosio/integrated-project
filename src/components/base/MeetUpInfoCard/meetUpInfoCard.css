@@ -1,0 +1,54 @@
+.meet-up-info-card {
+  display: grid;
+  grid-template-rows: 0.1fr 1fr;
+  padding: 20px 20px 28px 20px;
+  width: 330px;
+  height: 389px;
+  border: 1px solid #000000;
+  border-radius: 20px;
+  box-shadow: 2px 2px black;
+}
+
+.meet-up-info-description {
+  display: flex;
+  flex-direction: column;
+}
+
+.time-container,
+.date-container,
+.location-container {
+  display: grid;
+  grid-template-columns: 0.1fr 1fr;
+  align-items: center;
+  margin-bottom: 0.3rem;
+  margin-bottom: 8px;
+}
+
+.map-container {
+  width: 100%;
+  height: 230px;
+  border: 1px solid black;
+  margin-top: 10px;
+  border-radius: 20px;
+  box-shadow: 2px 2px black;
+}
+
+@media screen and (min-width: 1440px) {
+  .meet-up-info-card {
+    width: 665px;
+    height: 418px;
+    padding: 16px;
+  }
+
+  .map-container {
+    width: 100%;
+    height: 259px;
+    margin-top: 12px;
+  }
+
+  .time-container,
+  .date-container,
+  .location-container {
+    grid-template-columns: 0.1fr 1.7fr;
+  }
+}
