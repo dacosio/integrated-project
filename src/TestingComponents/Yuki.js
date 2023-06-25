@@ -1,10 +1,9 @@
 import React from "react";
 import Typography from "../components/base/Typography/Typography";
-// import BuyerContactCard from "../components/base/BuyerContactCard/BuyerContactCard";
-// import MeetUpInfoCard from "../components/base/MeetUpInfoCard/MeetUpInfoCard";
+import BuyerContactCard from "../components/base/BuyerContactCard/BuyerContactCard";
+import MeetUpInfoCard from "../components/base/MeetUpInfoCard/MeetUpInfoCard";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import MeetUpInfoCard from "../components/base/MeetUpInfoCard/MeetUpInfoCard";
 import SellingItemCard from "../components/base/SellingItemCard/SellingItemCard";
 import DescriptionCard from "../components/base/DescriptionCard/DescriptionCard";
 import SellerInfoCard from "../components/base/SellerInfoCard/SellerInfoCard";
@@ -26,14 +25,14 @@ const Yuki = () => {
         <Typography variant="body-4-regular" color="yellow">body-4-regular</Typography>
         <Typography variant="button-regular"> button-regular </Typography>
 
-        {/* <div>
+        <div>
           <BuyerContactCard
             source="https://picsum.photos/200"
             nameOfBuyer="aishasells"
             contactTel="(+1)000=0000"
             email="aisha@email.com"
           />
-        </div> */}
+        </div>
 
         <div>
           <DescriptionCard
