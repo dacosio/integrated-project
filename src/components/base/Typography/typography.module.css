@@ -105,3 +105,7 @@
 .blue {
   color: var(--blue);
 }
+
+.error {
+  color: var(--error);
+}

@@ -16,6 +16,8 @@ import SelectDropdown from "../components/base/SelectDropdown/SelectDropdown";
 import Button from "../components/base/Button/Button";
 import ImageLabel from "../components/base/ImageLabel/imageLabel";
 import BottomNav from "../components/layout/BottomNav/BottomNav";
+import Filter from "../components/module/Filter/Filter";
+import CarouselSwiper from "../components/module/CarouselSwiper/CarouselSwiper";
 
 const wrapper = {
   padding: "1rem",
@@ -45,15 +47,22 @@ const Don = (props) => {
   ];
 
   const [searchValue, setSearchValue] = useState("");
+  const [sortHigh, setSortHigh] = useState(false);
+  const [sortLow, setSortLow] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(false);
 
   const isDesktop = useMediaQuery("(min-width: 1200px)");
   const isTablet = useMediaQuery("(min-width: 960px)");
   const isMobile = useMediaQuery("(min-width: 360px)");
 
+  const [openFilter, setOpenFilter] = useState(false);
+
   return (
     <div>
       <h1>Don</h1>
-      <div>{/* <FirebaseSample /> */}</div>
+      <div>
+        <FirebaseSample />
+      </div>
       <div style={wrapper}>
         <SearchField
           placeholder="What are you looking for?"
@@ -101,6 +110,8 @@ const Don = (props) => {
           placeholder="Search location.."
           clearable
           backspaceDelete
+          onChange={(value) => console.log(value)}
+          searchable={false}
         />
       </div>
       <div style={wrapper}>
@@ -140,6 +151,49 @@ const Don = (props) => {
         />
         {/* <ImageLabel distance={2} days={1} /> */}
         <BottomNav />
+      </div>
+
+      <div style={wrapper}>
+        <div>
+          <button onClick={() => setOpenFilter(!openFilter)}>
+            open filter
+          </button>
+        </div>
+        <div
+          style={{
+            maxHeight: openFilter ? "1000px" : "0",
+            overflow: "hidden",
+            transition: "max-height 0.3s ease-in-out",
+          }}
+        >
+          {openFilter && (
+            <Filter
+              selectedOption={selectedOption}
+              setSelectedOption={setSelectedOption}
+              options={options}
+              sortLowHandler={() => {
+                console.log("sorted low handler");
+                setSortLow(!sortLow);
+              }}
+              sortHighHandler={() => {
+                console.log("sorted high handler");
+                setSortHigh(!sortHigh);
+              }}
+              sortHigh={sortHigh}
+              sortLow={sortLow}
+            />
+          )}
+        </div>
+      </div>
+
+      <div
+        style={{
+          width: "250px",
+          height: "auto",
+          ...wrapper,
+        }}
+      >
+        <CarouselSwiper />
       </div>
     </div>
   );

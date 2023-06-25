@@ -17,10 +17,8 @@ import Dropdown from "../components/base/Dropdown/Dropdown";
 import ImageList from "../components/base/ImageList/ImageList";
 import InfinitePagination from "../components/base/InfinitePagination/InfinitePagination";
 import Accordion from "../components/base/Accordion/Accordion";
-import Card from "../components/base/Card/Card";
-import MapLeaflet from "../components/module/MapLeaflet/MapLeaflet";
 import Button from "../components/base/Button/Button";
-import Typography from "../components/base/Typography/Typography";
+import Modal from "../components/base/Modal/Modal";
 
 const Yuhwan = (props) => {
   /* Pagination */
@@ -242,8 +240,16 @@ const Yuhwan = (props) => {
     setAccordionVisibility((oldValue) => !oldValue);
   };
 
-  /* MapLeaflet */
-  const [zoom, setZoom] = useState(1);
+  /* Modal */
+  const [modalVisibility, setModalVisibility] = useState(false);
+
+  const handleOnOpen = () => {
+    setModalVisibility(true);
+  };
+
+  const handleOnClose = () => {
+    setModalVisibility(false);
+  };
 
   return (
     <div>
@@ -347,38 +353,6 @@ const Yuhwan = (props) => {
         </div>
       </div>
       <div>
-        <h2>MapLeaflet</h2>
-        <div
-          style={{
-            width: "100%",
-            maxWidth: "300px",
-            height: "300px",
-            margin: "auto",
-          }}
-        >
-          <Card>
-            <Typography>Test</Typography>
-            <Card nopadding noshadow aspectRatio={1.3}>
-              <MapLeaflet
-                markerData={[
-                  {
-                    id: 0,
-                    lat: 49.225,
-                    long: -123.107,
-                    location: "Langara College",
-                  },
-                ]}
-                direction="top"
-                width="100%"
-                height="100%"
-                borderRadius="20px"
-                zIndex={2}
-              />
-            </Card>
-          </Card>
-        </div>
-      </div>
-      <div>
         <h2>Button</h2>
         <div>
           <Button variant="black" size="sm" label="Button" hoverable />
@@ -415,6 +389,24 @@ const Yuhwan = (props) => {
           <Button variant="yellow" size="lg" label="Button" />
           <Button variant="white" size="lg" label="Button" />
         </div>
+      </div>
+      <div>
+        <h2>Modal</h2>
+        <div style={{ width: "100%", maxWidth: "300px", margin: "auto" }}>
+          <Button
+            variant="yellow"
+            size="lg"
+            label="Open Modal"
+            onClickHandler={handleOnOpen}
+          />
+        </div>
+        <Modal
+          width="30vw"
+          visibility={modalVisibility}
+          onClose={handleOnClose}
+        >
+          <ImageList images={images} />
+        </Modal>
       </div>
       <div>
         <h2>InfinitePagination</h2>

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Link, useLocation } from "react-router-dom";
 import styles from "./header.module.css";
 import { UserAuth } from "../../../context/AuthContext";
@@ -8,11 +9,28 @@ import SearchField from "../../base/SearchField/SearchField";
 import { SearchContext } from "../../../context/SearchContext";
 import { FilterSVG, LogoSVG } from "../../base/SVG";
 import useMediaQuery from "../../../utils/useMediaQuery";
+import Filter from "../../module/Filter/Filter";
+import { ToastContainer, toast } from "react-toastify";
 
 const Header = () => {
   const { user, logout } = UserAuth();
   const [filterSelected, setFilterSelected] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const [sortHigh, setSortHigh] = useState(false);
+  const [sortLow, setSortLow] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(false);
+  const options = [
+    {
+      value: 1,
+      label: "Leanne Graham",
+    },
+    {
+      value: 2,
+      label: "Ervin Howell",
+    },
+  ];
 
   const handleLogOut = async () => {
     await logout();
@@ -24,12 +42,15 @@ const Header = () => {
     updateSearchValue(event.target.value);
   };
 
-  const location = useLocation();
+  const handleLogin = () => {
+    navigate("/login");
+  };
 
   const sm = useMediaQuery("(min-width: 360px) and (max-width:576px)");
   const md = useMediaQuery("(min-width: 577px) and (max-width:799px)");
   const lg = useMediaQuery("(min-width: 800px) and (max-width:1270px)");
   const xl = useMediaQuery("(min-width: 1271px");
+  const filterSize = useMediaQuery("(min-width: 990px");
 
   let headerSm = () => {
     return (
@@ -39,9 +60,9 @@ const Header = () => {
           <Button
             variant="light-blue"
             size="sm"
-            label="Logout"
+            label={user ? "Logout" : "Login"}
             hoverable
-            onClickHandler={handleLogOut}
+            onClickHandler={user ? handleLogOut : handleLogin}
           />
         </div>
         <div className={styles.mobileFilter}>
@@ -75,15 +96,19 @@ const Header = () => {
               variant="yellow"
               hoverable
               size="sm"
-              onClickHandler={() => navigate("listing/add")}
+              onClickHandler={() =>
+                user
+                  ? navigate("listing/add")
+                  : toast.warning("Log in to post listing")
+              }
               label="Post Listing"
             />
             <Button
               variant="light-blue"
               size="sm"
-              label="Logout"
+              label={user ? "Logout" : "Login"}
               hoverable
-              onClickHandler={handleLogOut}
+              onClickHandler={user ? handleLogOut : handleLogin}
             />
           </div>
         </div>
@@ -102,40 +127,73 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link
-                style={
-                  location.pathname === "/transaction"
-                    ? { color: "var(--yellow)", fontWeight: "bold" }
-                    : { color: "var(--white)" }
-                }
-                to="transaction"
-              >
-                Orders
-              </Link>
+              {user != null ? (
+                <Link
+                  style={
+                    location.pathname === "/transaction"
+                      ? { color: "var(--yellow)", fontWeight: "bold" }
+                      : { color: "var(--white)" }
+                  }
+                  to="transaction"
+                >
+                  Orders
+                </Link>
+              ) : (
+                <a
+                  href="#"
+                  onClick={() => {
+                    toast.warning("Log in to view orders");
+                  }}
+                >
+                  Orders
+                </a>
+              )}
             </li>
             <li>
-              <Link
-                style={
-                  location.pathname === "/register"
-                    ? { color: "var(--yellow)", fontWeight: "bold" }
-                    : { color: "var(--white)" }
-                }
-                to="register"
-              >
-                Settings
-              </Link>
+              {user != null ? (
+                <Link
+                  style={
+                    location.pathname === "/register"
+                      ? { color: "var(--yellow)", fontWeight: "bold" }
+                      : { color: "var(--white)" }
+                  }
+                  to="register"
+                >
+                  Settings
+                </Link>
+              ) : (
+                <a
+                  href="#"
+                  onClick={() => {
+                    toast.warning("Log in to view settings");
+                  }}
+                >
+                  Settings
+                </a>
+              )}
             </li>
             <li>
-              <Link
-                style={
-                  location.pathname === "/user"
-                    ? { color: "var(--yellow)", fontWeight: "bold" }
-                    : { color: "var(--white)" }
-                }
-                to="user"
-              >
-                Profile
-              </Link>
+              {user != null ? (
+                <Link
+                  style={
+                    location.pathname === "/user"
+                      ? { color: "var(--yellow)", fontWeight: "bold" }
+                      : { color: "var(--white)" }
+                  }
+                  to="user"
+                >
+                  Profile
+                </Link>
+              ) : (
+                <a
+                  href="#"
+                  onClick={() => {
+                    toast.warning("Log in to view profile");
+                  }}
+                >
+                  Profile
+                </a>
+              )}
             </li>
           </ul>
         </div>
@@ -170,15 +228,19 @@ const Header = () => {
               variant="yellow"
               hoverable
               size="sm"
-              onClickHandler={() => navigate("listing/add")}
+              onClickHandler={() =>
+                user
+                  ? navigate("listing/add")
+                  : toast.warning("Log in to post listing")
+              }
               label="Post Listing"
             />
             <Button
               variant="light-blue"
               size="sm"
-              label="Logout"
+              label={user ? "Logout" : "Login"}
               hoverable
-              onClickHandler={handleLogOut}
+              onClickHandler={user ? handleLogOut : handleLogin}
             />
           </div>
         </div>
@@ -198,40 +260,73 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link
-                  style={
-                    location.pathname === "/transaction"
-                      ? { color: "var(--yellow)", fontWeight: "bold" }
-                      : { color: "var(--white)" }
-                  }
-                  to="transaction"
-                >
-                  Orders
-                </Link>
+                {user != null ? (
+                  <Link
+                    style={
+                      location.pathname === "/transaction"
+                        ? { color: "var(--yellow)", fontWeight: "bold" }
+                        : { color: "var(--white)" }
+                    }
+                    to="transaction"
+                  >
+                    Orders
+                  </Link>
+                ) : (
+                  <a
+                    href="#"
+                    onClick={() => {
+                      toast.warning("Log in to view orders");
+                    }}
+                  >
+                    Orders
+                  </a>
+                )}
               </li>
               <li>
-                <Link
-                  style={
-                    location.pathname === "/register"
-                      ? { color: "var(--yellow)", fontWeight: "bold" }
-                      : { color: "var(--white)" }
-                  }
-                  to="register"
-                >
-                  Settings
-                </Link>
+                {user != null ? (
+                  <Link
+                    style={
+                      location.pathname === "/register"
+                        ? { color: "var(--yellow)", fontWeight: "bold" }
+                        : { color: "var(--white)" }
+                    }
+                    to="register"
+                  >
+                    Settings
+                  </Link>
+                ) : (
+                  <a
+                    href="#"
+                    onClick={() => {
+                      toast.warning("Log in to view settings");
+                    }}
+                  >
+                    Settings
+                  </a>
+                )}
               </li>
               <li>
-                <Link
-                  style={
-                    location.pathname === "/user"
-                      ? { color: "var(--yellow)", fontWeight: "bold" }
-                      : { color: "var(--white)" }
-                  }
-                  to="user"
-                >
-                  Profile
-                </Link>
+                {user != null ? (
+                  <Link
+                    style={
+                      location.pathname === "/user"
+                        ? { color: "var(--yellow)", fontWeight: "bold" }
+                        : { color: "var(--white)" }
+                    }
+                    to="user"
+                  >
+                    Profile
+                  </Link>
+                ) : (
+                  <a
+                    href="#"
+                    onClick={() => {
+                      toast.warning("Log in to view profile");
+                    }}
+                  >
+                    Profile
+                  </a>
+                )}
               </li>
             </ul>
           </div>
@@ -293,61 +388,96 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link
-                style={
-                  location.pathname === "/transaction"
-                    ? { color: "var(--yellow)", fontWeight: "bold" }
-                    : { color: "var(--white)" }
-                }
-                to="transaction"
-              >
-                Orders
-              </Link>
+              {user != null ? (
+                <Link
+                  style={
+                    location.pathname === "/transaction"
+                      ? { color: "var(--yellow)", fontWeight: "bold" }
+                      : { color: "var(--white)" }
+                  }
+                  to="transaction"
+                >
+                  Orders
+                </Link>
+              ) : (
+                <a
+                  href="#"
+                  onClick={() => {
+                    toast.warning("Log in to view orders");
+                  }}
+                >
+                  Orders
+                </a>
+              )}
             </li>
             <li>
-              <Link
-                style={
-                  location.pathname === "/register"
-                    ? { color: "var(--yellow)", fontWeight: "bold" }
-                    : { color: "var(--white)" }
-                }
-                to="register"
-              >
-                Settings
-              </Link>
+              {user != null ? (
+                <Link
+                  style={
+                    location.pathname === "/register"
+                      ? { color: "var(--yellow)", fontWeight: "bold" }
+                      : { color: "var(--white)" }
+                  }
+                  to="register"
+                >
+                  Settings
+                </Link>
+              ) : (
+                <a
+                  href="#"
+                  onClick={() => {
+                    toast.warning("Log in to view settings");
+                  }}
+                >
+                  Settings
+                </a>
+              )}
             </li>
             <li>
-              <Link
-                style={
-                  location.pathname === "/user"
-                    ? { color: "var(--yellow)", fontWeight: "bold" }
-                    : { color: "var(--white)" }
-                }
-                to="user"
-              >
-                Profile
-              </Link>
+              {user != null ? (
+                <Link
+                  style={
+                    location.pathname === "/user"
+                      ? { color: "var(--yellow)", fontWeight: "bold" }
+                      : { color: "var(--white)" }
+                  }
+                  to="user"
+                >
+                  Profile
+                </Link>
+              ) : (
+                <a
+                  href="#"
+                  onClick={() => {
+                    toast.warning("Log in to view profile");
+                  }}
+                >
+                  Profile
+                </a>
+              )}
             </li>
             <li>
               <Button
                 variant="yellow"
                 hoverable
                 size="sm"
-                onClickHandler={() => navigate("listing/add")}
+                onClickHandler={() =>
+                  user
+                    ? navigate("listing/add")
+                    : toast.warning("Log in to post listing")
+                }
                 label="Post Listing"
               />
             </li>
-            {user && (
-              <li>
-                <Button
-                  variant="light-blue"
-                  size="sm"
-                  label="Logout"
-                  hoverable
-                  onClickHandler={handleLogOut}
-                />
-              </li>
-            )}
+            <li>
+              <Button
+                variant="light-blue"
+                size="sm"
+                label={user ? "Logout" : "Login"}
+                hoverable
+                onClickHandler={user ? handleLogOut : handleLogin}
+              />
+            </li>
           </ul>
         </div>
       </div>
@@ -363,7 +493,40 @@ const Header = () => {
     ? headerXl()
     : headerXl();
 
-  return <>{content}</>;
+  return (
+    <>
+      {content}
+      <div
+        style={{
+          maxHeight: filterSelected ? "1000px" : "0",
+          transition: "max-height 0.3s ease-in-out",
+        }}
+      >
+        {filterSelected && (
+          <Filter
+            selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
+            options={options}
+            sortLowHandler={() => {
+              console.log("sorted low handler");
+              setSortLow(!sortLow);
+            }}
+            sortHighHandler={() => {
+              console.log("sorted high handler");
+              setSortHigh(!sortHigh);
+            }}
+            sortHigh={sortHigh}
+            sortLow={sortLow}
+            placeholder="All Categories"
+            screenSize={filterSize}
+          />
+        )}
+      </div>
+      <div>
+        <ToastContainer position="top-center" />
+      </div>
+    </>
+  );
 };
 
 export default Header;

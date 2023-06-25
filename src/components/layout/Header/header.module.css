@@ -62,6 +62,7 @@
   justify-content: space-around;
   align-items: center;
   gap: 40px;
+  padding: 0;
 }
 .mdMid li {
   list-style-type: none;
@@ -70,7 +71,7 @@
   color: var(--white);
 }
 .mdMid a:hover {
-  color: var(--black);
+  color: var(--black) !important;
 }
 
 .mdBot {
@@ -128,7 +129,7 @@
   color: var(--white);
 }
 .lgNavLeft a:hover {
-  color: var(--black);
+  color: var(--black) !important;
 }
 
 .lgFilterRight {
@@ -164,5 +165,7 @@
   color: var(--white);
 }
 .xlRight a:hover {
-  color: var(--black);
+  color: var(--black) !important;
+  border-bottom: 2px solid var(--yellow);
+  padding-bottom: 6px;
 }
