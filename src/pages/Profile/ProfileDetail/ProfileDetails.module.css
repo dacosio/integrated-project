@@ -1,0 +1,33 @@
+.headerWrapper {
+  transform: translateY(-25%);
+  margin-bottom: 30px;
+  padding: 0 16px;
+}
+
+.location,
+.sold {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.location {
+  padding: 8px 0;
+}
+
+.listings {
+  padding: 0 16px;
+}
+
+.cardsSmall {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 38px;
+  justify-items: center;
+}
+
+.cardsBig {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  justify-items: center;
+}

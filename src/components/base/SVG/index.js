@@ -17,3 +17,7 @@ export { default as ProfileSVG } from "./ProfileSVG";
 export { default as GoogleSVG } from "./GoogleSVG";
 export { default as LoginLogoSVG } from "./LoginLogoSVG";
 export { default as DropShadowLogoSVG } from "./DropShadowLogoSVG";
+export { default as ProfilePatternSVG } from "./ProfilePatternSVG";
+export { default as MarkerSVG } from "./MarkerSVG";
+export { default as MarkerSmallSVG } from "./MarkerSmallSVG";
+export { default as OrderSmallSVG } from "./OrderSmallSVG";
