@@ -4,6 +4,7 @@ import Typography from "../components/base/Typography/Typography";
 // import MeetUpInfoCard from "../components/base/MeetUpInfoCard/MeetUpInfoCard";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import MeetUpInfoCard from "../components/base/MeetUpInfoCard/MeetUpInfoCard";
 import SellingItemCard from "../components/base/SellingItemCard/SellingItemCard";
 import DescriptionCard from "../components/base/DescriptionCard/DescriptionCard";
 import SellerInfoCard from "../components/base/SellerInfoCard/SellerInfoCard";
@@ -14,7 +15,7 @@ const Yuki = () => {
       <section>
         <h1 style={{ textDecoration: "underline" }}>Yuki</h1>
         <h3>Typography</h3>
-
+        
         <Typography variant="h1-graphik-bold" color="blue">h1-graphik-bold</Typography>
         <Typography variant="h2-graphik-bold" color="black">h2-graphik-bold</Typography>
         <Typography variant="h3-graphik-bold" color="white" style={{"backgroundColor": "black"}}>h3-graphik-bold</Typography>
@@ -24,19 +25,6 @@ const Yuki = () => {
         <Typography variant="body-3-regular" color="light-blue">body-3-regular</Typography>
         <Typography variant="body-4-regular" color="yellow">body-4-regular</Typography>
         <Typography variant="button-regular"> button-regular </Typography>
-
-        <div>
-          <SellingItemCard
-            source="https://picsum.photos/200"
-            itemName="Item Name"
-            dateApproved="June 10, 2023"
-            quantity="1"
-            price="11"
-            nameOfBuyer="aishaells"
-            contactTel="(+1)000-0000"
-            email="aisha@email.com"
-          />
-        </div>
 
         {/* <div>
           <BuyerContactCard
@@ -54,17 +42,17 @@ const Yuki = () => {
           />
         </div>
 
-        {/* <div>
+        <div>
           <MeetUpInfoCard 
             date="Jun 23, 2023"
             time="14:00"
             location="100 W 49th Ave, Vancouver,
             BC V5Y 2Z6"
           />
-        </div> */}
+        </div>
 
         <div>
-          <SellingItemCard
+        <SellingItemCard
             source="https://picsum.photos/200"
             itemName="Banana"
             dateApproved="June 15, 2023"
@@ -74,10 +62,11 @@ const Yuki = () => {
         </div>
 
         <div>
-          <SellerInfoCard
+        <SellerInfoCard
             source="https://picsum.photos/200"
             username="aishasells"
             location="Vancouver, BC"
+            items="1"
           />
         </div>
 
@@ -86,5 +75,4 @@ const Yuki = () => {
     </div>
   );
 };
-
 export default Yuki;
