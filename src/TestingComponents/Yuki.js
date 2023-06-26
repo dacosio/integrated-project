@@ -7,6 +7,7 @@ import "leaflet/dist/leaflet.css";
 import SellingItemCard from "../components/base/SellingItemCard/SellingItemCard";
 import DescriptionCard from "../components/base/DescriptionCard/DescriptionCard";
 import SellerInfoCard from "../components/base/SellerInfoCard/SellerInfoCard";
+import TransactionDetail from "../pages/Transactions/TransactionDetail";
 
 const Yuki = () => {
   return (
@@ -68,6 +69,11 @@ const Yuki = () => {
             items="1"
           />
         </div>
+
+      <div style={{"width": "360px", "border": "1px solid black", "padding": "20px"}}>
+        <TransactionDetail />
+      </div>
+        
 
         <hr />
       </section>

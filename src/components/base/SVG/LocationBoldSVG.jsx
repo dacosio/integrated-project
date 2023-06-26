@@ -8,6 +8,7 @@ const LocationSVG = ({ width, height, fill, stroke, ...props }) => {
       height={height} //23
       fill="none"
       viewBox="0 0 14 19"
+      {...props}
     >
       <path
         d="M7.24 1C3.14 1 1 3.88 1 7.04C1 11.75 7.24 19.6 7.24 19.6C7.24 19.6 13.48 11.75 13.48 7.04C13.48 3.88 11.27 1 7.24 1Z"

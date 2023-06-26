@@ -1,13 +1,7 @@
-.seller-information-wrapper {
-  display: block;
-  margin: auto;
-  margin: 1rem;
-}
-
 .seller-information {
   display: grid;
   grid-template-columns: 0.5fr 1fr;
-  width: 328px;
+  width: 100%;
   height: 148px;
   border: 1px solid var(--black);
   border-radius: 20px;

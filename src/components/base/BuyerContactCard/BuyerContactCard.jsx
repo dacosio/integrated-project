@@ -8,9 +8,15 @@ import "./buyerContactCard.css";
 
 const BuyerContactCard = ({ source, nameOfBuyer, contactTel, email }) => {
   return (
-    <div className="buyer-contact-card-wrapper">
-      <div className="buyer-contact-card">
-        <Typography variant="h4-graphik-bold" color="black" style={{"grid-column": "1/-1"}}>Sold to</Typography>
+    <div className="buyer-contact-card">
+      <Typography
+        variant="h4-graphik-bold"
+        color="black"
+        style={{"margin-bottom":"16px"}}
+      >
+        Sold to
+      </Typography>
+      <div className="buyer-contact-details">
         <div className="image-container">
           <Image source={source} />
         </div>
@@ -18,16 +24,22 @@ const BuyerContactCard = ({ source, nameOfBuyer, contactTel, email }) => {
           <div className="buyer-contact-description">
             <div className="name-container">
               <UserSVG height={21} width={21} fill={"black"} />
-              <Typography variant="body-1-regular" color="gray">{nameOfBuyer}</Typography>
+              <Typography variant="body-1-regular" color="gray">
+                {nameOfBuyer}
+              </Typography>
             </div>
 
             <div className="conatct-tel-container">
-              <PhoneSVG height={22} width={21} fill={"none"}/>
-              <Typography variant="body-1-regular" color="gray">{contactTel}</Typography>
+              <PhoneSVG height={22} width={21} fill={"none"} />
+              <Typography variant="body-1-regular" color="gray">
+                {contactTel}
+              </Typography>
             </div>
             <div className="email-container">
               <EnvelopeSVG height={14} width={21} fill={"none"} />
-              <Typography variant="body-1-regular" color="gray">{email}</Typography>
+              <Typography variant="body-1-regular" color="gray">
+                {email}
+              </Typography>
             </div>
           </div>
         </div>

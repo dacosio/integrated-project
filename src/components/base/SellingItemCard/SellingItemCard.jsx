@@ -11,10 +11,10 @@ const SellingItemCard = ({
 }) => {
   return (
     <div className="selling-item-wrapper">
+      <Typography variant="h3-graphik-bold" style={{ "margin": "16px 16px .5rem" }}>
+        Selling Details
+      </Typography>
       <div className="selling-item-card">
-        <Typography variant="h3-graphik-bold" style={{ "grid-column": "1/-1" }}>
-          Selling Details
-        </Typography>
         <div className="image-container">
           <Image source={source} style={{ borderRadius: "10px" }} />
         </div>
