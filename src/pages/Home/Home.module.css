@@ -24,6 +24,7 @@
   border-radius: 20px;
   box-shadow: 5px 5px 0px var(--black);
   background-color: var(--white);
+  position: relative;
 }
 
 .mapDesktop {
