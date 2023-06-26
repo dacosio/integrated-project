@@ -6,6 +6,7 @@ import { MapMarkerSVG } from "../../components/base/SVG";
 import Grid from "../../components/layout/Grid/Grid";
 import ActiveListingCard from "../../components/base/ActiveListingCard/ActiveListingCard";
 import Pagination from "../../components/base/Pagination/Pagination";
+import InfinitePagination from "../../components/base/InfinitePagination/InfinitePagination";
 import getDistance from "geolib/es/getDistance";
 
 const Home = (props) => {
@@ -22,6 +23,9 @@ const Home = (props) => {
     totalPageNumber,
     handleOnClick,
     products,
+    mobileProducts,
+    handleOnScroll,
+    hasMore,
     latitude,
     longitude,
     error,
@@ -47,10 +51,10 @@ const Home = (props) => {
               </div>
               <Grid columns={2} style={{ justifyItems: "center" }}>
                 {products &&
-                  products.slice(0, 4).map((d) => {
+                  products.map((product) => {
                     let tmp = {
-                      latitude: d.location._lat,
-                      longitude: d.location._long,
+                      latitude: product.location._lat,
+                      longitude: product.location._long,
                     };
                     let distance = 0;
                     if (latitude && longitude) {
@@ -61,17 +65,30 @@ const Home = (props) => {
                       distance = Math.ceil(Number(distance) / 1000);
                     }
 
+                    const today = new Date();
+                    let createdAt = new Date(product.createdAt.toDate());
+                    createdAt.setHours(0, 0, 0, 0);
+                    today.setHours(0, 0, 0, 0);
+                    const timeDiff = today.getTime() - createdAt.getTime();
+                    const days = Math.abs(
+                      Math.floor(timeDiff / (1000 * 60 * 60 * 24))
+                    );
+
                     return (
                       <ActiveListingCard
-                        key={d.id}
+                        key={product.id}
                         distance={!!error ? 0 : distance}
-                        days={2}
-                        source={`https://picsum.photos/400?random=${d.id}`}
-                        itemname={d.name}
-                        price={d.price}
-                        stock={d.qty}
-                        alt={d.name}
-                        onClick={() => console.log(d.id)}
+                        days={days}
+                        source={
+                          product.imageUrl
+                            ? product.imageUrl
+                            : "https://picsum.photos/400"
+                        }
+                        itemname={product.name}
+                        price={product.price}
+                        stock={product.qty}
+                        alt={product.name}
+                        onClick={() => console.log(product.id)}
                         maxwidth={lg ? "180px" : "150px"}
                         width={lg ? "180px" : "150px"}
                       />
@@ -130,8 +147,58 @@ const Home = (props) => {
                 100 2 49th Avenue, Vancouver, BC V5Y 276
               </Typography>
             </div>
+            <InfinitePagination
+              columns={columns}
+              items={
+                mobileProducts &&
+                mobileProducts.map((product, index) => {
+                  let tmp = {
+                    latitude: product.location._lat,
+                    longitude: product.location._long,
+                  };
+                  let distance = 0;
+                  if (latitude && longitude) {
+                    distance = getDistance(tmp, {
+                      latitude,
+                      longitude,
+                    });
+                    distance = Math.ceil(Number(distance) / 1000);
+                  }
 
-            <Grid columns={columns} style={{ justifyItems: "center" }}>
+                  const today = new Date();
+                  let createdAt = new Date(product.createdAt.toDate());
+                  createdAt.setHours(0, 0, 0, 0);
+                  today.setHours(0, 0, 0, 0);
+                  const timeDiff = today.getTime() - createdAt.getTime();
+                  const days = Math.abs(
+                    Math.floor(timeDiff / (1000 * 60 * 60 * 24))
+                  );
+
+                  return (
+                    <ActiveListingCard
+                      key={product.id}
+                      distance={!!error ? 0 : distance}
+                      days={days}
+                      source={
+                        product.imageUrl
+                          ? product.imageUrl
+                          : "https://picsum.photos/400"
+                      }
+                      itemname={product.name}
+                      price={product.price}
+                      stock={product.qty}
+                      alt="Banana"
+                      onClick={() => console.log(product.id)}
+                      maxwidth={lg ? "180px" : "150px"}
+                      width={lg ? "180px" : "150px"}
+                    />
+                  );
+                })
+              }
+              hasMore={hasMore}
+              onScroll={handleOnScroll}
+            />
+            {/* <Grid columns={columns} style={{ justifyItems: "center" }}>
               {products &&
                 bounds &&
                 products.map((d) => {
@@ -163,7 +230,7 @@ const Home = (props) => {
                     />
                   );
                 })}
-            </Grid>
+            </Grid> */}
           </div>
         </>
       )}
