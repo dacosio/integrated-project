@@ -20,6 +20,7 @@ const TransactionDetail = (props) => {
           style={{
             padding: "157px",
             "justify-content": "center",
+            "backgroundColor": "var(--bg-gray)", 
           }}
         >
           <Grid
@@ -72,7 +73,7 @@ const TransactionDetail = (props) => {
           </div>
         </Grid>
       ) : (
-        <div style={{ height: "100vh" }}>
+        <div style={{ height: "100vh", backgroundColor: "var(--bg-gray)"}}>
           <Grid
             rows={1}
             columns={1}
@@ -81,10 +82,9 @@ const TransactionDetail = (props) => {
               padding: "20px 20px 130px",
               "justify-content": "center",
               "background-color": "var(--bg-gray)",
-              "height": "100vh"
             }}
           >
-            <div style={{ marginTop: "50px" }}>
+            <div style={{ paddingTop: "50px" }}>
               <SellingItemCard
                 source="https://picsum.photos/200"
                 itemName="Banana"
