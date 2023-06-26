@@ -30,7 +30,7 @@ const TransactionDetail = (props) => {
               gap: "24px",
             }}
           >
-            <Grid rows={1} columns={1} gap="24px">
+            <Grid columns={1} gap="20px">
               <SellingItemCard
                 source="https://picsum.photos/200"
                 itemName="Banana"
@@ -81,6 +81,7 @@ const TransactionDetail = (props) => {
               padding: "20px 20px 130px",
               "justify-content": "center",
               "background-color": "var(--bg-gray)",
+              "height": "100vh"
             }}
           >
             <div style={{ marginTop: "50px" }}>

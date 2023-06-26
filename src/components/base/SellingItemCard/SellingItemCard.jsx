@@ -29,7 +29,7 @@ const SellingItemCard = ({
           <div className="quantity-container">
             <Typography
               variant="body-1-medium"
-              style={{ "margin-right": "0.5rem" }}
+              style={{ "margin-right": "0.3rem" }}
             >
               Quantity:{" "}
             </Typography>
