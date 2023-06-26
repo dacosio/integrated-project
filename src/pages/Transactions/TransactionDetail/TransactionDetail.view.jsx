@@ -11,14 +11,14 @@ const TransactionDetail = (props) => {
   const isDesktop = useMediaQuery("(min-width: 1440px)");
 
   return (
-    <div>
+    <div style={{ backgroundColor: "var(--bg-gray)", height: "100vh" }}>
       {isDesktop ? (
         <Grid
           rows={1}
           columns={1}
-          gap="20px"
+          gap="24px"
           style={{
-            margin: "20px",
+            padding: "157px",
             "justify-content": "center",
           }}
         >
@@ -26,11 +26,11 @@ const TransactionDetail = (props) => {
             rows={1}
             columns={7}
             style={{
-              margin: "20px",
               "justify-content": "center",
+              gap: "24px",
             }}
           >
-            <Grid rows={1} columns={1} gap="20px">
+            <Grid rows={1} columns={1} gap="24px">
               <SellingItemCard
                 source="https://picsum.photos/200"
                 itemName="Banana"
@@ -56,24 +56,34 @@ const TransactionDetail = (props) => {
             </Grid>
           </Grid>
 
-          <div style={{ display: "flex" }}>
-            <Button variant="white" label="Cancel" />
-            <Button variant="yellow" label="Complete" />
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <Button
+              variant="white"
+              label="Cancel"
+              size="sm"
+              style={{ marginRight: ".5rem" }}
+            />
+            <Button
+              variant="yellow"
+              label="Complete"
+              size="sm"
+              style={{ marginRight: ".5rem" }}
+            />
           </div>
         </Grid>
       ) : (
-        <>
+        <div style={{ height: "100vh" }}>
           <Grid
             rows={1}
             columns={1}
             gap="20px"
             style={{
-              margin: "20px",
-              "margin-bottom": "140px",
+              padding: "20px 20px 130px",
               "justify-content": "center",
+              "background-color": "var(--bg-gray)",
             }}
           >
-            <div>
+            <div style={{ marginTop: "50px" }}>
               <SellingItemCard
                 source="https://picsum.photos/200"
                 itemName="Banana"
@@ -98,12 +108,22 @@ const TransactionDetail = (props) => {
         BC V5Y 2Z6"
               />
             </div>
-            <div style={{ display: "flex" }}>
-              <Button variant="white" label="Cancel" />
-              <Button variant="yellow" label="Complete" />
+            <div style={{ display: "flex", paddingBottom: "20px" }}>
+              <Button
+                variant="white"
+                label="Cancel"
+                size="sm"
+                style={{ marginRight: ".5rem", width: "100%" }}
+              />
+              <Button
+                variant="yellow"
+                label="Complete"
+                size="sm"
+                style={{ marginLeft: ".5rem", width: "100%" }}
+              />
             </div>
           </Grid>
-        </>
+        </div>
       )}
     </div>
   );

@@ -4,12 +4,12 @@
 }
 
 .description-container {
-  width: 330px;
-  height: 200px;
+  width: 100%;
   border-radius: 20px;
   border: 1px solid black;
   box-shadow: 2px 2px black;
   padding: 20px 16px;
+  background-color: #fff;
 }
 
 .description-container .button {
@@ -18,8 +18,7 @@
 
 @media screen and (min-width: 1440px) {
   .description-container {
-    width: 329px;
-    height: 309px;
+    width: 100%;
     padding: 20px;
   }
 

@@ -12,7 +12,8 @@ const BuyerContactCard = ({ source, nameOfBuyer, contactTel, email }) => {
       <Typography
         variant="h4-graphik-bold"
         color="black"
-        style={{"margin-bottom":"16px"}}
+        style={{"margin-bottom":"12px"}}
+
       >
         Sold to
       </Typography>
