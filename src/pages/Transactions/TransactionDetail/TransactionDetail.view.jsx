@@ -19,15 +19,14 @@ const TransactionDetail = (props) => {
           gap="24px"
           style={{
             padding: "157px",
-            "justify-content": "center",
-            "backgroundColor": "var(--bg-gray)", 
+            justifyContent: "center",
           }}
         >
           <Grid
             rows={1}
             columns={7}
             style={{
-              "justify-content": "center",
+              justifyContent: "center",
               gap: "24px",
             }}
           >
@@ -73,15 +72,15 @@ const TransactionDetail = (props) => {
           </div>
         </Grid>
       ) : (
-        <div style={{ height: "100vh", backgroundColor: "var(--bg-gray)"}}>
+        <div style={{ height: "100vh", backgroundColor: "var(--bg-gray)" }}>
           <Grid
             rows={1}
             columns={1}
             gap="20px"
             style={{
               padding: "20px 20px 130px",
-              "justify-content": "center",
-              "background-color": "var(--bg-gray)",
+              justifyContent: "center",
+              backgroundColor: "var(--bg-gray)",
             }}
           >
             <div style={{ paddingTop: "50px" }}>

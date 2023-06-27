@@ -53,7 +53,7 @@ const MeetUpInfoCard = ({ date, time, location }) => {
         </div>
         <div className="location-container">
           <LocationBoldSVG
-            style={{ "grid-column": "0" , "margin-right": "1rem"}}
+            style={{ gridColumn: "0" , marginRight: "1rem"}}
             height={23}
             width={20}
           />
