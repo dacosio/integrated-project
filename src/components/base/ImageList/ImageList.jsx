@@ -2,8 +2,7 @@ import React from "react";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./image-list.module.css";
 
-function ImageList({ images, mode = "horizontal", handleOnClick, ...props }) {
-  console.log(handleOnClick);
+function ImageList({ images, mode = "horizontal", onClick, ...props }) {
   return (
     <div
       className={`${styles["wrapper"]} ${styles[mode]}`}
@@ -19,10 +18,10 @@ function ImageList({ images, mode = "horizontal", handleOnClick, ...props }) {
         </div>
       ))}
       {3 < images.length && (
-        <div className={`${styles["item"]}`}>
+        <div className={`${styles["item"]}`} onClick={onClick}>
           <img src={images[3]} className={`${styles["image"]}`} />
           <div className={`${styles["more-wrapper"]}`}>
-            <div onClick={handleOnClick}>+ {images.length - 3}</div>
+            <div>+ {images.length - 3}</div>
           </div>
         </div>
       )}

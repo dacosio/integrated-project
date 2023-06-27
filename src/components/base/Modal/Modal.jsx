@@ -4,9 +4,9 @@ import styles from "./modal.module.css";
 
 const Modal = ({
   width = "50vw",
-  hasBackground = true,
+  noBackground = false,
   visibility,
-  setVisibility,
+  onClose,
   children,
   ...props
 }) => {
@@ -16,14 +16,14 @@ const Modal = ({
         <div className={`${styles["outer-background"]}`}>
           <div
             className={`${styles.wrapper} ${
-              hasBackground ? styles["inner-background"] : null
+              !noBackground ? styles["inner-background"] : null
             }`}
           >
             <div className={`${styles["btn-wrapper"]} `}>
               <GrClose
                 size={24}
                 className={`${styles.btn}`}
-                onClick={setVisibility(false)}
+                onClick={onClose}
               />
             </div>
             <div className={`${styles["content-wrapper"]} `}>{children}</div>

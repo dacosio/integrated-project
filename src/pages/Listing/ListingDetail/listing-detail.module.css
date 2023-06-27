@@ -1,6 +1,5 @@
 .wrapper {
-  padding: 16px;
-  margin-bottom: 100px;
+  padding: 16px 16px 125px 16px;
   background-color: var(--light-blue);
   display: grid;
   gap: 16px;

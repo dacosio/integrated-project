@@ -4,9 +4,11 @@ import ImageList from "../../../components/base/ImageList/ImageList";
 import Card from "../../../components/base/Card/Card";
 import DescriptionCard from "../../../components/base/DescriptionCard/DescriptionCard";
 import ProductInfoCard from "../../../components/base/ProductInfoCard/ProductInfoCard";
+import MeetUpInfoCard from "../../../components/base/MeetUpInfoCard/MeetUpInfoCard";
 import Typography from "../../../components/base/Typography/Typography";
 import SellerInfoCard from "../../../components/base/SellerInfoCard/SellerInfoCard";
 import Modal from "../../../components/base/Modal/Modal";
+import CarouselSwiper from "../../../components/module/CarouselSwiper/CarouselSwiper";
 import styles from "./listing-detail.module.css";
 
 const ListingDetail = (props) => {
@@ -16,8 +18,8 @@ const ListingDetail = (props) => {
     items,
     images,
     visibility,
-    setVisibility,
-    handleOnClick,
+    handleOnOpen,
+    handleOnClose,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1200px)");
@@ -44,7 +46,7 @@ const ListingDetail = (props) => {
             price={product.price}
             quantity={product.qty}
           />
-          <ImageList images={images} handleOnClick={handleOnClick} />
+          <ImageList images={images} />
         </div>
         <DescriptionCard description={product.description} />
       </div>
@@ -64,11 +66,12 @@ const ListingDetail = (props) => {
                 address={user.address}
               />
             </div>
-            <ImageList images={images} />
+            <ImageList images={images} onClick={handleOnOpen} />
           </Card>
           <Card nopadding noborder>
             <DescriptionCard description={product.description} />
           </Card>
+          <MeetUpInfoCard />
           <Card nopadding noborder>
             <SellerInfoCard
               source={user.imageUrl}
@@ -78,7 +81,9 @@ const ListingDetail = (props) => {
             />
           </Card>
         </div>
-        <Modal visibility={visibility} setVisibility={setVisibility}></Modal>
+        <Modal visibility={visibility} onClose={handleOnClose}>
+          <CarouselSwiper images={images} />
+        </Modal>
       </>
     );
   }

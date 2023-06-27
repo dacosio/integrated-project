@@ -69,9 +69,12 @@ const ListingDetail = () => {
       });
   }, []);
 
-  const handleOnClick = () => {
-    console.log("C");
+  const handleOnOpen = () => {
     setVisibility(true);
+  };
+
+  const handleOnClose = () => {
+    setVisibility(false);
   };
 
   const generatedProps = {
@@ -81,7 +84,8 @@ const ListingDetail = () => {
     images: images,
     visibility: visibility,
     setVisibility: setVisibility,
-    handleOnClick: handleOnClick,
+    handleOnOpen: handleOnOpen,
+    handleOnClose: handleOnClose,
   };
   return <ListDetailView {...generatedProps} />;
 };

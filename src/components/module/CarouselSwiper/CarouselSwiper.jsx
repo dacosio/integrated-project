@@ -10,7 +10,7 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
-const CarouselSwiper = () => {
+const CarouselSwiper = ({ images }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   return (
@@ -29,7 +29,12 @@ const CarouselSwiper = () => {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2"
       >
-        <SwiperSlide>
+        {images.map((image, index) => (
+          <SwiperSlide key={index}>
+            <img src={image} />
+          </SwiperSlide>
+        ))}
+        {/* <SwiperSlide>
           <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
         </SwiperSlide>
         <SwiperSlide>
@@ -58,11 +63,11 @@ const CarouselSwiper = () => {
         </SwiperSlide>
         <SwiperSlide>
           <img src="https://swiperjs.com/demos/images/nature-10.jpg" />
-        </SwiperSlide>
+        </SwiperSlide> */}
       </Swiper>
       <Swiper
         onSwiper={setThumbsSwiper}
-        loop={true}
+        // loop={true}
         spaceBetween={10}
         slidesPerView={4}
         freeMode={true}
@@ -70,7 +75,12 @@ const CarouselSwiper = () => {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper"
       >
-        <SwiperSlide>
+        {images.map((image, index) => (
+          <SwiperSlide key={index}>
+            <img src={image} />
+          </SwiperSlide>
+        ))}
+        {/* <SwiperSlide>
           <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
         </SwiperSlide>
         <SwiperSlide>
@@ -99,7 +109,7 @@ const CarouselSwiper = () => {
         </SwiperSlide>
         <SwiperSlide>
           <img src="https://swiperjs.com/demos/images/nature-10.jpg" />
-        </SwiperSlide>
+        </SwiperSlide> */}
       </Swiper>
     </>
   );
