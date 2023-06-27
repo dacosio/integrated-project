@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "../Image/Image";
 import Typography from "../Typography/Typography";
 import "./sellingItemCard.css";
 const SellingItemCard = ({
@@ -16,7 +15,7 @@ const SellingItemCard = ({
       </Typography>
       <div className="selling-item-card">
         <div className="image-container">
-          <Image source={source} style={{ borderRadius: "10px" }} />
+          <img src={source} alt="" />
         </div>
         <div className="selling-item-description">
           <Typography variant="h4-graphik-bold" color="dark-blue">

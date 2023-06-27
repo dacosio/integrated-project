@@ -1,59 +1,58 @@
 import React from "react";
 import Button from "../Button/Button";
 import "./TransactionCard.css";
+import Typography from "../Typography/Typography";
+import { DivIcon } from "leaflet";
 
 const TransactionCard = (props) => {
-  const { type, itemName, time, portions, sellerName, price } = props;
-
-  const cardStyle = {
-      border: type === 'buying' ? '#0B5CBB 2px solid' : '#FFBF44 2px solid',
-    };
+  const { type, source, itemName, time, portions, sellerName, price } = props;
 
   const days = () => {
-    if (time==="1") {
-      return ("a day ago") 
+    if (time === "1") {
+      return "a day ago";
     } else {
-      return (`${days} days ago`)
+      return `${time} days ago`;
     }
-  }
+  };
 
   const buttons = () => {
-    if (type === 'buying') {
+    if (type === "buying") {
+      return <Button size="sm" variant="gray" label="Cancel" />;
+    } else if (type === "selling") {
       return (
-        <Button size='sm' variant='gray' label="Pending" disabled/>
-      )
+        <>
+          <Button size="sm" variant="decline" label="Decline" />
+          <Button size="sm" variant="accept" label="Accept" />
+        </>
+      );
     } else {
-        return (
-          <>
-            <Button size='sm' variant='gray' label="Decline" />
-            <Button size='sm' variant='primary' label="Accept" />
-          </>
-        )
-      }
+      return <></>;
     }
+  };
 
   return (
-    <div className={["transaction-card", { type }].join(" ")} style={cardStyle}>
-      <div className="image-container"></div>
+    <div className={["transaction-card", { type }].join(" ")}>
+      <div className="image-container">
+        <img src={source} alt="" />
+      </div>
       <div className="product-information">
         <div>
-          <h3>{itemName}</h3>
-          <p className="price">${price}</p>
+          <Typography variant="h4-graphik-bold" color="dark-blue">
+            {itemName}
+          </Typography>
+          <Typography variant="h3-graphik-bold">${price}</Typography>
         </div>
-        <p className="time">{days()}</p>
-        <p className="quantity">
-          <strong>Quantity:</strong> {portions}
-        </p>
+        <Typography variant="body-1-medium">{days()}</Typography>
+        <div className="quantity">
+        <Typography variant="h4-graphik-bold" color="gray"> Quantity:</Typography>
+        <Typography variant="body-2-regular">{portions}</Typography>
+        </div>
         <div className="seller-container">
-          <p>
-            <strong>Seller:</strong>
-          </p>
-          <p>{sellerName}</p>
+        <Typography variant="h4-graphik-bold" color="gray"> Seller:</Typography>
+        <Typography variant="body-1-medium" color="dark-blue">{sellerName}</Typography>
         </div>
       </div>
-      <div className="button-container">
-        {buttons()}
-      </div>
+      <div className="button-container">{buttons()}</div>
     </div>
   );
 };

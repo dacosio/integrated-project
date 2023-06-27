@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "./../Image/Image";
 import "./SellerInfoCard.css";
 import Typography from "../Typography/Typography";
 import LocationSVG from "../SVG/LocationSVG"
@@ -14,7 +13,7 @@ return (
         <Typography variant="h4-graphik-bold" style={{marginBottom: "12px"}}>Seller Information</Typography>
       <div className="seller-information">
         <div className="image-container">
-          <Image source={source} />
+          <img src={source} alt="" />
         </div>
         <div className="seller-details">
           <Typography variant="body-1-medium">{username}</Typography>
