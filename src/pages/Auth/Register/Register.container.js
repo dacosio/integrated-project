@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import RegisterView from "./Register.view";
 import { UserAuth } from "../../../context/AuthContext";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Register = () => {
   const { createUser } = UserAuth();
   const navigate = useNavigate();
+  const [singleImage, setSingleImage] = useState([]);
 
   const initialValues = {
     email: "",
@@ -16,13 +17,17 @@ const Register = () => {
   };
 
   const validationSchema = Yup.object({
-    email: Yup.string().email("Invalid email format").required("Required"),
-    password: Yup.string().required("Password is required"),
+    email: Yup.string()
+      .email("Invalid email format")
+      .required("Your email is required"),
+    password: Yup.string().required("Your password is required"),
     confirmPassword: Yup.string().oneOf(
       [Yup.ref("password"), null],
-      "Passwords must match"
+      "Your password does not match"
     ),
-    // contactNumber: Yup.string().required("Contact number is required"),
+    firstName: Yup.string().required("Your First Name is required"),
+    lastName: Yup.string().required("Your Last Name is required"),
+    contactNumber: Yup.string().required("Your contact is required"),
   });
 
   const onSubmit = async ({ email, password }) => {
@@ -35,6 +40,9 @@ const Register = () => {
     initialValues,
     validationSchema,
     onSubmit,
+
+    singleImage,
+    setSingleImage,
   };
   return <RegisterView {...generatedProps} />;
 };

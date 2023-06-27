@@ -17,11 +17,11 @@ const Pagination = ({
   }
 
   return (
-    <ul style={{ padding: 0 }} className={`${styles["wrapper"]}`}>
+    <ul className={`${styles.wrapper}`}>
       {1 < currentPageIndex && (
         <li>
           <button
-            className={`${styles["btn"]} ${styles["previous"]}`}
+            className={`${styles.btn} ${styles.previous}`}
             onClick={() => onClick(currentPageIndex - 1)}
             style={props}
           >
@@ -34,7 +34,7 @@ const Pagination = ({
           return (
             <li key={index}>
               <button
-                className={`${styles["btn"]} ${styles["active"]}`}
+                className={`${styles.btn} ${styles.number} ${styles.active}`}
                 onClick={() => onClick(item)}
                 style={props}
               >
@@ -46,7 +46,7 @@ const Pagination = ({
           return (
             <li key={index}>
               <button
-                className={`${styles["btn"]} ${styles["inactive"]}`}
+                className={`${styles.btn} ${styles.number} ${styles.inactive}`}
                 onClick={() => onClick(item)}
                 style={props}
               >
@@ -59,7 +59,7 @@ const Pagination = ({
       {currentPageIndex < totalPageNumber && (
         <li>
           <button
-            className={`${styles["btn"]} ${styles["next"]}`}
+            className={`${styles.btn} ${styles.next}`}
             onClick={() => onClick(currentPageIndex + 1)}
             style={props}
           >

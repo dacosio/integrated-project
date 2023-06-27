@@ -1,11 +1,16 @@
 import React from "react";
 import L from "leaflet";
-import { MapContainer, TileLayer, Marker, Tooltip } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Tooltip,
+  useMap,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import "./mapLeaflet.css";
-import SellerInfoCard from "../../base/SellerInfoCard/SellerInfoCard";
 import MarkerClusterGroup from "react-leaflet-cluster";
-import MarkerSVG from "../../base/SVG/MarkerSVG";
+import ActiveListingCard from "../../base/ActiveListingCard/ActiveListingCard";
+import { useEffect } from "react";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -32,50 +37,70 @@ const MapLeaflet = ({
   width,
   height,
   borderRadius,
+  zIndex,
+  bounds,
   ...props
 }) => {
-  let bounds = markerData && markerData.map((d) => [d.lat, d.long]);
-
   return (
-    <MapContainer
-      style={{ width, height, borderRadius }}
-      {...props}
-      bounds={bounds}
-      scrollWheelZoom
-      zoomControl={false}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <MarkerClusterGroup chunkedLoading>
-        {markerData &&
-          markerData.map((el) => {
-            return (
-              <Marker
-                key={el.id}
-                position={[el.lat, el.long]}
-                onMouseOver={(e) => {
-                  e.target.openPopup();
-                }}
-                onMouseOut={(e) => {
-                  e.target.closePopup();
-                }}
-                icon={customIcon}
-              >
-                <Tooltip permanent={permanent} direction={direction}>
-                  <SellerInfoCard
-                    source="https://picsum.photos/200"
-                    username="cylvito"
-                    location={el.location}
-                    items="1"
-                  />
-                </Tooltip>
-              </Marker>
-            );
-          })}
-      </MarkerClusterGroup>
-    </MapContainer>
+    <>
+      <MapContainer
+        {...props}
+        style={{ width, height, borderRadius, zIndex }}
+        bounds={bounds}
+        scrollWheelZoom
+        zoomControl={false}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <MarkerClusterGroup chunkedLoading>
+          {markerData &&
+            markerData.map((el) => {
+              return el.id ? (
+                <Marker
+                  key={el.id}
+                  position={[el.location._lat, el.location._long]}
+                  onMouseOver={(e) => {
+                    e.target.openPopup();
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.closePopup();
+                  }}
+                  icon={customIcon}
+                >
+                  <Tooltip permanent={permanent} direction={direction}>
+                    <ActiveListingCard
+                      key={el.id}
+                      distance={2}
+                      days={2}
+                      source={`https://picsum.photos/400?random=${el.id}`}
+                      itemname="Banana"
+                      price={1.25}
+                      stock={5}
+                      alt="Banana"
+                      onClick={() => console.log(el.id)}
+                      maxwidth={"150px"}
+                      width={"150px"}
+                    />
+                  </Tooltip>
+                </Marker>
+              ) : (
+                <Marker
+                  position={[el.location._lat, el.location._long]}
+                  onMouseOver={(e) => {
+                    e.target.openPopup();
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.closePopup();
+                  }}
+                  icon={customIcon}
+                ></Marker>
+              );
+            })}
+        </MarkerClusterGroup>
+      </MapContainer>
+    </>
   );
 };
 
