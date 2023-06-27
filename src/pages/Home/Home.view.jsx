@@ -49,7 +49,13 @@ const Home = (props) => {
                   100 2 49th Avenue, Vancouver, BC V5Y 276
                 </Typography>
               </div>
-              <Grid columns={2} style={{ justifyItems: "center" }} gap="1rem">
+              <Grid
+                columns={2}
+                style={{
+                  justifyItems: "center",
+                }}
+                gap="1rem"
+              >
                 {products &&
                   products.map((product) => {
                     let tmp = {
