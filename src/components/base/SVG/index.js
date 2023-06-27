@@ -21,3 +21,5 @@ export { default as ProfilePatternSVG } from "./ProfilePatternSVG";
 export { default as MarkerSVG } from "./MarkerSVG";
 export { default as MarkerSmallSVG } from "./MarkerSmallSVG";
 export { default as OrderSmallSVG } from "./OrderSmallSVG";
+export { default as LocationBoldSVG } from "./LocationBoldSVG";
+export { default as LocationSVG } from "./LocationSVG";

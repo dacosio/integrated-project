@@ -57,7 +57,7 @@ const MapLeaflet = ({
         <MarkerClusterGroup chunkedLoading>
           {markerData &&
             markerData.map((el) => {
-              return (
+              return el.id ? (
                 <Marker
                   key={el.id}
                   position={[el.location._lat, el.location._long]}
@@ -85,6 +85,17 @@ const MapLeaflet = ({
                     />
                   </Tooltip>
                 </Marker>
+              ) : (
+                <Marker
+                  position={[el.location._lat, el.location._long]}
+                  onMouseOver={(e) => {
+                    e.target.openPopup();
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.closePopup();
+                  }}
+                  icon={customIcon}
+                ></Marker>
               );
             })}
         </MarkerClusterGroup>
