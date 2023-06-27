@@ -4,12 +4,21 @@ import ImageList from "../../../components/base/ImageList/ImageList";
 import Card from "../../../components/base/Card/Card";
 import DescriptionCard from "../../../components/base/DescriptionCard/DescriptionCard";
 import ProductInfoCard from "../../../components/base/ProductInfoCard/ProductInfoCard";
-import styles from "./listing-detail.module.css";
 import Typography from "../../../components/base/Typography/Typography";
 import SellerInfoCard from "../../../components/base/SellerInfoCard/SellerInfoCard";
+import Modal from "../../../components/base/Modal/Modal";
+import styles from "./listing-detail.module.css";
 
 const ListingDetail = (props) => {
-  const { product, user, items, images } = props;
+  const {
+    product,
+    user,
+    items,
+    images,
+    visibility,
+    setVisibility,
+    handleOnClick,
+  } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1200px)");
   const isTablet = useMediaQuery("(min-width: 1200px)");
@@ -35,39 +44,42 @@ const ListingDetail = (props) => {
             price={product.price}
             quantity={product.qty}
           />
-          <ImageList images={images} />
+          <ImageList images={images} handleOnClick={handleOnClick} />
         </div>
         <DescriptionCard description={product.description} />
       </div>
     );
   } else {
     return (
-      <div className={`${styles.wrapper}`}>
-        <Card>
-          <div style={{ marginBottom: "16px" }}>
-            <ProductInfoCard
-              title={product.name}
-              price={product.price}
-              quantity={product.qty}
-              date={date && date}
-              name={`${user.firstName} ${user.lastName}`}
-              address={user.address}
+      <>
+        <div className={`${styles.wrapper}`}>
+          <Card>
+            <div style={{ marginBottom: "16px" }}>
+              <ProductInfoCard
+                title={product.name}
+                price={product.price}
+                quantity={product.qty}
+                date={date && date}
+                name={`${user.firstName} ${user.lastName}`}
+                address={user.address}
+              />
+            </div>
+            <ImageList images={images} />
+          </Card>
+          <Card nopadding noborder>
+            <DescriptionCard description={product.description} />
+          </Card>
+          <Card nopadding noborder>
+            <SellerInfoCard
+              source={user.imageUrl}
+              username={`${user.firstName} ${user.lastName}`}
+              location={user.address}
+              items={items}
             />
-          </div>
-          <ImageList images={images} />
-        </Card>
-        <Card nopadding noborder>
-          <DescriptionCard description={product.description} />
-        </Card>
-        <Card nopadding noborder>
-          <SellerInfoCard
-            source={user.imageUrl}
-            username={`${user.firstName} ${user.lastName}`}
-            location={user.address}
-            items={items}
-          />
-        </Card>
-      </div>
+          </Card>
+        </div>
+        <Modal visibility={visibility} setVisibility={setVisibility}></Modal>
+      </>
     );
   }
 };

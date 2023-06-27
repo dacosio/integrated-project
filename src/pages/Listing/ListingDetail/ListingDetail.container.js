@@ -28,6 +28,7 @@ const ListingDetail = () => {
   const [user, setUser] = useState({});
   const [items, setItems] = useState();
   const [images, setImages] = useState([]);
+  const [visibility, setVisibility] = useState(false);
 
   useEffect(() => {
     const productRef = doc(store, "product", listingId);
@@ -36,9 +37,7 @@ const ListingDetail = () => {
       .then((productResponse) => {
         setProduct(productResponse.data());
 
-        const imageRef = collection(productRef, "image");
-
-        getDocs(imageRef)
+        getDocs(collection(productRef, "image"))
           .then(async (imageResponse) => {
             const _images = [];
             imageResponse.docs.forEach((doc) => {
@@ -70,12 +69,19 @@ const ListingDetail = () => {
       });
   }, []);
 
+  const handleOnClick = () => {
+    console.log("C");
+    setVisibility(true);
+  };
+
   const generatedProps = {
     product: product,
     user: user,
     items: items,
     images: images,
-    // generated props here
+    visibility: visibility,
+    setVisibility: setVisibility,
+    handleOnClick: handleOnClick,
   };
   return <ListDetailView {...generatedProps} />;
 };

@@ -6,7 +6,7 @@ const Modal = ({
   width = "50vw",
   hasBackground = true,
   visibility,
-  onClose,
+  setVisibility,
   children,
   ...props
 }) => {
@@ -18,13 +18,12 @@ const Modal = ({
             className={`${styles.wrapper} ${
               hasBackground ? styles["inner-background"] : null
             }`}
-            // style={{ width: width }}
           >
             <div className={`${styles["btn-wrapper"]} `}>
               <GrClose
                 size={24}
                 className={`${styles.btn}`}
-                onClick={onClose}
+                onClick={setVisibility(false)}
               />
             </div>
             <div className={`${styles["content-wrapper"]} `}>{children}</div>
