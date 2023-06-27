@@ -11,7 +11,7 @@ const SellingItemCard = ({
 }) => {
   return (
     <div className="selling-item-wrapper">
-      <Typography variant="h3-graphik-bold" style={{ "margin": "16px 16px 12px" }}>
+      <Typography variant="h3-graphik-bold" style={{ margin: "16px 16px 12px" }}>
         Selling Details
       </Typography>
       <div className="selling-item-card">
@@ -29,7 +29,7 @@ const SellingItemCard = ({
           <div className="quantity-container">
             <Typography
               variant="body-1-medium"
-              style={{ "margin-right": "0.3rem" }}
+              style={{ marginRight: "0.3rem" }}
             >
               Quantity:{" "}
             </Typography>

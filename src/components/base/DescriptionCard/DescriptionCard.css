@@ -1,15 +1,13 @@
 .dcwrapper {
-  margin-right: 70%;
-  margin-top: 1rem;
+  width: 100%;
+  background-color: #fff;
 }
 
 .description-container {
-  width: 100%;
   border-radius: 20px;
   border: 1px solid black;
   box-shadow: 2px 2px black;
   padding: 20px 16px;
-  background-color: #fff;
 }
 
 .description-container .button {

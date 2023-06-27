@@ -1,14 +1,14 @@
-.seller-information {
-  display: grid;
-  grid-template-columns: 0.5fr 1fr;
-  width: 100%;
+.seller-information-wrapper{
   border: 1px solid var(--black);
   border-radius: 20px;
-  gap: 12px;
   box-shadow: 2px 2px black;
   padding: 16px 16px 20px;
+}
+
+.seller-information {
+  display: flex;
+  width: 100%;
   align-content: center;
-  justify-content: center;
   align-items: center;
   background-color: #fff;
 }
@@ -17,10 +17,9 @@
   width: 80px;
   height: 80px;
   border-radius: 500px;
-  justify-items: center;
   align-items: center;
   display: flex;
-  flex-basis: 20%;
+  margin-right: 1rem;
 }
 
 .seller-information .image-container img {
@@ -42,11 +41,12 @@
 
 @media screen and (min-width: 1440px) {
   .seller-information {
-    width: 733px;
-    height: 148px;
-    display: grid;
-    grid-template-columns: 0.1fr 1fr;
+    max-width: 733px;
+    max-height: 148px;
+    display: flex;
+  }
+
+  .seller-information-wrapper{
     padding: 16px 20px 20px;
-    column-gap: 1rem;
   }
 }

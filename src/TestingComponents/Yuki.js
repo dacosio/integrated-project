@@ -7,13 +7,13 @@ import "leaflet/dist/leaflet.css";
 import SellingItemCard from "../components/base/SellingItemCard/SellingItemCard";
 import DescriptionCard from "../components/base/DescriptionCard/DescriptionCard";
 import SellerInfoCard from "../components/base/SellerInfoCard/SellerInfoCard";
-import TransactionDetail from "../pages/Transactions/TransactionDetail";
 
 const Yuki = () => {
   return (
     <div>
       <section>
         <h1 style={{ textDecoration: "underline" }}>Yuki</h1>
+        <div style={{marginBottom: "1rem"}}>
         <h3>Typography</h3>
         
         <Typography variant="h1-graphik-bold" color="blue">h1-graphik-bold</Typography>
@@ -25,8 +25,9 @@ const Yuki = () => {
         <Typography variant="body-3-regular" color="light-blue">body-3-regular</Typography>
         <Typography variant="body-4-regular" color="yellow">body-4-regular</Typography>
         <Typography variant="button-regular"> button-regular </Typography>
+        </div>
 
-        <div>
+        <div style={{marginBottom: "1rem"}}>
           <BuyerContactCard
             source="https://picsum.photos/200"
             nameOfBuyer="aishasells"
@@ -35,14 +36,14 @@ const Yuki = () => {
           />
         </div>
 
-        <div>
+        <div style={{marginBottom: "1rem"}}>
           <DescriptionCard
             onClick={() => console.log("test")}
             description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis no"
           />
         </div>
 
-        <div>
+        <div style={{marginBottom: "1rem"}}>
           <MeetUpInfoCard 
             date="Jun 23, 2023"
             time="14:00"
@@ -51,7 +52,7 @@ const Yuki = () => {
           />
         </div>
 
-        <div>
+        <div style={{marginBottom: "1rem"}}>
         <SellingItemCard
             source="https://picsum.photos/200"
             itemName="Banana"
@@ -61,7 +62,7 @@ const Yuki = () => {
           />
         </div>
 
-        <div>
+        <div style={{marginBottom: "1rem"}}>
         <SellerInfoCard
             source="https://picsum.photos/200"
             username="aishasells"
@@ -69,11 +70,6 @@ const Yuki = () => {
             items="1"
           />
         </div>
-
-      <div style={{"width": "360px", "border": "1px solid black", "padding": "20px"}}>
-        <TransactionDetail />
-      </div>
-        
 
         <hr />
       </section>
