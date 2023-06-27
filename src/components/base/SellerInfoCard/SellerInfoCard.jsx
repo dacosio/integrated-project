@@ -11,8 +11,8 @@ const inventory = () => {
 
 return (
 <div class="seller-information-wrapper">
+        <Typography variant="h4-graphik-bold" style={{marginBottom: "12px"}}>Seller Information</Typography>
       <div className="seller-information">
-        <Typography variant="h4-graphik-bold" style={{"grid-column":"1/-1"}}>Seller Information</Typography>
         <div className="image-container">
           <Image source={source} />
         </div>
