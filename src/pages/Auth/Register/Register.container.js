@@ -3,6 +3,9 @@ import * as Yup from "yup";
 import RegisterView from "./Register.view";
 import { UserAuth } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { fetchSignInMethodsForEmail } from "firebase/auth";
+import { auth } from "../../../config/firebaseConfig";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const { createUser } = UserAuth();
@@ -14,6 +17,8 @@ const Register = () => {
     password: "",
     confirmPassword: "",
     contactNumber: "",
+    firstName: "",
+    lastName: "",
   };
 
   const validationSchema = Yup.object({
@@ -30,9 +35,44 @@ const Register = () => {
     contactNumber: Yup.string().required("Your contact is required"),
   });
 
-  const onSubmit = async ({ email, password }) => {
-    await createUser(email, password);
-    navigate("/");
+  const checkEmailExists = async (email) => {
+    try {
+      const signInMethods = await fetchSignInMethodsForEmail(auth, email);
+      return signInMethods.length > 0;
+    } catch (error) {
+      console.error("Error checking email existence: ", error);
+      return false;
+    }
+  };
+
+  const onSubmit = async ({
+    email,
+    password,
+    firstName,
+    lastName,
+    contactNumber,
+  }) => {
+    checkEmailExists(email)
+      .then((exists) => {
+        if (exists) {
+          toast.error("Email already exists.", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        } else {
+          createUser(email, password, firstName, lastName, contactNumber);
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking email existence: ", error);
+      });
   };
 
   const generatedProps = {

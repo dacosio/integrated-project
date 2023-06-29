@@ -114,6 +114,7 @@ const RegisterView = (props) => {
                   />
                   <Button
                     variant="yellow"
+                    type="submit"
                     size="md"
                     label="Create Account"
                     hoverable
@@ -124,6 +125,9 @@ const RegisterView = (props) => {
             );
           }}
         </Formik>
+        <div>
+          <ToastContainer position="top-center" />
+        </div>
       </div>
     </div>
   );

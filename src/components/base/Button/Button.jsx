@@ -9,12 +9,15 @@ const Button = ({
   onClickHandler,
   hoverable,
   children,
+  type = "button",
   ...props
 }) => {
   return (
     <button
-      type="button"
-      className={`${styles[variant]} ${styles[size]} ${styles["button"]} ${hoverable && styles["hover"]}`}
+      type={type}
+      className={`${styles[variant]} ${styles[size]} ${styles["button"]} ${
+        hoverable && styles["hover"]
+      }`}
       onClick={onClickHandler}
       {...props}
     >
