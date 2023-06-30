@@ -33,6 +33,7 @@ export const AuthContextProvider = ({ children }) => {
       id: auth.currentUser.uid,
       firstName,
       lastName,
+      displayName: `${firstName} ${lastName}`,
       contactNumber,
       imageUrl,
       address,

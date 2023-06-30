@@ -63,6 +63,7 @@ const LoginView = (props) => {
             <LoginLogoSVG />
           </div>
         </div>
+
         <div style={{ gridRow: "1/-1", gridColumn: "2/3" }}>
           <div className={style.formikContainer}>
             <Formik
@@ -144,12 +145,10 @@ const LoginView = (props) => {
                 </Typography>
               </Link>
             </div>
-            <div>
-              <ToastContainer position="top-center" />
-            </div>
           </div>
         </div>
       </Grid>
+      <ToastContainer />
     </div>
   );
 };
