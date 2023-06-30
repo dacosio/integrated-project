@@ -28,8 +28,48 @@ const Login = () => {
   });
 
   const onSubmit = async ({ email, password }) => {
-    await signIn(email, password);
-    navigate("/");
+    await signIn(email, password)
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        if (errorCode === "auth/user-not-found") {
+          console.log("Error code:", errorCode);
+          console.log("Error message:", errorMessage);
+          toast.error("User not found", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            newestOnTop: false,
+            theme: "light",
+          });
+        } else if (errorCode === "auth/wrong-password") {
+          console.log("Error code:", errorCode);
+          console.log("Error message:", errorMessage);
+          toast.error("Invalid Password", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        } else {
+          // Other error handling
+          console.log("Error code:", errorCode);
+          console.log("Error message:", errorMessage);
+          // Display a generic error message to the user or perform other actions
+        }
+      });
   };
 
   const loginWithGoogle = async () => {
