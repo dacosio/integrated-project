@@ -158,7 +158,7 @@ const Header = () => {
                 </a>
               )}
             </li>
-            <li>
+            {/* <li>
               {user != null ? (
                 <Link
                   style={
@@ -180,7 +180,7 @@ const Header = () => {
                   Settings
                 </a>
               )}
-            </li>
+            </li> */}
             <li>
               {user != null ? (
                 <Link
@@ -291,7 +291,7 @@ const Header = () => {
                   </a>
                 )}
               </li>
-              <li>
+              {/* <li>
                 {user != null ? (
                   <Link
                     style={
@@ -313,7 +313,7 @@ const Header = () => {
                     Settings
                   </a>
                 )}
-              </li>
+              </li> */}
               <li>
                 {user != null ? (
                   <Link
@@ -419,7 +419,7 @@ const Header = () => {
                 </a>
               )}
             </li>
-            <li>
+            {/* <li>
               {user != null ? (
                 <Link
                   style={
@@ -441,7 +441,7 @@ const Header = () => {
                   Settings
                 </a>
               )}
-            </li>
+            </li> */}
             <li>
               {user != null ? (
                 <Link

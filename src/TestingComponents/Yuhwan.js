@@ -31,6 +31,8 @@ import Grid from "../components/layout/Grid/Grid";
 import ActiveListingCard from "../components/base/ActiveListingCard/ActiveListingCard";
 import Modal from "../components/base/Modal/Modal";
 
+import { v4 as uuidv4 } from "uuid";
+
 const Yuhwan = (props) => {
   /* Pagination */
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
@@ -216,8 +218,12 @@ const Yuhwan = (props) => {
     if (singleImage.length !== 0) {
       for (const image of singleImage) {
         const file = image.file;
+        const uniqueId = uuidv4();
 
-        const fileRef = ref(storage, "image/" + file.name);
+        const fileRef = ref(
+          storage,
+          `image/${file.name.split(".")[0]}-${uniqueId}`
+        );
 
         const uploadTask = uploadBytesResumable(fileRef, file);
 
