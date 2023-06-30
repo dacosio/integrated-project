@@ -1,11 +1,15 @@
+  .buyer-contact-card-wrapper{
+    width: 100%;
+  }
+  
   .buyer-contact-card {
-    border: 1px solid var(--black);
+    border: 2px solid var(--black);
     border-radius: 20px;
     gap: 1rem;
     box-shadow: 2px 2px black;
     padding: 16px 16px 20px;
-    /* width: 100%; */
-    height: 148px;
+    box-sizing: border-box;
+    height: 100%;
     align-items: center;
     background-color: #fff;
   }
@@ -30,6 +34,7 @@
     width: 80px;
     height: 80px;
     border: 2px solid;
+    margin-right: 12px;
   }
   
   .buyer-description{
@@ -43,7 +48,7 @@
     margin: .5rem;
   }
 
-
+  
   @media screen and (min-width: 1440px){
 
     .buyer-contact-card{

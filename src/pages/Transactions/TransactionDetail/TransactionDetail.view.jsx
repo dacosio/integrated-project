@@ -30,7 +30,7 @@ const TransactionDetail = (props) => {
               gap: "24px",
             }}
           >
-            <Grid columns={1} gap="20px">
+            <Grid columns={1} gap="0">
               <SellingItemCard
                 source="https://picsum.photos/200"
                 itemName="Banana"

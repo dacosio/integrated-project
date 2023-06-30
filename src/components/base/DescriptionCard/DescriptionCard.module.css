@@ -5,9 +5,10 @@
 
 .description-container {
   border-radius: 20px;
-  border: 1px solid black;
+  border: 2px solid black;
   box-shadow: 2px 2px black;
   padding: 20px 16px;
+  box-sizing: border-box;
 }
 
 .description-container .button {
