@@ -8,10 +8,10 @@ import {
   browserPopupRedirectResolver,
   signInWithPopup,
 } from "firebase/auth";
-import { auth } from "../../../config/firebaseConfig";
+import db, { auth } from "../../../config/firebaseConfig";
 import { toast } from "react-toastify";
 import useMediaQuery from "../../../utils/useMediaQuery";
-
+import { collection, doc, setDoc } from "@firebase/firestore";
 const Login = () => {
   const { signIn } = UserAuth();
   const navigate = useNavigate();
@@ -36,7 +36,19 @@ const Login = () => {
     const provider = await new GoogleAuthProvider();
 
     return signInWithPopup(auth, provider, browserPopupRedirectResolver)
-      .then((result) => {
+      .then(async (result) => {
+        console.log(result);
+        const user = result.user;
+        const userCollectionRef = collection(db, "user");
+        const userDocRef = doc(userCollectionRef, user.uid);
+        // Create or update the user document
+        await setDoc(userDocRef, {
+          email: user.email,
+          displayName: user.displayName,
+          id: user.uid,
+          imageUrl: user.photoURL,
+          contactNumber: user.phoneNumber,
+        });
         navigate("/");
       })
       .catch((error) => {
