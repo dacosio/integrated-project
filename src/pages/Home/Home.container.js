@@ -10,12 +10,14 @@ import {
   getDocs,
   limit,
   startAfter,
+  onSnapshot,
 } from "firebase/firestore";
 import db from "../../config/firebaseConfig";
 import { SearchContext } from "../../context/SearchContext";
 import useDebounce from "../../utils/useDebounce";
 import { useContext } from "react";
 import { usePosition } from "../../utils/usePosition";
+import { Category } from "../../context/CategoryContext";
 
 const Home = () => {
   const { user, logout } = UserAuth();
@@ -24,6 +26,7 @@ const Home = () => {
   const [bounds, setBounds] = useState([[49.225693, -123.107326]]);
 
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [mobileProducts, setMobileProducts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
@@ -231,6 +234,12 @@ const Home = () => {
   const { searchValue } = useContext(SearchContext);
   const debouncedValue = useDebounce(searchValue, 500);
 
+  //global category value
+  const { categoryValue } = Category();
+
+  console.log(debouncedValue);
+  console.log(categoryValue);
+
   const { latitude, longitude, error } = usePosition();
 
   const generatedProps = {
@@ -253,6 +262,7 @@ const Home = () => {
     handleLogOut,
     handleOnClick,
     handleOnScroll,
+    categories,
   };
   return <HomeView {...generatedProps} />;
 };

@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "../Image/Image";
 import Typography from "../Typography/Typography";
 import PhoneSVG from "../SVG/PhoneSVG";
 import EnvelopeSVG from "../SVG/EnvelopeSVG";
@@ -19,7 +18,7 @@ const BuyerContactCard = ({ source, nameOfBuyer, contactTel, email }) => {
       </Typography>
       <div className="buyer-contact-details">
         <div className="image-container">
-          <Image source={source} />
+          <img src={source} alt="" />
         </div>
         <div className="buyer-description">
           <div className="buyer-contact-description">

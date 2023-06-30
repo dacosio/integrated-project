@@ -10,6 +10,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../../../config/firebaseConfig";
 import { toast } from "react-toastify";
+import useMediaQuery from "../../../utils/useMediaQuery";
 
 const Login = () => {
   const { signIn } = UserAuth();
@@ -53,12 +54,18 @@ const Login = () => {
       });
   };
 
+  const lg = useMediaQuery("(min-width: 1200px)");
+  const xl = useMediaQuery("(min-width: 1400px)");
+
   const generatedProps = {
     // generated props here
     initialValues,
     validationSchema,
     loginWithGoogle,
     onSubmit,
+
+    lg,
+    xl,
   };
   return <LoginView {...generatedProps} />;
 };

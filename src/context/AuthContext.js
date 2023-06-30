@@ -4,16 +4,40 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  fetchSignInMethodsForEmail,
 } from "firebase/auth";
 import { auth } from "../config/firebaseConfig";
+import db from "../config/firebaseConfig";
+
+import { collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
 
 const UserContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
-  const createUser = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+  const createUser = async (
+    email,
+    password,
+    firstName,
+    lastName,
+    contactNumber,
+    imageUrl,
+    address
+  ) => {
+    await createUserWithEmailAndPassword(auth, email, password);
+    console.log(auth.currentUser.uid);
+    const documentRef = doc(db, "user", auth.currentUser.uid);
+    await setDoc(documentRef, {
+      email,
+      id: auth.currentUser.uid,
+      firstName,
+      lastName,
+      contactNumber,
+      imageUrl,
+      address,
+      createdAt: serverTimestamp(),
+    });
   };
 
   const signIn = (email, password) => {

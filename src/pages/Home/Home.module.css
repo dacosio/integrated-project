@@ -20,18 +20,19 @@
 .picksDesktop {
   grid-column: span 3;
   border: 2px solid var(--black);
-  padding: 26px 30px;
   border-radius: 20px;
   box-shadow: 5px 5px 0px var(--black);
   background-color: var(--white);
   position: relative;
+  padding: 28px 36px 70px 36px;
+  height: 550px;
 }
 
 .mapDesktop {
   grid-column: 4/-1;
   border-radius: 20px;
   box-shadow: 5px 5px 0px var(--black);
-  height: 70vh;
+  height: 650px;
 }
 
 .desktopWrapper {

@@ -1,41 +1,54 @@
-.transaction-card div, .transaction-card h3, .transaction-card p {
+.transaction-card h3, .transaction-card p {
     margin: 0;
     padding: 4px 0;
 }
 
 .transaction-card {
-    width: 305px;
-    height: 180px;
+    width: 328px;
+    height: 188px;
+    box-sizing: border-box;
     border-radius: 20px;
-    padding: 16px;
+    border: 2px solid var(--black);
+    padding: 12px;
     display: grid;
-    grid-template-columns: 0.8fr 1.2fr;
-    gap: 16px;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 12px;
 }
 
-.transaction-card .price {
-    font-weight: bold;
+.transaction-card .image-container {
+    overflow: hidden;
+    border-radius: 10px;
+    padding:0;
+    grid-row: 1 / -3;
+    border: 2px solid var(--black);
+}
+
+.transaction-card img {
+    width: 100%;
+    object-fit: cover;
 }
 
 .product-information {
     display: flex;
     flex-direction: column;
+    gap: 4px;
 }
 
 .product-information div {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    align-items: center;
 }
 
 .button-container {
-    grid-column: 1 / -1;
+    grid-column: 2 / 3;
+    text-align: end;
     display: flex;
-    justify-content: center;
-    gap: 1rem;
+    justify-content: end;
 }
 
-.product-information .seller-container {
+.product-information .seller-container, .product-information .quantity {
     justify-content: flex-start;
     gap: 3px;
 }
@@ -44,13 +57,14 @@
     color: #0B5CBB;
 }
 
-@media screen and (min-width: 768px) {
-    .transaction-card {
-        width: 412px;
-        grid-template-columns: 0.5fr 1.5fr;
-    }
+.product-information button {
+    align-self: end;
+    align-content: end;
+}
 
-    .button-container {
-        justify-content: flex-end;
+@media screen and (min-width: 1440px) {
+    .transaction-card {
+        width: 360px;
+        grid-template-columns: 1.5fr 2fr;
     }
 }

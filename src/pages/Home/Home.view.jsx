@@ -49,7 +49,13 @@ const Home = (props) => {
                   100 2 49th Avenue, Vancouver, BC V5Y 276
                 </Typography>
               </div>
-              <Grid columns={2} style={{ justifyItems: "center" }}>
+              <Grid
+                columns={2}
+                style={{
+                  justifyItems: "center",
+                }}
+                gap="1rem"
+              >
                 {products &&
                   products.map((product) => {
                     let tmp = {
@@ -149,6 +155,7 @@ const Home = (props) => {
             </div>
             <InfinitePagination
               columns={columns}
+              gap="1rem"
               items={
                 mobileProducts &&
                 mobileProducts.map((product, index) => {

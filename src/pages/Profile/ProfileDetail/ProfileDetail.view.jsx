@@ -10,7 +10,6 @@ import useWindowSize from "../../../utils/useWindowSize";
 const ProfileDetail = (props) => {
   const sm = useMediaQuery("(min-width: 360px) and (max-width:800px)");
   const [test] = useWindowSize();
-  console.log(test);
   return (
     <div className={style.wrapper}>
       {/* <div>
