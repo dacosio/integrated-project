@@ -14,6 +14,7 @@ import {
   RightHandSVG,
 } from "../../../components/base/SVG";
 import Grid from "../../../components/layout/Grid/Grid";
+import WaveSVG from "../../../components/base/SVG/WaveSVG";
 
 const LoginView = (props) => {
   const { initialValues, validationSchema, loginWithGoogle, onSubmit, lg, xl } =
@@ -21,11 +22,7 @@ const LoginView = (props) => {
   const navigate = useNavigate();
   return (
     <div className={style.loginWrapper}>
-      <Grid
-        columns={lg ? 2 : 1}
-        gap={lg ? "15rem" : 0}
-        style={{ alignItems: "center", justifyContent: "center" }}
-      >
+      <Grid columns={lg ? 2 : 1} rows={2} gap={lg ? "15rem" : 0}>
         <div className={style.leftIcons}>
           {lg ? (
             <>
@@ -37,7 +34,7 @@ const LoginView = (props) => {
                     position: "absolute",
                     top: "0",
                     left: "0",
-                    transform: "translate(-15%, 50%)",
+                    transform: "translate(-15%, 0%)",
                   }}
                 />
               )}
@@ -45,7 +42,7 @@ const LoginView = (props) => {
                 style={{
                   position: "absolute",
                   top: "0",
-                  transform: "translate(90%, -20%)",
+                  transform: "translate(90%, -70%)",
                 }}
               />
 
@@ -55,7 +52,7 @@ const LoginView = (props) => {
                 style={{
                   position: "absolute",
                   top: "0",
-                  transform: "translate(10%, 200%)",
+                  transform: "translate(10%, 180%)",
                 }}
               />
             </>
@@ -67,7 +64,7 @@ const LoginView = (props) => {
             <LoginLogoSVG />
           </div>
         </div>
-        <div>
+        <div style={{ gridRow: "1/-1", gridColumn: "2/3" }}>
           <div className={style.formikContainer}>
             <Formik
               initialValues={initialValues}
