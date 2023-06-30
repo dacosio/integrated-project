@@ -18,6 +18,7 @@ import ImageLabel from "../components/base/ImageLabel/imageLabel";
 import BottomNav from "../components/layout/BottomNav/BottomNav";
 import Filter from "../components/module/Filter/Filter";
 import CarouselSwiper from "../components/module/CarouselSwiper/CarouselSwiper";
+import { Place } from "../context/PlaceContext";
 
 const wrapper = {
   padding: "1rem",
@@ -75,7 +76,9 @@ const Don = (props) => {
         />
       </div>
 
-      <div style={wrapper}>{/* <MapSearch /> */}</div>
+      <div style={wrapper}>
+        <MapSearch />
+      </div>
       {/* <div style={wrapper}>
         <MapLeaflet
           style={{ height: "50rem", width: "50rem" }}

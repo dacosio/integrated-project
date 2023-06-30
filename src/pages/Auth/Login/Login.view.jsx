@@ -28,7 +28,6 @@ const LoginView = (props) => {
             <>
               {xl && (
                 <LeftHandSVG
-                  height={"auto"}
                   width={300}
                   style={{
                     position: "absolute",

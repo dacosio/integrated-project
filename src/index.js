@@ -9,6 +9,7 @@ import { AuthContextProvider } from "./context/AuthContext";
 import { SearchProvider } from "./context/SearchContext";
 import { CategoryProvider } from "./context/CategoryContext";
 import { SortProvider } from "./context/SortContext";
+import { PlaceProvider } from "./context/PlaceContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,11 +18,13 @@ root.render(
       <SearchProvider>
         <CategoryProvider>
           <SortProvider>
-            <Router>
-              <Routes>
-                <Route path="/*" element={<App />} />
-              </Routes>
-            </Router>
+            <PlaceProvider>
+              <Router>
+                <Routes>
+                  <Route path="/*" element={<App />} />
+                </Routes>
+              </Router>
+            </PlaceProvider>
           </SortProvider>
         </CategoryProvider>
       </SearchProvider>

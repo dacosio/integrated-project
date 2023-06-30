@@ -15,6 +15,7 @@ import {
 } from "../../../components/base/SVG";
 import SingleImageInput from "../../../components/base/SingleImageInput/SingleImageInput";
 import Grid from "../../../components/layout/Grid/Grid";
+import MapSearch from "../../../components/base/MapSearch/MapSearch";
 
 const RegisterView = (props) => {
   const {
@@ -44,20 +45,19 @@ const RegisterView = (props) => {
           {lg ? (
             <>
               <LeftHandSVG
-                height={"auto"}
                 width={300}
                 style={{
                   position: "absolute",
                   top: "0",
                   left: "0",
-                  transform: "translate(-15%, 50%)",
+                  transform: "translate(-15%, 100%)",
                 }}
               />
               <RightHandSVG
                 style={{
                   position: "absolute",
                   top: "0",
-                  transform: "translate(100%, -5%)",
+                  transform: "translate(100%, 10%)",
                 }}
               />
 
@@ -67,7 +67,7 @@ const RegisterView = (props) => {
                 style={{
                   position: "absolute",
                   top: "0",
-                  transform: "translate(10%, 300%)",
+                  transform: "translate(10%, 310%)",
                 }}
               />
             </>
@@ -159,6 +159,15 @@ const RegisterView = (props) => {
                     placeholder="Type your number"
                     style={formikStyle}
                   />
+                  <div>
+                    <Typography
+                      variant="h4-graphik-bold"
+                      style={{ paddingBottom: "8px" }}
+                    >
+                      Address
+                    </Typography>
+                    <MapSearch placeholder="Type your address" />
+                  </div>
                   <div className={style.buttonWrapper}>
                     <Button
                       variant="white"

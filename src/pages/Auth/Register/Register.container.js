@@ -9,11 +9,13 @@ import { toast } from "react-toastify";
 import useMediaQuery from "../../../utils/useMediaQuery";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
+import { Place } from "../../../context/PlaceContext";
 
 const Register = () => {
   const { createUser } = UserAuth();
   const navigate = useNavigate();
   const [singleImage, setSingleImage] = useState([]);
+  const { placeValue } = Place();
 
   const initialValues = {
     email: "",
@@ -100,7 +102,8 @@ const Register = () => {
                       firstName,
                       lastName,
                       contactNumber,
-                      imageUrl
+                      imageUrl,
+                      placeValue.formatted_address
                     );
                   });
                 }
@@ -109,7 +112,15 @@ const Register = () => {
 
             setSingleImage([]);
           } else {
-            createUser(email, password, firstName, lastName, contactNumber, "");
+            createUser(
+              email,
+              password,
+              firstName,
+              lastName,
+              contactNumber,
+              "",
+              placeValue.formatted_address
+            );
           }
           navigate("/");
         }
