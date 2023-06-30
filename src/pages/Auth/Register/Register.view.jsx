@@ -44,11 +44,13 @@ const RegisterView = (props) => {
           {lg ? (
             <>
               <LeftHandSVG
+                height={"auto"}
+                width={300}
                 style={{
                   position: "absolute",
                   top: "0",
                   left: "0",
-                  transform: "translate(0, 50%)",
+                  transform: "translate(-15%, 50%)",
                 }}
               />
               <RightHandSVG
@@ -58,11 +60,14 @@ const RegisterView = (props) => {
                   transform: "translate(100%, -5%)",
                 }}
               />
+
               <BottomHandSVG
+                height={"auto"}
+                width={300}
                 style={{
                   position: "absolute",
-                  bottom: "0",
-                  transform: "translateX(10%)",
+                  top: "0",
+                  transform: "translate(10%, 300%)",
                 }}
               />
             </>
@@ -70,7 +75,7 @@ const RegisterView = (props) => {
             <></>
           )}
           <div className={style.siteTitle}>
-            <BuySplitShareSVG style={{ textAlign: "center" }} />
+            {lg && <BuySplitShareSVG style={{ textAlign: "center" }} />}
             <LoginLogoSVG />
           </div>
         </div>
