@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import loadable from "@loadable/component";
 import Layout from "./components/layout/Layout/Layout";
@@ -32,7 +32,9 @@ function App() {
               path="add"
               element={
                 <ProtectedRoute>
-                  <AddListing />
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <AddListing />
+                  </Suspense>
                 </ProtectedRoute>
               }
             />

@@ -3,7 +3,6 @@ import Header from "../Header/Header";
 import BottomNav from "../BottomNav/BottomNav";
 import useWindowSize from "../../../utils/useWindowSize";
 import { useEffect } from "react";
-
 const bottomNavStyle = {
   position: "absolute",
   left: 0,
@@ -15,11 +14,16 @@ const Layout = () => {
   const location = useLocation();
   useEffect(() => {
     const body = document.querySelector("body");
-    if (location.pathname === "/login" || location.pathname === "/register") {
+    if (location.pathname === "/login") {
       body.style.backgroundColor = "var(--dark-blue)"; // Set the desired background color for the login page
+    } else if (location.pathname === "/register") {
+      body.style.background =
+        "linear-gradient(90deg,var(--dark-blue) 60% , var(--yellow) 60%)";
     } else {
       body.style.backgroundColor = "white"; // Set the desired background color for other pages
     }
+    console.log(location.pathname);
+
     return () => {
       body.style.backgroundColor = ""; // Reset the background color when the component unmounts
     };

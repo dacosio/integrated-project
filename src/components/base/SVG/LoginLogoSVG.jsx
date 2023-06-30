@@ -1,8 +1,8 @@
 import React from "react";
 
-const LoginLogoSVG = ({ width, height, fill, stroke, ...props }) => {
+const LoginLogoSVG = ({ width, height, fill, stroke, style, ...props }) => {
   return (
-    <div style={{ height: "auto", width: "20rem" }}>
+    <div style={{ height, width, ...style }}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         xmlSpace="preserve"

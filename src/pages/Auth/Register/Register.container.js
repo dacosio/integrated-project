@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchSignInMethodsForEmail } from "firebase/auth";
 import { auth } from "../../../config/firebaseConfig";
 import { toast } from "react-toastify";
+import useMediaQuery from "../../../utils/useMediaQuery";
 
 const Register = () => {
   const { createUser } = UserAuth();
@@ -75,6 +76,8 @@ const Register = () => {
       });
   };
 
+  const lg = useMediaQuery("(min-width: 1200px)");
+
   const generatedProps = {
     // generated props here
     initialValues,
@@ -83,6 +86,8 @@ const Register = () => {
 
     singleImage,
     setSingleImage,
+
+    lg,
   };
   return <RegisterView {...generatedProps} />;
 };

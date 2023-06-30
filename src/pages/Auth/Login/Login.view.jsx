@@ -13,7 +13,7 @@ const LoginView = (props) => {
   const navigate = useNavigate();
   return (
     <div className={style.loginWrapper}>
-      <LoginLogoSVG />
+      <LoginLogoSVG height="auto" width="20rem" />
       {/* <DropShadowLogoSVG /> */}
       <div className={style.formikContainer}>
         <Formik
