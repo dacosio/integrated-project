@@ -1,13 +1,13 @@
 import React from "react";
-import styles from "./DescriptionCard.module.css";
+import "./DescriptionCard.css";
 import Button from "./../Button/Button";
 import Typography from "../Typography/Typography";
 
 const DescriptionCard = ({ description, onClick }) => {
   return (
-    <div class={`${styles["dcwrapper"]}`}>
-      <div class={`${styles["description-container"]}`}>
-        <div class={`${styles["item-description"]}`}>
+    <div className="dcwrapper">
+      <div className="description-container">
+        <div className="item-description">
           <Typography variant="h4-graphik-bold" style={{ margin: "8px 0" }}>
             Description
           </Typography>
@@ -15,7 +15,7 @@ const DescriptionCard = ({ description, onClick }) => {
             {description}
           </Typography>
         </div>
-        <div class={`${styles["button"]}`}>
+        <div className="button">
           <Button
             onClickHandler={onClick}
             size="lg"

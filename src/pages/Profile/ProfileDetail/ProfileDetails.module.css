@@ -1,7 +1,16 @@
 .headerWrapper {
   transform: translateY(-25%);
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   padding: 0 16px;
+}
+
+.headerWrapperDesktop {
+  transform: translateY(-50%);
+  padding: 0 16px;
+
+  display: flex;
+  align-items: "center";
+  gap: 1rem;
 }
 
 .location,
@@ -13,21 +22,4 @@
 
 .location {
   padding: 8px 0;
-}
-
-.listings {
-  padding: 0 16px;
-}
-
-.cardsSmall {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 38px;
-  justify-items: center;
-}
-
-.cardsBig {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  justify-items: center;
 }

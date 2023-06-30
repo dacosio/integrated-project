@@ -74,21 +74,23 @@ const Header = () => {
             onClickHandler={user ? handleLogOut : handleLogin}
           />
         </div>
-        <div className={styles.mobileFilter}>
-          <SearchField
-            value={searchValue}
-            resetValue={resetSearchValue}
-            onChange={handleInputChange}
-            placeholder="What are you looking for?"
-          />
-          <FilterSVG
-            height={22}
-            width={25}
-            fill={"var(--white)"}
-            selected={filterSelected}
-            onClick={() => setFilterSelected(!filterSelected)}
-          />
-        </div>
+        {location.pathname === "/" && (
+          <div className={styles.mobileFilter}>
+            <SearchField
+              value={searchValue}
+              resetValue={resetSearchValue}
+              onChange={handleInputChange}
+              placeholder="What are you looking for?"
+            />
+            <FilterSVG
+              height={22}
+              width={25}
+              fill={"var(--white)"}
+              selected={filterSelected}
+              onClick={() => setFilterSelected(!filterSelected)}
+            />
+          </div>
+        )}
       </div>
     );
   };
@@ -206,21 +208,23 @@ const Header = () => {
             </li>
           </ul>
         </div>
-        <div className={styles.mdBot}>
-          <SearchField
-            value={searchValue}
-            resetValue={resetSearchValue}
-            onChange={handleInputChange}
-            placeholder="What are you looking for?"
-          />
-          <FilterSVG
-            height={22}
-            width={25}
-            fill={"var(--white)"}
-            selected={filterSelected}
-            onClick={() => setFilterSelected(!filterSelected)}
-          />
-        </div>
+        {location.pathname === "/" && (
+          <div className={styles.mdBot}>
+            <SearchField
+              value={searchValue}
+              resetValue={resetSearchValue}
+              onChange={handleInputChange}
+              placeholder="What are you looking for?"
+            />
+            <FilterSVG
+              height={22}
+              width={25}
+              fill={"var(--white)"}
+              selected={filterSelected}
+              onClick={() => setFilterSelected(!filterSelected)}
+            />
+          </div>
+        )}
       </div>
     );
   };
@@ -340,21 +344,23 @@ const Header = () => {
             </ul>
           </div>
 
-          <div className={styles.lgFilterRight}>
-            <SearchField
-              value={searchValue}
-              resetValue={resetSearchValue}
-              onChange={handleInputChange}
-              placeholder="What are you looking for?"
-            />
-            <FilterSVG
-              height={22}
-              width={25}
-              fill={"var(--white)"}
-              selected={filterSelected}
-              onClick={() => setFilterSelected(!filterSelected)}
-            />
-          </div>
+          {location.pathname === "/" && (
+            <div className={styles.lgFilterRight}>
+              <SearchField
+                value={searchValue}
+                resetValue={resetSearchValue}
+                onChange={handleInputChange}
+                placeholder="What are you looking for?"
+              />
+              <FilterSVG
+                height={22}
+                width={25}
+                fill={"var(--white)"}
+                selected={filterSelected}
+                onClick={() => setFilterSelected(!filterSelected)}
+              />
+            </div>
+          )}
         </div>
       </div>
     );
@@ -368,19 +374,23 @@ const Header = () => {
             <LogoSVG width={200} height={41} />
           </div>
 
-          <SearchField
-            value={searchValue}
-            resetValue={resetSearchValue}
-            onChange={handleInputChange}
-            placeholder="What are you looking for?"
-          />
-          <FilterSVG
-            height={22}
-            width={25}
-            fill={"var(--white)"}
-            selected={filterSelected}
-            onClick={() => setFilterSelected(!filterSelected)}
-          />
+          {location.pathname === "/" && (
+            <>
+              <SearchField
+                value={searchValue}
+                resetValue={resetSearchValue}
+                onChange={handleInputChange}
+                placeholder="What are you looking for?"
+              />
+              <FilterSVG
+                height={22}
+                width={25}
+                fill={"var(--white)"}
+                selected={filterSelected}
+                onClick={() => setFilterSelected(!filterSelected)}
+              />
+            </>
+          )}
         </div>
         <div className={styles.xlRight}>
           <ul>
