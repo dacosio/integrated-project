@@ -1,5 +1,4 @@
 .wrapper {
-  display: grid;
   gap: 20px;
 }
 
@@ -12,13 +11,5 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-content: start;
-  align-items: center;
-  row-gap: 10px;
-}
-
-.grid > div:last-of-type {
-  margin-top: 20px;
-  grid-column: 1 / -1;
+  row-gap: 12px;
 }

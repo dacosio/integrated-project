@@ -7,6 +7,7 @@ function Card({
   noshadow = false,
   aspectRatio,
   children,
+  style,
   ...props
 }) {
   return (
@@ -14,7 +15,7 @@ function Card({
       className={`${styles.card} ${!nopadding ? styles.padding : ""} ${
         !noborder ? styles.border : ""
       } ${!noshadow ? styles.shadow : ""}`}
-      style={{ aspectRatio: aspectRatio && aspectRatio }}
+      style={style}
     >
       {children}
     </div>
