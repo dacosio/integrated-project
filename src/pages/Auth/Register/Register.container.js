@@ -4,9 +4,11 @@ import RegisterView from "./Register.view";
 import { UserAuth } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { fetchSignInMethodsForEmail } from "firebase/auth";
-import { auth } from "../../../config/firebaseConfig";
+import { auth, storage } from "../../../config/firebaseConfig";
 import { toast } from "react-toastify";
 import useMediaQuery from "../../../utils/useMediaQuery";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 
 const Register = () => {
   const { createUser } = UserAuth();
@@ -67,7 +69,48 @@ const Register = () => {
             theme: "light",
           });
         } else {
-          createUser(email, password, firstName, lastName, contactNumber);
+          if (singleImage.length !== 0) {
+            for (const image of singleImage) {
+              const file = image.file;
+              const uniqueId = uuidv4();
+
+              const fileRef = ref(
+                storage,
+                `profile-image/${file.name.split(".")[0]}-${uniqueId}`
+              );
+
+              const uploadTask = uploadBytesResumable(fileRef, file);
+
+              uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                  const progress =
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+                  console.log(progress + "% Done.");
+                },
+                (error) => {
+                  console.log(error);
+                },
+                async () => {
+                  await getDownloadURL(fileRef).then(async (imageUrl) => {
+                    await createUser(
+                      email,
+                      password,
+                      firstName,
+                      lastName,
+                      contactNumber,
+                      imageUrl
+                    );
+                  });
+                }
+              );
+            }
+
+            setSingleImage([]);
+          } else {
+            createUser(email, password, firstName, lastName, contactNumber, "");
+          }
           navigate("/");
         }
       })
@@ -88,6 +131,7 @@ const Register = () => {
     setSingleImage,
 
     lg,
+    navigate,
   };
   return <RegisterView {...generatedProps} />;
 };

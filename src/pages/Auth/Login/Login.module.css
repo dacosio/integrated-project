@@ -1,5 +1,5 @@
 .loginWrapper {
-  /* background-color: var(--dark-blue); */
+  background-color: var(--dark-blue);
 
   display: flex;
   justify-content: center;

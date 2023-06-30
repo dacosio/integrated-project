@@ -24,14 +24,15 @@ const RegisterView = (props) => {
     singleImage,
     setSingleImage,
     lg,
+    navigate,
   } = props;
-  const navigate = useNavigate();
 
   const formikStyle = {
     borderRadius: "12px",
     padding: "6px 16px",
     minWidth: "289px",
   };
+
   return (
     <div className={style.loginWrapper}>
       <Grid

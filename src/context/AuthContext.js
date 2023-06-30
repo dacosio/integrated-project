@@ -21,7 +21,8 @@ export const AuthContextProvider = ({ children }) => {
     password,
     firstName,
     lastName,
-    contactNumber
+    contactNumber,
+    imageUrl
   ) => {
     await createUserWithEmailAndPassword(auth, email, password);
     console.log(auth.currentUser.uid);
@@ -32,6 +33,7 @@ export const AuthContextProvider = ({ children }) => {
       firstName,
       lastName,
       contactNumber,
+      imageUrl,
       createdAt: serverTimestamp(),
     });
   };

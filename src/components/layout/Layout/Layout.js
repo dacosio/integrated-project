@@ -14,12 +14,14 @@ const Layout = () => {
   const location = useLocation();
   useEffect(() => {
     const body = document.querySelector("body");
-    if (location.pathname === "/login") {
+    if (location.pathname === "/login" || location.pathname === "/register") {
       body.style.backgroundColor = "var(--dark-blue)"; // Set the desired background color for the login page
-    } else if (location.pathname === "/register") {
-      body.style.background =
-        "linear-gradient(90deg,var(--dark-blue) 60% , var(--yellow) 60%)";
-    } else {
+    }
+    // else if () {
+    //   body.style.background =
+    //     "linear-gradient(90deg,var(--dark-blue) 60% , var(--yellow) 60%)";
+    // }
+    else {
       body.style.backgroundColor = "white"; // Set the desired background color for other pages
     }
     console.log(location.pathname);
