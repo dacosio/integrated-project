@@ -29,8 +29,11 @@ const ListingDetail = () => {
   const [seller, setSeller] = useState();
   const [itemsNumber, setItemsNumber] = useState();
   const [images, setImages] = useState();
-  const [visibility, setVisibility] = useState(false);
+  const [carouselVisibility, setCarouselVisibility] = useState(false);
+  const [requestVisibility, setRequestVisibility] = useState(false);
+  const [cancelVisibility, setCancelVisibility] = useState(false);
   const [transactions, setTransactions] = useState([]);
+  const [quantity, setQuantity] = useState(1);
   const { user } = UserAuth();
 
   useEffect(() => {
@@ -94,24 +97,45 @@ const ListingDetail = () => {
   }, [productRef, seller, user]);
 
   const handleOnOpen = () => {
-    setVisibility(true);
+    setCarouselVisibility(true);
   };
 
   const handleOnClose = () => {
-    setVisibility(false);
+    setCarouselVisibility(false);
   };
 
-  const handleOnRequest = () => {
+  const handleOnOpenRequest = () => {
+    setRequestVisibility(true);
+  };
+
+  const handleOnConfirmRequest = () => {
     addDoc(collection(store, "transaction"), {
       productById: productRef.id,
       sellerByEmail: seller.email,
       buyerByEmail: user.email,
+      qty: quantity,
       createdAt: new Date(),
     });
+
+    setRequestVisibility(false);
   };
 
-  const handleOnCancel = () => {
+  const handleOnCloseRequest = () => {
+    setRequestVisibility(false);
+  };
+
+  const handleOnOpenCancel = () => {
+    setCancelVisibility(true);
+  };
+
+  const handleOnConfirmCancel = () => {
     deleteDoc(doc(store, "transaction", transactions[0].id));
+
+    setCancelVisibility(false);
+  };
+
+  const handleOnCloseCancel = () => {
+    setCancelVisibility(false);
   };
 
   const generatedProps = {
@@ -120,13 +144,20 @@ const ListingDetail = () => {
     seller: seller,
     itemsNumber: itemsNumber,
     images: images,
-    visibility: visibility,
+    carouselVisibility: carouselVisibility,
+    requestVisibility: requestVisibility,
+    cancelVisibility: cancelVisibility,
     transactions: transactions,
-    setVisibility: setVisibility,
+    quantity: quantity,
+    setQuantity: setQuantity,
     handleOnOpen: handleOnOpen,
     handleOnClose: handleOnClose,
-    handleOnRequest: handleOnRequest,
-    handleOnCancel: handleOnCancel,
+    handleOnOpenRequest: handleOnOpenRequest,
+    handleOnConfirmRequest: handleOnConfirmRequest,
+    handleOnCloseRequest: handleOnCloseRequest,
+    handleOnOpenCancel: handleOnOpenCancel,
+    handleOnConfirmCancel: handleOnConfirmCancel,
+    handleOnCloseCancel: handleOnCloseCancel,
   };
   return <ListDetailView {...generatedProps} />;
 };

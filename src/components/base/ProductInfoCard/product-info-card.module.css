@@ -11,5 +11,5 @@
 
 .grid {
   display: grid;
-  row-gap: 12px;
+  gap: 12px;
 }

@@ -8,6 +8,8 @@ import MeetUpInfoCard from "../../../components/base/MeetUpInfoCard/MeetUpInfoCa
 import BeatLoader from "react-spinners/BeatLoader";
 import Typography from "../../../components/base/Typography/Typography";
 import SellerInfoCard from "../../../components/base/SellerInfoCard/SellerInfoCard";
+import Button from "../../../components/base/Button/Button";
+import NumberInput from "../../../components/base/NumberInput/NumberInput";
 import Modal from "../../../components/base/Modal/Modal";
 import CarouselSwiper from "../../../components/module/CarouselSwiper/CarouselSwiper";
 import styles from "./listing-detail.module.css";
@@ -19,12 +21,20 @@ const ListingDetail = (props) => {
     seller,
     itemsNumber,
     images,
-    visibility,
+    carouselVisibility,
+    requestVisibility,
+    cancelVisibility,
     transactions,
+    quantity,
+    setQuantity,
     handleOnOpen,
     handleOnClose,
-    handleOnRequest,
-    handleOnCancel,
+    handleOnOpenRequest,
+    handleOnConfirmRequest,
+    handleOnCloseRequest,
+    handleOnOpenCancel,
+    handleOnConfirmCancel,
+    handleOnCloseCancel,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1200px)");
@@ -64,7 +74,7 @@ const ListingDetail = (props) => {
                     price={product.price}
                     quantity={product.qty}
                     date={product.date}
-                    name={`${product.createdByFirstName} ${product.createdByLastName}`}
+                    name={`${product.createdByNickName}`}
                   />
                 </div>
                 <div
@@ -82,7 +92,7 @@ const ListingDetail = (props) => {
                   <Card nopadding noborder noshadow>
                     <SellerInfoCard
                       source={seller.imageUrl}
-                      username={`${seller.firstName} ${seller.lastName}`}
+                      username={`${seller.nickName}`}
                       location={seller.address}
                       items={itemsNumber}
                     />
@@ -101,12 +111,12 @@ const ListingDetail = (props) => {
                     ) : transactions.length === 0 ? (
                       <DescriptionCard
                         description={product.description}
-                        handleOnRequest={handleOnRequest}
+                        handleOnOpenRequest={handleOnOpenRequest}
                       />
                     ) : (
                       <DescriptionCard
                         description={product.description}
-                        handleOnCancel={handleOnCancel}
+                        handleOnOpenCancel={handleOnOpenCancel}
                         requested
                       />
                     )}
@@ -124,10 +134,78 @@ const ListingDetail = (props) => {
           )}
         </div>
         {images && (
-          <Modal visibility={visibility} onClose={handleOnClose}>
+          <Modal visibility={carouselVisibility} onClose={handleOnClose}>
             <CarouselSwiper images={images} />
           </Modal>
         )}
+        {product && (
+          <Modal visibility={requestVisibility} onClose={handleOnCloseRequest}>
+            <div style={{ display: "grid", gap: "20px" }}>
+              <div
+                style={{
+                  display: "grid",
+                  gap: "20px",
+                  justifyItems: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Typography variant="h4-graphik-bold">
+                  How many do you want to buy?
+                </Typography>
+                <NumberInput
+                  inputNumber={quantity}
+                  setInputNumber={setQuantity}
+                  minValue={1}
+                  maxValue={product.qty}
+                />
+              </div>
+              <div style={{ display: "flex", gap: "20px" }}>
+                <Button
+                  onClickHandler={handleOnCloseRequest}
+                  size="lg"
+                  variant="white"
+                  label="Cancel"
+                />
+                <Button
+                  onClickHandler={handleOnConfirmRequest}
+                  size="lg"
+                  variant="yellow"
+                  label="Confirm"
+                />
+              </div>
+            </div>
+          </Modal>
+        )}
+        <Modal visibility={cancelVisibility} onClose={handleOnCloseCancel}>
+          <div style={{ display: "grid", gap: "20px" }}>
+            <div
+              style={{
+                display: "grid",
+                gap: "20px",
+                justifyItems: "center",
+                alignItems: "center",
+              }}
+            >
+              <Typography variant="h4-graphik-bold">
+                Do you really want to cancel the request?
+              </Typography>
+            </div>
+            <div style={{ display: "flex", gap: "20px" }}>
+              <Button
+                onClickHandler={handleOnCloseCancel}
+                size="lg"
+                variant="white"
+                label="Cancel"
+              />
+              <Button
+                onClickHandler={handleOnConfirmCancel}
+                size="lg"
+                variant="yellow"
+                label="Confirm"
+              />
+            </div>
+          </div>
+        </Modal>
       </>
     );
   } else {
@@ -153,7 +231,7 @@ const ListingDetail = (props) => {
                     price={product.price}
                     quantity={product.qty}
                     date={product.date}
-                    name={`${product.firstName} ${product.lastName}`}
+                    name={`${product.createdByNickName}`}
                   />
                   <ImageList images={images} onClick={handleOnOpen} />
                 </div>
@@ -164,12 +242,12 @@ const ListingDetail = (props) => {
                 ) : transactions.length === 0 ? (
                   <DescriptionCard
                     description={product.description}
-                    handleOnRequest={handleOnRequest}
+                    handleOnOpenRequest={handleOnOpenRequest}
                   />
                 ) : (
                   <DescriptionCard
                     description={product.description}
-                    handleOnCancel={handleOnCancel}
+                    handleOnOpenCancel={handleOnOpenCancel}
                     requested
                   />
                 )}
@@ -178,7 +256,7 @@ const ListingDetail = (props) => {
               <Card nopadding noborder>
                 <SellerInfoCard
                   source={seller.imageUrl}
-                  username={`${seller.firstName} ${seller.lastName}`}
+                  username={`${seller.nickName}`}
                   location={seller.address}
                   items={itemsNumber}
                 />
@@ -193,10 +271,78 @@ const ListingDetail = (props) => {
           )}
         </div>
         {images && (
-          <Modal visibility={visibility} onClose={handleOnClose}>
+          <Modal visibility={carouselVisibility} onClose={handleOnClose}>
             <CarouselSwiper images={images} />
           </Modal>
         )}
+        {product && (
+          <Modal visibility={requestVisibility} onClose={handleOnCloseRequest}>
+            <div style={{ display: "grid", gap: "20px" }}>
+              <div
+                style={{
+                  display: "grid",
+                  gap: "20px",
+                  justifyItems: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Typography variant="h4-graphik-bold">
+                  How many do you want to buy?
+                </Typography>
+                <NumberInput
+                  inputNumber={quantity}
+                  setInputNumber={setQuantity}
+                  minValue={1}
+                  maxValue={product.qty}
+                />
+              </div>
+              <div style={{ display: "flex", gap: "20px" }}>
+                <Button
+                  onClickHandler={handleOnCloseRequest}
+                  size="lg"
+                  variant="white"
+                  label="Cancel"
+                />
+                <Button
+                  onClickHandler={handleOnConfirmRequest}
+                  size="lg"
+                  variant="yellow"
+                  label="Confirm"
+                />
+              </div>
+            </div>
+          </Modal>
+        )}
+        <Modal visibility={cancelVisibility} onClose={handleOnCloseCancel}>
+          <div style={{ display: "grid", gap: "20px" }}>
+            <div
+              style={{
+                display: "grid",
+                gap: "20px",
+                justifyItems: "center",
+                alignItems: "center",
+              }}
+            >
+              <Typography variant="h4-graphik-bold">
+                Do you really want to cancel the request?
+              </Typography>
+            </div>
+            <div style={{ display: "flex", gap: "20px" }}>
+              <Button
+                onClickHandler={handleOnCloseCancel}
+                size="lg"
+                variant="white"
+                label="Cancel"
+              />
+              <Button
+                onClickHandler={handleOnConfirmCancel}
+                size="lg"
+                variant="yellow"
+                label="Confirm"
+              />
+            </div>
+          </div>
+        </Modal>
       </>
     );
   }

@@ -7,40 +7,34 @@ const DescriptionCard = ({
   description,
   own = false,
   requested = false,
-  handleOnRequest,
-  handleOnCancel,
+  handleOnOpenRequest,
+  handleOnOpenCancel,
 }) => {
   return (
     <div className={`${styles.wrapper}`}>
-      <div style={{ height: "100%" }}>
-        <Typography variant="h4-graphik-bold" style={{ marginBottom: "8px" }}>
-          Description
-        </Typography>
+      <Typography variant="h4-graphik-bold">Description</Typography>
+      <div style={{ display: "grid", gap: "20px" }}>
         <Typography variant="body-2-regular" color="gray">
           {description}
         </Typography>
-      </div>
-      {own ? (
-        <></>
-      ) : !requested ? (
-        <div>
+        {own ? (
+          <></>
+        ) : !requested ? (
           <Button
-            onClickHandler={handleOnRequest}
+            onClickHandler={handleOnOpenRequest}
             size="lg"
             variant="yellow"
             label="Request Purchase"
           />
-        </div>
-      ) : (
-        <div>
+        ) : (
           <Button
-            onClickHandler={handleOnCancel}
+            onClickHandler={handleOnOpenCancel}
             size="lg"
             variant="white"
             label="Cancel Request"
           />
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
