@@ -1,25 +1,32 @@
 import React from "react";
-import "./SellerInfoCard.css";
+import styles from "./sellerInfoCard.module.css";
 import Typography from "../Typography/Typography";
-import LocationSVG from "../SVG/LocationSVG"
+import LocationSVG from "../SVG/LocationSVG";
 
-const SellerInfoCard = ({source, username, location, items}) => {
-const inventory = () => {
-  return items === "1" ? `1 item sold` : `${items} items sold`;
-};
+const SellerInfoCard = ({ source, username, location, items, ...props }) => {
+  const inventory = () => {
+    return items === "1" ? `1 item sold` : `${items} items sold`;
+  };
 
-return (
-<div class="seller-information-wrapper">
-        <Typography variant="h4-graphik-bold" style={{marginBottom: "12px"}}>Seller Information</Typography>
-      <div className="seller-information">
-        <div className="image-container">
+  return (
+    <div class={`${styles["seller-information-wrapper"]}`}>
+      <Typography variant="h4-graphik-bold" style={{ marginBottom: "12px" }}>
+        Seller Information
+      </Typography>
+      <div class={`${styles["seller-information"]}`}>
+        <div class={`${styles["image-container"]}`}>
           <img src={source} alt="" />
         </div>
-        <div className="seller-details">
+        <div class={`${styles["seller-details"]}`}>
           <Typography variant="body-1-medium">{username}</Typography>
-          <div class="location-container">
-          <LocationSVG height={19} width={14} stroke="black"/>
-          <Typography variant="body-2-regular" style={{"margin-left":".5rem"}}>{location}</Typography>
+          <div class={`${styles["location-container"]}`}>
+            <LocationSVG height={19} width={14} stroke="black" />
+            <Typography
+              variant="body-2-regular"
+              style={{ marginLeft: ".5rem" }}
+            >
+              {location}
+            </Typography>
           </div>
           <Typography variant="body-4-regular">{inventory()}</Typography>
         </div>
@@ -27,6 +34,5 @@ return (
     </div>
   );
 };
-
 
 export default React.memo(SellerInfoCard);

@@ -1,23 +1,27 @@
 import React from "react";
 import Typography from "../Typography/Typography";
-import "./sellingItemCard.css";
+import styles from "./sellingItemCard.module.css";
 const SellingItemCard = ({
   source,
   itemName,
   dateApproved,
   quantity,
   price,
+  ...props
 }) => {
   return (
-    <div className="selling-item-wrapper">
-      <Typography variant="h3-graphik-bold" style={{ margin: "16px 16px 12px" }}>
+    <div class={`${styles["selling-item-wrapper"]}`}>
+      <Typography
+        variant="h3-graphik-bold"
+        style={{ margin: "16px 16px 12px" }}
+      >
         Selling Details
       </Typography>
-      <div className="selling-item-card">
-        <div className="image-container">
+      <div class={`${styles["selling-item-card"]}`}>
+        <div class={`${styles["image-container"]}`}>
           <img src={source} alt="" />
         </div>
-        <div className="selling-item-description">
+        <div class={`${styles["selling-item-description"]}`}>
           <Typography variant="h4-graphik-bold" color="dark-blue">
             {itemName}
           </Typography>
@@ -25,7 +29,7 @@ const SellingItemCard = ({
           <Typography variant="body-2-regular" color="gray">
             {dateApproved}
           </Typography>
-          <div className="quantity-container">
+          <div class={`${styles["quantity-container"]}`}>
             <Typography
               variant="body-1-medium"
               style={{ marginRight: "0.3rem" }}
