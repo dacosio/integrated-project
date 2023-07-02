@@ -1,19 +1,20 @@
 .seller-information-wrapper{
-  border: 1px solid var(--black);
+  border: 2px solid var(--black);
   border-radius: 20px;
   box-shadow: 2px 2px black;
   padding: 16px 16px 20px;
+  width: 100%;
 }
 
 .seller-information {
   display: flex;
-  width: 100%;
+  box-sizing: border-box;
   align-content: center;
   align-items: center;
   background-color: #fff;
 }
 
-.seller-information .image-container {
+.seller-information-wrapper .image-container {
   width: 80px;
   height: 80px;
   border-radius: 500px;
@@ -22,7 +23,7 @@
   margin-right: 1rem;
 }
 
-.seller-information .image-container img {
+.seller-information-wrapper .image-container img {
   border-radius: 500px;
   width: 80px;
   height: 80px;

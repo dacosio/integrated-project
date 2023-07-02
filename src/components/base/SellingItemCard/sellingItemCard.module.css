@@ -6,11 +6,11 @@
   margin: 0;
   padding: 0;
   max-height: 224px;
+  width: 100%;
 }
 
 .selling-item-card {
   display: flex;
-  width: 100%;
   padding: 0 16px 20px;
   align-items: center;
   box-sizing: border-box;
@@ -26,12 +26,14 @@
   width: 140px;
   height: 140px;
   margin-right: 1rem;
+  border-radius: 20px;
 }
 
 .selling-item-card .image-container img {
   width: 140px;
   height: 140px;
   border: 2px solid black;
+  border-radius: 20px;
 }
 
 .selling-item-card .quantity-container {
@@ -48,8 +50,4 @@
     max-height: 224px;
   }
 
-  /* .selling-item-card {
-    display: grid;
-    grid-template-columns: 0.5fr 1fr;
-  } */
 }

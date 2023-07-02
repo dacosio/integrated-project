@@ -1,7 +1,7 @@
 .meet-up-info-card {
   padding: 20px 20px 28px 20px;
   height: 389px;
-  border: 1px solid #000000;
+  border: 2px solid #000000;
   border-radius: 20px;
   box-shadow: 2px 2px black;
   background-color: #fff;
@@ -21,7 +21,6 @@
 .location-container {
   display: flex;
   align-items: center;
-  margin-bottom: 0.3rem;
   margin-bottom: 8px;
 }
 

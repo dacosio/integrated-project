@@ -166,7 +166,8 @@ const RegisterView = (props) => {
                     >
                       Address
                     </Typography>
-                    <MapSearch placeholder="Type your address" />
+                    {/* Uncomment to see the mapsearch but ensure that the key is in env */}
+                    {/* <MapSearch placeholder="Type your address" /> */}
                   </div>
                   <div className={style.buttonWrapper}>
                     <Button
