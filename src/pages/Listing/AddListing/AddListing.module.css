@@ -3,9 +3,9 @@
   padding: 2rem;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 800px) {
   .contentWrapper{
-  padding: 4rem;
+  padding: 7rem 10rem;
 }
 }
 
@@ -59,6 +59,12 @@
   width: 50%;
 }
 
-.mobileWrapper{
-  box-sizing: border-box;
+.backButtonWrap{
+  margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 1440px) {
+  .backButtonWrap{
+  margin-bottom: 2rem;
+}
 }

@@ -7,11 +7,12 @@ import NumberInput from "../../../components/base/NumberInput/NumberInput";
 import Dropdown from "../../../components/base/Dropdown/Dropdown";
 import DatePicker from "../../../components/base/DatePicker/DatePicker";
 import TimePicker from "../../../components/base/TimePicker/TimePicker";
-import style from "./AddListing.module.css";
+import styles from "./AddListing.module.css";
 import Typography from "../../../components/base/Typography/Typography";
 import { RiInformationFill } from "react-icons/ri";
 import { Formik, Form } from "formik";
 import FormikControl from "../../../components/base/FormikControl/FormikControl";
+import BackButton from "../../../components/base/BackButton/BackButton";
 
 const AddListing = (initialValues, validationSchema, onSubmit, props) => {
   const isDesktop = useMediaQuery("(min-width: 1440px)");
@@ -28,8 +29,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
   const [number, setNumber] = useState(0);
 
   return (
-    <div className={style.contentWrapper}>
-     
+    <div className={styles.contentWrapper}>
       {isDesktop ? (
         <div>
           <Formik
@@ -40,6 +40,9 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
             {(formik) => {
               return (
                 <Form>
+                  <div className={styles.backButtonWrap}>
+                    <BackButton />
+                  </div>
                   <Grid
                     columns={2}
                     style={{
@@ -48,9 +51,10 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                       rowGap: "26px",
                       columnGap: "18px",
                       backgroundColor: "var(--white)",
-                      boxSizing: "border-box",
                       borderRadius: "20px",
                       boxShadow: "2px 2px var(--black)",
+                      position: "relative",
+                      height: "auto",
                     }}
                   >
                     <Typography
@@ -59,14 +63,20 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                     >
                       Create Listing
                     </Typography>
-                    <div className={style.imageWrapper}>
+                    <div className={styles.imageWrapper}>
                       <Typography
                         variant="h4-graphik-bold"
                         style={{ marginBottom: "8px" }}
                       >
                         Item Photos
                       </Typography>
-                      <div style={{ width: "100%", maxWidth: "500px" }}>
+                      <div
+                        style={{
+                          width: "100%",
+                          maxWidth: "500px",
+                          boxSizing: "border-box",
+                        }}
+                      >
                         <ImageInput
                           images={multipleImages}
                           setImages={setMultipleImages}
@@ -74,7 +84,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                       </div>
                     </div>
 
-                    <div className={style.itemNameWrapper}>
+                    <div className={styles.itemNameWrapper}>
                       <FormikControl
                         control="input"
                         type="text"
@@ -90,7 +100,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                       />
                     </div>
 
-                    <div className={style.itemDescriptionWrapper}>
+                    <div className={styles.itemDescriptionWrapper}>
                       <FormikControl
                         control="textarea"
                         type="text"
@@ -125,7 +135,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                       />
                     </div>
 
-                    <div className={style.lineBreak}></div>
+                    <div className={styles.lineBreak}></div>
 
                     <div>
                       <Typography
@@ -158,7 +168,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                     </div>
 
                     <div>
-                      <div className={style.divideWrapper}>
+                      <div className={styles.divideWrapper}>
                         <Typography
                           variant="h4-graphik-bold"
                           style={{ marginBottom: "8px" }}
@@ -181,7 +191,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                     </div>
 
                     <div>
-                      <div className={style.divideWrapper}>
+                      <div className={styles.divideWrapper}>
                         <Typography
                           variant="h4-graphik-bold"
                           style={{ marginBottom: "8px" }}
@@ -204,7 +214,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                       />
                     </div>
 
-                    <div className={style.priceDisplayWrapper}>
+                    <div className={styles.priceDisplayWrapper}>
                       <Grid columns={2}>
                         <div>
                           <Typography
@@ -213,7 +223,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                           >
                             Price per portion
                           </Typography>
-                          <div className={style.portionPriceWrapper}>
+                          <div className={styles.portionPriceWrapper}>
                             <Typography
                               variant="body-1-medium"
                               style={{ marginBottom: "8px" }}
@@ -237,7 +247,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                           >
                             Total expected sales
                           </Typography>
-                          <div className={style.salesWrapper}>
+                          <div className={styles.salesWrapper}>
                             <Typography
                               variant="body-1-medium"
                               style={{ marginBottom: "8px" }}
@@ -278,9 +288,9 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                       </Grid>
                     </div>
 
-                    <div className={style.lineBreak}></div>
+                    <div className={styles.lineBreak}></div>
 
-                    <div className={style.meetUpWrapper}>
+                    <div className={styles.meetUpWrapper}>
                       <Typography
                         variant="h4-graphik-bold"
                         style={{ marginBottom: "8px" }}
@@ -301,7 +311,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                           boxSizing: "border-box",
                         }}
                       />
-                      <div className={style.meetUpMap}></div>
+                      <div className={styles.meetUpMap}></div>
                     </div>
                     <div>
                       <Typography
@@ -342,7 +352,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
           </Formik>
         </div>
       ) : (
-        <div className={style.mobileWrapper}>
+        <div className={styles.mobileWrapper}>
           {/* Mobile view */}
           <Formik
             initialValues={initialValues}
@@ -352,14 +362,17 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
             {(formik) => {
               return (
                 <Form>
+                  <div className={styles.backButtonWrap}>
+                    <BackButton />
+                  </div>
                   <Grid
                     style={{
                       border: "1px solid var(--black)",
                       padding: "24px 16px",
                       rowGap: "24px",
                       backgroundColor: "var(--white)",
-                      boxSizing: "border-box",
-                      borderRadius: "20px",
+                      height: "auto",
+                      borderRadius: "20px"
                     }}
                   >
                     <Typography variant="h3-graphik-bold">
@@ -372,7 +385,13 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                       >
                         Item Photos
                       </Typography>
-                      <div style={{ width: "100%" }}>
+                      <div
+                        style={{
+                          width: "100%",
+                          boxSizing: "border-box"
+
+                        }}
+                      >
                         <ImageInput
                           images={multipleImages}
                           setImages={setMultipleImages}
@@ -431,7 +450,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                       />
                     </div>
 
-                    <div className={style.lineBreak}></div>
+                    <div className={styles.lineBreak}></div>
 
                     <div>
                       <Typography
@@ -464,7 +483,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                     </div>
 
                     <div>
-                      <div className={style.divideWrapper}>
+                      <div className={styles.divideWrapper}>
                         <Typography
                           variant="h4-graphik-bold"
                           style={{ marginBottom: "8px" }}
@@ -487,7 +506,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                     </div>
 
                     <div>
-                      <div className={style.divideWrapper}>
+                      <div className={styles.divideWrapper}>
                         <Typography
                           variant="h4-graphik-bold"
                           style={{ marginBottom: "8px" }}
@@ -510,7 +529,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                       />
                     </div>
 
-                    <div className={style.priceDisplayWrapper}>
+                    <div className={styles.priceDisplayWrapper}>
                       <Grid columns={2}>
                         <div>
                           <Typography
@@ -519,7 +538,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                           >
                             Price per portion
                           </Typography>
-                          <div className={style.portionPriceWrapper}>
+                          <div className={styles.portionPriceWrapper}>
                             <Typography
                               variant="body-1-medium"
                               style={{ marginBottom: "8px" }}
@@ -543,7 +562,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                           >
                             Total expected sales
                           </Typography>
-                          <div className={style.salesWrapper}>
+                          <div className={styles.salesWrapper}>
                             <Typography
                               variant="body-1-medium"
                               style={{ marginBottom: "8px" }}
@@ -584,9 +603,9 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                       </Grid>
                     </div>
 
-                    <div className={style.lineBreak}></div>
+                    <div className={styles.lineBreak}></div>
 
-                    <div className={style.meetUpWrapper}>
+                    <div className={styles.meetUpWrapper}>
                       <Typography
                         variant="h4-graphik-bold"
                         style={{ marginBottom: "8px" }}
@@ -607,7 +626,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                           boxSizing: "border-box",
                         }}
                       />
-                      <div className={style.meetUpMap}></div>
+                      <div className={styles.meetUpMap}></div>
                     </div>
                     <div>
                       <Typography
@@ -637,7 +656,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                         style={{
                           width: "326px",
                           display: "block",
-                          margin: "60px auto"
+                          margin: "60px auto",
                         }}
                       />
                     </div>
