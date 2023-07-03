@@ -8,7 +8,8 @@ import Button from "../../../components/base/Button/Button";
 import useMediaQuery from "../../../utils/useMediaQuery";
 
 const TransactionDetail = (props) => {
-  const isDesktop = useMediaQuery("(min-width: 1440px)");
+  const isDesktop = useMediaQuery("(min-width: 1440px)") ;
+  
 
   return (
     <div style={{ backgroundColor: "var(--bg-gray)", height: "100vh" }}>
