@@ -6,20 +6,24 @@ import BuyerContactCard from "../../../components/base/BuyerContactCard/BuyerCon
 import MeetUpInfoCard from "../../../components/base/MeetUpInfoCard/MeetUpInfoCard";
 import Button from "../../../components/base/Button/Button";
 import useMediaQuery from "../../../utils/useMediaQuery";
+import BackButton from "../../../components/base/BackButton/BackButton";
+import styles from "./transactionDetail.module.css"
 
 const TransactionDetail = (props) => {
-  const isDesktop = useMediaQuery("(min-width: 1440px)") ;
-  
-
+  const isDesktop = useMediaQuery("(min-width: 1440px)");
   return (
     <div style={{ backgroundColor: "var(--bg-gray)", height: "100vh" }}>
+      <div className={styles.backButtonWrapper}>
+        <BackButton />
+      </div>
+
       {isDesktop ? (
         <Grid
           rows={1}
           columns={1}
           gap="24px"
           style={{
-            padding: "157px",
+            padding: "3rem 157px 157px",
             justifyContent: "center",
           }}
         >
@@ -74,17 +78,18 @@ const TransactionDetail = (props) => {
         </Grid>
       ) : (
         <div style={{ height: "100vh", backgroundColor: "var(--bg-gray)" }}>
+      
           <Grid
             rows={1}
             columns={1}
             gap="20px"
             style={{
-              padding: "20px 20px 130px",
+              padding: "3rem 20px 130px",
               justifyContent: "center",
               backgroundColor: "var(--bg-gray)",
             }}
           >
-            <div style={{ paddingTop: "50px" }}>
+            <div>
               <SellingItemCard
                 source="https://picsum.photos/200"
                 itemName="Banana"
