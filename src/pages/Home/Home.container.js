@@ -25,12 +25,12 @@ const Home = () => {
   const [zoom, setZoom] = useState(12);
   const [bounds, setBounds] = useState([[49.225693, -123.107326]]);
   const [categories, setCategories] = useState([]);
-  const [totalProducts, setTotalProducts] = useState([]);
+  const [totalProducts, setTotalProducts] = useState();
   const [products, setProducts] = useState();
   const [hasMore, setHasMore] = useState(true);
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
-  const [pageNumber, setPageNumber] = useState(5);
   const [totalPageNumber, setTotalPageNumber] = useState();
+  const pageNumber = 5;
   const itemNumber = 4;
 
   const xl = useMediaQuery("(min-width: 1270px");
@@ -45,92 +45,15 @@ const Home = () => {
   };
 
   useEffect(() => {
-    onSnapshot(
+    const unsubscribe = onSnapshot(
       query(collection(db, "product"), orderBy("createdAt", "desc")),
-      (snapshot) => {
+      async (snapshot) => {
         setTotalPageNumber(Math.ceil(snapshot.docs.length / itemNumber));
-        setTotalProducts(snapshot.docs);
-      }
-    );
-  }, []);
 
-  useEffect(() => {
-    const pagination = async () => {
-      if (totalProducts.length !== 0) {
-        if (1 < currentPageIndex) {
-          if (xl) {
-            const _pagedProducts = totalProducts.slice(
-              itemNumber * (currentPageIndex - 1),
-              itemNumber * (currentPageIndex - 1) + itemNumber
-            );
-
-            const _products = await Promise.all(
-              _pagedProducts.map(async (product) => {
-                return getDocs(
-                  collection(db, "product", product.id, "image")
-                ).then((imageResponse) => {
-                  const image = imageResponse.docs.filter(
-                    (doc) => doc.data().isCover === true
-                  );
-
-                  return {
-                    ...product.data(),
-                    id: product.id,
-                    imageUrl:
-                      0 < image.length ? image[0].data().imageUrl : null,
-                  };
-                });
-              })
-            );
-
-            setProducts(_products);
-            setBounds(
-              _pagedProducts.map((product) => [
-                product.data().location._lat,
-                product.data().location._long,
-              ])
-            );
-          } else {
-            const _pagedProducts = totalProducts.slice(
-              0,
-              itemNumber * (currentPageIndex - 1) + itemNumber
-            );
-
-            const _products = await Promise.all(
-              _pagedProducts.map(async (product) => {
-                return getDocs(
-                  collection(db, "product", product.id, "image")
-                ).then((imageResponse) => {
-                  const image = imageResponse.docs.filter(
-                    (doc) => doc.data().isCover === true
-                  );
-
-                  return {
-                    ...product.data(),
-                    id: product.id,
-                    imageUrl:
-                      0 < image.length ? image[0].data().imageUrl : null,
-                  };
-                });
-              })
-            );
-
-            setProducts(_products);
-            setBounds(
-              _pagedProducts.map((product) => [
-                product.data().location._lat,
-                product.data().location._long,
-              ])
-            );
-          }
-        } else {
-          const _pagedProducts = totalProducts.slice(0, itemNumber);
-
-          const _products = await Promise.all(
-            _pagedProducts.map(async (product) => {
-              return getDocs(
-                collection(db, "product", product.id, "image")
-              ).then((imageResponse) => {
+        const _products = await Promise.all(
+          snapshot.docs.map(async (product) => {
+            return getDocs(collection(db, "product", product.id, "image")).then(
+              (imageResponse) => {
                 const image = imageResponse.docs.filter(
                   (doc) => doc.data().isCover === true
                 );
@@ -140,29 +63,48 @@ const Home = () => {
                   id: product.id,
                   imageUrl: 0 < image.length ? image[0].data().imageUrl : null,
                 };
-              });
-            })
-          );
+              }
+            );
+          })
+        );
 
-          setProducts(_products);
-          setBounds(
-            _pagedProducts.map((product) => [
-              product.data().location._lat,
-              product.data().location._long,
-            ])
-          );
-        }
+        setTotalProducts(_products);
       }
+    );
 
-      if (currentPageIndex === totalPageNumber) {
-        setHasMore(false);
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (totalProducts && totalProducts.length !== 0) {
+      let _pagedProducts;
+      if (xl) {
+        _pagedProducts = totalProducts.slice(
+          itemNumber * (currentPageIndex - 1),
+          itemNumber * currentPageIndex
+        );
       } else {
-        setHasMore(true);
+        _pagedProducts = totalProducts.slice(0, itemNumber * currentPageIndex);
       }
-    };
 
-    pagination();
-  }, [xl, totalProducts, currentPageIndex]);
+      setProducts(_pagedProducts);
+      setBounds(
+        _pagedProducts.map((product) => [
+          product.location._lat,
+          product.location._long,
+        ])
+      );
+    } else {
+      setProducts([]);
+      setBounds([[49.225693, -123.107326]]);
+    }
+
+    if (currentPageIndex === totalPageNumber) {
+      setHasMore(false);
+    } else {
+      setHasMore(true);
+    }
+  }, [totalProducts, xl, currentPageIndex]);
 
   const handleOnScroll = () => {
     setCurrentPageIndex((oldData) => oldData + 1);
