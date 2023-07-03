@@ -5,6 +5,7 @@ import Layout from "./components/layout/Layout/Layout";
 import ProtectedRoute from "./components/layout/ProtectedRoute/ProtectedRoute";
 import TestComponents from "./TestingComponents/TestComponents";
 import "./utils/variable.css";
+import PaginationSample from "./TestingComponents/PaginationSample";
 
 // Lazy loading and suspense
 const Home = loadable(() => import("./pages/Home"));
@@ -83,6 +84,7 @@ function App() {
           </Route>
 
           <Route path="testComponent" element={<TestComponents />} />
+          <Route path="pagination" element={<PaginationSample />} />
 
           {/* Catch all - replace with 404 Not Found page if preferred */}
           {/* Catch all - replace with 404 Not Found page if preferred */}

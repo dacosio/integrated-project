@@ -30,6 +30,7 @@ const InfinitePagination = ({
       }
       style={{ gridTemplateColumns: `repeat(${columns}, 1fr)`, gap }}
       className={`${styles.wrapper}`}
+      {...props}
     >
       {items}
     </InfiniteScroll>
