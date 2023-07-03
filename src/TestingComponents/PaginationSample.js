@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import db from "../config/firebaseConfig";
 import InfinitePagination from "../components/base/InfinitePagination/InfinitePagination";
 import useMediaQuery from "../utils/useMediaQuery";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Pagination = ({
   totalProducts,
@@ -67,20 +68,18 @@ const PaginationSample = () => {
 
   // hide the data that we dont want to see.
   const currentProducts = products.slice(firstPostIndex, lastProductIndex);
-
+  const infiniteProducts = products.slice(0, lastProductIndex);
+  //   console.log(currentProducts, infiniteProducts);
   // end of pagination
 
   const xl = useMediaQuery("(min-width: 1270px");
 
-  //   useEffect(() => {
-  //     setProductsPerPage(4);
-  //   }, [xl]);
+  const lastPage = Math.ceil(products.length / productsPerPage);
 
-  //   useEffect(() => {
-  //     if (products.length < productsPerPage) {
-  //       setHasMore(false);
-  //     }
-  //   }, [productsPerPage]);
+  useEffect(() => {
+    if (currentPage === lastPage) setHasMore(false);
+    else setHasMore(true);
+  }, [currentPage]);
 
   return (
     <div>
@@ -103,14 +102,35 @@ const PaginationSample = () => {
         </>
       )}
       {!xl && (
-        <InfinitePagination
-          columns={1}
-          items={currentProducts?.map((p) => {
-            return <div key={p.id}>{p.name}</div>;
-          })}
-          hasMore={true}
-          onScroll={() => setProductsPerPage((prev) => prev + 4)}
-        />
+        <InfiniteScroll
+          dataLength={infiniteProducts.length}
+          next={() => {
+            console.log("Scrolling..");
+            setCurrentPage((prev) => prev + 1);
+          }}
+          hasMore={hasMore}
+          height={100}
+          loader={<h4>Loading...</h4>}
+          endMessage={
+            <p style={{ textAlign: "center" }}>
+              <b>Yay! You have seen it all</b>
+            </p>
+          }
+        >
+          {infiniteProducts.map((product) => (
+            <div
+              style={{
+                height: 30,
+                border: "1px solid green",
+                margin: 6,
+                padding: 8,
+              }}
+              key={product.id}
+            >
+              <h3>{product.name}</h3>
+            </div>
+          ))}
+        </InfiniteScroll>
       )}
     </div>
   );
