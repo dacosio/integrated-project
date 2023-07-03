@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./sellerInfoCard.module.css";
 import Typography from "../Typography/Typography";
 import LocationSVG from "../SVG/LocationSVG";
+import UserSVG from "../SVG/UserSVG";
 
 const SellerInfoCard = ({ source, username, location, items, ...props }) => {
   const inventory = () => {
@@ -18,7 +19,12 @@ const SellerInfoCard = ({ source, username, location, items, ...props }) => {
           <img src={source} alt="" />
         </div>
         <div class={`${styles["seller-details"]}`}>
-          <Typography variant="body-1-medium">{username}</Typography>
+          <div class={`${styles["seller-name-container"]}`}>
+            <UserSVG height={21} width={19} fill={"black"} />
+            <Typography variant="body-1-medium" style={{ marginLeft: ".5rem" }}>
+              {username}
+            </Typography>
+          </div>
           <div class={`${styles["location-container"]}`}>
             <LocationSVG height={19} width={14} stroke="black" />
             <Typography
@@ -28,7 +34,9 @@ const SellerInfoCard = ({ source, username, location, items, ...props }) => {
               {location}
             </Typography>
           </div>
-          <Typography variant="body-4-regular">{inventory()}</Typography>
+          <Typography variant="body-4-regular" style={{ marginLeft: ".4rem" }}>
+            {inventory()}
+          </Typography>
         </div>
       </div>
     </div>

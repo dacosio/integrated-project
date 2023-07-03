@@ -7,10 +7,11 @@ import "leaflet/dist/leaflet.css";
 import SellingItemCard from "../components/base/SellingItemCard/SellingItemCard";
 import DescriptionCard from "../components/base/DescriptionCard/DescriptionCard";
 import SellerInfoCard from "../components/base/SellerInfoCard/SellerInfoCard";
+import BackButton from "../components/base/BackButton/BackButton";
 
 const Yuki = () => {
   return (
-    <div>
+    <div style={{margin: "1rem", boxSizing: "border-box"}}>
       <section>
         <h1 style={{ textDecoration: "underline" }}>Yuki</h1>
         <div style={{marginBottom: "1rem"}}>
@@ -27,6 +28,7 @@ const Yuki = () => {
         <Typography variant="button-regular"> button-regular </Typography>
         </div>
 
+        <h3>Buyer Contact Card</h3>
         <div style={{marginBottom: "1rem"}}>
           <BuyerContactCard
             source="https://picsum.photos/200"
@@ -36,6 +38,7 @@ const Yuki = () => {
           />
         </div>
 
+        <h3>Description Card</h3>
         <div style={{marginBottom: "1rem"}}>
           <DescriptionCard
             onClick={() => console.log("test")}
@@ -43,6 +46,7 @@ const Yuki = () => {
           />
         </div>
 
+        <h3>Meet Up Info Card</h3>
         <div style={{marginBottom: "1rem"}}>
           <MeetUpInfoCard 
             date="Jun 23, 2023"
@@ -52,6 +56,7 @@ const Yuki = () => {
           />
         </div>
 
+        <h3>Selling Item Card</h3>
         <div style={{marginBottom: "1rem"}}>
         <SellingItemCard
             source="https://picsum.photos/200"
@@ -62,6 +67,8 @@ const Yuki = () => {
           />
         </div>
 
+
+        <h3>Seller Info Card</h3>
         <div style={{marginBottom: "1rem"}}>
         <SellerInfoCard
             source="https://picsum.photos/200"
@@ -69,6 +76,13 @@ const Yuki = () => {
             location="Vancouver, BC"
             items="1"
           />
+        </div>
+
+        <div>
+          <h3>Back Button</h3>
+          <BackButton />
+
+
         </div>
 
         <hr />

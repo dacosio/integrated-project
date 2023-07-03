@@ -4,6 +4,7 @@
   box-shadow: 2px 2px black;
   padding: 16px 16px 20px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .seller-information {
@@ -33,6 +34,7 @@
 .location-container {
   display: flex;
   align-items: center;
+  margin-left: .2rem;
 }
 
 .seller-details {
@@ -40,10 +42,13 @@
   row-gap: .4rem;;
 }
 
+.seller-name-container{
+  display: flex;
+  align-items: center;
+}
+
 @media screen and (min-width: 1440px) {
   .seller-information {
-    max-width: 733px;
-    max-height: 148px;
     display: flex;
   }
 
