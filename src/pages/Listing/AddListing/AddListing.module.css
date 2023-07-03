@@ -1,3 +1,14 @@
+.contentWrapper{
+  background-color: var(--bg-gray);
+  padding: 2rem;
+}
+
+@media screen and (min-width: 600px) {
+  .contentWrapper{
+  padding: 4rem;
+}
+}
+
 .imageWrapper {
   grid-row: 2/16;
 }
@@ -9,6 +20,7 @@
   border-radius: 100px;
   border: 2px solid black;
   box-shadow: 2px 2px black;
+  margin: 32px 0;
 }
 
 .itemNameWrapper,
@@ -45,4 +57,8 @@
 
 .divideWrapper {
   width: 50%;
+}
+
+.mobileWrapper{
+  box-sizing: border-box;
 }
