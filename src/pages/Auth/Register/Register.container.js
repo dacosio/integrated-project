@@ -104,6 +104,8 @@ const Register = () => {
                       contactNumber,
                       imageUrl,
                       placeValue.formatted_address
+                        ? placeValue.formatted_address
+                        : ""
                     );
                   });
                 }
@@ -119,7 +121,7 @@ const Register = () => {
               lastName,
               contactNumber,
               "",
-              placeValue.formatted_address
+              placeValue.formatted_address ? placeValue.formatted_address : ""
             );
           }
           navigate("/");
