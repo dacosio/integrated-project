@@ -7,7 +7,8 @@ import Pagination from "../../../components/base/Pagination/Pagination";
 import "./TransactionList.modules.css";
 
 const TransactionList = (props) => {
-  const [orderStatus, setOrderStatus] = useState('');
+  const { orderType, setOrderType } = props;
+  const [orderStatus, setOrderStatus] = useState("");
 
   const handleStatusChange = (event) => {
     setOrderStatus(event.target.value);
@@ -24,7 +25,7 @@ const TransactionList = (props) => {
       <div className="title-wrapper">
         <Typography variant="h3-graphik-bold">Orders</Typography>
         <SelectDropdown
-          selectedStatus={orderStatus}
+          selectedStatus={orderType}
           handleStatusChange={handleStatusChange}
           options={options}
           label="Select"
@@ -39,12 +40,45 @@ const TransactionList = (props) => {
       </div>
 
       <div className="orders">
-        <TransactionCard type="selling" itemName="banana" time="2" portions="10" sellerName="cylvito" price="5" source="https://picsum.photos/200/400"/>
-        <TransactionCard type="buying" itemName="banana" time="2" portions="10" sellerName="cylvito" price="5" source="https://picsum.photos/200/400"/>
-        <TransactionCard type="completed" itemName="banana" time="2" portions="10" sellerName="cylvito" price="5" source="https://picsum.photos/200/400"/>
-        <TransactionCard type="selling" itemName="banana" time="2" portions="10" sellerName="cylvito" price="5" source="https://picsum.photos/200/400"/>
+        <TransactionCard
+          type="selling"
+          itemName="banana"
+          time="2"
+          portions="10"
+          sellerName="cylvito"
+          price="5"
+          source="https://picsum.photos/200/400"
+        />
+        <TransactionCard
+          type="buying"
+          itemName="banana"
+          time="2"
+          portions="10"
+          sellerName="cylvito"
+          price="5"
+          source="https://picsum.photos/200/400"
+        />
+        <TransactionCard
+          type="completed"
+          itemName="banana"
+          time="2"
+          portions="10"
+          sellerName="cylvito"
+          price="5"
+          source="https://picsum.photos/200/400"
+        />
+        <TransactionCard
+          type="selling"
+          itemName="banana"
+          time="2"
+          portions="10"
+          sellerName="cylvito"
+          price="5"
+          source="https://picsum.photos/200/400"
+        />
       </div>
 
+      <button onClick={() => setOrderType("selling")}>Toggle </button>
       <Pagination />
     </div>
   );

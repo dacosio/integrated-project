@@ -1,20 +1,40 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import TransactionListView from "./TransactionList.view";
+import { collection, onSnapshot } from "@firebase/firestore";
+import db from "../../../config/firebaseConfig";
 
 const TransactionList = (props) => {
-}
-//   const [items, setItems] = useState([]);
-//   const [currentPageIndex, setCurrentPageIndex] = useState(1);
+  const [orders, setOrders] = useState([]);
+  const [orderStatus, setOrderStatus] = useState("pending");
+  const [orderType, setOrderType] = useState("buying");
 
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "order"), (snapshot) => {
+        return setOrders(
+          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        );
+      }),
+    []
+  );
 
+  const filteredItems = orders.filter((o) => o.orderType === orderType);
 
+  console.log(filteredItems);
 
-//   return <TransactionListView {...generatedProps} />;
-// };
+  const generatedProps = {
+    // generated props here
+
+    orders,
+    orderStatus,
+    orderType,
+    setOrderType,
+  };
+  return <TransactionListView {...generatedProps} />;
+};
 
 export default TransactionList;
-
 
 // // Create a reference to the cities collection
 // import { collection, query, where } from "firebase/firestore";
