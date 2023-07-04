@@ -124,6 +124,7 @@ const Home = (props) => {
                   borderRadius="20px"
                   zIndex={2}
                   bounds={desktopBounds}
+                  showActiveListing={true}
                 />
               )}
             </div>
@@ -142,6 +143,7 @@ const Home = (props) => {
                 height="30vh"
                 zIndex={2}
                 bounds={mobileBounds}
+                showActiveListing={true}
               />
             )}
           </div>
