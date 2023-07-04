@@ -11,7 +11,7 @@ import MapLeaflet from "../../../components/module/MapLeaflet/MapLeaflet";
 import { orderBy } from "lodash";
 
 const TransactionDetail = (props) => {
-  const { orders } = props;
+  const { orders, navigate } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
 
@@ -51,7 +51,7 @@ const TransactionDetail = (props) => {
   return (
     <div style={{ backgroundColor: "var(--bg-gray)", minHeight: "100vh" }}>
       <div className={styles.backButtonWrapper}>
-        <BackButton onClick={() => console.log("test")} />
+        <BackButton onClick={() => navigate(-1)} />
       </div>
 
       {isDesktop ? (

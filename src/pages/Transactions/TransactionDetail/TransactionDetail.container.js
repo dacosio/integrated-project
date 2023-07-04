@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import { query, collection, orderBy, getDocs } from "firebase/firestore";
 import db from "../../../config/firebaseConfig";
 import TransactionDetailView from "./TransactionDetail.view";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const TransactionDetail = () => {
   const [orders, setOrders] = useState([]);
-  const generatedProps = {
-    orders,
-  };
 
   useEffect(() => {
     const ordersCollectionRef = collection(db, "order");
@@ -42,6 +40,13 @@ const TransactionDetail = () => {
       })
       .catch((error) => console.log(error));
   }, []);
+
+  const navigate = useNavigate();
+
+  const generatedProps = {
+    orders,
+    navigate,
+  };
 
   return <TransactionDetailView {...generatedProps} />;
 };
