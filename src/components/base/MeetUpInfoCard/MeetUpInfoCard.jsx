@@ -18,7 +18,7 @@ const MeetUpInfoCard = ({ date, time, location, latitude, longitude, showActiveL
       <div className={`${styles["title-container"]}`}>
         <Typography variant="h4-graphik-bold">Meet-up Info</Typography>
       </div>
-      <div className={`${styles["date-container"]}`}>
+  
         <CalendarSVG
           height={23}
           width={20}
@@ -28,8 +28,8 @@ const MeetUpInfoCard = ({ date, time, location, latitude, longitude, showActiveL
         <Typography variant="body-1-medium" color="gray">
           {date}
         </Typography>
-      </div>
-      <div className={`${styles["time-container"]}`}>
+
+      
         <ClockSVG
           height={23}
           width={20}
@@ -39,8 +39,8 @@ const MeetUpInfoCard = ({ date, time, location, latitude, longitude, showActiveL
         <Typography variant="body-1-medium" color="gray">
           {time}
         </Typography>
-      </div>
-      <div className={`${styles["location-container"]}`}>
+
+      
         <LocationBoldSVG
           style={{ gridColumn: "0", marginRight: "1rem" }}
           height={23}
@@ -49,7 +49,7 @@ const MeetUpInfoCard = ({ date, time, location, latitude, longitude, showActiveL
         <Typography variant="body-1-medium" color="gray">
           {location}
         </Typography>
-      </div>
+      
       <div className={`${styles["map-container"]}`}>
         <MapLeaflet
           markerData={coordinates}
