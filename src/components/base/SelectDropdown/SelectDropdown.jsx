@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Select from "react-dropdown-select";
 import "./selectDropdown.css";
 
-const SelectDropdown = (props) => {
+const SelectDropdown = ({ selectedFilter, handleFilterChange, ...props }) => {
   const style = {
     borderRadius: "12px",
     height: "32px",
@@ -16,7 +16,14 @@ const SelectDropdown = (props) => {
 
   return (
     <div>
-      <Select {...props} style={style} dropdownGap={0} dropdownHeight="300px" />
+      <Select
+        options={props.options}
+        selectedFilter={selectedFilter}
+        handleFilterChange={handleFilterChange}
+        style={style}
+        dropdownGap={0}
+        dropdownHeight="300px"
+      />
     </div>
   );
 };

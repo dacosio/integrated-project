@@ -1,11 +1,11 @@
 import React from "react";
 import Button from "../Button/Button";
-import "./TransactionCard.css";
+import "./TransactionCard.modules.css";
 import Typography from "../Typography/Typography";
 import { DivIcon } from "leaflet";
 
 const TransactionCard = (props) => {
-  const { type, source, itemName, time, portions, sellerName, price } = props;
+  const { type, source, itemName, time, portions, sellerName, price, onClickHandler } = props;
 
   const days = () => {
     if (time === "1") {
@@ -17,7 +17,8 @@ const TransactionCard = (props) => {
 
   const buttons = () => {
     if (type === "buying") {
-      return <Button size="sm" variant="gray" label="Cancel" />;
+      return <Button size="sm" variant="gray" label="Cancel" onClick={onClickHandler}
+       />;
     } else if (type === "selling") {
       return (
         <>

@@ -1,9 +1,9 @@
 import React from "react";
-import "./SellerInfoCard.css";
+import "./SellerInfoCard.modules.css";
 import Typography from "../Typography/Typography";
 import LocationSVG from "../SVG/LocationSVG"
 
-const SellerInfoCard = ({source, username, location, items}) => {
+const SellerInfoCard = ({source, username, location, items, alt}) => {
 const inventory = () => {
   return items === "1" ? `1 item sold` : `${items} items sold`;
 };
@@ -13,7 +13,7 @@ return (
         <Typography variant="h4-graphik-bold" style={{marginBottom: "12px"}}>Seller Information</Typography>
       <div className="seller-information">
         <div className="image-container">
-          <img src={source} alt="" />
+          <img src={source} alt={alt} />
         </div>
         <div className="seller-details">
           <Typography variant="body-1-medium">{username}</Typography>
