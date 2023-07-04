@@ -40,7 +40,7 @@ const ProfileDetail = ({ data, sm, md, lg, xl }) => {
           }
         >
           <Typography variant="h3-graphik-bold">{data?.displayName}</Typography>
-          {data.address && (
+          {data?.address && (
             <div className={style.location}>
               <MarkerSmallSVG />
               <Typography variant="body-3-medium">{data?.address}</Typography>
