@@ -19,8 +19,8 @@ const LocationSVG = ({ width, height, fill, stroke, ...props }) => {
       <path
         d="M7.32 10.23C8.94924 10.23 10.27 8.90924 10.27 7.28C10.27 5.65076 8.94924 4.33 7.32 4.33C5.69076 4.33 4.37 5.65076 4.37 7.28C4.37 8.90924 5.69076 10.23 7.32 10.23Z"
         stroke="#404040"
-        stroke-width="2"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinejoin="round"
       />
     </svg>
   );

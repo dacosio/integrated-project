@@ -1,10 +1,8 @@
-.seller-information-wrapper{
+.seller-information-wrapper {
   border: 2px solid var(--black);
   border-radius: 20px;
   box-shadow: 2px 2px black;
   padding: 16px 16px 20px;
-  width: 100%;
-  box-sizing: border-box;
 }
 
 .seller-information {
@@ -13,6 +11,7 @@
   align-content: center;
   align-items: center;
   background-color: #fff;
+  width: 100%;
 }
 
 .seller-information-wrapper .image-container {
@@ -34,15 +33,15 @@
 .location-container {
   display: flex;
   align-items: center;
-  margin-left: .2rem;
+  margin-left: 0.2rem;
 }
 
 .seller-details {
   display: grid;
-  row-gap: .4rem;;
+  row-gap: 0.4rem;
 }
 
-.seller-name-container{
+.seller-name-container {
   display: flex;
   align-items: center;
 }
@@ -52,7 +51,7 @@
     display: flex;
   }
 
-  .seller-information-wrapper{
+  .seller-information-wrapper {
     padding: 16px 20px 20px;
   }
 }

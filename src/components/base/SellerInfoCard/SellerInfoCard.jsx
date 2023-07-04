@@ -10,22 +10,22 @@ const SellerInfoCard = ({ source, username, location, items, ...props }) => {
   };
 
   return (
-    <div class={`${styles["seller-information-wrapper"]}`}>
+    <div className={`${styles["seller-information-wrapper"]}`}>
       <Typography variant="h4-graphik-bold" style={{ marginBottom: "12px" }}>
         Seller Information
       </Typography>
-      <div class={`${styles["seller-information"]}`}>
-        <div class={`${styles["image-container"]}`}>
+      <div className={`${styles["seller-information"]}`}>
+        <div className={`${styles["image-container"]}`}>
           <img src={source} alt="" />
         </div>
-        <div class={`${styles["seller-details"]}`}>
-          <div class={`${styles["seller-name-container"]}`}>
+        <div className={`${styles["seller-details"]}`}>
+          <div className={`${styles["seller-name-container"]}`}>
             <UserSVG height={21} width={19} fill={"black"} />
             <Typography variant="body-1-medium" style={{ marginLeft: ".5rem" }}>
               {username}
             </Typography>
           </div>
-          <div class={`${styles["location-container"]}`}>
+          <div className={`${styles["location-container"]}`}>
             <LocationSVG height={19} width={14} stroke="black" />
             <Typography
               variant="body-2-regular"

@@ -6,7 +6,7 @@
   margin: 0;
   padding: 0;
   max-height: 224px;
-  width: 100%;
+  min-width: 330px;
 }
 
 .selling-item-card {
@@ -46,7 +46,7 @@
 
 @media screen and (min-width: 1440px) {
   .selling-item-card {
-    width: 100%;
+    width: 438px;
     max-height: 224px;
   }
 

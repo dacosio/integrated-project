@@ -51,8 +51,10 @@ const Yuki = () => {
           <MeetUpInfoCard 
             date="Jun 23, 2023"
             time="14:00"
-            location="100 W 49th Ave, Vancouver,
-            BC V5Y 2Z6"
+            location="100 W 49th Ave, Vancouver, BC V5Y 2Z6"
+            // markerData="49.225693, -123.107326"
+            latitude="49.225693"
+            longitude="-123.107326"
           />
         </div>
 
