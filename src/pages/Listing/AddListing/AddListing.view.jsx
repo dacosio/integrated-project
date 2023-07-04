@@ -654,7 +654,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                         label="Post Listing"
                         size="lg"
                         style={{
-                          width: "326px",
+                          // width: "326px",
                           display: "block",
                           margin: "60px auto",
                         }}
