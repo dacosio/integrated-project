@@ -25,13 +25,10 @@ const Home = () => {
   const { user, logout } = UserAuth();
 
   const [zoom, setZoom] = useState(12);
-  const [bounds, setBounds] = useState([[49.225693, -123.107326]]);
   const [categories, setCategories] = useState([]);
-  const [totalProducts, setTotalProducts] = useState();
-  const [products, setProducts] = useState();
+  const [products, setProducts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
-  const [totalPageNumber, setTotalPageNumber] = useState();
   const pageNumber = 5;
   const itemNumber = 4;
 
@@ -47,66 +44,64 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(
-      query(collection(db, "product"), orderBy("createdAt", "desc")),
-      async (snapshot) => {
-        setTotalPageNumber(Math.ceil(snapshot.docs.length / itemNumber));
-
-        const _products = await Promise.all(
-          snapshot.docs.map(async (product) => {
-            return getDocs(collection(db, "product", product.id, "image")).then(
-              (imageResponse) => {
-                const image = imageResponse.docs.filter(
-                  (doc) => doc.data().isCover === true
-                );
-
-                return {
-                  ...product.data(),
-                  id: product.id,
-                  imageUrl: 0 < image.length ? image[0].data().imageUrl : null,
-                };
-              }
-            );
-          })
-        );
-
-        setTotalProducts(_products);
-      }
-    );
+    const unsubscribe = onSnapshot(collection(db, "product"), (snapshot) => {
+      // const newProducts = snapshot.docs.map((doc) => ({
+      //   ...doc.data(),
+      //   id: doc.id,
+      // }));
+      console.log(
+        snapshot.docs.filter((doc) => {
+          return (
+            doc.data().location !== undefined &&
+            doc.data().createdAt !== undefined
+          );
+        }).length
+      );
+      const newProducts = snapshot.docs
+        .filter((doc) => {
+          console.log(doc.data().location !== undefined);
+          return doc.data().location !== undefined;
+        })
+        .map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+      setProducts(newProducts);
+    });
 
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    if (totalProducts && totalProducts.length !== 0) {
-      let _pagedProducts;
-      if (xl) {
-        _pagedProducts = totalProducts.slice(
-          itemNumber * (currentPageIndex - 1),
-          itemNumber * currentPageIndex
-        );
-      } else {
-        _pagedProducts = totalProducts.slice(0, itemNumber * currentPageIndex);
-      }
+  const totalPageNumber = Math.ceil(products.length / pageNumber);
 
-      setProducts(_pagedProducts);
-      setBounds(
-        _pagedProducts.map((product) => [
+  const desktopProducts = products.slice(
+    itemNumber * currentPageIndex - itemNumber,
+    itemNumber * currentPageIndex
+  );
+  const mobileProducts = products.slice(0, itemNumber * currentPageIndex);
+
+  const desktopBounds =
+    desktopProducts.length !== 0
+      ? desktopProducts.map((product) => [
           product.location._lat,
           product.location._long,
         ])
-      );
-    } else {
-      setProducts([]);
-      setBounds([[49.225693, -123.107326]]);
-    }
+      : [[49.225693, -123.107326]];
+  const mobileBounds =
+    mobileProducts.length !== 0
+      ? mobileProducts.map((product) => [
+          product.location._lat,
+          product.location._long,
+        ])
+      : [[49.225693, -123.107326]];
 
+  useEffect(() => {
     if (currentPageIndex === totalPageNumber) {
       setHasMore(false);
     } else {
       setHasMore(true);
     }
-  }, [totalProducts, xl, currentPageIndex]);
+  }, [currentPageIndex, totalPageNumber]);
 
   const handleOnScroll = () => {
     setCurrentPageIndex((oldData) => oldData + 1);
@@ -148,7 +143,9 @@ const Home = () => {
 
   const generatedProps = {
     user,
-    products,
+    // products,
+    desktopProducts,
+    mobileProducts,
     hasMore,
     columns,
     lg,
@@ -157,7 +154,8 @@ const Home = () => {
     currentPageIndex,
     pageNumber,
     totalPageNumber,
-    bounds,
+    desktopBounds,
+    mobileBounds,
     latitude,
     longitude,
     error,

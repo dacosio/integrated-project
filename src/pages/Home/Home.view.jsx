@@ -22,13 +22,15 @@ const Home = (props) => {
     pageNumber,
     totalPageNumber,
     handleOnClick,
-    products,
+    desktopProducts,
+    mobileProducts,
     handleOnScroll,
     hasMore,
     latitude,
     longitude,
     error,
-    bounds,
+    desktopBounds,
+    mobileBounds,
     currentAddress,
   } = props;
 
@@ -58,8 +60,8 @@ const Home = (props) => {
                 }}
                 gap="1rem"
               >
-                {products &&
-                  products.map((product) => {
+                {desktopProducts &&
+                  desktopProducts.map((product) => {
                     let tmp = {
                       latitude: product.location._lat,
                       longitude: product.location._long,
@@ -111,17 +113,17 @@ const Home = (props) => {
               />
             </div>
             <div className={style.mapDesktop}>
-              {products && bounds && (
+              {desktopProducts && desktopBounds && (
                 <MapLeaflet
                   zoom={zoom}
-                  markerData={products}
+                  markerData={desktopProducts}
                   direction="top"
                   // permanent
                   width="100%"
                   height="100%"
                   borderRadius="20px"
                   zIndex={2}
-                  bounds={bounds}
+                  bounds={desktopBounds}
                 />
               )}
             </div>
@@ -130,16 +132,16 @@ const Home = (props) => {
       ) : (
         <>
           <div>
-            {products && bounds && (
+            {mobileProducts && mobileBounds && (
               <MapLeaflet
                 zoom={zoom}
-                markerData={products}
+                markerData={mobileProducts}
                 direction="top"
                 // permanent
                 width="100%"
                 height="30vh"
                 zIndex={2}
-                bounds={bounds}
+                bounds={mobileBounds}
               />
             )}
           </div>
@@ -157,13 +159,13 @@ const Home = (props) => {
                 </Typography>
               </div>
             )}
-            {products && (
+            {mobileProducts && (
               <InfinitePagination
                 columns={columns}
                 gap="1rem"
                 items={
-                  products &&
-                  products.map((product, index) => {
+                  mobileProducts &&
+                  mobileProducts.map((product, index) => {
                     let tmp = {
                       latitude: product.location._lat,
                       longitude: product.location._long,
