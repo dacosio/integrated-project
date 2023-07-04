@@ -1,0 +1,25 @@
+.headerWrapper {
+  transform: translateY(-25%);
+  /* margin-bottom: 30px; */
+  padding: 0 16px;
+}
+
+.headerWrapperDesktop {
+  transform: translateY(-50%);
+  padding: 0 16px;
+
+  display: flex;
+  align-items: "center";
+  gap: 1rem;
+}
+
+.location,
+.sold {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.location {
+  padding: 8px 0;
+}

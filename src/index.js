@@ -7,17 +7,26 @@ import App from "./App";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext";
 import { SearchProvider } from "./context/SearchContext";
+import { CategoryProvider } from "./context/CategoryContext";
+import { SortProvider } from "./context/SortContext";
+import { PlaceProvider } from "./context/PlaceContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
       <SearchProvider>
-        <Router>
-          <Routes>
-            <Route path="/*" element={<App />} />
-          </Routes>
-        </Router>
+        <CategoryProvider>
+          <SortProvider>
+            <PlaceProvider>
+              <Router>
+                <Routes>
+                  <Route path="/*" element={<App />} />
+                </Routes>
+              </Router>
+            </PlaceProvider>
+          </SortProvider>
+        </CategoryProvider>
       </SearchProvider>
     </AuthContextProvider>
   </React.StrictMode>

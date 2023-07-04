@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import useGoogle from "react-google-autocomplete/lib/usePlacesAutocompleteService";
 import styles from "./mapSearch.module.css";
 import SearchField from "../SearchField/SearchField";
+import { Place } from "../../../context/PlaceContext";
 
 const { wrapper, prediction, predictionItem } = styles;
 
-const MapSearch = () => {
+const MapSearch = ({ placeholder = "Search location" }) => {
   const {
     placesService,
     placePredictions,
@@ -15,11 +16,12 @@ const MapSearch = () => {
     apiKey: process.env.REACT_APP_MAPS_API_KEY,
   });
   const [value, setValue] = useState("");
-  const [place, setPlace] = useState("");
+  const { updatePlaceValue } = Place();
 
   const handleReset = () => {
     setValue("");
     getPlacePredictions({ input: "" });
+    updatePlaceValue("");
   };
 
   const handleSelectPlace = (item) => {
@@ -29,7 +31,7 @@ const MapSearch = () => {
       {
         placeId: item.place_id,
       },
-      (placeDetails) => setPlace(placeDetails)
+      (placeDetails) => updatePlaceValue(placeDetails)
     );
   };
   return (
@@ -41,7 +43,7 @@ const MapSearch = () => {
           getPlacePredictions({ input: evt.target.value });
           setValue(evt.target.value);
         }}
-        placeholder="Search location"
+        placeholder={placeholder}
         location
       />
       <div className={prediction}>

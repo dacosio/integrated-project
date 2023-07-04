@@ -6,23 +6,29 @@
 }
 
 .prediction {
-  padding-top: 1rem;
+  /* padding-top: 1rem; */
   position: absolute;
-  top: 100%;
+  bottom: 100%;
+  background-color: var(--bg-gray);
+  border-radius: 8px;
+  margin-bottom: 0.3rem;
 }
 
 .predictionItem {
-  max-width: 500px;
-  width: 100%;
+  /* max-width: 500px; */
+  /* width: 100%; */
   text-align: left;
   cursor: pointer;
-  border-bottom: 1px dotted black;
-  padding: 0.5rem 0;
-  padding-left: 1rem;
+  /* padding: 0.5rem 0; */
+  /* padding-left: 1rem; */
+  padding: 0.5rem 1rem;
+  z-index: 100 !important;
+}
+.predictionItem:not(:first-child) {
+  border-top: 1px dotted black;
 }
 
 .predictionItem:hover {
-  background-color: tomato;
-  color: white;
-  border-radius: 8px;
+  background-color: var(--black);
+  color: var(--white);
 }

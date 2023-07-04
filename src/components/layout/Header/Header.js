@@ -11,9 +11,20 @@ import { FilterSVG, LogoSVG } from "../../base/SVG";
 import useMediaQuery from "../../../utils/useMediaQuery";
 import Filter from "../../module/Filter/Filter";
 import { ToastContainer, toast } from "react-toastify";
+import { useEffect } from "react";
+import { collection, onSnapshot } from "firebase/firestore";
+import db from "../../../config/firebaseConfig";
+import { Category } from "../../../context/CategoryContext";
+import { Sort } from "../../../context/SortContext";
 
 const Header = () => {
   const { user, logout } = UserAuth();
+  const { searchValue, updateSearchValue, resetSearchValue } =
+    useContext(SearchContext);
+
+  const { updateCategoryValue } = Category();
+  const { updateSortValue } = Sort();
+
   const [filterSelected, setFilterSelected] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -21,22 +32,20 @@ const Header = () => {
   const [sortHigh, setSortHigh] = useState(false);
   const [sortLow, setSortLow] = useState(false);
   const [selectedOption, setSelectedOption] = useState(false);
-  const options = [
-    {
-      value: 1,
-      label: "Leanne Graham",
-    },
-    {
-      value: 2,
-      label: "Ervin Howell",
-    },
-  ];
+  const [options, setOptions] = useState([]);
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "category"), (snapshot) => {
+        return setOptions(
+          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        );
+      }),
+    []
+  );
 
   const handleLogOut = async () => {
     await logout();
   };
-  const { searchValue, updateSearchValue, resetSearchValue } =
-    useContext(SearchContext);
 
   const handleInputChange = (event) => {
     updateSearchValue(event.target.value);
@@ -65,21 +74,23 @@ const Header = () => {
             onClickHandler={user ? handleLogOut : handleLogin}
           />
         </div>
-        <div className={styles.mobileFilter}>
-          <SearchField
-            value={searchValue}
-            resetValue={resetSearchValue}
-            onChange={handleInputChange}
-            placeholder="What are you looking for?"
-          />
-          <FilterSVG
-            height={22}
-            width={25}
-            fill={"var(--white)"}
-            selected={filterSelected}
-            onClick={() => setFilterSelected(!filterSelected)}
-          />
-        </div>
+        {location.pathname === "/" && (
+          <div className={styles.mobileFilter}>
+            <SearchField
+              value={searchValue}
+              resetValue={resetSearchValue}
+              onChange={handleInputChange}
+              placeholder="What are you looking for?"
+            />
+            <FilterSVG
+              height={22}
+              width={25}
+              fill={"var(--white)"}
+              selected={filterSelected}
+              onClick={() => setFilterSelected(!filterSelected)}
+            />
+          </div>
+        )}
       </div>
     );
   };
@@ -149,7 +160,7 @@ const Header = () => {
                 </a>
               )}
             </li>
-            <li>
+            {/* <li>
               {user != null ? (
                 <Link
                   style={
@@ -171,7 +182,7 @@ const Header = () => {
                   Settings
                 </a>
               )}
-            </li>
+            </li> */}
             <li>
               {user != null ? (
                 <Link
@@ -197,21 +208,23 @@ const Header = () => {
             </li>
           </ul>
         </div>
-        <div className={styles.mdBot}>
-          <SearchField
-            value={searchValue}
-            resetValue={resetSearchValue}
-            onChange={handleInputChange}
-            placeholder="What are you looking for?"
-          />
-          <FilterSVG
-            height={22}
-            width={25}
-            fill={"var(--white)"}
-            selected={filterSelected}
-            onClick={() => setFilterSelected(!filterSelected)}
-          />
-        </div>
+        {location.pathname === "/" && (
+          <div className={styles.mdBot}>
+            <SearchField
+              value={searchValue}
+              resetValue={resetSearchValue}
+              onChange={handleInputChange}
+              placeholder="What are you looking for?"
+            />
+            <FilterSVG
+              height={22}
+              width={25}
+              fill={"var(--white)"}
+              selected={filterSelected}
+              onClick={() => setFilterSelected(!filterSelected)}
+            />
+          </div>
+        )}
       </div>
     );
   };
@@ -282,7 +295,7 @@ const Header = () => {
                   </a>
                 )}
               </li>
-              <li>
+              {/* <li>
                 {user != null ? (
                   <Link
                     style={
@@ -304,7 +317,7 @@ const Header = () => {
                     Settings
                   </a>
                 )}
-              </li>
+              </li> */}
               <li>
                 {user != null ? (
                   <Link
@@ -331,21 +344,23 @@ const Header = () => {
             </ul>
           </div>
 
-          <div className={styles.lgFilterRight}>
-            <SearchField
-              value={searchValue}
-              resetValue={resetSearchValue}
-              onChange={handleInputChange}
-              placeholder="What are you looking for?"
-            />
-            <FilterSVG
-              height={22}
-              width={25}
-              fill={"var(--white)"}
-              selected={filterSelected}
-              onClick={() => setFilterSelected(!filterSelected)}
-            />
-          </div>
+          {location.pathname === "/" && (
+            <div className={styles.lgFilterRight}>
+              <SearchField
+                value={searchValue}
+                resetValue={resetSearchValue}
+                onChange={handleInputChange}
+                placeholder="What are you looking for?"
+              />
+              <FilterSVG
+                height={22}
+                width={25}
+                fill={"var(--white)"}
+                selected={filterSelected}
+                onClick={() => setFilterSelected(!filterSelected)}
+              />
+            </div>
+          )}
         </div>
       </div>
     );
@@ -359,19 +374,23 @@ const Header = () => {
             <LogoSVG width={200} height={41} />
           </div>
 
-          <SearchField
-            value={searchValue}
-            resetValue={resetSearchValue}
-            onChange={handleInputChange}
-            placeholder="What are you looking for?"
-          />
-          <FilterSVG
-            height={22}
-            width={25}
-            fill={"var(--white)"}
-            selected={filterSelected}
-            onClick={() => setFilterSelected(!filterSelected)}
-          />
+          {location.pathname === "/" && (
+            <>
+              <SearchField
+                value={searchValue}
+                resetValue={resetSearchValue}
+                onChange={handleInputChange}
+                placeholder="What are you looking for?"
+              />
+              <FilterSVG
+                height={22}
+                width={25}
+                fill={"var(--white)"}
+                selected={filterSelected}
+                onClick={() => setFilterSelected(!filterSelected)}
+              />
+            </>
+          )}
         </div>
         <div className={styles.xlRight}>
           <ul>
@@ -410,7 +429,7 @@ const Header = () => {
                 </a>
               )}
             </li>
-            <li>
+            {/* <li>
               {user != null ? (
                 <Link
                   style={
@@ -432,7 +451,7 @@ const Header = () => {
                   Settings
                 </a>
               )}
-            </li>
+            </li> */}
             <li>
               {user != null ? (
                 <Link

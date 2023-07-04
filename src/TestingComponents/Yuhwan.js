@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import store from "../config/firebaseConfig";
 import { storage } from "../config/firebaseConfig";
+import {
+  collection,
+  query,
+  orderBy,
+  startAfter,
+  limit,
+  getDocs,
+} from "firebase/firestore";
+
 import {
   ref,
   uploadBytesResumable,
   getDownloadURL,
   listAll,
 } from "firebase/storage";
-import Page from "../components/base/Page/Page";
 import Pagination from "../components/base/Pagination/Pagination";
 import SingleImageInput from "../components/base/SingleImageInput/SingleImageInput";
 import ImageInput from "../components/base/ImageInput/ImageInput";
@@ -18,7 +27,11 @@ import ImageList from "../components/base/ImageList/ImageList";
 import InfinitePagination from "../components/base/InfinitePagination/InfinitePagination";
 import Accordion from "../components/base/Accordion/Accordion";
 import Button from "../components/base/Button/Button";
+import Grid from "../components/layout/Grid/Grid";
+import ActiveListingCard from "../components/base/ActiveListingCard/ActiveListingCard";
 import Modal from "../components/base/Modal/Modal";
+
+import { v4 as uuidv4 } from "uuid";
 
 const Yuhwan = (props) => {
   /* Pagination */
@@ -27,54 +40,175 @@ const Yuhwan = (props) => {
   const [totalPageNumber, setTotalPageNumber] = useState();
   const [items, setItems] = useState([]);
 
-  const itemNumber = 10;
-  const columns = ["id", "category", "title", "price"];
+  const itemNumber = 4;
 
-  useState(() => {
-    fetch(
-      `https://dummyjson.com/products?limit=${itemNumber}&skip=0&select=category,title,price`
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setItems(data.products);
-      });
+  useEffect(() => {
+    const productsQuery = query(
+      collection(store, "product"),
+      orderBy("createdAt", "desc")
+    );
 
-    fetch(
-      `https://dummyjson.com/products?limit=0&skip=0&select=category,title,price`
-    )
+    getDocs(productsQuery)
       .then((response) => {
-        return response.json();
+        setTotalPageNumber(Math.ceil(response.docs.length / itemNumber));
+
+        if (currentPageIndex === totalPageNumber) {
+          setHasMore(false);
+        } else {
+          setHasMore(true);
+        }
+
+        if (1 < currentPageIndex) {
+          let _productsQuery;
+
+          _productsQuery = query(
+            collection(store, "product"),
+            orderBy("createdAt", "desc"),
+            limit(itemNumber * (currentPageIndex - 1))
+          );
+
+          getDocs(_productsQuery)
+            .then((response) => {
+              const docs = [];
+              response.docs.forEach((doc) => {
+                docs.push(doc);
+              });
+
+              const __productsQuery = query(
+                collection(store, "product"),
+                orderBy("createdAt", "desc"),
+                startAfter(docs[docs.length - 1]),
+                limit(itemNumber)
+              );
+
+              getDocs(__productsQuery)
+                .then((response) => {
+                  const _items = [];
+                  response.docs.forEach((doc, index) => {
+                    const data = doc.data();
+
+                    const today = new Date();
+                    let createdAt = new Date(data.createdAt.toDate());
+                    createdAt.setHours(0, 0, 0, 0);
+                    today.setHours(0, 0, 0, 0);
+                    const timeDiff = today.getTime() - createdAt.getTime();
+                    const days = Math.abs(
+                      Math.floor(timeDiff / (1000 * 60 * 60 * 24))
+                    );
+
+                    _items.push(
+                      <ActiveListingCard
+                        days={days}
+                        source={`https://picsum.photos/id/${
+                          index + 1
+                        }0/1500/1500`}
+                        itemname={data.name}
+                        price={data.price}
+                        stock={data.qty}
+                        key={index}
+                      />
+                    );
+                  });
+
+                  setItems([..._items]);
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+
+          _productsQuery = query(
+            collection(store, "product"),
+            orderBy("createdAt", "desc"),
+            limit(itemNumber * currentPageIndex)
+          );
+
+          getDocs(_productsQuery)
+            .then((response) => {
+              console.log(`scrolledItems : ${response.docs.length}`);
+
+              const _items = [];
+              response.docs.forEach((doc, index) => {
+                const data = doc.data();
+
+                const today = new Date();
+                let createdAt = new Date(data.createdAt.toDate());
+                createdAt.setHours(0, 0, 0, 0);
+                today.setHours(0, 0, 0, 0);
+                const timeDiff = today.getTime() - createdAt.getTime();
+                const days = Math.abs(
+                  Math.floor(timeDiff / (1000 * 60 * 60 * 24))
+                );
+
+                _items.push(
+                  <ActiveListingCard
+                    days={days}
+                    source={`https://picsum.photos/id/${index + 1}0/1500/1500`}
+                    itemname={data.name}
+                    price={data.price}
+                    stock={data.qty}
+                    key={index}
+                  />
+                );
+              });
+
+              setScrollItems([..._items]);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          const _productsQuery = query(
+            collection(store, "product"),
+            orderBy("createdAt", "desc"),
+            limit(itemNumber)
+          );
+
+          getDocs(_productsQuery)
+            .then((response) => {
+              const _items = [];
+              response.docs.forEach((doc, index) => {
+                const data = doc.data();
+
+                const today = new Date();
+                let createdAt = new Date(data.createdAt.toDate());
+                createdAt.setHours(0, 0, 0, 0);
+                today.setHours(0, 0, 0, 0);
+                const timeDiff = today.getTime() - createdAt.getTime();
+                const days = Math.abs(
+                  Math.floor(timeDiff / (1000 * 60 * 60 * 24))
+                );
+
+                _items.push(
+                  <ActiveListingCard
+                    days={days}
+                    source={`https://picsum.photos/id/${index + 1}0/1500/1500`}
+                    itemname={data.name}
+                    price={data.price}
+                    stock={data.qty}
+                    key={index}
+                  />
+                );
+              });
+
+              setItems([..._items]);
+              setScrollItems([..._items]);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
       })
-      .then((data) => {
-        setTotalPageNumber(Math.ceil(data.products.length / itemNumber));
+      .catch((error) => {
+        console.log(error);
       });
-  }, []);
+  }, [currentPageIndex]);
 
   const handleOnClick = (pageIndex) => {
     setCurrentPageIndex(pageIndex);
-    fetch(
-      `https://dummyjson.com/products?limit=${itemNumber}&skip=${
-        (pageIndex - 1) * itemNumber
-      }&select=category,title,price`
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setItems(data.products);
-      });
-
-    fetch(
-      `https://dummyjson.com/products?limit=0&skip=0&select=category,title,price`
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setTotalPageNumber(Math.ceil(data.products.length / itemNumber));
-      });
   };
 
   /* SingleImageInput */
@@ -84,8 +218,12 @@ const Yuhwan = (props) => {
     if (singleImage.length !== 0) {
       for (const image of singleImage) {
         const file = image.file;
+        const uniqueId = uuidv4();
 
-        const fileRef = ref(storage, "image/" + file.name);
+        const fileRef = ref(
+          storage,
+          `image/${file.name.split(".")[0]}-${uniqueId}`
+        );
 
         const uploadTask = uploadBytesResumable(fileRef, file);
 
@@ -206,31 +344,7 @@ const Yuhwan = (props) => {
   const [hasMore, setHasMore] = useState(true);
 
   const handleOnScroll = () => {
-    setTimeout(() => {
-      fetch(
-        `https://dummyjson.com/products?limit=30&skip=${scrollItems.length}&select=category,title,price`
-      )
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          if (data.products.length !== 0) {
-            const _scrollItems = [];
-
-            for (const product of data.products) {
-              _scrollItems.push(
-                <div key={product.id}>
-                  {product.id} :: {product.title}
-                </div>
-              );
-            }
-
-            setScrollItems((oldItems) => [...oldItems, ..._scrollItems]);
-          } else {
-            setHasMore(false);
-          }
-        });
-    }, 1500);
+    setCurrentPageIndex((oldData) => oldData + 1);
   };
 
   /* Accordion */
@@ -258,13 +372,23 @@ const Yuhwan = (props) => {
       <div>
         <h2>Page</h2>
         <h2>Pagination</h2>
-        <Pagination
-          currentPageIndex={currentPageIndex}
-          pageNumber={pageNumber}
-          totalPageNumber={totalPageNumber}
-          onClick={handleOnClick}
-        />
-        <Page items={items} columns={columns} />
+
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "800px",
+            margin: "auto",
+            boxSizing: "border-box",
+          }}
+        >
+          <Pagination
+            currentPageIndex={currentPageIndex}
+            pageNumber={pageNumber}
+            totalPageNumber={totalPageNumber}
+            onClick={handleOnClick}
+          />
+          <Grid columns={4}>{items.map((item, index) => item)}</Grid>
+        </div>
       </div>
       <div>
         <h2>SingleImageInput</h2>
@@ -324,7 +448,14 @@ const Yuhwan = (props) => {
       </div>
       <div>
         <h2>ImageList</h2>
-        <div style={{ minWidth: "300px", width: "50%", margin: "auto" }}>
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "500px",
+            margin: "auto",
+            boxSizing: "border-box",
+          }}
+        >
           <ImageList images={images} />
           <br />
           <br />
@@ -390,35 +521,44 @@ const Yuhwan = (props) => {
           <Button variant="white" size="lg" label="Button" />
         </div>
       </div>
-      <div>
-        <h2>Modal</h2>
-        <div style={{ width: "100%", maxWidth: "300px", margin: "auto" }}>
-          <Button
-            variant="yellow"
-            size="lg"
-            label="Open Modal"
-            onClickHandler={handleOnOpen}
-          />
+      <div style={{ marginBottom: "300px" }}>
+        <div>
+          <h2>Modal</h2>
+          <div style={{ width: "100%", maxWidth: "300px", margin: "auto" }}>
+            <Button
+              variant="yellow"
+              size="lg"
+              label="Open Modal"
+              onClickHandler={handleOnOpen}
+            />
+          </div>
+          <Modal
+            width="30vw"
+            visibility={modalVisibility}
+            onClose={handleOnClose}
+          >
+            <ImageList images={images} />
+          </Modal>
         </div>
-        <Modal
-          width="30vw"
-          visibility={modalVisibility}
-          onClose={handleOnClose}
-        >
-          <ImageList images={images} />
-        </Modal>
-      </div>
-      <div>
-        <h2>InfinitePagination</h2>
-        <div style={{ minWidth: "300px", width: "50%", margin: "auto" }}>
-          <InfinitePagination
-            items={scrollItems}
-            hasMore={hasMore}
-            onScroll={handleOnScroll}
-          />
+        <div>
+          <h2>InfinitePagination</h2>
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "800px",
+              margin: "auto",
+              boxSizing: "border-box",
+            }}
+          >
+            <InfinitePagination
+              columns={4}
+              items={scrollItems}
+              hasMore={hasMore}
+              onScroll={handleOnScroll}
+            />
+          </div>
         </div>
       </div>
-      <div style={{ width: "100%", height: "100px" }}></div>
     </div>
   );
 };

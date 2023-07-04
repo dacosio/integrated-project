@@ -1,30 +1,20 @@
 import React from "react";
 import ImageLabel from "../ImageLabel/imageLabel";
-import Image from "../Image/Image";
 import styles from "./activeListingCard.module.css";
 import Typography from "../Typography/Typography";
 
 const ActiveListingCard = (props) => {
-  const {
-    distance,
-    days,
-    source,
-    itemname,
-    price,
-    stock,
-    alt,
-    maxwidth,
-    width,
-  } = props;
+  const { distance, days, source, itemname, price, stock, alt, width, height } =
+    props;
   return (
     <div {...props} className={styles.activeListingCard}>
-      <div className={styles.box} style={{ maxWidth: maxwidth, width }}>
+      <div className={styles.box} style={{ width, height: "auto" }}>
         <ImageLabel
           className={styles.boxTitle}
           distance={distance}
           days={days}
         />
-        <img src={source} alt={alt} />
+        <img src={source} alt={alt} style={{ height: "auto", width }} />
       </div>
       <div>
         <div className={styles.item}>

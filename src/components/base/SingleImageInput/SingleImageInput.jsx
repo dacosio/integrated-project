@@ -3,7 +3,6 @@ import Button from "../Button/Button";
 import ImageUploading from "react-images-uploading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { CgProfile } from "react-icons/cg";
 import styles from "./single-image-input.module.css";
 
 function SingleImageInput({ images, setImages, disableLabel, ...props }) {
@@ -39,7 +38,15 @@ function SingleImageInput({ images, setImages, disableLabel, ...props }) {
                 onClick={onImageUpload}
               >
                 <div>
-                  <CgProfile size="80%" className={`${styles["icon"]}`} />
+                  <img
+                    style={{
+                      maxWidth: "100px",
+                      height: "auto",
+                      cursor: "pointer",
+                    }}
+                    src="https://firebasestorage.googleapis.com/v0/b/splitshare-67496.appspot.com/o/profile-image%2Fdefault-profile-image.png?alt=media&token=06c17f92-5d5c-47d6-a0a7-fb93b1782cba"
+                    alt="default"
+                  />
                 </div>
               </div>
             ) : (
