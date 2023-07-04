@@ -30,6 +30,7 @@ const Home = (props) => {
     longitude,
     error,
     bounds,
+    currentAddress,
   } = props;
 
   return (
@@ -40,15 +41,17 @@ const Home = (props) => {
             <div className={style.picksDesktop}>
               <div className={style.title}>
                 <Typography variant="h2-graphik-bold" color="black">
-                  Picks Near You
+                  {currentAddress ? "Picks Near You" : "Products"}
                 </Typography>
               </div>
-              <div className={style.location}>
-                <MapMarkerSVG width={16} height={24} />
-                <Typography variant="body-4-regular" color="dark-blue">
-                  100 2 49th Avenue, Vancouver, BC V5Y 276
-                </Typography>
-              </div>
+              {currentAddress && (
+                <div className={style.location}>
+                  <MapMarkerSVG width={16} height={24} />
+                  <Typography variant="body-4-regular" color="dark-blue">
+                    {currentAddress}
+                  </Typography>
+                </div>
+              )}
               <Grid
                 columns={2}
                 style={{
@@ -120,6 +123,7 @@ const Home = (props) => {
                   borderRadius="20px"
                   zIndex={2}
                   bounds={bounds}
+                  showActiveListing={true}
                 />
               )}
             </div>
@@ -138,21 +142,24 @@ const Home = (props) => {
                 height="30vh"
                 zIndex={2}
                 bounds={bounds}
+                showActiveListing={true}
               />
             )}
           </div>
           <div className={style.resultsWrapper}>
             <div className={style.title}>
               <Typography variant="h2-graphik-bold" color="black">
-                Picks Near You
+                {currentAddress ? "Picks Near You" : "Products"}
               </Typography>
             </div>
-            <div className={style.location}>
-              <MapMarkerSVG width={16} height={24} />
-              <Typography variant="body-4-regular" color="dark-blue">
-                100 2 49th Avenue, Vancouver, BC V5Y 276
-              </Typography>
-            </div>
+            {currentAddress && (
+              <div className={style.location}>
+                <MapMarkerSVG width={16} height={24} />
+                <Typography variant="body-4-regular" color="dark-blue">
+                  {currentAddress}
+                </Typography>
+              </div>
+            )}
             <InfinitePagination
               columns={columns}
               gap="1rem"

@@ -39,6 +39,7 @@ const MapLeaflet = ({
   borderRadius,
   zIndex,
   bounds,
+  showActiveListing,
   ...props
 }) => {
   return (
@@ -69,6 +70,7 @@ const MapLeaflet = ({
                   }}
                   icon={customIcon}
                 >
+                  {showActiveListing && (
                   <Tooltip permanent={permanent} direction={direction}>
                     <ActiveListingCard
                       key={el.id}
@@ -84,7 +86,7 @@ const MapLeaflet = ({
                       width={"150px"}
                     />
                   </Tooltip>
-                </Marker>
+                 )}</Marker>
               ) : (
                 <Marker
                   position={[el.location._lat, el.location._long]}

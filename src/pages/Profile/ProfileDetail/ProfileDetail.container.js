@@ -28,6 +28,8 @@ const ProfileDetail = () => {
     if (user.uid) getUserById(user.uid);
   }, []);
 
+  console.log(data);
+
   const sm = useMediaQuery("(min-width: 360px) and (max-width:600px)");
   const md = useMediaQuery("(min-width: 601px) and (max-width:1020px)");
   const lg = useMediaQuery("(min-width: 1024px) and (max-width:1400px)");
