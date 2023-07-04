@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 import React, { useEffect, useState } from "react";
 import HomeView from "./Home.view";
 import { UserAuth } from "../../context/AuthContext";
@@ -18,6 +19,7 @@ import useDebounce from "../../utils/useDebounce";
 import { useContext } from "react";
 import { usePosition } from "../../utils/usePosition";
 import { Category } from "../../context/CategoryContext";
+import Geocode from "react-geocode";
 
 const Home = () => {
   const { user, logout } = UserAuth();
@@ -127,6 +129,22 @@ const Home = () => {
   // console.log(categoryValue);
 
   const { latitude, longitude, error } = usePosition();
+  console.log(latitude, longitude, error);
+
+  const [currentAddress, setCurrentAddress] = useState("");
+
+  Geocode.setApiKey(process.env.REACT_APP_MAPS_API_KEY);
+  Geocode.setLanguage("en");
+  Geocode.setRegion("ca");
+  Geocode.fromLatLng(latitude, longitude).then(
+    (response) => {
+      const address = response.results[0].formatted_address;
+      setCurrentAddress(address);
+    },
+    (error) => {
+      console.error(error);
+    }
+  );
 
   const generatedProps = {
     user,
@@ -147,6 +165,7 @@ const Home = () => {
     handleOnClick,
     handleOnScroll,
     categories,
+    currentAddress,
   };
   return <HomeView {...generatedProps} />;
 };
