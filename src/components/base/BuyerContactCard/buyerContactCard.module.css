@@ -1,59 +1,60 @@
-  .buyer-contact-card-wrapper{
-    width: 100%;
-  }
-  
+.buyer-contact-card-wrapper {
+  min-width: 330px;
+}
+
+.buyer-contact-card {
+  border: 2px solid var(--black);
+  border-radius: 20px;
+  gap: 1rem;
+  box-shadow: 2px 2px black;
+  padding: 16px 16px 20px;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.buyer-contact-details {
+  display: flex;
+  align-items: center;
+}
+
+.buyer-contact-card .image-container {
+  width: 80px;
+  height: 80px;
+  border-radius: 500px;
+  justify-items: center;
+  align-items: center;
+  display: flex;
+  margin-right: 0.5rem;
+}
+
+.buyer-contact-card .image-container img {
+  border-radius: 500px;
+  width: 80px;
+  height: 80px;
+  border: 2px solid;
+  margin-right: 12px;
+}
+
+.buyer-description {
+  display: flex;
+  align-items: center;
+}
+
+.name-container,
+.conatct-tel-container,
+.email-container {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.5rem;
+  align-items: center;
+}
+
+@media screen and (min-width: 1440px) {
   .buyer-contact-card {
-    border: 2px solid var(--black);
-    border-radius: 20px;
-    gap: 1rem;
-    box-shadow: 2px 2px black;
-    padding: 16px 16px 20px;
-    box-sizing: border-box;
-    height: 100%;
-    align-items: center;
-    background-color: #fff;
-  }
-
-  .buyer-contact-details {
-    display: flex;
-    align-items: center;
-  }
-  
-  .buyer-contact-card .image-container {
-    width: 80px;
-    height: 80px;
-    border-radius: 500px;
-    justify-items: center;
-    align-items: center;
-    display: flex;
-    margin-right: .5rem;
-  }
-  
-  .buyer-contact-card .image-container img {
-    border-radius: 500px;
-    width: 80px;
-    height: 80px;
-    border: 2px solid;
-    margin-right: 12px;
-  }
-  
-  .buyer-description{
-    display: flex;
-    align-items: center;
-  }
-  
-  .name-container, .conatct-tel-container, .email-container{
-    display: flex;
-    gap: .5rem;
-    margin: .5rem;
-  }
-
-  
-  @media screen and (min-width: 1440px){
-
-    .buyer-contact-card{
-    width: 438px;
     height: 152px;
-    }
-
-  }; 
+  }
+}
