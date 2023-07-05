@@ -82,7 +82,7 @@ function App() {
             />
           </Route>
 
-          <Route path="testComponent" element={<TestComponents />} />
+          {/* <Route path="testComponent" element={<TestComponents />} /> */}
 
           {/* Catch all - replace with 404 Not Found page if preferred */}
           {/* Catch all - replace with 404 Not Found page if preferred */}
