@@ -19,8 +19,6 @@ const ListingDetail = (props) => {
     user,
     product,
     seller,
-    itemsNumber,
-    images,
     carouselVisibility,
     requestVisibility,
     cancelVisibility,
@@ -50,77 +48,222 @@ const ListingDetail = (props) => {
     product.date = Math.abs(Math.floor(timeDiff / (1000 * 60 * 60 * 24)));
   }
 
-  if (isDesktop) {
-    return (
-      <>
-        <div className={`${styles.wrapper}`}>
-          {user &&
-          product &&
-          seller &&
-          itemsNumber &&
-          images &&
-          transactions ? (
-            <Card>
+  return (
+    <>
+      {isDesktop ? (
+        <>
+          <div className={`${styles.wrapper}`}>
+            {user && product && seller && transactions ? (
+              <Card>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "2fr 1fr",
+                    gap: "20px",
+                  }}
+                >
+                  <div style={{ gridColumn: "1 / -1" }}>
+                    <ProductInfoCard
+                      title={product.name}
+                      price={product.price}
+                      quantity={product.qty}
+                      date={product.date}
+                      name={`${product.createdByNickName}`}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "20px",
+                    }}
+                  >
+                    <ImageList
+                      images={product.images}
+                      onClick={handleOnOpen}
+                      mode="vertical"
+                    />
+                    <Card nopadding noborder noshadow>
+                      <SellerInfoCard
+                        source={seller.imageUrl}
+                        username={`${seller.nickName}`}
+                        location={seller.address}
+                        items={seller.qty}
+                      />
+                    </Card>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "20px",
+                    }}
+                  >
+                    <Card nopadding noborder noshadow>
+                      {user.email === seller.email ? (
+                        <DescriptionCard
+                          description={product.description}
+                          own
+                        />
+                      ) : transactions.length === 0 ? (
+                        <DescriptionCard
+                          description={product.description}
+                          handleOnOpenRequest={handleOnOpenRequest}
+                        />
+                      ) : (
+                        <DescriptionCard
+                          description={product.description}
+                          handleOnOpenCancel={handleOnOpenCancel}
+                          requested
+                        />
+                      )}
+                    </Card>
+                    <MeetUpInfoCard
+                      date={new Date(
+                        product.meetUpInfo.seconds * 1000
+                      ).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                      time={new Date(
+                        product.meetUpInfo.seconds * 1000
+                      ).toLocaleTimeString("en-US", {
+                        hour: "numeric",
+                        minute: "numeric",
+                        hour12: true,
+                      })}
+                      latitude={product.lat}
+                      longitude={product.long}
+                      location={product.meetUpAddress}
+                    />
+                  </div>
+                </div>
+              </Card>
+            ) : (
+              <Card>
+                <div style={{ textAlign: "center" }}>
+                  <BeatLoader color="#1c2aae" />
+                </div>
+              </Card>
+            )}
+          </div>
+          {product && (
+            <Modal visibility={carouselVisibility} onClose={handleOnClose}>
+              <CarouselSwiper images={product.images} />
+            </Modal>
+          )}
+          {product && (
+            <Modal
+              visibility={requestVisibility}
+              onClose={handleOnCloseRequest}
+            >
+              <div style={{ display: "grid", gap: "20px" }}>
+                <div
+                  style={{
+                    display: "grid",
+                    gap: "20px",
+                    justifyItems: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography variant="h4-graphik-bold">
+                    How many do you want to buy?
+                  </Typography>
+                  <NumberInput
+                    inputNumber={quantity}
+                    setInputNumber={setQuantity}
+                    minValue={1}
+                    maxValue={product.qty}
+                  />
+                </div>
+                <div style={{ display: "flex", gap: "20px" }}>
+                  <Button
+                    onClickHandler={handleOnCloseRequest}
+                    size="lg"
+                    variant="white"
+                    label="Cancel"
+                  />
+                  <Button
+                    onClickHandler={handleOnConfirmRequest}
+                    size="lg"
+                    variant="yellow"
+                    label="Confirm"
+                  />
+                </div>
+              </div>
+            </Modal>
+          )}
+          <Modal visibility={cancelVisibility} onClose={handleOnCloseCancel}>
+            <div style={{ display: "grid", gap: "20px" }}>
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "2fr 1fr",
                   gap: "20px",
+                  justifyItems: "center",
+                  alignItems: "center",
                 }}
               >
-                <div style={{ gridColumn: "1 / -1" }}>
-                  <ProductInfoCard
-                    title={product.name}
-                    price={product.price}
-                    quantity={product.qty}
-                    date={product.date}
-                    name={`${product.createdByNickName}`}
-                  />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "20px",
-                  }}
-                >
-                  <ImageList
-                    images={images}
-                    onClick={handleOnOpen}
-                    mode="vertical"
-                  />
-                  <Card nopadding noborder noshadow>
-                    <SellerInfoCard
-                      source={seller.imageUrl}
-                      username={`${seller.nickName}`}
-                      location={seller.address}
-                      items={itemsNumber}
+                <Typography variant="h4-graphik-bold">
+                  Do you really want to cancel the request?
+                </Typography>
+              </div>
+              <div style={{ display: "flex", gap: "20px" }}>
+                <Button
+                  onClickHandler={handleOnCloseCancel}
+                  size="lg"
+                  variant="white"
+                  label="Cancel"
+                />
+                <Button
+                  onClickHandler={handleOnConfirmCancel}
+                  size="lg"
+                  variant="yellow"
+                  label="Confirm"
+                />
+              </div>
+            </div>
+          </Modal>
+        </>
+      ) : (
+        <>
+          <div className={`${styles.wrapper}`}>
+            {user && product && seller && transactions ? (
+              <>
+                <Card>
+                  <div
+                    style={{
+                      display: "grid",
+                      gap: "20px",
+                    }}
+                  >
+                    <ProductInfoCard
+                      title={product.name}
+                      price={product.price}
+                      quantity={product.qty}
+                      date={product.date}
+                      name={`${product.createdByNickName}`}
                     />
-                  </Card>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "20px",
-                  }}
-                >
-                  <Card nopadding noborder noshadow>
-                    {user.email === seller.email ? (
-                      <DescriptionCard description={product.description} own />
-                    ) : transactions.length === 0 ? (
-                      <DescriptionCard
-                        description={product.description}
-                        handleOnOpenRequest={handleOnOpenRequest}
-                      />
-                    ) : (
-                      <DescriptionCard
-                        description={product.description}
-                        handleOnOpenCancel={handleOnOpenCancel}
-                        requested
-                      />
-                    )}
-                  </Card>
+                    <ImageList images={product.images} onClick={handleOnOpen} />
+                  </div>
+                </Card>
+                <Card nopadding noborder>
+                  {user.email === seller.email ? (
+                    <DescriptionCard description={product.description} own />
+                  ) : transactions.length === 0 ? (
+                    <DescriptionCard
+                      description={product.description}
+                      handleOnOpenRequest={handleOnOpenRequest}
+                    />
+                  ) : (
+                    <DescriptionCard
+                      description={product.description}
+                      handleOnOpenCancel={handleOnOpenCancel}
+                      requested
+                    />
+                  )}
+                </Card>
+                <Card nopadding noborder>
                   <MeetUpInfoCard
                     date={new Date(
                       product.meetUpInfo.seconds * 1000
@@ -140,181 +283,71 @@ const ListingDetail = (props) => {
                     longitude={product.long}
                     location={product.meetUpAddress}
                   />
-                </div>
-              </div>
-            </Card>
-          ) : (
-            <Card>
-              <div style={{ textAlign: "center" }}>
-                <BeatLoader color="#1c2aae" />
-              </div>
-            </Card>
-          )}
-        </div>
-        {images && (
-          <Modal visibility={carouselVisibility} onClose={handleOnClose}>
-            <CarouselSwiper images={images} />
-          </Modal>
-        )}
-        {product && (
-          <Modal visibility={requestVisibility} onClose={handleOnCloseRequest}>
-            <div style={{ display: "grid", gap: "20px" }}>
-              <div
-                style={{
-                  display: "grid",
-                  gap: "20px",
-                  justifyItems: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Typography variant="h4-graphik-bold">
-                  How many do you want to buy?
-                </Typography>
-                <NumberInput
-                  inputNumber={quantity}
-                  setInputNumber={setQuantity}
-                  minValue={1}
-                  maxValue={product.qty}
-                />
-              </div>
-              <div style={{ display: "flex", gap: "20px" }}>
-                <Button
-                  onClickHandler={handleOnCloseRequest}
-                  size="lg"
-                  variant="white"
-                  label="Cancel"
-                />
-                <Button
-                  onClickHandler={handleOnConfirmRequest}
-                  size="lg"
-                  variant="yellow"
-                  label="Confirm"
-                />
-              </div>
-            </div>
-          </Modal>
-        )}
-        <Modal visibility={cancelVisibility} onClose={handleOnCloseCancel}>
-          <div style={{ display: "grid", gap: "20px" }}>
-            <div
-              style={{
-                display: "grid",
-                gap: "20px",
-                justifyItems: "center",
-                alignItems: "center",
-              }}
-            >
-              <Typography variant="h4-graphik-bold">
-                Do you really want to cancel the request?
-              </Typography>
-            </div>
-            <div style={{ display: "flex", gap: "20px" }}>
-              <Button
-                onClickHandler={handleOnCloseCancel}
-                size="lg"
-                variant="white"
-                label="Cancel"
-              />
-              <Button
-                onClickHandler={handleOnConfirmCancel}
-                size="lg"
-                variant="yellow"
-                label="Confirm"
-              />
-            </div>
-          </div>
-        </Modal>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <div className={`${styles.wrapper}`}>
-          {user &&
-          product &&
-          seller &&
-          itemsNumber &&
-          images &&
-          transactions ? (
-            <>
+                </Card>
+                <Card nopadding noborder>
+                  <SellerInfoCard
+                    source={seller.imageUrl}
+                    username={`${seller.nickName}`}
+                    location={seller.address}
+                    items={seller.qty}
+                  />
+                </Card>
+              </>
+            ) : (
               <Card>
+                <div style={{ textAlign: "center" }}>
+                  <BeatLoader color="#1c2aae" />
+                </div>
+              </Card>
+            )}
+          </div>
+          {product && (
+            <Modal visibility={carouselVisibility} onClose={handleOnClose}>
+              <CarouselSwiper images={product.images} />
+            </Modal>
+          )}
+          {product && (
+            <Modal
+              visibility={requestVisibility}
+              onClose={handleOnCloseRequest}
+            >
+              <div style={{ display: "grid", gap: "20px" }}>
                 <div
                   style={{
                     display: "grid",
                     gap: "20px",
+                    justifyItems: "center",
+                    alignItems: "center",
                   }}
                 >
-                  <ProductInfoCard
-                    title={product.name}
-                    price={product.price}
-                    quantity={product.qty}
-                    date={product.date}
-                    name={`${product.createdByNickName}`}
+                  <Typography variant="h4-graphik-bold">
+                    How many do you want to buy?
+                  </Typography>
+                  <NumberInput
+                    inputNumber={quantity}
+                    setInputNumber={setQuantity}
+                    minValue={1}
+                    maxValue={product.qty}
                   />
-                  <ImageList images={images} onClick={handleOnOpen} />
                 </div>
-              </Card>
-              <Card nopadding noborder>
-                {user.email === seller.email ? (
-                  <DescriptionCard description={product.description} own />
-                ) : transactions.length === 0 ? (
-                  <DescriptionCard
-                    description={product.description}
-                    handleOnOpenRequest={handleOnOpenRequest}
+                <div style={{ display: "flex", gap: "20px" }}>
+                  <Button
+                    onClickHandler={handleOnCloseRequest}
+                    size="lg"
+                    variant="white"
+                    label="Cancel"
                   />
-                ) : (
-                  <DescriptionCard
-                    description={product.description}
-                    handleOnOpenCancel={handleOnOpenCancel}
-                    requested
+                  <Button
+                    onClickHandler={handleOnConfirmRequest}
+                    size="lg"
+                    variant="yellow"
+                    label="Confirm"
                   />
-                )}
-              </Card>
-              <Card nopadding noborder>
-                <MeetUpInfoCard
-                  date={new Date(
-                    product.meetUpInfo.seconds * 1000
-                  ).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })}
-                  time={new Date(
-                    product.meetUpInfo.seconds * 1000
-                  ).toLocaleTimeString("en-US", {
-                    hour: "numeric",
-                    minute: "numeric",
-                    hour12: true,
-                  })}
-                  latitude={product.lat}
-                  longitude={product.long}
-                  location={product.meetUpAddress}
-                />
-              </Card>
-              <Card nopadding noborder>
-                <SellerInfoCard
-                  source={seller.imageUrl}
-                  username={`${seller.nickName}`}
-                  location={seller.address}
-                  items={itemsNumber}
-                />
-              </Card>
-            </>
-          ) : (
-            <Card>
-              <div style={{ textAlign: "center" }}>
-                <BeatLoader color="#1c2aae" />
+                </div>
               </div>
-            </Card>
+            </Modal>
           )}
-        </div>
-        {images && (
-          <Modal visibility={carouselVisibility} onClose={handleOnClose}>
-            <CarouselSwiper images={images} />
-          </Modal>
-        )}
-        {product && (
-          <Modal visibility={requestVisibility} onClose={handleOnCloseRequest}>
+          <Modal visibility={cancelVisibility} onClose={handleOnCloseCancel}>
             <div style={{ display: "grid", gap: "20px" }}>
               <div
                 style={{
@@ -325,24 +358,18 @@ const ListingDetail = (props) => {
                 }}
               >
                 <Typography variant="h4-graphik-bold">
-                  How many do you want to buy?
+                  Do you really want to cancel the request?
                 </Typography>
-                <NumberInput
-                  inputNumber={quantity}
-                  setInputNumber={setQuantity}
-                  minValue={1}
-                  maxValue={product.qty}
-                />
               </div>
               <div style={{ display: "flex", gap: "20px" }}>
                 <Button
-                  onClickHandler={handleOnCloseRequest}
+                  onClickHandler={handleOnCloseCancel}
                   size="lg"
                   variant="white"
                   label="Cancel"
                 />
                 <Button
-                  onClickHandler={handleOnConfirmRequest}
+                  onClickHandler={handleOnConfirmCancel}
                   size="lg"
                   variant="yellow"
                   label="Confirm"
@@ -350,40 +377,10 @@ const ListingDetail = (props) => {
               </div>
             </div>
           </Modal>
-        )}
-        <Modal visibility={cancelVisibility} onClose={handleOnCloseCancel}>
-          <div style={{ display: "grid", gap: "20px" }}>
-            <div
-              style={{
-                display: "grid",
-                gap: "20px",
-                justifyItems: "center",
-                alignItems: "center",
-              }}
-            >
-              <Typography variant="h4-graphik-bold">
-                Do you really want to cancel the request?
-              </Typography>
-            </div>
-            <div style={{ display: "flex", gap: "20px" }}>
-              <Button
-                onClickHandler={handleOnCloseCancel}
-                size="lg"
-                variant="white"
-                label="Cancel"
-              />
-              <Button
-                onClickHandler={handleOnConfirmCancel}
-                size="lg"
-                variant="yellow"
-                label="Confirm"
-              />
-            </div>
-          </div>
-        </Modal>
-      </>
-    );
-  }
+        </>
+      )}
+    </>
+  );
 };
 
 export default ListingDetail;

@@ -1,6 +1,7 @@
 .seller-information-wrapper {
   border: 2px solid var(--black);
   border-radius: 20px;
+  box-shadow: 2px 2px black;
   padding: 16px 16px 20px;
 }
 

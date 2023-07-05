@@ -2,73 +2,49 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import store, { storage } from "../../../config/firebaseConfig";
 import {
-  getFirestore,
   collection,
   doc,
   addDoc,
   getDoc,
   where,
   getDocs,
-  updateDoc,
   deleteDoc,
   onSnapshot,
   query,
-  orderBy,
-  startAfter,
-  limit,
-  QueryDocumentSnapshot,
-  DocumentData,
 } from "firebase/firestore";
 import { UserAuth } from "../../../context/AuthContext";
 import ListDetailView from "./ListingDetail.view";
 
 const ListingDetail = () => {
+  const { user } = UserAuth();
   const { listingId } = useParams();
-  const [productRef, setProductRef] = useState();
   const [product, setProduct] = useState();
   const [seller, setSeller] = useState();
-  const [itemsNumber, setItemsNumber] = useState();
-  const [images, setImages] = useState();
   const [carouselVisibility, setCarouselVisibility] = useState(false);
   const [requestVisibility, setRequestVisibility] = useState(false);
   const [cancelVisibility, setCancelVisibility] = useState(false);
   const [transactions, setTransactions] = useState([]);
   const [quantity, setQuantity] = useState(1);
-  const { user } = UserAuth();
 
   useEffect(() => {
-    const productRef = doc(store, "product", listingId);
-
-    setProductRef(productRef);
-
-    getDoc(productRef)
+    getDoc(doc(store, "product", listingId))
       .then((productResponse) => {
         setProduct(productResponse.data());
-
-        getDocs(collection(productRef, "image"))
-          .then((imageResponse) => {
-            const _images = [];
-            imageResponse.docs.forEach((doc) => {
-              _images.push(doc.data().imageUrl);
-            });
-            setImages(_images);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
 
         const sellerRef = productResponse.data().createdById;
 
         getDoc(sellerRef)
-          .then(async (sellerResponse) => {
-            setSeller(sellerResponse.data());
-
-            const productsRef = collection(store, "product");
-
+          .then((sellerResponse) => {
             getDocs(
-              query(productsRef, where("createdById", "==", sellerRef))
+              query(
+                collection(store, "product"),
+                where("createdById", "==", sellerRef)
+              )
             ).then((itemsResponse) => {
-              setItemsNumber(itemsResponse.docs.length);
+              setSeller({
+                ...sellerResponse.data(),
+                qty: itemsResponse.docs.length,
+              });
             });
           })
           .catch((error) => {
@@ -81,12 +57,11 @@ const ListingDetail = () => {
   }, []);
 
   useEffect(() => {
-    if (user && productRef && seller) {
+    if (user.email) {
       onSnapshot(
         query(
           collection(store, "order"),
-          where("productById", "==", productRef.id),
-          where("sellerByEmail", "==", seller.email),
+          where("productById", "==", listingId),
           where("buyerByEmail", "==", user.email)
         ),
         (snapshot) => {
@@ -94,7 +69,7 @@ const ListingDetail = () => {
         }
       );
     }
-  }, [productRef, seller, user]);
+  }, [user]);
 
   const handleOnOpen = () => {
     setCarouselVisibility(true);
@@ -109,15 +84,17 @@ const ListingDetail = () => {
   };
 
   const handleOnConfirmRequest = () => {
-    addDoc(collection(store, "order"), {
-      productById: productRef.id,
-      sellerByEmail: seller.email,
-      buyerByEmail: user.email,
-      qty: quantity,
-      createdAt: new Date(),
-    });
+    if (0 < quantity && quantity <= product.qty) {
+      addDoc(collection(store, "order"), {
+        productById: listingId,
+        sellerByEmail: seller.email,
+        buyerByEmail: user.email,
+        qty: quantity,
+        createdAt: new Date(),
+      });
 
-    setRequestVisibility(false);
+      setRequestVisibility(false);
+    }
   };
 
   const handleOnCloseRequest = () => {
@@ -139,25 +116,23 @@ const ListingDetail = () => {
   };
 
   const generatedProps = {
-    user: user,
-    product: product,
-    seller: seller,
-    itemsNumber: itemsNumber,
-    images: images,
-    carouselVisibility: carouselVisibility,
-    requestVisibility: requestVisibility,
-    cancelVisibility: cancelVisibility,
-    transactions: transactions,
-    quantity: quantity,
-    setQuantity: setQuantity,
-    handleOnOpen: handleOnOpen,
-    handleOnClose: handleOnClose,
-    handleOnOpenRequest: handleOnOpenRequest,
-    handleOnConfirmRequest: handleOnConfirmRequest,
-    handleOnCloseRequest: handleOnCloseRequest,
-    handleOnOpenCancel: handleOnOpenCancel,
-    handleOnConfirmCancel: handleOnConfirmCancel,
-    handleOnCloseCancel: handleOnCloseCancel,
+    user,
+    product,
+    seller,
+    carouselVisibility,
+    requestVisibility,
+    cancelVisibility,
+    transactions,
+    quantity,
+    setQuantity,
+    handleOnOpen,
+    handleOnClose,
+    handleOnOpenRequest,
+    handleOnConfirmRequest,
+    handleOnCloseRequest,
+    handleOnOpenCancel,
+    handleOnConfirmCancel,
+    handleOnCloseCancel,
   };
   return <ListDetailView {...generatedProps} />;
 };
