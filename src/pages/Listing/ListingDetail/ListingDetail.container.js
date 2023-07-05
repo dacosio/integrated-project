@@ -58,7 +58,7 @@ const ListingDetail = () => {
 
   useEffect(() => {
     if (user.email) {
-      onSnapshot(
+      const unsubscribe = onSnapshot(
         query(
           collection(store, "order"),
           where("productById", "==", listingId),
@@ -68,6 +68,8 @@ const ListingDetail = () => {
           setTransactions(snapshot.docs);
         }
       );
+
+      return () => unsubscribe();
     }
   }, [user]);
 
