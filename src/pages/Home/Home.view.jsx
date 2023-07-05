@@ -75,20 +75,10 @@ const Home = (props) => {
                       distance = Math.ceil(Number(distance) / 1000);
                     }
 
-                    const today = new Date();
-                    let createdAt = new Date(product.createdAt.toDate());
-                    createdAt.setHours(0, 0, 0, 0);
-                    today.setHours(0, 0, 0, 0);
-                    const timeDiff = today.getTime() - createdAt.getTime();
-                    const days = Math.abs(
-                      Math.floor(timeDiff / (1000 * 60 * 60 * 24))
-                    );
-
                     return (
                       <ActiveListingCard
                         key={product.id}
                         distance={!!error ? 0 : distance}
-                        days={days}
                         source={
                           product.imageUrl
                             ? product.imageUrl
@@ -181,20 +171,10 @@ const Home = (props) => {
                       distance = Math.ceil(Number(distance) / 1000);
                     }
 
-                    const today = new Date();
-                    let createdAt = new Date(product.createdAt.toDate());
-                    createdAt.setHours(0, 0, 0, 0);
-                    today.setHours(0, 0, 0, 0);
-                    const timeDiff = today.getTime() - createdAt.getTime();
-                    const days = Math.abs(
-                      Math.floor(timeDiff / (1000 * 60 * 60 * 24))
-                    );
-
                     return (
                       <ActiveListingCard
                         key={product.id}
                         distance={!!error ? 0 : distance}
-                        days={days}
                         source={
                           product.imageUrl
                             ? product.imageUrl

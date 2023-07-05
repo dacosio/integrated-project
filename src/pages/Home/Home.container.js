@@ -49,18 +49,9 @@ const Home = () => {
       //   ...doc.data(),
       //   id: doc.id,
       // }));
-      console.log(
-        snapshot.docs.filter((doc) => {
-          return (
-            doc.data().location !== undefined &&
-            doc.data().createdAt !== undefined
-          );
-        }).length
-      );
       const newProducts = snapshot.docs
         .filter((doc) => {
-          console.log(doc.data().location !== undefined);
-          return doc.data().location !== undefined;
+          return doc.data().lat !== undefined && doc.data().long !== undefined;
         })
         .map((doc) => ({
           ...doc.data(),
@@ -104,7 +95,9 @@ const Home = () => {
   }, [currentPageIndex, totalPageNumber]);
 
   const handleOnScroll = () => {
-    setCurrentPageIndex((oldData) => oldData + 1);
+    if (currentPageIndex < totalPageNumber) {
+      setCurrentPageIndex((oldData) => oldData + 1);
+    }
   };
 
   const columns = sm ? 2 : md ? 3 : lg ? 4 : 2;
