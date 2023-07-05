@@ -5,7 +5,20 @@ import Typography from "../Typography/Typography";
 import { DivIcon } from "leaflet";
 
 const TransactionCard = (props) => {
-  const { type, source, itemName, time, portions, sellerName, price } = props;
+  const {
+    type,
+    source,
+    itemName,
+    time,
+    portions,
+    sellerName,
+    price,
+    onCancel,
+    onDecline,
+    onAccept,
+    orderStatus,
+    onComplete,
+  } = props;
 
   const days = () => {
     if (time === "1") {
@@ -16,13 +29,47 @@ const TransactionCard = (props) => {
   };
 
   const buttons = () => {
-    if (type === "buying") {
-      return <Button size="sm" variant="gray" label="Cancel" />;
+    if (type === "buying" && orderStatus === "pending") {
+      return (
+        <Button
+          size="sm"
+          variant="gray"
+          label="Cancel"
+          onClickHandler={onCancel}
+        />
+      );
+    } else if (type === "buying" && orderStatus === "confirmed") {
+      return (
+        <>
+          <Button
+            size="sm"
+            variant="decline"
+            label="Cancel"
+            onClickHandler={onDecline}
+          />
+          <Button
+            size="sm"
+            variant="accept"
+            label="Complete"
+            onClickHandler={onComplete}
+          />
+        </>
+      );
     } else if (type === "selling") {
       return (
         <>
-          <Button size="sm" variant="decline" label="Decline" />
-          <Button size="sm" variant="accept" label="Accept" />
+          <Button
+            size="sm"
+            variant="decline"
+            label="Decline"
+            onClickHandler={onDecline}
+          />
+          <Button
+            size="sm"
+            variant="accept"
+            label="Accept"
+            onClickHandler={onAccept}
+          />
         </>
       );
     } else {
@@ -44,12 +91,20 @@ const TransactionCard = (props) => {
         </div>
         <Typography variant="body-1-medium">{days()}</Typography>
         <div className="quantity">
-        <Typography variant="h4-graphik-bold" color="gray"> Quantity:</Typography>
-        <Typography variant="body-2-regular">{portions}</Typography>
+          <Typography variant="h4-graphik-bold" color="gray">
+            {" "}
+            Quantity:
+          </Typography>
+          <Typography variant="body-2-regular">{portions}</Typography>
         </div>
         <div className="seller-container">
-        <Typography variant="h4-graphik-bold" color="gray"> Seller:</Typography>
-        <Typography variant="body-1-medium" color="dark-blue">{sellerName}</Typography>
+          <Typography variant="h4-graphik-bold" color="gray">
+            {" "}
+            Seller:
+          </Typography>
+          <Typography variant="body-1-medium" color="dark-blue">
+            {sellerName}
+          </Typography>
         </div>
       </div>
       <div className="button-container">{buttons()}</div>
