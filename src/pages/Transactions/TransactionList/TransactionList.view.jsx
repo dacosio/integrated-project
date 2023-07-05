@@ -16,8 +16,9 @@ const TransactionList = (props) => {
     onCancel,
     onDecline,
     onAccept,
+    onComplete,
+    redirectTo,
   } = props;
-
   return (
     <div className="orders-list">
       <div className="title-wrapper">
@@ -39,27 +40,30 @@ const TransactionList = (props) => {
       <div className="orders">
         {filteredOrders &&
           filteredOrders.map((o) => {
-            console.log(o);
             const today = new Date();
-            let dateRequested = new Date(o.dateRequested.toDate());
-            dateRequested.setHours(0, 0, 0, 0);
+            let createdAt = new Date(o.createdAt.toDate());
+            createdAt.setHours(0, 0, 0, 0);
             today.setHours(0, 0, 0, 0);
-            const timeDiff = today.getTime() - dateRequested.getTime();
+            const timeDiff = today.getTime() - createdAt.getTime();
             const days = Math.abs(Math.floor(timeDiff / (1000 * 60 * 60 * 24)));
             return (
               <TransactionCard
-                key={o.productId}
+                key={o.id}
                 type={o.orderType}
                 itemName={o.name}
                 time={days}
                 portions={o.qty}
                 sellerName={o.splitterName}
                 price={o.price}
-                source={o.coverImage}
+                source={o.imageUrl}
                 orderStatus={o.orderStatus}
-                onCancel={onCancel}
-                onDecline={onDecline}
+                onCancel={() => onCancel(o.id, o.productId)}
+                onDecline={() => onDecline(o.id, o.productId)}
                 onAccept={() => onAccept(o.id, o.productId)}
+                onComplete={() => onComplete(o.id, o.productId)}
+                onClick={() => {
+                  console.log("test");
+                }}
               />
             );
           })}

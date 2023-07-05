@@ -2,7 +2,6 @@ import React from "react";
 import Button from "../Button/Button";
 import "./TransactionCard.css";
 import Typography from "../Typography/Typography";
-import { DivIcon } from "leaflet";
 
 const TransactionCard = (props) => {
   const {
@@ -18,6 +17,7 @@ const TransactionCard = (props) => {
     onAccept,
     orderStatus,
     onComplete,
+    onClick,
   } = props;
 
   const days = () => {
@@ -36,9 +36,13 @@ const TransactionCard = (props) => {
           variant="gray"
           label="Cancel"
           onClickHandler={onCancel}
+          hoverable
         />
       );
-    } else if (type === "buying" && orderStatus === "confirmed") {
+    } else if (
+      (type === "buying" && orderStatus === "confirmed") ||
+      (type === "selling" && orderStatus === "confirmed")
+    ) {
       return (
         <>
           <Button
@@ -46,16 +50,18 @@ const TransactionCard = (props) => {
             variant="decline"
             label="Cancel"
             onClickHandler={onDecline}
+            hoverable
           />
           <Button
             size="sm"
             variant="accept"
             label="Complete"
             onClickHandler={onComplete}
+            hoverable
           />
         </>
       );
-    } else if (type === "selling") {
+    } else if (type === "selling" && orderStatus === "pending") {
       return (
         <>
           <Button
@@ -63,12 +69,14 @@ const TransactionCard = (props) => {
             variant="decline"
             label="Decline"
             onClickHandler={onDecline}
+            hoverable
           />
           <Button
             size="sm"
             variant="accept"
             label="Accept"
             onClickHandler={onAccept}
+            hoverable
           />
         </>
       );
@@ -78,7 +86,7 @@ const TransactionCard = (props) => {
   };
 
   return (
-    <div className={["transaction-card", { type }].join(" ")}>
+    <div className={["transaction-card", { type }].join(" ")} onClick={onClick}>
       <div className="image-container">
         <img src={source} alt="" />
       </div>

@@ -14,6 +14,12 @@
   display: grid;
   grid-template-columns: 1fr 2fr;
   column-gap: 12px;
+  cursor: pointer;
+}
+
+.transaction-card:hover {
+  box-shadow: 2px 2px black;
+  transform: translate(-2px, -2px);
 }
 
 .transaction-card .image-container {

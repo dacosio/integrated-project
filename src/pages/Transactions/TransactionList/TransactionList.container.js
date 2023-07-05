@@ -6,8 +6,11 @@ import {
   getDoc,
   onSnapshot,
   setDoc,
+  updateDoc,
+  serverTimestamp,
 } from "@firebase/firestore";
 import db from "../../../config/firebaseConfig";
+import { redirect } from "react-router-dom";
 
 const TransactionList = () => {
   const [orders, setOrders] = useState([]);
@@ -33,10 +36,12 @@ const TransactionList = () => {
       order.orderType === orderType && order.orderStatus === orderStatus
   );
 
+  console.log(orders);
+
   const clickHandler = async (orderId, orderStatus, productId) => {
     const orderDocRef = doc(db, "order", orderId);
     const orderSnap = await getDoc(orderDocRef);
-    const orderQty = Number(orderSnap.data().qtyOrdered);
+    const orderQty = Number(orderSnap.data().qty);
 
     const productDocRef = doc(db, "product", productId);
     const productSnap = await getDoc(productDocRef);
@@ -47,25 +52,47 @@ const TransactionList = () => {
       payload = {
         qty: productQty - orderQty,
       };
-      setDoc(productDocRef, payload);
+      await updateDoc(productDocRef, payload);
+      await updateDoc(orderDocRef, {
+        orderStatus,
+        updatedAt: serverTimestamp(),
+      });
+    } else if (orderStatus === "cancelled") {
+      payload = {
+        qty: productQty + orderQty,
+      };
+      await updateDoc(productDocRef, payload);
+      await updateDoc(orderDocRef, {
+        orderStatus,
+        updatedAt: serverTimestamp(),
+      });
     } else {
-      setDoc(orderDocRef, { orderStatus });
+      await updateDoc(orderDocRef, {
+        orderStatus,
+        updatedAt: serverTimestamp(),
+      });
     }
   };
 
   const onDecline = (orderId, productId) => {
     console.log("decline");
-    clickHandler(orderId, "cancelled");
+    clickHandler(orderId, "cancelled", productId);
   };
   const onAccept = (orderId, productId) => {
+    console.log("accepted", orderId, productId);
     clickHandler(orderId, "confirmed", productId);
   };
 
   const onCancel = (orderId, productId) => {
     console.log("cancel");
-    // clickHandler(orderId, "cancelled");
+    clickHandler(orderId, "cancelled", productId);
+  };
+  const onComplete = (orderId, productId) => {
+    console.log("complete");
+    clickHandler(orderId, "complete", productId);
   };
 
+  const redirectTo = (id) => redirect(`/transaction${id}`);
   const generatedProps = {
     // generated props here
     filteredOrders,
@@ -77,6 +104,8 @@ const TransactionList = () => {
     onCancel,
     onDecline,
     onAccept,
+    onComplete,
+    redirectTo,
   };
   return <TransactionListView {...generatedProps} />;
 };
