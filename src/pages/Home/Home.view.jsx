@@ -8,6 +8,7 @@ import ActiveListingCard from "../../components/base/ActiveListingCard/ActiveLis
 import Pagination from "../../components/base/Pagination/Pagination";
 import InfinitePagination from "../../components/base/InfinitePagination/InfinitePagination";
 import getDistance from "geolib/es/getDistance";
+import { Link } from "react-router-dom";
 
 const Home = (props) => {
   const {
@@ -82,25 +83,46 @@ const Home = (props) => {
                     const days = Math.abs(
                       Math.floor(timeDiff / (1000 * 60 * 60 * 24))
                     );
-
                     return (
-                      <ActiveListingCard
-                        key={product.id}
-                        distance={!!error ? 0 : distance}
-                        days={days}
-                        source={
-                          product.imageUrl
-                            ? product.imageUrl
-                            : "https://picsum.photos/400"
-                        }
-                        itemname={product.name}
-                        price={product.price}
-                        stock={product.qty}
-                        alt={product.name}
-                        onClick={() => console.log(product.id)}
-                        maxwidth={lg ? "180px" : "150px"}
-                        width={lg ? "180px" : "150px"}
-                      />
+                      <Link
+                        to={`/listing/${product.id}`}
+                        state={{
+                          categoryLabel: product.categoryLabel,
+                          categoryValue: product.categoryValue,
+                          createdAt: product.createdAt,
+                          createdByFirstName: product.createdByFirstName,
+                          createdById: product.createdByIdent,
+                          createdByLastName: product.createdByLastName,
+                          createdByNickName: product.createdByNickName,
+                          description: product.description,
+                          lat: product.lat,
+                          location: product.location,
+                          long: product.long,
+                          meetUpAddress: product.meetUpAddress,
+                          meetUpInfo: product.meetUpInfo,
+                          name: product.name,
+                          price: product.price,
+                          qty: product.qty,
+                        }}
+                      >
+                        <ActiveListingCard
+                          key={product.id}
+                          distance={!!error ? 0 : distance}
+                          days={days}
+                          source={
+                            product.imageUrl
+                              ? product.imageUrl
+                              : "https://picsum.photos/400"
+                          }
+                          itemname={product.name}
+                          price={product.price}
+                          stock={product.qty}
+                          alt={product.name}
+                          onClick={() => console.log(product.id)}
+                          maxwidth={lg ? "180px" : "150px"}
+                          width={lg ? "180px" : "150px"}
+                        />
+                      </Link>
                     );
                   })}
               </Grid>
@@ -189,62 +211,51 @@ const Home = (props) => {
                   );
 
                   return (
-                    <ActiveListingCard
-                      key={product.id}
-                      distance={!!error ? 0 : distance}
-                      days={days}
-                      source={
-                        product.imageUrl
-                          ? product.imageUrl
-                          : "https://picsum.photos/400"
-                      }
-                      itemname={product.name}
-                      price={product.price}
-                      stock={product.qty}
-                      alt="Banana"
-                      onClick={() => console.log(product.id)}
-                      maxwidth={lg ? "180px" : "150px"}
-                      width={lg ? "180px" : "150px"}
-                    />
+                    <Link
+                      to={`/listing/${product.id}`}
+                      state={{
+                        categoryLabel: product.categoryLabel,
+                        categoryValue: product.categoryValue,
+                        createdAt: product.createdAt,
+                        createdByFirstName: product.createdByFirstName,
+                        createdById: product.createdByIdent,
+                        createdByLastName: product.createdByLastName,
+                        createdByNickName: product.createdByNickName,
+                        description: product.description,
+                        lat: product.lat,
+                        location: product.location,
+                        long: product.long,
+                        meetUpAddress: product.meetUpAddress,
+                        meetUpInfo: product.meetUpInfo,
+                        name: product.name,
+                        price: product.price,
+                        qty: product.qty,
+                      }}
+                    >
+                      <ActiveListingCard
+                        key={product.id}
+                        distance={!!error ? 0 : distance}
+                        days={days}
+                        source={
+                          product.imageUrl
+                            ? product.imageUrl
+                            : "https://picsum.photos/400"
+                        }
+                        itemname={product.name}
+                        price={product.price}
+                        stock={product.qty}
+                        alt="Banana"
+                        onClick={() => console.log(product.id)}
+                        maxwidth={lg ? "180px" : "150px"}
+                        width={lg ? "180px" : "150px"}
+                      />
+                    </Link>
                   );
                 })
               }
               hasMore={hasMore}
               onScroll={handleOnScroll}
             />
-            {/* <Grid columns={columns} style={{ justifyItems: "center" }}>
-              {products &&
-                bounds &&
-                products.map((d) => {
-                  let tmp = {
-                    latitude: d.location._lat,
-                    longitude: d.location._long,
-                  };
-                  let distance = 0;
-                  if (latitude && longitude) {
-                    distance = getDistance(tmp, {
-                      latitude,
-                      longitude,
-                    });
-                    distance = Math.ceil(Number(distance) / 1000);
-                  }
-                  return (
-                    <ActiveListingCard
-                      key={d.id}
-                      distance={!!error ? 0 : distance}
-                      days={2}
-                      source={`https://picsum.photos/400?random=${d.id}`}
-                      itemname={d.name}
-                      price={d.price}
-                      stock={d.qty}
-                      alt="Banana"
-                      onClick={() => console.log(d.id)}
-                      maxwidth={lg ? "180px" : "150px"}
-                      width={lg ? "180px" : "150px"}
-                    />
-                  );
-                })}
-            </Grid> */}
           </div>
         </>
       )}

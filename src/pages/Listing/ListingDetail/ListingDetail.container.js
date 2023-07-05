@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import store, { storage } from "../../../config/firebaseConfig";
 import {
   collection,
@@ -117,6 +117,13 @@ const ListingDetail = () => {
     setCancelVisibility(false);
   };
 
+  // get the state of the products from here*****************
+  const location = useLocation();
+  console.log(location, " useLocation Hook");
+  const data = location.state;
+  console.log(data);
+  //
+
   const generatedProps = {
     user,
     product,
@@ -135,6 +142,7 @@ const ListingDetail = () => {
     handleOnOpenCancel,
     handleOnConfirmCancel,
     handleOnCloseCancel,
+    data,
   };
   return <ListDetailView {...generatedProps} />;
 };
