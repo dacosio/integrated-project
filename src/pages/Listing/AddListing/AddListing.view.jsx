@@ -14,7 +14,7 @@ import { Formik, Form } from "formik";
 import FormikControl from "../../../components/base/FormikControl/FormikControl";
 import BackButton from "../../../components/base/BackButton/BackButton";
 
-const AddListing = (initialValues, validationSchema, onSubmit, props) => {
+const AddListing = ({initialValues, onSubmit}) => {
   const isDesktop = useMediaQuery("(min-width: 1440px)");
   const [selectedOption, setSelectedOption] = useState("");
   const [multipleImages, setMultipleImages] = useState([]);
@@ -34,7 +34,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
         <div>
           <Formik
             initialValues={initialValues}
-            validationSchema={validationSchema}
+            // validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
             {(formik) => {
@@ -89,7 +89,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                         control="input"
                         type="text"
                         label="ItemName"
-                        name="item-name"
+                        name="itemName"
                         placeholder="What are you splitting?"
                         style={{
                           borderRadius: "8px",
@@ -356,7 +356,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
           {/* Mobile view */}
           <Formik
             initialValues={initialValues}
-            validationSchema={validationSchema}
+            // validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
             {(formik) => {
