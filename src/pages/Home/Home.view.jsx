@@ -80,8 +80,8 @@ const Home = (props) => {
                         key={product.id}
                         distance={!!error ? 0 : distance}
                         source={
-                          product.imageUrl
-                            ? product.imageUrl
+                          product.images
+                            ? product.images[0]
                             : "https://picsum.photos/400"
                         }
                         itemname={product.name}
@@ -91,6 +91,7 @@ const Home = (props) => {
                         onClick={() => console.log(product.id)}
                         maxwidth={lg ? "180px" : "150px"}
                         width={lg ? "180px" : "150px"}
+                        height={lg ? "180px" : "150px"}
                       />
                     );
                   })}
@@ -176,8 +177,8 @@ const Home = (props) => {
                         key={product.id}
                         distance={!!error ? 0 : distance}
                         source={
-                          product.imageUrl
-                            ? product.imageUrl
+                          product.images
+                            ? product.images[0]
                             : "https://picsum.photos/400"
                         }
                         itemname={product.name}
@@ -187,6 +188,7 @@ const Home = (props) => {
                         onClick={() => console.log(product.id)}
                         maxwidth={lg ? "180px" : "150px"}
                         width={lg ? "180px" : "150px"}
+                        height={lg ? "180px" : "150px"}
                       />
                     );
                   })

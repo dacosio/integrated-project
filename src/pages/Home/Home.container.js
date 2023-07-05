@@ -61,7 +61,6 @@ const Home = () => {
 
     return () => unsubscribe();
   }, []);
-
   const totalPageNumber = Math.ceil(products.length / pageNumber);
 
   const desktopProducts = products.slice(
