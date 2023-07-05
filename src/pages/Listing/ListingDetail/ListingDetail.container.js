@@ -20,11 +20,11 @@ const ListingDetail = () => {
   const { listingId } = useParams();
   const [product, setProduct] = useState();
   const [seller, setSeller] = useState();
+  const [transactions, setTransactions] = useState([]);
+  const [quantity, setQuantity] = useState(1);
   const [carouselVisibility, setCarouselVisibility] = useState(false);
   const [requestVisibility, setRequestVisibility] = useState(false);
   const [cancelVisibility, setCancelVisibility] = useState(false);
-  const [transactions, setTransactions] = useState([]);
-  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     getDoc(doc(store, "product", listingId))
@@ -121,12 +121,12 @@ const ListingDetail = () => {
     user,
     product,
     seller,
-    carouselVisibility,
-    requestVisibility,
-    cancelVisibility,
     transactions,
     quantity,
     setQuantity,
+    carouselVisibility,
+    requestVisibility,
+    cancelVisibility,
     handleOnOpen,
     handleOnClose,
     handleOnOpenRequest,
