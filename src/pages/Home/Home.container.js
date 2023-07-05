@@ -23,7 +23,6 @@ import Geocode from "react-geocode";
 
 const Home = () => {
   const { user, logout } = UserAuth();
-
   const [zoom, setZoom] = useState(12);
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
@@ -136,7 +135,6 @@ const Home = () => {
 
   const generatedProps = {
     user,
-    // products,
     desktopProducts,
     mobileProducts,
     hasMore,
