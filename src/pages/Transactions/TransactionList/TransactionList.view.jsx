@@ -6,21 +6,27 @@ import TransactionCard from "../../../components/base/TransactionCard/Transactio
 import "./TransactionList.css";
 
 const TransactionList = (props) => {
-  const [selectedOption, setSelectedOption] = useState("");
-  const options = [
-    { value: "value1", label: "Selling" },
-    { value: "value2", label: "Buying" },
-    { value: "value3", label: "Completed"},
-  ];
-
+  const {
+    filteredOrders,
+    orderType,
+    setOrderType,
+    orderStatus,
+    setOrderStatus,
+    orderTypeOptions,
+    onCancel,
+    onDecline,
+    onAccept,
+    onComplete,
+    redirectTo,
+  } = props;
   return (
     <div className="orders-list">
       <div className="title-wrapper">
         <Typography variant="h3-graphik-bold">Orders</Typography>
         <Dropdown
-          selectedOption={selectedOption}
-          setSelectedOption={setSelectedOption}
-          options={options}
+          selectedOption={orderType}
+          setSelectedOption={setOrderType}
+          options={orderTypeOptions}
           label="Select"
         />
         <PageTabs
@@ -32,10 +38,35 @@ const TransactionList = (props) => {
       </div>
 
       <div className="orders">
-        <TransactionCard type="selling" itemName="banana" time="2" portions="10" sellerName="cylvito" price="5" source="https://picsum.photos/200/400"/>
-        <TransactionCard type="buying" itemName="banana" time="2" portions="10" sellerName="cylvito" price="5" source="https://picsum.photos/200/400"/>
-        <TransactionCard type="completed" itemName="banana" time="2" portions="10" sellerName="cylvito" price="5" source="https://picsum.photos/200/400"/>
-        <TransactionCard type="selling" itemName="banana" time="2" portions="10" sellerName="cylvito" price="5" source="https://picsum.photos/200/400"/>
+        {filteredOrders &&
+          filteredOrders.map((o) => {
+            const today = new Date();
+            let createdAt = new Date(o.createdAt.toDate());
+            createdAt.setHours(0, 0, 0, 0);
+            today.setHours(0, 0, 0, 0);
+            const timeDiff = today.getTime() - createdAt.getTime();
+            const days = Math.abs(Math.floor(timeDiff / (1000 * 60 * 60 * 24)));
+            return (
+              <TransactionCard
+                key={o.id}
+                type={o.orderType}
+                itemName={o.name}
+                time={days}
+                portions={o.qty}
+                sellerName={o.splitterName}
+                price={o.price}
+                source={o.imageUrl}
+                orderStatus={o.orderStatus}
+                onCancel={() => onCancel(o.id, o.productId)}
+                onDecline={() => onDecline(o.id, o.productId)}
+                onAccept={() => onAccept(o.id, o.productId)}
+                onComplete={() => onComplete(o.id, o.productId)}
+                onClick={() => {
+                  console.log("test");
+                }}
+              />
+            );
+          })}
       </div>
     </div>
   );
