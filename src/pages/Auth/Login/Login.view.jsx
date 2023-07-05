@@ -22,6 +22,8 @@ const LoginView = (props) => {
   const navigate = useNavigate();
   return (
     <div className={style.loginWrapper}>
+      <LoginLogoSVG />
+
       <Grid columns={lg ? 2 : 1} rows={2} gap={lg ? "15rem" : 0}>
         <div className={style.leftIcons}>
           {lg ? (
@@ -65,6 +67,7 @@ const LoginView = (props) => {
         </div>
 
         <div style={{ gridRow: "1/-1", gridColumn: "2/3" }}>
+          {!lg && <LoginLogoSVG />}
           <div className={style.formikContainer}>
             <Formik
               initialValues={initialValues}
