@@ -84,7 +84,7 @@ const ListingDetail = () => {
     if (user && productRef && seller) {
       onSnapshot(
         query(
-          collection(store, "transaction"),
+          collection(store, "order"),
           where("productById", "==", productRef.id),
           where("sellerByEmail", "==", seller.email),
           where("buyerByEmail", "==", user.email)
@@ -109,7 +109,7 @@ const ListingDetail = () => {
   };
 
   const handleOnConfirmRequest = () => {
-    addDoc(collection(store, "transaction"), {
+    addDoc(collection(store, "order"), {
       productById: productRef.id,
       sellerByEmail: seller.email,
       buyerByEmail: user.email,
@@ -129,7 +129,7 @@ const ListingDetail = () => {
   };
 
   const handleOnConfirmCancel = () => {
-    deleteDoc(doc(store, "transaction", transactions[0].id));
+    deleteDoc(doc(store, "order", transactions[0].id));
 
     setCancelVisibility(false);
   };

@@ -121,7 +121,25 @@ const ListingDetail = (props) => {
                       />
                     )}
                   </Card>
-                  <MeetUpInfoCard />
+                  <MeetUpInfoCard
+                    date={new Date(
+                      product.meetUpInfo.seconds * 1000
+                    ).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                    time={new Date(
+                      product.meetUpInfo.seconds * 1000
+                    ).toLocaleTimeString("en-US", {
+                      hour: "numeric",
+                      minute: "numeric",
+                      hour12: true,
+                    })}
+                    latitude={product.lat}
+                    longitude={product.long}
+                    location={product.meetUpAddress}
+                  />
                 </div>
               </div>
             </Card>
@@ -236,7 +254,7 @@ const ListingDetail = (props) => {
                   <ImageList images={images} onClick={handleOnOpen} />
                 </div>
               </Card>
-              <Card nopadding noborder noshadow>
+              <Card nopadding noborder>
                 {user.email === seller.email ? (
                   <DescriptionCard description={product.description} own />
                 ) : transactions.length === 0 ? (
@@ -252,7 +270,27 @@ const ListingDetail = (props) => {
                   />
                 )}
               </Card>
-              <MeetUpInfoCard />
+              <Card nopadding noborder>
+                <MeetUpInfoCard
+                  date={new Date(
+                    product.meetUpInfo.seconds * 1000
+                  ).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                  time={new Date(
+                    product.meetUpInfo.seconds * 1000
+                  ).toLocaleTimeString("en-US", {
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: true,
+                  })}
+                  latitude={product.lat}
+                  longitude={product.long}
+                  location={product.meetUpAddress}
+                />
+              </Card>
               <Card nopadding noborder>
                 <SellerInfoCard
                   source={seller.imageUrl}
