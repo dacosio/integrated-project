@@ -16,7 +16,6 @@ const Filter = ({
   placeholder,
   screenSize,
 }) => {
-  console.log(screenSize);
   return (
     <div className={screenSize ? style.filterWrapperFlex : style.filterWrapper}>
       <div>

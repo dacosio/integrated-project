@@ -57,7 +57,7 @@ const Home = (props) => {
             )}
 
             {toggleDisplay ? (
-              desktopProducts && (
+              desktopProducts.length > 0 ? (
                 <InfinitePagination
                   style={{ justifyContent: "start" }}
                   columns={columns}
@@ -102,6 +102,12 @@ const Home = (props) => {
                   hasMore={hasMore}
                   onScroll={handleOnScroll}
                 />
+              ) : (
+                <div style={{ textAlign: "center", marginTop: "15%" }}>
+                  <Typography color="error" variant="h4-graphik-bold">
+                    Oh snap! That product is not yet available.
+                  </Typography>
+                </div>
               )
             ) : (
               <div style={{ height: "90%" }}>
@@ -222,7 +228,7 @@ const Home = (props) => {
           variant="black"
           type="submit"
           size="sm"
-          label="Display Map"
+          label={`Display ${toggleDisplay ? "Map" : "Listings"}`}
           hoverable
           onClickHandler={toggleDisplayHandler}
         />

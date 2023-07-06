@@ -42,13 +42,17 @@ const Home = () => {
     navigate("/login");
   };
 
+  // global search value
+  const { searchValue } = useContext(SearchContext);
+  const debouncedValue = useDebounce(searchValue, 500);
+
+  //global category value
+  const { categoryValue } = Category();
+
+  // /**************** */
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "product"), (snapshot) => {
-      // const newProducts = snapshot.docs.map((doc) => ({
-      //   ...doc.data(),
-      //   id: doc.id,
-      // }));
-      const newProducts = snapshot.docs
+      let newProducts = snapshot.docs
         .filter((doc) => {
           return doc.data().lat !== undefined && doc.data().long !== undefined;
         })
@@ -56,11 +60,38 @@ const Home = () => {
           ...doc.data(),
           id: doc.id,
         }));
-      setProducts(newProducts);
+
+      if (!!debouncedValue && categoryValue.length > 0) {
+        const result = newProducts.filter(
+          (n) =>
+            n.categoryValue
+              .toLowerCase()
+              .includes(categoryValue[0]?.value.toLowerCase()) &&
+            n.name.toLowerCase().includes(debouncedValue.toLowerCase())
+        );
+        setProducts(result);
+      } else if (!!debouncedValue) {
+        const result = newProducts.filter((n) =>
+          n.name.toLowerCase().includes(debouncedValue.toLowerCase())
+        );
+        setProducts(result);
+      } else if (categoryValue.length > 0) {
+        const result = newProducts.filter((n) =>
+          n.categoryValue
+            .toLowerCase()
+            .includes(categoryValue[0]?.value.toLowerCase())
+        );
+        setProducts(result);
+      } else {
+        setProducts(newProducts);
+      }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [debouncedValue, categoryValue]);
+
+  // ********************************
+
   const totalPageNumber = Math.ceil(products.length / pageNumber);
 
   const desktopProducts = products.slice(
@@ -104,16 +135,6 @@ const Home = () => {
     setCurrentPageIndex(pageIndex);
   };
 
-  // global search value
-  const { searchValue } = useContext(SearchContext);
-  const debouncedValue = useDebounce(searchValue, 500);
-
-  //global category value
-  const { categoryValue } = Category();
-
-  // console.log(debouncedValue);
-  // console.log(categoryValue);
-
   const { latitude, longitude, error } = usePosition();
 
   const [currentAddress, setCurrentAddress] = useState("");
@@ -131,7 +152,7 @@ const Home = () => {
     }
   );
 
-  const [toggleDisplay, setToggleDisplay] = useState(false);
+  const [toggleDisplay, setToggleDisplay] = useState(true);
 
   const toggleDisplayHandler = () => {
     setToggleDisplay(!toggleDisplay);

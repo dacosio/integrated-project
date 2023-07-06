@@ -61,6 +61,7 @@ const Header = () => {
   const xl = useMediaQuery("(min-width: 1271px");
   const filterSize = useMediaQuery("(min-width: 990px");
 
+  console.log(selectedOption);
   let headerSm = () => {
     return (
       <div className={styles.mobileWrapper}>
@@ -429,29 +430,7 @@ const Header = () => {
                 </a>
               )}
             </li>
-            {/* <li>
-              {user != null ? (
-                <Link
-                  style={
-                    location.pathname === "/register"
-                      ? { color: "var(--yellow)", fontWeight: "bold" }
-                      : { color: "var(--white)" }
-                  }
-                  to="register"
-                >
-                  Settings
-                </Link>
-              ) : (
-                <a
-                  href="#"
-                  onClick={() => {
-                    toast.warning("Log in to view settings");
-                  }}
-                >
-                  Settings
-                </a>
-              )}
-            </li> */}
+
             <li>
               {user != null ? (
                 <Link
@@ -523,8 +502,7 @@ const Header = () => {
       >
         {filterSelected && (
           <Filter
-            selectedOption={selectedOption}
-            setSelectedOption={setSelectedOption}
+            onChange={(v) => updateCategoryValue(v)}
             options={options}
             sortLowHandler={() => {
               console.log("sorted low handler");
