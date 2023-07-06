@@ -98,7 +98,7 @@ const Home = () => {
     }
   };
 
-  const columns = sm ? 2 : md ? 3 : lg ? 4 : 2;
+  const columns = sm ? 2 : md ? 3 : lg ? 4 : xl ? 5 : 2;
 
   const handleOnClick = (pageIndex) => {
     setCurrentPageIndex(pageIndex);
@@ -115,7 +115,6 @@ const Home = () => {
   // console.log(categoryValue);
 
   const { latitude, longitude, error } = usePosition();
-  console.log(latitude, longitude, error);
 
   const [currentAddress, setCurrentAddress] = useState("");
 
@@ -132,6 +131,12 @@ const Home = () => {
     }
   );
 
+  const [toggleDisplay, setToggleDisplay] = useState(false);
+
+  const toggleDisplayHandler = () => {
+    setToggleDisplay(!toggleDisplay);
+    console.log(toggleDisplay);
+  };
   const generatedProps = {
     user,
     desktopProducts,
@@ -154,6 +159,8 @@ const Home = () => {
     handleOnScroll,
     categories,
     currentAddress,
+    toggleDisplayHandler,
+    toggleDisplay,
   };
   return <HomeView {...generatedProps} />;
 };

@@ -36,7 +36,18 @@
 }
 
 .desktopWrapper {
-  padding: 80px 150px;
-  height: 85vh;
-  background-color: var(--bg-gray);
+  padding: 60px 150px;
+}
+
+.container {
+  position: relative;
+}
+.displayButton {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
 }
