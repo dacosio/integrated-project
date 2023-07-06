@@ -10,12 +10,17 @@ import useMediaQuery from "../../../utils/useMediaQuery";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import { Place } from "../../../context/PlaceContext";
+import { useEffect } from "react";
 
 const Register = () => {
   const { createUser } = UserAuth();
   const navigate = useNavigate();
   const [singleImage, setSingleImage] = useState([]);
-  const { placeValue } = Place();
+  const { placeValue, updatePlaceValue } = Place();
+
+  useEffect(() => {
+    updatePlaceValue("");
+  }, []);
 
   const initialValues = {
     email: "",
