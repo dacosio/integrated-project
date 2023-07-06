@@ -16,6 +16,8 @@ const Layout = () => {
     const body = document.querySelector("body");
     if (location.pathname === "/login" || location.pathname === "/register") {
       body.style.backgroundColor = "var(--dark-blue)"; // Set the desired background color for the login page
+    } else if (location.pathname === "/") {
+      body.style.backgroundColor = "var(--bg-gray)"; // Set the desired background color for the login page
     }
     // else if () {
     //   body.style.background =

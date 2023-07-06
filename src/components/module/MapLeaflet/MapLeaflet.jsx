@@ -40,8 +40,10 @@ const MapLeaflet = ({
   zIndex,
   bounds,
   showActiveListing,
+  currentAddress,
   ...props
 }) => {
+  console.log(currentAddress);
   return (
     <>
       <MapContainer
@@ -69,24 +71,39 @@ const MapLeaflet = ({
                     e.target.closePopup();
                   }}
                   icon={customIcon}
+                  eventHandlers={{
+                    click: (e) => {
+                      console.log("marker clicked", e);
+                      currentAddress
+                        ? window.open(
+                            `https://www.google.com/maps/dir/${currentAddress}/${el.meetUpAddress}/`,
+                            "_blank"
+                          )
+                        : window.open(
+                            `http://maps.google.com/?q=${el.meetUpAddress}`,
+                            "_blank"
+                          );
+                    },
+                  }}
                 >
                   {showActiveListing && (
-                  <Tooltip permanent={permanent} direction={direction}>
-                    <ActiveListingCard
-                      key={el.id}
-                      distance={2}
-                      days={2}
-                      source={`https://picsum.photos/400?random=${el.id}`}
-                      itemname="Banana"
-                      price={1.25}
-                      stock={5}
-                      alt="Banana"
-                      onClick={() => console.log(el.id)}
-                      maxwidth={"150px"}
-                      width={"150px"}
-                    />
-                  </Tooltip>
-                 )}</Marker>
+                    <Tooltip permanent={permanent} direction={direction}>
+                      <ActiveListingCard
+                        key={el.id}
+                        distance={2}
+                        days={2}
+                        source={el.images[0]}
+                        itemname={el.name}
+                        price={el.price}
+                        stock={el.qyty}
+                        alt={el.name}
+                        onClick={() => console.log(el.id)}
+                        maxwidth={"150px"}
+                        width={"150px"}
+                      />
+                    </Tooltip>
+                  )}
+                </Marker>
               ) : (
                 <Marker
                   position={[el.location._lat, el.location._long]}

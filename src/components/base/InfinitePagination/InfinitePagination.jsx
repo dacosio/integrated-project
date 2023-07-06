@@ -10,6 +10,7 @@ const InfinitePagination = ({
   hasMore,
   gap,
   scrollThreshold = 1,
+  style,
   ...props
 }) => {
   return (
@@ -28,7 +29,7 @@ const InfinitePagination = ({
           <b>No more items.</b>
         </p>
       }
-      style={{ gridTemplateColumns: `repeat(${columns}, 1fr)`, gap }}
+      style={{ gridTemplateColumns: `repeat(${columns}, 1fr)`, gap, ...style }}
       className={`${styles.wrapper}`}
     >
       {items}
