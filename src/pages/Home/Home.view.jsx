@@ -89,7 +89,6 @@ const Home = (props) => {
                       });
                       distance = Math.ceil(Number(distance) / 1000);
                     }
-
                     return (
                       <ActiveListingCard
                         key={product.id}
@@ -97,7 +96,7 @@ const Home = (props) => {
                         source={
                           product.images
                             ? product.images[0]
-                            : "https://picsum.photos/400"
+                            : "src/assets/images/NoImage.jpg"
                         }
                         itemname={product.name}
                         price={product.price}
@@ -204,7 +203,7 @@ const Home = (props) => {
                         source={
                           product.images
                             ? product.images[0]
-                            : "https://picsum.photos/400"
+                            : "src/assets/images/NoImage.jpg"
                         }
                         itemname={product.name}
                         price={product.price}
