@@ -30,10 +30,10 @@ const Layout = () => {
     }
     console.log(location.pathname);
 
-    return () => {
-      body.style.backgroundColor = ""; // Reset the background color when the component unmounts
-    };
-  }, [location.pathnamem, md]);
+    // return () => {
+    //   body.style.backgroundColor = ""; // Reset the background color when the component unmounts
+    // };
+  }, [location.pathname, md]);
 
   return (
     <div>
