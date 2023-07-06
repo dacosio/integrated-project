@@ -12,6 +12,7 @@ import { useContext } from "react";
 import { usePosition } from "../../utils/usePosition";
 import { Category } from "../../context/CategoryContext";
 import Geocode from "react-geocode";
+import { Sort } from "../../context/SortContext";
 
 const Home = () => {
   const { user, logout } = UserAuth();
@@ -34,13 +35,22 @@ const Home = () => {
     navigate("/login");
   };
 
+  // global search value
+  const { searchValue } = useContext(SearchContext);
+  const debouncedValue = useDebounce(searchValue, 500);
+
+  //global category value
+  const { categoryValue } = Category();
+
+  // global sort value
+  const { sortValue } = Sort();
+
+  console.log(sortValue);
+
+  // /**************** */
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "product"), (snapshot) => {
-      // const newProducts = snapshot.docs.map((doc) => ({
-      //   ...doc.data(),
-      //   id: doc.id,
-      // }));
-      const newProducts = snapshot.docs
+      let newProducts = snapshot.docs
         .filter((doc) => {
           return doc.data().lat !== undefined && doc.data().long !== undefined;
         })
@@ -48,11 +58,46 @@ const Home = () => {
           ...doc.data(),
           id: doc.id,
         }));
-      setProducts(newProducts);
+
+      if (!!debouncedValue && categoryValue.length > 0) {
+        const result = newProducts.filter(
+          (n) =>
+            n.categoryValue
+              .toLowerCase()
+              .includes(categoryValue[0]?.value.toLowerCase()) &&
+            n.name.toLowerCase().includes(debouncedValue.toLowerCase())
+        );
+        setProducts(result);
+      } else if (!!debouncedValue) {
+        const result = newProducts.filter((n) =>
+          n.name.toLowerCase().includes(debouncedValue.toLowerCase())
+        );
+        setProducts(result);
+      } else if (categoryValue.length > 0) {
+        const result = newProducts.filter((n) =>
+          n.categoryValue
+            .toLowerCase()
+            .includes(categoryValue[0]?.value.toLowerCase())
+        );
+        setProducts(result);
+      } else if (sortValue) {
+        if (sortValue === "lowToHigh") {
+          newProducts.sort((a, b) => a.price - b.price);
+          setProducts(newProducts);
+        } else if (sortValue === "highToLow") {
+          newProducts.sort((a, b) => b.price - a.price);
+          setProducts(newProducts);
+        }
+      } else {
+        setProducts(newProducts);
+      }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [debouncedValue, categoryValue, sortValue]);
+
+  // ********************************
+
   const totalPageNumber = Math.ceil(products.length / pageNumber);
 
   const desktopProducts = products.slice(
@@ -88,24 +133,13 @@ const Home = () => {
     setCurrentPageIndex((oldData) => oldData + 1);
   };
 
-  const columns = sm ? 2 : md ? 3 : lg ? 4 : 2;
+  const columns = sm ? 2 : md ? 3 : lg ? 4 : xl ? 5 : 2;
 
   const handleOnClick = (pageIndex) => {
     setCurrentPageIndex(pageIndex);
   };
 
-  // global search value
-  const { searchValue } = useContext(SearchContext);
-  const debouncedValue = useDebounce(searchValue, 500);
-
-  //global category value
-  const { categoryValue } = Category();
-
-  // console.log(debouncedValue);
-  // console.log(categoryValue);
-
   const { latitude, longitude, error } = usePosition();
-  console.log(latitude, longitude, error);
 
   const [currentAddress, setCurrentAddress] = useState("");
 
@@ -121,6 +155,12 @@ const Home = () => {
       console.error(error);
     }
   );
+
+  const [toggleDisplay, setToggleDisplay] = useState(true);
+
+  const toggleDisplayHandler = () => {
+    setToggleDisplay(!toggleDisplay);
+  };
 
   const generatedProps = {
     user,
@@ -144,6 +184,10 @@ const Home = () => {
     handleOnScroll,
     categories,
     currentAddress,
+    toggleDisplayHandler,
+    toggleDisplay,
+    debouncedValue,
+    categoryValue,
   };
   return <HomeView {...generatedProps} />;
 };
