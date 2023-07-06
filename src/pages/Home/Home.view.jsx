@@ -22,14 +22,15 @@ const Home = (props) => {
     pageNumber,
     totalPageNumber,
     handleOnClick,
-    products,
+    desktopProducts,
     mobileProducts,
     handleOnScroll,
     hasMore,
     latitude,
     longitude,
     error,
-    bounds,
+    desktopBounds,
+    mobileBounds,
     currentAddress,
   } = props;
 
@@ -59,8 +60,8 @@ const Home = (props) => {
                 }}
                 gap="1rem"
               >
-                {products &&
-                  products.map((product) => {
+                {desktopProducts &&
+                  desktopProducts.map((product) => {
                     let tmp = {
                       latitude: product.location._lat,
                       longitude: product.location._long,
@@ -74,23 +75,13 @@ const Home = (props) => {
                       distance = Math.ceil(Number(distance) / 1000);
                     }
 
-                    const today = new Date();
-                    let createdAt = new Date(product.createdAt.toDate());
-                    createdAt.setHours(0, 0, 0, 0);
-                    today.setHours(0, 0, 0, 0);
-                    const timeDiff = today.getTime() - createdAt.getTime();
-                    const days = Math.abs(
-                      Math.floor(timeDiff / (1000 * 60 * 60 * 24))
-                    );
-
                     return (
                       <ActiveListingCard
                         key={product.id}
                         distance={!!error ? 0 : distance}
-                        days={days}
                         source={
-                          product.imageUrl
-                            ? product.imageUrl
+                          product.images
+                            ? product.images[0]
                             : "https://picsum.photos/400"
                         }
                         itemname={product.name}
@@ -100,6 +91,7 @@ const Home = (props) => {
                         onClick={() => console.log(product.id)}
                         maxwidth={lg ? "180px" : "150px"}
                         width={lg ? "180px" : "150px"}
+                        height={lg ? "180px" : "150px"}
                       />
                     );
                   })}
@@ -112,17 +104,17 @@ const Home = (props) => {
               />
             </div>
             <div className={style.mapDesktop}>
-              {products && (
+              {desktopProducts && desktopBounds && (
                 <MapLeaflet
                   zoom={zoom}
-                  markerData={products}
+                  markerData={desktopProducts}
                   direction="top"
                   // permanent
                   width="100%"
                   height="100%"
                   borderRadius="20px"
                   zIndex={2}
-                  bounds={bounds}
+                  bounds={desktopBounds}
                   showActiveListing={true}
                 />
               )}
@@ -132,16 +124,16 @@ const Home = (props) => {
       ) : (
         <>
           <div>
-            {products && bounds && (
+            {mobileProducts && mobileBounds && (
               <MapLeaflet
                 zoom={zoom}
-                markerData={products}
+                markerData={mobileProducts}
                 direction="top"
                 // permanent
                 width="100%"
                 height="30vh"
                 zIndex={2}
-                bounds={bounds}
+                bounds={mobileBounds}
                 showActiveListing={true}
               />
             )}
@@ -160,91 +152,51 @@ const Home = (props) => {
                 </Typography>
               </div>
             )}
-            <InfinitePagination
-              columns={columns}
-              gap="1rem"
-              items={
-                mobileProducts &&
-                mobileProducts.map((product, index) => {
-                  let tmp = {
-                    latitude: product.location._lat,
-                    longitude: product.location._long,
-                  };
-                  let distance = 0;
-                  if (latitude && longitude) {
-                    distance = getDistance(tmp, {
-                      latitude,
-                      longitude,
-                    });
-                    distance = Math.ceil(Number(distance) / 1000);
-                  }
+            {mobileProducts && (
+              <InfinitePagination
+                columns={columns}
+                gap="1rem"
+                items={
+                  mobileProducts &&
+                  mobileProducts.map((product, index) => {
+                    let tmp = {
+                      latitude: product.location._lat,
+                      longitude: product.location._long,
+                    };
+                    let distance = 0;
+                    if (latitude && longitude) {
+                      distance = getDistance(tmp, {
+                        latitude,
+                        longitude,
+                      });
+                      distance = Math.ceil(Number(distance) / 1000);
+                    }
 
-                  const today = new Date();
-                  let createdAt = new Date(product.createdAt.toDate());
-                  createdAt.setHours(0, 0, 0, 0);
-                  today.setHours(0, 0, 0, 0);
-                  const timeDiff = today.getTime() - createdAt.getTime();
-                  const days = Math.abs(
-                    Math.floor(timeDiff / (1000 * 60 * 60 * 24))
-                  );
-
-                  return (
-                    <ActiveListingCard
-                      key={product.id}
-                      distance={!!error ? 0 : distance}
-                      days={days}
-                      source={
-                        product.imageUrl
-                          ? product.imageUrl
-                          : "https://picsum.photos/400"
-                      }
-                      itemname={product.name}
-                      price={product.price}
-                      stock={product.qty}
-                      alt="Banana"
-                      onClick={() => console.log(product.id)}
-                      maxwidth={lg ? "180px" : "150px"}
-                      width={lg ? "180px" : "150px"}
-                    />
-                  );
-                })
-              }
-              hasMore={hasMore}
-              onScroll={handleOnScroll}
-            />
-            {/* <Grid columns={columns} style={{ justifyItems: "center" }}>
-              {products &&
-                bounds &&
-                products.map((d) => {
-                  let tmp = {
-                    latitude: d.location._lat,
-                    longitude: d.location._long,
-                  };
-                  let distance = 0;
-                  if (latitude && longitude) {
-                    distance = getDistance(tmp, {
-                      latitude,
-                      longitude,
-                    });
-                    distance = Math.ceil(Number(distance) / 1000);
-                  }
-                  return (
-                    <ActiveListingCard
-                      key={d.id}
-                      distance={!!error ? 0 : distance}
-                      days={2}
-                      source={`https://picsum.photos/400?random=${d.id}`}
-                      itemname={d.name}
-                      price={d.price}
-                      stock={d.qty}
-                      alt="Banana"
-                      onClick={() => console.log(d.id)}
-                      maxwidth={lg ? "180px" : "150px"}
-                      width={lg ? "180px" : "150px"}
-                    />
-                  );
-                })}
-            </Grid> */}
+                    return (
+                      <ActiveListingCard
+                        key={product.id}
+                        distance={!!error ? 0 : distance}
+                        source={
+                          product.images
+                            ? product.images[0]
+                            : "https://picsum.photos/400"
+                        }
+                        itemname={product.name}
+                        price={product.price}
+                        stock={product.qty}
+                        alt="Banana"
+                        onClick={() => console.log(product.id)}
+                        maxwidth={lg ? "180px" : "150px"}
+                        width={lg ? "180px" : "150px"}
+                        height={lg ? "180px" : "150px"}
+                      />
+                    );
+                  })
+                }
+                hasMore={hasMore}
+                onScroll={handleOnScroll}
+              />
+            )}
           </div>
         </>
       )}
