@@ -21,6 +21,7 @@ import { usePosition } from "../../utils/usePosition";
 import { Category } from "../../context/CategoryContext";
 import Geocode from "react-geocode";
 import { Sort } from "../../context/SortContext";
+import { Place } from "../../context/PlaceContext";
 
 const Home = () => {
   const { user, logout } = UserAuth();
@@ -67,43 +68,35 @@ const Home = () => {
           id: doc.id,
         }));
 
-      if (!!debouncedValue && categoryValue.length > 0) {
-        const result = newProducts.filter(
-          (n) =>
-            n.categoryValue
-              .toLowerCase()
-              .includes(categoryValue[0]?.value.toLowerCase()) &&
-            n.name.toLowerCase().includes(debouncedValue.toLowerCase())
-        );
-        setProducts(result);
-      } else if (!!debouncedValue) {
-        const result = newProducts.filter((n) =>
+      let result = newProducts;
+
+      if (!!debouncedValue) {
+        result = result.filter((n) =>
           n.name.toLowerCase().includes(debouncedValue.toLowerCase())
         );
-        setProducts(result);
-      } else if (categoryValue.length > 0) {
-        const result = newProducts.filter((n) =>
+      }
+
+      if (categoryValue.length > 0) {
+        result = result.filter((n) =>
           n.categoryValue
             .toLowerCase()
             .includes(categoryValue[0]?.value.toLowerCase())
         );
-        setProducts(result);
-      } else if (sortValue) {
-        if (sortValue === "lowToHigh") {
-          newProducts.sort((a, b) => a.price - b.price);
-          setProducts(newProducts);
-        } else if (sortValue === "highToLow") {
-          newProducts.sort((a, b) => b.price - a.price);
-          setProducts(newProducts);
-        }
-      } else {
-        setProducts(newProducts);
       }
+
+      if (sortValue) {
+        if (sortValue === "lowToHigh") {
+          result.sort((a, b) => a.price - b.price);
+        } else if (sortValue === "highToLow") {
+          result.sort((a, b) => b.price - a.price);
+        }
+      }
+
+      setProducts(result);
     });
 
     return () => unsubscribe();
   }, [debouncedValue, categoryValue, sortValue]);
-
   // ********************************
 
   const totalPageNumber = Math.ceil(products.length / pageNumber);
@@ -171,6 +164,14 @@ const Home = () => {
   const toggleDisplayHandler = () => {
     setToggleDisplay(!toggleDisplay);
   };
+
+  const { placeValue, updatePlaceValue } = Place();
+
+  useEffect(() => {
+    updatePlaceValue("");
+  }, []);
+
+  console.log(placeValue);
 
   const generatedProps = {
     user,
