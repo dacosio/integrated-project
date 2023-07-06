@@ -34,8 +34,8 @@ const Home = () => {
   const itemNumber = 4;
 
   const xl = useMediaQuery("(min-width: 1270px");
-  const lg = useMediaQuery("(min-width: 800px) and (max-width: 1269px)");
-  const md = useMediaQuery("(min-width: 600px) and (max-width: 799px)");
+  const lg = useMediaQuery("(min-width: 769px) and (max-width: 1269px)");
+  const md = useMediaQuery("(min-width: 600px) and (max-width: 768px)");
   const sm = useMediaQuery("(min-width: 360px) and (max-width: 599px");
 
   const navigate = useNavigate();
@@ -101,12 +101,9 @@ const Home = () => {
 
   const totalPageNumber = Math.ceil(products.length / pageNumber);
 
-  const desktopProducts = products.slice(
-    itemNumber * currentPageIndex - itemNumber,
-    itemNumber * currentPageIndex
-  );
-  const mobileProducts = products.slice(0, itemNumber * currentPageIndex);
+  const desktopProducts = products;
 
+  const mobileProducts = products.slice(0, itemNumber * currentPageIndex);
   const desktopBounds =
     desktopProducts.length !== 0
       ? desktopProducts.map((product) => [
@@ -171,7 +168,28 @@ const Home = () => {
     updatePlaceValue("");
   }, []);
 
-  console.log(placeValue);
+  console.log(placeValue.formatted_address);
+
+  const [locationFilter, setLocationFilter] = useState({});
+
+  Geocode.setApiKey(process.env.REACT_APP_MAPS_API_KEY);
+  Geocode.setLanguage("en");
+  Geocode.setRegion("ca");
+  Geocode.fromAddress(placeValue.formatted_address).then(
+    (response) => {
+      const { lat, lng } = response.results[0].geometry.location;
+      setLocationFilter({ lat, long: lng });
+    },
+    (error) => {
+      console.error(error);
+    }
+  );
+
+  const [isOpen, setIsOpen] = useState(true);
+
+  const toggleDrawer = () => {
+    setIsOpen(!isOpen);
+  };
 
   const generatedProps = {
     user,
@@ -199,6 +217,8 @@ const Home = () => {
     toggleDisplay,
     debouncedValue,
     categoryValue,
+    toggleDrawer,
+    isOpen,
   };
   return <HomeView {...generatedProps} />;
 };
