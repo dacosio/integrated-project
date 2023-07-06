@@ -4,15 +4,7 @@ import HomeView from "./Home.view";
 import { UserAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import useMediaQuery from "../../utils/useMediaQuery";
-import {
-  query,
-  collection,
-  orderBy,
-  getDocs,
-  limit,
-  startAfter,
-  onSnapshot,
-} from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import db from "../../config/firebaseConfig";
 import { SearchContext } from "../../context/SearchContext";
 import useDebounce from "../../utils/useDebounce";
@@ -93,9 +85,7 @@ const Home = () => {
   }, [currentPageIndex, totalPageNumber]);
 
   const handleOnScroll = () => {
-    if (currentPageIndex < totalPageNumber) {
-      setCurrentPageIndex((oldData) => oldData + 1);
-    }
+    setCurrentPageIndex((oldData) => oldData + 1);
   };
 
   const columns = sm ? 2 : md ? 3 : lg ? 4 : 2;

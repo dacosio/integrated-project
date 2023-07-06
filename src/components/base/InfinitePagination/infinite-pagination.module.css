@@ -1,11 +1,14 @@
 .wrapper {
   display: grid;
   justify-items: center;
-  margin-bottom: 150px;
 }
 
 .spinner,
 .wrapper > p {
   margin-top: 10vh;
   grid-column: 1 / -1;
+}
+
+.wrapper > p {
+  padding-bottom: 150px;
 }

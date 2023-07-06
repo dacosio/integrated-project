@@ -9,7 +9,6 @@ const InfinitePagination = ({
   onScroll,
   hasMore,
   gap,
-  scrollThreshold = 1,
   ...props
 }) => {
   return (
@@ -17,7 +16,6 @@ const InfinitePagination = ({
       dataLength={items.length}
       next={onScroll}
       hasMore={hasMore}
-      scrollThreshold={scrollThreshold}
       loader={
         <div className={`${styles.spinner}`} style={{ textAlign: "center" }}>
           <BeatLoader color="#1c2aae" />
