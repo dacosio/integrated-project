@@ -27,3 +27,4 @@ export { default as BuySplitShareSVG } from "./BuySplitShareSVG";
 export { default as RightHandSVG } from "./RightHandSVG";
 export { default as LeftHandSVG } from "./LeftHandSVG";
 export { default as BottomHandSVG } from "./BottomHandSVG";
+export { default as NoImage } from "./NoImage";
