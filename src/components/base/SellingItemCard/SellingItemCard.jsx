@@ -10,18 +10,18 @@ const SellingItemCard = ({
   ...props
 }) => {
   return (
-    <div class={`${styles["selling-item-wrapper"]}`}>
+    <div className={`${styles["selling-item-wrapper"]}`}>
       <Typography
         variant="h3-graphik-bold"
         style={{ margin: "16px 16px 12px" }}
       >
         Selling Details
       </Typography>
-      <div class={`${styles["selling-item-card"]}`}>
-        <div class={`${styles["image-container"]}`}>
+      <div className={`${styles["selling-item-card"]}`}>
+        <div className={`${styles["image-container"]}`}>
           <img src={source} alt="" />
         </div>
-        <div class={`${styles["selling-item-description"]}`}>
+        <div className={`${styles["selling-item-description"]}`}>
           <Typography variant="h4-graphik-bold" color="dark-blue">
             {itemName}
           </Typography>
@@ -29,7 +29,7 @@ const SellingItemCard = ({
           <Typography variant="body-2-regular" color="gray">
             {dateApproved}
           </Typography>
-          <div class={`${styles["quantity-container"]}`}>
+          <div className={`${styles["quantity-container"]}`}>
             <Typography
               variant="body-1-medium"
               style={{ marginRight: "0.3rem" }}

@@ -8,6 +8,7 @@ import ActiveListingCard from "../../components/base/ActiveListingCard/ActiveLis
 import Pagination from "../../components/base/Pagination/Pagination";
 import InfinitePagination from "../../components/base/InfinitePagination/InfinitePagination";
 import getDistance from "geolib/es/getDistance";
+import Button from "../../components/base/Button/Button";
 
 const Home = (props) => {
   const {
@@ -22,125 +23,152 @@ const Home = (props) => {
     pageNumber,
     totalPageNumber,
     handleOnClick,
-    products,
+    desktopProducts,
     mobileProducts,
     handleOnScroll,
     hasMore,
     latitude,
     longitude,
     error,
-    bounds,
+    desktopBounds,
+    mobileBounds,
     currentAddress,
+    toggleDisplayHandler,
+    toggleDisplay,
+    debouncedValue,
+    categoryValue,
   } = props;
 
+  if (
+    desktopProducts.length === 0 &&
+    (debouncedValue || categoryValue.length > 0)
+  ) {
+    return (
+      <div style={{ textAlign: "center", marginTop: "15%" }}>
+        <Typography color="error" variant="h4-graphik-bold">
+          Oh snap! That product is not yet available.
+        </Typography>
+      </div>
+    );
+  }
+
   return (
-    <div>
+    <div className={style.container}>
       {xl ? (
         <div className={style.desktopWrapper}>
-          <Grid columns={7} gap="31px">
-            <div className={style.picksDesktop}>
-              <div className={style.title}>
-                <Typography variant="h2-graphik-bold" color="black">
-                  {currentAddress ? "Picks Near You" : "Products"}
+          <div className={style.picksDesktop}>
+            <div className={style.title}>
+              <Typography variant="h2-graphik-bold" color="black">
+                {currentAddress ? "Picks Near You" : "Products"}
+              </Typography>
+            </div>
+            {currentAddress && (
+              <div className={style.location}>
+                <MapMarkerSVG width={16} height={24} />
+                <Typography variant="body-4-regular" color="dark-blue">
+                  {currentAddress}
                 </Typography>
               </div>
-              {currentAddress && (
-                <div className={style.location}>
-                  <MapMarkerSVG width={16} height={24} />
-                  <Typography variant="body-4-regular" color="dark-blue">
-                    {currentAddress}
-                  </Typography>
-                </div>
-              )}
-              <Grid
-                columns={2}
-                style={{
-                  justifyItems: "center",
-                }}
-                gap="1rem"
-              >
-                {products &&
-                  products.map((product) => {
-                    let tmp = {
-                      latitude: product.location._lat,
-                      longitude: product.location._long,
-                    };
-                    let distance = 0;
-                    if (latitude && longitude) {
-                      distance = getDistance(tmp, {
-                        latitude,
-                        longitude,
-                      });
-                      distance = Math.ceil(Number(distance) / 1000);
-                    }
+            )}
 
-                    const today = new Date();
-                    let createdAt = new Date(product.createdAt.toDate());
-                    createdAt.setHours(0, 0, 0, 0);
-                    today.setHours(0, 0, 0, 0);
-                    const timeDiff = today.getTime() - createdAt.getTime();
-                    const days = Math.abs(
-                      Math.floor(timeDiff / (1000 * 60 * 60 * 24))
-                    );
+            {toggleDisplay ? (
+              desktopProducts ? (
+                <InfinitePagination
+                  style={{ justifyContent: "start" }}
+                  columns={columns}
+                  gap="1rem"
+                  items={
+                    mobileProducts &&
+                    mobileProducts.map((product, index) => {
+                      let tmp = {
+                        latitude: product.location._lat,
+                        longitude: product.location._long,
+                      };
+                      let distance = 0;
+                      if (latitude && longitude) {
+                        distance = getDistance(tmp, {
+                          latitude,
+                          longitude,
+                        });
+                        distance = Math.ceil(Number(distance) / 1000);
+                      }
 
-                    return (
-                      <ActiveListingCard
-                        key={product.id}
-                        distance={!!error ? 0 : distance}
-                        days={days}
-                        source={
-                          product.imageUrl
-                            ? product.imageUrl
-                            : "https://picsum.photos/400"
-                        }
-                        itemname={product.name}
-                        price={product.price}
-                        stock={product.qty}
-                        alt={product.name}
-                        onClick={() => console.log(product.id)}
-                        maxwidth={lg ? "180px" : "150px"}
-                        width={lg ? "180px" : "150px"}
-                      />
-                    );
-                  })}
-              </Grid>
-              <Pagination
-                currentPageIndex={currentPageIndex}
-                pageNumber={pageNumber}
-                totalPageNumber={totalPageNumber}
-                onClick={handleOnClick}
-              />
-            </div>
-            <div className={style.mapDesktop}>
-              {products && (
+                      return (
+                        <ActiveListingCard
+                          key={product.id}
+                          distance={!!error ? 0 : distance}
+                          source={
+                            product.images
+                              ? product.images[0]
+                              : "https://picsum.photos/400"
+                          }
+                          itemname={product.name}
+                          price={product.price}
+                          stock={product.qty}
+                          alt="Banana"
+                          onClick={() => console.log(product.id)}
+                          maxwidth={lg ? "180px" : "150px"}
+                          width={lg ? "180px" : "150px"}
+                          height={lg ? "180px" : "150px"}
+                        />
+                      );
+                    })
+                  }
+                  hasMore={hasMore}
+                  onScroll={handleOnScroll}
+                />
+              ) : (
+                <>test</>
+              )
+            ) : (
+              <div style={{ height: "90%" }}>
                 <MapLeaflet
                   zoom={zoom}
-                  markerData={products}
+                  markerData={desktopProducts}
+                  direction="top"
+                  // width="100%"
+                  height="100%"
+                  borderRadius="20px"
+                  zIndex={2}
+                  bounds={desktopBounds}
+                  showActiveListing={true}
+                  currentAddress={currentAddress}
+                />
+              </div>
+            )}
+          </div>
+          {/* <div className={style.mapDesktop}>
+              {desktopProducts && desktopBounds && (
+                <MapLeaflet
+                  zoom={zoom}
+                  markerData={desktopProducts}
                   direction="top"
                   // permanent
                   width="100%"
                   height="100%"
                   borderRadius="20px"
                   zIndex={2}
-                  bounds={bounds}
+                  bounds={desktopBounds}
+                  showActiveListing={true}
                 />
               )}
-            </div>
-          </Grid>
+            </div> */}
+          {/* </Grid> */}
         </div>
       ) : (
         <>
           <div>
-            {products && bounds && (
+            {mobileProducts && mobileBounds && (
               <MapLeaflet
                 zoom={zoom}
-                markerData={products}
+                markerData={mobileProducts}
                 direction="top"
                 // permanent
                 width="100%"
                 height="30vh"
                 zIndex={2}
-                bounds={bounds}
+                bounds={mobileBounds}
+                showActiveListing={true}
               />
             )}
           </div>
@@ -158,94 +186,64 @@ const Home = (props) => {
                 </Typography>
               </div>
             )}
-            <InfinitePagination
-              columns={columns}
-              gap="1rem"
-              items={
-                mobileProducts &&
-                mobileProducts.map((product, index) => {
-                  let tmp = {
-                    latitude: product.location._lat,
-                    longitude: product.location._long,
-                  };
-                  let distance = 0;
-                  if (latitude && longitude) {
-                    distance = getDistance(tmp, {
-                      latitude,
-                      longitude,
-                    });
-                    distance = Math.ceil(Number(distance) / 1000);
-                  }
+            {mobileProducts && (
+              <InfinitePagination
+                columns={columns}
+                gap="1rem"
+                items={
+                  mobileProducts &&
+                  mobileProducts.map((product, index) => {
+                    let tmp = {
+                      latitude: product.location._lat,
+                      longitude: product.location._long,
+                    };
+                    let distance = 0;
+                    if (latitude && longitude) {
+                      distance = getDistance(tmp, {
+                        latitude,
+                        longitude,
+                      });
+                      distance = Math.ceil(Number(distance) / 1000);
+                    }
 
-                  const today = new Date();
-                  let createdAt = new Date(product.createdAt.toDate());
-                  createdAt.setHours(0, 0, 0, 0);
-                  today.setHours(0, 0, 0, 0);
-                  const timeDiff = today.getTime() - createdAt.getTime();
-                  const days = Math.abs(
-                    Math.floor(timeDiff / (1000 * 60 * 60 * 24))
-                  );
-
-                  return (
-                    <ActiveListingCard
-                      key={product.id}
-                      distance={!!error ? 0 : distance}
-                      days={days}
-                      source={
-                        product.imageUrl
-                          ? product.imageUrl
-                          : "https://picsum.photos/400"
-                      }
-                      itemname={product.name}
-                      price={product.price}
-                      stock={product.qty}
-                      alt="Banana"
-                      onClick={() => console.log(product.id)}
-                      maxwidth={lg ? "180px" : "150px"}
-                      width={lg ? "180px" : "150px"}
-                    />
-                  );
-                })
-              }
-              hasMore={hasMore}
-              onScroll={handleOnScroll}
-            />
-            {/* <Grid columns={columns} style={{ justifyItems: "center" }}>
-              {products &&
-                bounds &&
-                products.map((d) => {
-                  let tmp = {
-                    latitude: d.location._lat,
-                    longitude: d.location._long,
-                  };
-                  let distance = 0;
-                  if (latitude && longitude) {
-                    distance = getDistance(tmp, {
-                      latitude,
-                      longitude,
-                    });
-                    distance = Math.ceil(Number(distance) / 1000);
-                  }
-                  return (
-                    <ActiveListingCard
-                      key={d.id}
-                      distance={!!error ? 0 : distance}
-                      days={2}
-                      source={`https://picsum.photos/400?random=${d.id}`}
-                      itemname={d.name}
-                      price={d.price}
-                      stock={d.qty}
-                      alt="Banana"
-                      onClick={() => console.log(d.id)}
-                      maxwidth={lg ? "180px" : "150px"}
-                      width={lg ? "180px" : "150px"}
-                    />
-                  );
-                })}
-            </Grid> */}
+                    return (
+                      <ActiveListingCard
+                        key={product.id}
+                        distance={!!error ? 0 : distance}
+                        source={
+                          product.images
+                            ? product.images[0]
+                            : "https://picsum.photos/400"
+                        }
+                        itemname={product.name}
+                        price={product.price}
+                        stock={product.qty}
+                        alt="Banana"
+                        onClick={() => console.log(product.id)}
+                        maxwidth={lg ? "180px" : "150px"}
+                        width={lg ? "180px" : "150px"}
+                        height={lg ? "180px" : "150px"}
+                      />
+                    );
+                  })
+                }
+                hasMore={hasMore}
+                onScroll={handleOnScroll}
+              />
+            )}
           </div>
         </>
-      )}
+      )}{" "}
+      <div className={style.displayButton}>
+        <Button
+          variant="black"
+          type="submit"
+          size="sm"
+          label={`Display ${toggleDisplay ? "Map" : "Listings"}`}
+          hoverable
+          onClickHandler={toggleDisplayHandler}
+        />
+      </div>
     </div>
   );
 };

@@ -40,10 +40,12 @@ const ProfileDetail = ({ data, sm, md, lg, xl }) => {
           }
         >
           <Typography variant="h3-graphik-bold">{data?.displayName}</Typography>
-          <div className={style.location}>
-            <MarkerSmallSVG />
-            <Typography variant="body-3-medium">{data?.address}</Typography>
-          </div>
+          {data?.address && (
+            <div className={style.location}>
+              <MarkerSmallSVG />
+              <Typography variant="body-3-medium">{data?.address}</Typography>
+            </div>
+          )}
           <div className={style.sold}>
             <OrderSmallSVG />
             <Typography variant="body-3-medium">17 items sold</Typography>
@@ -79,6 +81,7 @@ const ProfileDetail = ({ data, sm, md, lg, xl }) => {
               alt="Banana"
               onClick={() => console.log("activelistingcard")}
               width={sm || md || lg ? "160px" : "256px"}
+              height={sm || md || lg ? "160px" : "256px"}
             />
             <ActiveListingCard
               distance={2}
@@ -90,6 +93,7 @@ const ProfileDetail = ({ data, sm, md, lg, xl }) => {
               alt="Banana"
               onClick={() => console.log("activelistingcard")}
               width={sm || md || lg ? "160px" : "256px"}
+              height={sm || md || lg ? "160px" : "256px"}
             />
             <ActiveListingCard
               distance={2}
@@ -101,6 +105,7 @@ const ProfileDetail = ({ data, sm, md, lg, xl }) => {
               alt="Banana"
               onClick={() => console.log("activelistingcard")}
               width={sm || md || lg ? "160px" : "256px"}
+              height={sm || md || lg ? "160px" : "256px"}
             />
             <ActiveListingCard
               distance={2}
@@ -111,6 +116,7 @@ const ProfileDetail = ({ data, sm, md, lg, xl }) => {
               stock={5}
               alt="Banana"
               onClick={() => console.log("activelistingcard")}
+              height={sm || md || lg ? "160px" : "256px"}
               width={sm || md || lg ? "160px" : "256px"}
             />
             <ActiveListingCard
@@ -122,6 +128,7 @@ const ProfileDetail = ({ data, sm, md, lg, xl }) => {
               stock={5}
               alt="Banana"
               onClick={() => console.log("activelistingcard")}
+              height={sm || md || lg ? "160px" : "256px"}
               width={sm || md || lg ? "160px" : "256px"}
             />
             <ActiveListingCard
@@ -133,6 +140,7 @@ const ProfileDetail = ({ data, sm, md, lg, xl }) => {
               stock={5}
               alt="Banana"
               onClick={() => console.log("activelistingcard")}
+              height={sm || md || lg ? "160px" : "256px"}
               width={sm || md || lg ? "160px" : "256px"}
             />
             <ActiveListingCard
@@ -144,6 +152,7 @@ const ProfileDetail = ({ data, sm, md, lg, xl }) => {
               stock={5}
               alt="Banana"
               onClick={() => console.log("activelistingcard")}
+              height={sm || md || lg ? "160px" : "256px"}
               width={sm || md || lg ? "160px" : "256px"}
             />
             <ActiveListingCard
@@ -155,6 +164,7 @@ const ProfileDetail = ({ data, sm, md, lg, xl }) => {
               stock={5}
               alt="Banana"
               onClick={() => console.log("activelistingcard")}
+              height={sm || md || lg ? "160px" : "256px"}
               width={sm || md || lg ? "160px" : "256px"}
             />
           </Grid>
