@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import HomeView from "./Home.view";
 import { UserAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useMediaQuery from "../../utils/useMediaQuery";
 import {
   query,
