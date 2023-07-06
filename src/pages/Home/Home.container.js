@@ -182,6 +182,8 @@ const Home = () => {
     currentAddress,
     toggleDisplayHandler,
     toggleDisplay,
+    debouncedValue,
+    categoryValue,
   };
   return <HomeView {...generatedProps} />;
 };

@@ -35,7 +35,22 @@ const Home = (props) => {
     currentAddress,
     toggleDisplayHandler,
     toggleDisplay,
+    debouncedValue,
+    categoryValue,
   } = props;
+
+  if (
+    desktopProducts.length === 0 &&
+    (debouncedValue || categoryValue.length > 0)
+  ) {
+    return (
+      <div style={{ textAlign: "center", marginTop: "15%" }}>
+        <Typography color="error" variant="h4-graphik-bold">
+          Oh snap! That product is not yet available.
+        </Typography>
+      </div>
+    );
+  }
 
   return (
     <div className={style.container}>
@@ -57,7 +72,7 @@ const Home = (props) => {
             )}
 
             {toggleDisplay ? (
-              desktopProducts.length > 0 ? (
+              desktopProducts ? (
                 <InfinitePagination
                   style={{ justifyContent: "start" }}
                   columns={columns}
@@ -103,11 +118,7 @@ const Home = (props) => {
                   onScroll={handleOnScroll}
                 />
               ) : (
-                <div style={{ textAlign: "center", marginTop: "15%" }}>
-                  <Typography color="error" variant="h4-graphik-bold">
-                    Oh snap! That product is not yet available.
-                  </Typography>
-                </div>
+                <>test</>
               )
             ) : (
               <div style={{ height: "90%" }}>
