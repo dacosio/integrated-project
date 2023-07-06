@@ -20,6 +20,7 @@ import { useContext } from "react";
 import { usePosition } from "../../utils/usePosition";
 import { Category } from "../../context/CategoryContext";
 import Geocode from "react-geocode";
+import { Sort } from "../../context/SortContext";
 
 const Home = () => {
   const { user, logout } = UserAuth();
@@ -48,6 +49,11 @@ const Home = () => {
 
   //global category value
   const { categoryValue } = Category();
+
+  // global sort value
+  const { sortValue } = Sort();
+
+  console.log(sortValue);
 
   // /**************** */
   useEffect(() => {
@@ -82,13 +88,21 @@ const Home = () => {
             .includes(categoryValue[0]?.value.toLowerCase())
         );
         setProducts(result);
+      } else if (sortValue) {
+        if (sortValue === "lowToHigh") {
+          newProducts.sort((a, b) => a.price - b.price);
+          setProducts(newProducts);
+        } else if (sortValue === "highToLow") {
+          newProducts.sort((a, b) => b.price - a.price);
+          setProducts(newProducts);
+        }
       } else {
         setProducts(newProducts);
       }
     });
 
     return () => unsubscribe();
-  }, [debouncedValue, categoryValue]);
+  }, [debouncedValue, categoryValue, sortValue]);
 
   // ********************************
 
@@ -156,8 +170,8 @@ const Home = () => {
 
   const toggleDisplayHandler = () => {
     setToggleDisplay(!toggleDisplay);
-    console.log(toggleDisplay);
   };
+
   const generatedProps = {
     user,
     desktopProducts,

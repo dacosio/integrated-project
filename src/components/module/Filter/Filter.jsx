@@ -5,17 +5,22 @@ import MapSearch from "../../base/MapSearch/MapSearch";
 import SelectDropdown from "../../base/SelectDropdown/SelectDropdown";
 import style from "./filter.module.css";
 import useMediaQuery from "../../../utils/useMediaQuery";
+import { useState } from "react";
+import { Sort } from "../../../context/SortContext";
+import { useEffect } from "react";
 
-const Filter = ({
-  sortHighHandler,
-  sortLowHandler,
-  sortHigh,
-  sortLow,
-  onChange,
-  options,
-  placeholder,
-  screenSize,
-}) => {
+const Filter = ({ onChange, options, placeholder, screenSize }) => {
+  const [highActive, setHighActive] = useState(false);
+  const [lowActive, setLowActive] = useState(false);
+
+  const { updateSortValue } = Sort();
+
+  useEffect(() => {
+    if (!lowActive && !highActive) updateSortValue("");
+    if (highActive) updateSortValue("highToLow");
+    if (lowActive) updateSortValue("lowToHigh");
+  }, [highActive, lowActive, updateSortValue]);
+
   return (
     <div className={screenSize ? style.filterWrapperFlex : style.filterWrapper}>
       <div>
@@ -25,13 +30,19 @@ const Filter = ({
         <div className={style.badgeContainer}>
           <Badge
             label="Price - High to Low"
-            onClick={sortHighHandler}
-            active={sortHigh}
+            onClick={() => {
+              setHighActive(!highActive);
+              setLowActive(false);
+            }}
+            active={highActive}
           />
           <Badge
             label="Price - Low to High"
-            onClick={sortLowHandler}
-            active={sortLow}
+            onClick={() => {
+              setLowActive(!lowActive);
+              setHighActive(false);
+            }}
+            active={lowActive}
           />
         </div>
       </div>

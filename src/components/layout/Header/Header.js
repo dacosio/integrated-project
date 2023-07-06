@@ -504,16 +504,6 @@ const Header = () => {
           <Filter
             onChange={(v) => updateCategoryValue(v)}
             options={options}
-            sortLowHandler={() => {
-              console.log("sorted low handler");
-              setSortLow(!sortLow);
-            }}
-            sortHighHandler={() => {
-              console.log("sorted high handler");
-              setSortHigh(!sortHigh);
-            }}
-            sortHigh={sortHigh}
-            sortLow={sortLow}
             placeholder="All Categories"
             screenSize={filterSize}
           />
