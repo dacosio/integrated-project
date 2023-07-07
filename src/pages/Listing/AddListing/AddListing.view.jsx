@@ -13,6 +13,7 @@ import { RiInformationFill } from "react-icons/ri";
 import { Formik, Form } from "formik";
 import FormikControl from "../../../components/base/FormikControl/FormikControl";
 import BackButton from "../../../components/base/BackButton/BackButton";
+import MapLeaflet from "../../../components/module/MapLeaflet/MapLeaflet";
 
 const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
   const isDesktop = useMediaQuery("(min-width: 1440px)");
@@ -156,7 +157,7 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                       <FormikControl
                         control="input"
                         type="text"
-                        name="original-item-price"
+                        name="originalItemPrice"
                         placeholder="$CAD"
                         style={{
                           borderRadius: "8px",
@@ -313,7 +314,18 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                           boxSizing: "border-box",
                         }}
                       />
-                      <div className={styles.meetUpMap}></div>
+                      <div className={styles.meetUpMap}>
+                        <MapLeaflet
+                          // zoom={zoom}
+                          // markerData={/}
+                          direction="top"
+                          height="100%"
+                          borderRadius="20px"
+                          zIndex={2}
+                          // bounds="[49.225693],[-123.107326]"
+                          showActiveListing={false}
+                        />
+                      </div>
                     </div>
                     <div>
                       <Typography
@@ -345,6 +357,8 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                           display: "block",
                           margin: "60px auto auto",
                         }}
+                        disable={!formik.isValid}
+                        type="submit"
                       />
                     </div>
                   </Grid>
@@ -437,6 +451,7 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                             width: "100%",
                             boxSizing: "border-box",
                             border: "2px solid var(--black)",
+                            fontFamily: "Graphik",
                           }}
                         />
                       </div>
@@ -467,7 +482,7 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                       <FormikControl
                         control="input"
                         type="text"
-                        name="original-item-price"
+                        name="originalItemPrice"
                         placeholder="$CAD"
                         style={{
                           borderRadius: "8px",
@@ -620,7 +635,18 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                           boxSizing: "border-box",
                         }}
                       />
-                      <div className={styles.meetUpMap}></div>
+                      <div className={styles.meetUpMap}>
+                        <MapLeaflet
+                          // zoom={zoom}
+                          // markerData={/}
+                          direction="top"
+                          height="100%"
+                          borderRadius="20px"
+                          zIndex={2}
+                          // bounds="[49.225693],[-123.107326]"
+                          showActiveListing={false}
+                        />
+                      </div>
                     </div>
                     <div className={styles.sectionGap}>
                       <Typography
@@ -649,6 +675,8 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                           display: "block",
                           margin: "60px auto",
                         }}
+                        disable={!formik.isValid}
+                        type="submit"
                       />
                     </div>
                   </div>
