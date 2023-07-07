@@ -14,7 +14,7 @@ import { Formik, Form } from "formik";
 import FormikControl from "../../../components/base/FormikControl/FormikControl";
 import BackButton from "../../../components/base/BackButton/BackButton";
 
-const AddListing = (initialValues, validationSchema, onSubmit, props) => {
+const AddListing = ({initialValues, validationSchema, onSubmit}) => {
   const isDesktop = useMediaQuery("(min-width: 1440px)");
   const [selectedOption, setSelectedOption] = useState("");
   const [multipleImages, setMultipleImages] = useState([]);
@@ -89,7 +89,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                         control="input"
                         type="text"
                         label="ItemName"
-                        name="item-name"
+                        name="itemName"
                         placeholder="What are you splitting?"
                         style={{
                           borderRadius: "8px",
@@ -365,7 +365,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                   <div className={styles.backButtonWrap}>
                     <BackButton />
                   </div>
-                  <Grid
+                  <Grid columns={1}
                     style={{
                       border: "1px solid var(--black)",
                       padding: "24px 16px",
@@ -417,7 +417,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
 
                     <div>
                       <FormikControl
-                        control="textarea"
+                        control=""
                         type="text"
                         rows="6"
                         label={
@@ -654,7 +654,6 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                         label="Post Listing"
                         size="lg"
                         style={{
-                          // width: "326px",
                           display: "block",
                           margin: "60px auto",
                         }}
