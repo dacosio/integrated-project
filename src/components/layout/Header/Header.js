@@ -61,7 +61,6 @@ const Header = () => {
   const xl = useMediaQuery("(min-width: 1271px");
   const filterSize = useMediaQuery("(min-width: 990px");
 
-  console.log(selectedOption);
   let headerSm = () => {
     return (
       <div className={styles.mobileWrapper}>

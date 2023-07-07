@@ -4,7 +4,7 @@ import HomeView from "./Home.view";
 import { UserAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import useMediaQuery from "../../utils/useMediaQuery";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import db from "../../config/firebaseConfig";
 import { SearchContext } from "../../context/SearchContext";
 import useDebounce from "../../utils/useDebounce";
@@ -13,6 +13,8 @@ import { usePosition } from "../../utils/usePosition";
 import { Category } from "../../context/CategoryContext";
 import Geocode from "react-geocode";
 import { Sort } from "../../context/SortContext";
+import getDistance from "geolib/es/getDistance";
+
 import { Place } from "../../context/PlaceContext";
 
 const Home = () => {
@@ -27,6 +29,16 @@ const Home = () => {
   const lg = useMediaQuery("(min-width: 769px) and (max-width: 1269px)");
   const md = useMediaQuery("(min-width: 600px) and (max-width: 768px)");
   const sm = useMediaQuery("(min-width: 360px) and (max-width: 599px");
+
+  Geocode.setApiKey(process.env.REACT_APP_MAPS_API_KEY);
+  Geocode.setLanguage("en");
+  Geocode.setRegion("ca");
+
+  const { placeValue, updatePlaceValue } = Place();
+  const [locationFilter, setLocationFilter] = useState({
+    latitude: "",
+    longitude: "",
+  });
 
   const navigate = useNavigate();
   const handleLogOut = async () => {
@@ -44,49 +56,126 @@ const Home = () => {
   // global sort value
   const { sortValue } = Sort();
 
-  console.log(sortValue);
+  // start of location
+  useEffect(() => {
+    updatePlaceValue("");
+  }, []);
+
+  const { latitude, longitude, error } = usePosition();
+
+  const [currentAddress, setCurrentAddress] = useState("");
+
+  useEffect(() => {
+    if (latitude && longitude) {
+      Geocode.fromLatLng(latitude, longitude).then(
+        (response) => {
+          const address = response.results[0].formatted_address;
+          setCurrentAddress(address);
+        },
+        (error) => {
+          setCurrentAddress("");
+          console.error(error);
+        }
+      );
+    }
+  }, [latitude, longitude]);
+
+  useEffect(() => {
+    if (placeValue?.formatted_address) {
+      Geocode.fromAddress(placeValue.formatted_address).then(
+        (response) => {
+          const { lat, lng } = response.results[0].geometry.location;
+          setLocationFilter({ latitude: lat, longitude: lng });
+        },
+        (error) => {
+          setLocationFilter({ latitude: "", longitude: "" });
+          console.error(error);
+        }
+      );
+    } else {
+      setLocationFilter({ lat: "", long: "" });
+    }
+  }, [placeValue]);
+
+  // end of location
 
   // /**************** */
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, "product"), (snapshot) => {
-      let newProducts = snapshot.docs
-        .filter((doc) => {
-          return doc.data().lat !== undefined && doc.data().long !== undefined;
-        })
-        .map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
+    const unsubscribe = onSnapshot(
+      query(collection(db, "product"), orderBy("createdAt", "asc")),
+      (snapshot) => {
+        let newProducts = snapshot.docs
+          // .filter((doc) => {
+          //   return doc.data().lat !== undefined && doc.data().long !== undefined;
+          // })
+          .map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
 
-      let result = newProducts;
+        let result = newProducts;
 
-      if (!!debouncedValue) {
-        result = result.filter((n) =>
-          n.name.toLowerCase().includes(debouncedValue.toLowerCase())
-        );
-      }
-
-      if (categoryValue.length > 0) {
-        result = result.filter((n) =>
-          n.categoryValue
-            .toLowerCase()
-            .includes(categoryValue[0]?.value.toLowerCase())
-        );
-      }
-
-      if (sortValue) {
-        if (sortValue === "lowToHigh") {
-          result.sort((a, b) => a.price - b.price);
-        } else if (sortValue === "highToLow") {
-          result.sort((a, b) => b.price - a.price);
+        if (!!debouncedValue) {
+          result = result.filter((n) =>
+            n.name.toLowerCase().includes(debouncedValue.toLowerCase())
+          );
         }
-      }
 
-      setProducts(result);
-    });
+        if (categoryValue.length > 0) {
+          result = result.filter((n) =>
+            n.categoryValue
+              .toLowerCase()
+              .includes(categoryValue[0]?.value.toLowerCase())
+          );
+        }
+
+        if (sortValue) {
+          if (sortValue === "lowToHigh") {
+            result.sort((a, b) => a.price - b.price);
+          } else if (sortValue === "highToLow") {
+            result.sort((a, b) => b.price - a.price);
+          }
+        }
+
+        if (locationFilter.latitude && locationFilter.longitude) {
+          result = result.filter((product) => {
+            let tmp = {
+              latitude: product.location._lat,
+              longitude: product.location._long,
+            };
+            const distance = getDistance({ latitude, longitude }, tmp);
+            return distance <= 25000;
+          });
+        }
+
+        if (currentAddress) {
+          result = result.sort((a, b) => {
+            const distanceA = getDistance(
+              { latitude, longitude },
+              { latitude: a.location._lat, longitude: a.location._long }
+            );
+            const distanceB = getDistance(
+              { latitude, longitude },
+              { latitude: b.location._lat, longitude: b.location._long }
+            );
+
+            return distanceA - distanceB;
+          });
+        }
+        setProducts(result);
+      }
+    );
 
     return () => unsubscribe();
-  }, [debouncedValue, categoryValue, sortValue]);
+  }, [
+    debouncedValue,
+    categoryValue,
+    sortValue,
+    locationFilter.latitude,
+    locationFilter.longitude,
+    currentAddress,
+  ]);
+
   // ********************************
 
   const desktopProducts = products;
@@ -105,51 +194,11 @@ const Home = () => {
     setCurrentPageIndex(pageIndex);
   };
 
-  const { latitude, longitude, error } = usePosition();
-
-  const [currentAddress, setCurrentAddress] = useState("");
-
-  Geocode.setApiKey(process.env.REACT_APP_MAPS_API_KEY);
-  Geocode.setLanguage("en");
-  Geocode.setRegion("ca");
-  Geocode.fromLatLng(latitude, longitude).then(
-    (response) => {
-      const address = response.results[0].formatted_address;
-      setCurrentAddress(address);
-    },
-    (error) => {
-      console.error(error);
-    }
-  );
-
   const [toggleDisplay, setToggleDisplay] = useState(true);
 
   const toggleDisplayHandler = () => {
     setToggleDisplay(!toggleDisplay);
   };
-
-  const { placeValue, updatePlaceValue } = Place();
-
-  useEffect(() => {
-    updatePlaceValue("");
-  }, []);
-
-  console.log(placeValue.formatted_address);
-
-  const [locationFilter, setLocationFilter] = useState({});
-
-  Geocode.setApiKey(process.env.REACT_APP_MAPS_API_KEY);
-  Geocode.setLanguage("en");
-  Geocode.setRegion("ca");
-  Geocode.fromAddress(placeValue.formatted_address).then(
-    (response) => {
-      const { lat, lng } = response.results[0].geometry.location;
-      setLocationFilter({ lat, long: lng });
-    },
-    (error) => {
-      console.error(error);
-    }
-  );
 
   const [isOpen, setIsOpen] = useState(true);
 
