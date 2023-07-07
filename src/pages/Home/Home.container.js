@@ -4,7 +4,7 @@ import HomeView from "./Home.view";
 import { UserAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import useMediaQuery from "../../utils/useMediaQuery";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import db from "../../config/firebaseConfig";
 import { SearchContext } from "../../context/SearchContext";
 import useDebounce from "../../utils/useDebounce";
@@ -13,6 +13,8 @@ import { usePosition } from "../../utils/usePosition";
 import { Category } from "../../context/CategoryContext";
 import Geocode from "react-geocode";
 import { Sort } from "../../context/SortContext";
+import getDistance from "geolib/es/getDistance";
+
 import { Place } from "../../context/PlaceContext";
 
 const Home = () => {
@@ -33,7 +35,7 @@ const Home = () => {
   Geocode.setRegion("ca");
 
   const { placeValue, updatePlaceValue } = Place();
-  const [locationFilter, setLocationFilter] = useState({});
+  const [locationFilter, setLocationFilter] = useState({ lat: "", long: "" });
 
   const navigate = useNavigate();
   const handleLogOut = async () => {
@@ -51,47 +53,121 @@ const Home = () => {
   // global sort value
   const { sortValue } = Sort();
 
+  // start of location
+  useEffect(() => {
+    updatePlaceValue("");
+  }, []);
+
+  const { latitude, longitude, error } = usePosition();
+
+  const [currentAddress, setCurrentAddress] = useState("");
+
+  useEffect(() => {
+    if (latitude && longitude) {
+      Geocode.fromLatLng(latitude, longitude).then(
+        (response) => {
+          const address = response.results[0].formatted_address;
+          setCurrentAddress(address);
+        },
+        (error) => {
+          setCurrentAddress("");
+          console.error(error);
+        }
+      );
+    }
+  }, [latitude, longitude]);
+
+  useEffect(() => {
+    if (placeValue?.formatted_address) {
+      Geocode.fromAddress(placeValue.formatted_address).then(
+        (response) => {
+          const { lat, lng } = response.results[0].geometry.location;
+          setLocationFilter({ lat, long: lng });
+          console.log(response);
+        },
+        (error) => {
+          setLocationFilter({ lat: "", long: "" });
+          console.error(error);
+        }
+      );
+    } else {
+      setLocationFilter({ lat: "", long: "" });
+    }
+  }, [placeValue]);
+
+  // end of location
+
   // /**************** */
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, "product"), (snapshot) => {
-      let newProducts = snapshot.docs
-        .filter((doc) => {
-          return doc.data().lat !== undefined && doc.data().long !== undefined;
-        })
-        .map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
+    const unsubscribe = onSnapshot(
+      query(collection(db, "product"), orderBy("createdAt", "asc")),
+      (snapshot) => {
+        let newProducts = snapshot.docs
+          // .filter((doc) => {
+          //   return doc.data().lat !== undefined && doc.data().long !== undefined;
+          // })
+          .map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
 
-      let result = newProducts;
+        let result = newProducts;
 
-      if (!!debouncedValue) {
-        result = result.filter((n) =>
-          n.name.toLowerCase().includes(debouncedValue.toLowerCase())
-        );
-      }
-
-      if (categoryValue.length > 0) {
-        result = result.filter((n) =>
-          n.categoryValue
-            .toLowerCase()
-            .includes(categoryValue[0]?.value.toLowerCase())
-        );
-      }
-
-      if (sortValue) {
-        if (sortValue === "lowToHigh") {
-          result.sort((a, b) => a.price - b.price);
-        } else if (sortValue === "highToLow") {
-          result.sort((a, b) => b.price - a.price);
+        if (!!debouncedValue) {
+          result = result.filter((n) =>
+            n.name.toLowerCase().includes(debouncedValue.toLowerCase())
+          );
         }
-      }
 
-      setProducts(result);
-    });
+        if (categoryValue.length > 0) {
+          result = result.filter((n) =>
+            n.categoryValue
+              .toLowerCase()
+              .includes(categoryValue[0]?.value.toLowerCase())
+          );
+        }
+
+        if (sortValue) {
+          if (sortValue === "lowToHigh") {
+            result.sort((a, b) => a.price - b.price);
+          } else if (sortValue === "highToLow") {
+            result.sort((a, b) => b.price - a.price);
+          }
+        }
+
+        if (locationFilter.lat && locationFilter.long) {
+          console.log("I am inside location filter", locationFilter);
+        }
+
+        if (currentAddress) {
+          result = result.sort((a, b) => {
+            const distanceA = getDistance(
+              { latitude, longitude },
+              { latitude: a.location._lat, longitude: a.location._long }
+            );
+            const distanceB = getDistance(
+              { latitude, longitude },
+              { latitude: b.location._lat, longitude: b.location._long }
+            );
+
+            return distanceA - distanceB;
+          });
+        }
+        setProducts(result);
+      }
+    );
 
     return () => unsubscribe();
-  }, [debouncedValue, categoryValue, sortValue]);
+  }, [
+    debouncedValue,
+    categoryValue,
+    sortValue,
+    locationFilter.lat,
+    locationFilter.long,
+    currentAddress,
+  ]);
+
+  // console.log(products);
   // ********************************
 
   const desktopProducts = products;
@@ -109,42 +185,6 @@ const Home = () => {
   const handleOnClick = (pageIndex) => {
     setCurrentPageIndex(pageIndex);
   };
-
-  useEffect(() => {
-    updatePlaceValue("");
-  }, []);
-
-  const { latitude, longitude, error } = usePosition();
-
-  const [currentAddress, setCurrentAddress] = useState("");
-
-  useEffect(() => {
-    if (latitude && longitude) {
-      Geocode.fromLatLng(latitude, longitude).then(
-        (response) => {
-          const address = response.results[0].formatted_address;
-          setCurrentAddress(address);
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
-    }
-  }, [latitude, longitude]);
-
-  useEffect(() => {
-    if (placeValue?.formatted_address) {
-      Geocode.fromAddress(placeValue.formatted_address).then(
-        (response) => {
-          const { lat, lng } = response.results[0].geometry.location;
-          setLocationFilter({ lat, long: lng });
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
-    }
-  }, [placeValue?.formatted_address]);
 
   const [toggleDisplay, setToggleDisplay] = useState(true);
 
