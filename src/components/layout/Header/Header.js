@@ -429,29 +429,7 @@ const Header = () => {
                 </a>
               )}
             </li>
-            {/* <li>
-              {user != null ? (
-                <Link
-                  style={
-                    location.pathname === "/register"
-                      ? { color: "var(--yellow)", fontWeight: "bold" }
-                      : { color: "var(--white)" }
-                  }
-                  to="register"
-                >
-                  Settings
-                </Link>
-              ) : (
-                <a
-                  href="#"
-                  onClick={() => {
-                    toast.warning("Log in to view settings");
-                  }}
-                >
-                  Settings
-                </a>
-              )}
-            </li> */}
+
             <li>
               {user != null ? (
                 <Link
@@ -523,19 +501,8 @@ const Header = () => {
       >
         {filterSelected && (
           <Filter
-            selectedOption={selectedOption}
-            setSelectedOption={setSelectedOption}
+            onChange={(v) => updateCategoryValue(v)}
             options={options}
-            sortLowHandler={() => {
-              console.log("sorted low handler");
-              setSortLow(!sortLow);
-            }}
-            sortHighHandler={() => {
-              console.log("sorted high handler");
-              setSortHigh(!sortHigh);
-            }}
-            sortHigh={sortHigh}
-            sortLow={sortLow}
             placeholder="All Categories"
             screenSize={filterSize}
           />
