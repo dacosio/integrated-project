@@ -35,7 +35,10 @@ const Home = () => {
   Geocode.setRegion("ca");
 
   const { placeValue, updatePlaceValue } = Place();
-  const [locationFilter, setLocationFilter] = useState({ lat: "", long: "" });
+  const [locationFilter, setLocationFilter] = useState({
+    latitude: "",
+    longitude: "",
+  });
 
   const navigate = useNavigate();
   const handleLogOut = async () => {
@@ -82,11 +85,10 @@ const Home = () => {
       Geocode.fromAddress(placeValue.formatted_address).then(
         (response) => {
           const { lat, lng } = response.results[0].geometry.location;
-          setLocationFilter({ lat, long: lng });
-          console.log(response);
+          setLocationFilter({ latitude: lat, longitude: lng });
         },
         (error) => {
-          setLocationFilter({ lat: "", long: "" });
+          setLocationFilter({ latitude: "", longitude: "" });
           console.error(error);
         }
       );
@@ -135,8 +137,15 @@ const Home = () => {
           }
         }
 
-        if (locationFilter.lat && locationFilter.long) {
-          console.log("I am inside location filter", locationFilter);
+        if (locationFilter.latitude && locationFilter.longitude) {
+          result = result.filter((product) => {
+            let tmp = {
+              latitude: product.location._lat,
+              longitude: product.location._long,
+            };
+            const distance = getDistance({ latitude, longitude }, tmp);
+            return distance <= 25000;
+          });
         }
 
         if (currentAddress) {
@@ -162,12 +171,11 @@ const Home = () => {
     debouncedValue,
     categoryValue,
     sortValue,
-    locationFilter.lat,
-    locationFilter.long,
+    locationFilter.latitude,
+    locationFilter.longitude,
     currentAddress,
   ]);
 
-  // console.log(products);
   // ********************************
 
   const desktopProducts = products;
