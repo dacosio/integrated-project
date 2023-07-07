@@ -14,7 +14,7 @@ import { Formik, Form } from "formik";
 import FormikControl from "../../../components/base/FormikControl/FormikControl";
 import BackButton from "../../../components/base/BackButton/BackButton";
 
-const AddListing = ({initialValues, onSubmit}) => {
+const AddListing = ({initialValues, validationSchema, onSubmit}) => {
   const isDesktop = useMediaQuery("(min-width: 1440px)");
   const [selectedOption, setSelectedOption] = useState("");
   const [multipleImages, setMultipleImages] = useState([]);
@@ -34,7 +34,7 @@ const AddListing = ({initialValues, onSubmit}) => {
         <div>
           <Formik
             initialValues={initialValues}
-            // validationSchema={validationSchema}
+            validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
             {(formik) => {
@@ -356,7 +356,7 @@ const AddListing = ({initialValues, onSubmit}) => {
           {/* Mobile view */}
           <Formik
             initialValues={initialValues}
-            // validationSchema={validationSchema}
+            validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
             {(formik) => {
@@ -365,7 +365,7 @@ const AddListing = ({initialValues, onSubmit}) => {
                   <div className={styles.backButtonWrap}>
                     <BackButton />
                   </div>
-                  <Grid
+                  <Grid columns={1}
                     style={{
                       border: "1px solid var(--black)",
                       padding: "24px 16px",
@@ -417,7 +417,7 @@ const AddListing = ({initialValues, onSubmit}) => {
 
                     <div>
                       <FormikControl
-                        control="textarea"
+                        control=""
                         type="text"
                         rows="6"
                         label={
@@ -654,7 +654,6 @@ const AddListing = ({initialValues, onSubmit}) => {
                         label="Post Listing"
                         size="lg"
                         style={{
-                          // width: "326px",
                           display: "block",
                           margin: "60px auto",
                         }}
