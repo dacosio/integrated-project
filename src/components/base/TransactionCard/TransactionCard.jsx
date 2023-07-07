@@ -10,7 +10,7 @@ const TransactionCard = (props) => {
     itemName,
     time,
     portions,
-    sellerName,
+    splitterName,
     price,
     onCancel,
     onDecline,
@@ -111,7 +111,7 @@ const TransactionCard = (props) => {
             Seller:
           </Typography>
           <Typography variant="body-1-medium" color="dark-blue">
-            {sellerName}
+            {splitterName}
           </Typography>
         </div>
       </div>

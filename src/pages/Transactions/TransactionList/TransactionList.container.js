@@ -9,18 +9,21 @@ import {
   updateDoc,
   serverTimestamp,
 } from "@firebase/firestore";
+import { UserAuth } from "../../../context/AuthContext";
 import db from "../../../config/firebaseConfig";
-import { redirect } from "react-router-dom";
 
 const TransactionList = () => {
+  const { user } = UserAuth();
   const [orders, setOrders] = useState([]);
   const [orderStatus, setOrderStatus] = useState("pending");
-  const [orderType, setOrderType] = useState("selling");
+
+  const [orderResults, setOrderResults] = useState([]);
   const orderTypeOptions = [
     { value: "selling", label: "Selling" },
     { value: "buying", label: "Buying" },
   ];
 
+  const [orderType, setOrderType] = useState("selling");
   useEffect(
     () =>
       onSnapshot(collection(db, "order"), (snapshot) => {
@@ -31,12 +34,27 @@ const TransactionList = () => {
     []
   );
 
-  const filteredOrders = orders.filter(
-    (order) =>
-      order.orderType === orderType && order.orderStatus === orderStatus
-  );
+  useEffect(() => {
+    const splitterOrders = orders.filter((order) => {
+      console.log(order.splitterId, user.uid);
+      return order.orderStatus === orderStatus && order.splitterId === user.uid;
+    });
+    // console.log(splitterOrders);
+    const splitteeOrders = orders.filter((order) => {
+      return order.orderStatus === orderStatus && order.splitteeId === user.uid;
+    });
 
-  console.log(orders);
+    if (orderType === "selling") {
+      setOrderResults(splitterOrders);
+    } else if (orderType === "buying") {
+      setOrderResults(splitteeOrders);
+    }
+  }, [orderType]);
+
+  // console.log(orderType);
+  const onChange = (v) => {
+    setOrderType(v[0].value);
+  };
 
   const clickHandler = async (orderId, orderStatus, productId) => {
     const orderDocRef = doc(db, "order", orderId);
@@ -92,12 +110,8 @@ const TransactionList = () => {
     clickHandler(orderId, "complete", productId);
   };
 
-  const redirectTo = (id) => redirect(`/transaction${id}`);
   const generatedProps = {
     // generated props here
-    filteredOrders,
-    orderType,
-    setOrderType,
     orderStatus,
     setOrderStatus,
     orderTypeOptions,
@@ -105,7 +119,9 @@ const TransactionList = () => {
     onDecline,
     onAccept,
     onComplete,
-    redirectTo,
+    orderResults,
+    onChange,
+    orderType,
   };
   return <TransactionListView {...generatedProps} />;
 };

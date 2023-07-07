@@ -4,12 +4,11 @@ import PageTabs from "../../../components/base/PageTabs/PageTabs";
 import Dropdown from "../../../components/base/Dropdown/Dropdown";
 import TransactionCard from "../../../components/base/TransactionCard/TransactionCard";
 import "./TransactionList.css";
+import { useNavigate } from "react-router-dom";
+import SelectDropdown from "../../../components/base/SelectDropdown/SelectDropdown";
 
 const TransactionList = (props) => {
   const {
-    filteredOrders,
-    orderType,
-    setOrderType,
     orderStatus,
     setOrderStatus,
     orderTypeOptions,
@@ -17,17 +16,20 @@ const TransactionList = (props) => {
     onDecline,
     onAccept,
     onComplete,
-    redirectTo,
+    orderResults,
+    onChange,
+    orderType,
   } = props;
+  const navigate = useNavigate();
+
   return (
     <div className="orders-list">
       <div className="title-wrapper">
         <Typography variant="h3-graphik-bold">Orders</Typography>
-        <Dropdown
-          selectedOption={orderType}
-          setSelectedOption={setOrderType}
+        <SelectDropdown
           options={orderTypeOptions}
-          label="Select"
+          onChange={onChange}
+          searchable={false}
         />
         <PageTabs
           item1="Pending"
@@ -38,8 +40,8 @@ const TransactionList = (props) => {
       </div>
 
       <div className="orders">
-        {filteredOrders &&
-          filteredOrders.map((o) => {
+        {orderResults &&
+          orderResults.map((o) => {
             const today = new Date();
             let createdAt = new Date(o.createdAt.toDate());
             createdAt.setHours(0, 0, 0, 0);
@@ -53,7 +55,7 @@ const TransactionList = (props) => {
                 itemName={o.name}
                 time={days}
                 portions={o.qty}
-                sellerName={o.splitterName}
+                splitterName={o.splitterName}
                 price={o.price}
                 source={o.imageUrl}
                 orderStatus={o.orderStatus}
@@ -61,9 +63,9 @@ const TransactionList = (props) => {
                 onDecline={() => onDecline(o.id, o.productId)}
                 onAccept={() => onAccept(o.id, o.productId)}
                 onComplete={() => onComplete(o.id, o.productId)}
-                onClick={() => {
-                  console.log("test");
-                }}
+                onClick={() =>
+                  navigate(`/transaction/${o.id}`, { replace: true })
+                }
               />
             );
           })}
