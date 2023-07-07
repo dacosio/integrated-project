@@ -40,6 +40,7 @@ const MapLeaflet = ({
   zIndex,
   bounds,
   showActiveListing,
+  currentAddress,
   ...props
 }) => {
   return (
@@ -61,7 +62,7 @@ const MapLeaflet = ({
               return el.id ? (
                 <Marker
                   key={el.id}
-                  position={[el.location._lat, el.location._long]}
+                  position={[el.location.latitude, el.location.longitude]}
                   onMouseOver={(e) => {
                     e.target.openPopup();
                   }}
@@ -69,27 +70,45 @@ const MapLeaflet = ({
                     e.target.closePopup();
                   }}
                   icon={customIcon}
+                  eventHandlers={{
+                    click: (e) => {
+                      currentAddress
+                        ? window.open(
+                            `https://www.google.com/maps/dir/${currentAddress}/${el.meetUpAddress}/`,
+                            "_blank"
+                          )
+                        : window.open(
+                            `http://maps.google.com/?q=${el.meetUpAddress}`,
+                            "_blank"
+                          );
+                    },
+                  }}
                 >
                   {showActiveListing && (
-                  <Tooltip permanent={permanent} direction={direction}>
-                    <ActiveListingCard
-                      key={el.id}
-                      distance={2}
-                      days={2}
-                      source={`https://picsum.photos/400?random=${el.id}`}
-                      itemname="Banana"
-                      price={1.25}
-                      stock={5}
-                      alt="Banana"
-                      onClick={() => console.log(el.id)}
-                      maxwidth={"150px"}
-                      width={"150px"}
-                    />
-                  </Tooltip>
-                 )}</Marker>
+                    <Tooltip permanent={permanent} direction={direction}>
+                      <ActiveListingCard
+                        key={el.id}
+                        distance={2}
+                        days={2}
+                        source={
+                          el.images.length > 0
+                            ? el.images[0]
+                            : "../../../assets/images/NoImages.png"
+                        }
+                        itemname={el.name}
+                        price={el.price}
+                        stock={el.qyty}
+                        alt={el.name}
+                        onClick={() => console.log(el.id)}
+                        maxwidth={"150px"}
+                        width={"150px"}
+                      />
+                    </Tooltip>
+                  )}
+                </Marker>
               ) : (
                 <Marker
-                  position={[el.location._lat, el.location._long]}
+                  position={[el.location.latitude, el.location.longitude]}
                   onMouseOver={(e) => {
                     e.target.openPopup();
                   }}

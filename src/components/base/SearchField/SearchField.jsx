@@ -13,12 +13,13 @@ const SearchField = ({
   onChange,
   placeholder,
   location,
+  height = "32px",
   ...props
 }) => {
   const [fill, setFill] = useState("9C9C9C");
 
   return (
-    <div className={styles.inputContainer}>
+    <div className={styles.inputContainer} style={{ height }}>
       {location ? (
         <CiLocationOn size="20px" color={fill} />
       ) : (
