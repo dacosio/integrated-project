@@ -13,31 +13,21 @@ import { Link } from "react-router-dom";
 
 const Home = (props) => {
   const {
-    user,
-    handleLogOut,
-    data,
-    columns,
     lg,
     xl,
     zoom,
-    currentPageIndex,
-    pageNumber,
-    totalPageNumber,
-    handleOnClick,
     desktopProducts,
-    mobileProducts,
-    handleOnScroll,
-    hasMore,
     latitude,
     longitude,
     error,
     desktopBounds,
-    mobileBounds,
     currentAddress,
     toggleDisplayHandler,
     toggleDisplay,
     debouncedValue,
     categoryValue,
+    isOpen,
+    toggleDrawer,
   } = props;
 
   if (
@@ -55,7 +45,7 @@ const Home = (props) => {
 
   return (
     <div className={style.container}>
-      {xl ? (
+      {xl || lg ? (
         <div className={style.desktopWrapper}>
           <div className={style.picksDesktop}>
             <div className={style.title}>
@@ -73,54 +63,43 @@ const Home = (props) => {
             )}
 
             {toggleDisplay ? (
-              desktopProducts ? (
-                <InfinitePagination
-                  style={{ justifyContent: "start" }}
-                  columns={columns}
-                  gap="1rem"
-                  items={
-                    mobileProducts &&
-                    mobileProducts.map((product, index) => {
-                      let tmp = {
-                        latitude: product.location._lat,
-                        longitude: product.location._long,
-                      };
-                      let distance = 0;
-                      if (latitude && longitude) {
-                        distance = getDistance(tmp, {
-                          latitude,
-                          longitude,
-                        });
-                        distance = Math.ceil(Number(distance) / 1000);
-                      }
-
-                      return (
-                        <ActiveListingCard
-                          key={product.id}
-                          distance={!!error ? 0 : distance}
-                          source={
-                            product.images
-                              ? product.images[0]
-                              : "https://picsum.photos/400"
-                          }
-                          itemname={product.name}
-                          price={product.price}
-                          stock={product.qty}
-                          alt="Banana"
-                          onClick={() => console.log(product.id)}
-                          maxwidth={lg ? "180px" : "150px"}
-                          width={lg ? "180px" : "150px"}
-                          height={lg ? "180px" : "150px"}
-                        />
-                      );
-                    })
-                  }
-                  hasMore={hasMore}
-                  onScroll={handleOnScroll}
-                />
-              ) : (
-                <>test</>
-              )
+              <div className={style.resultContainer}>
+                {desktopProducts &&
+                  desktopProducts.map((product, index) => {
+                    let tmp = {
+                      latitude: product.location._lat,
+                      longitude: product.location._long,
+                    };
+                    let distance = 0;
+                    if (latitude && longitude) {
+                      distance = getDistance(tmp, {
+                        latitude,
+                        longitude,
+                      });
+                      distance = Math.ceil(Number(distance) / 1000);
+                    }
+                    return (
+                      <ActiveListingCard
+                        key={product.id}
+                        distance={!!error ? 0 : distance}
+                        source={
+                          product.images
+                            ? product.images[0]
+                            : "src/assets/images/NoImage.jpg"
+                        }
+                        itemname={product.name}
+                        price={product.price}
+                        stock={product.qty}
+                        alt={product.name}
+                        onClick={() => console.log(product.id)}
+                        maxwidth={xl || lg ? "185px" : "150px"}
+                        width={xl || lg ? "185px" : "150px"}
+                        height={xl || lg ? "185px" : "150px"}
+                        style={{ marginBottom: "1rem" }}
+                      />
+                    );
+                  })}
+              </div>
             ) : (
               <div style={{ height: "90%" }}>
                 <MapLeaflet
@@ -138,62 +117,61 @@ const Home = (props) => {
               </div>
             )}
           </div>
-          {/* <div className={style.mapDesktop}>
-              {desktopProducts && desktopBounds && (
-                <MapLeaflet
-                  zoom={zoom}
-                  markerData={desktopProducts}
-                  direction="top"
-                  // permanent
-                  width="100%"
-                  height="100%"
-                  borderRadius="20px"
-                  zIndex={2}
-                  bounds={desktopBounds}
-                  showActiveListing={true}
-                />
-              )}
-            </div> */}
-          {/* </Grid> */}
         </div>
       ) : (
         <>
-          <div>
-            {mobileProducts && mobileBounds && (
+          <div className={style.mobileWrapper}>
+            <div
+              style={{
+                height: "60vh",
+              }}
+            >
               <MapLeaflet
                 zoom={zoom}
-                markerData={mobileProducts}
+                markerData={desktopProducts}
                 direction="top"
-                // permanent
-                width="100%"
-                height="30vh"
+                height="100%"
+                borderRadius="20px"
                 zIndex={2}
-                bounds={mobileBounds}
+                bounds={desktopBounds}
                 showActiveListing={true}
+                currentAddress={currentAddress}
               />
-            )}
-          </div>
-          <div className={style.resultsWrapper}>
-            <div className={style.title}>
-              <Typography variant="h2-graphik-bold" color="black">
-                {currentAddress ? "Picks Near You" : "Products"}
-              </Typography>
             </div>
-            {currentAddress && (
-              <div className={style.location}>
-                <MapMarkerSVG width={16} height={24} />
-                <Typography variant="body-4-regular" color="dark-blue">
-                  {currentAddress}
+
+            <div
+              className={style.mobileListing}
+              style={{
+                top: `${isOpen ? "15%" : "90%"}`,
+                transition: "top 0.3s ease-in-out",
+              }}
+            >
+              <hr
+                style={{
+                  backgroundColor: "var(--bg-gray)",
+                  width: "20%",
+                  height: "10px",
+                  borderRadius: "1rem",
+                }}
+                onClick={toggleDrawer}
+              />
+              <div className={style.title}>
+                <Typography variant="h2-graphik-bold" color="black">
+                  {currentAddress ? "Picks Near You" : "Products"}
                 </Typography>
               </div>
-            )}
-            {mobileProducts && (
-              <InfinitePagination
-                columns={columns}
-                gap="1rem"
-                items={
-                  mobileProducts &&
-                  mobileProducts.map((product, index) => {
+              {currentAddress && (
+                <div className={style.location}>
+                  <MapMarkerSVG width={16} height={24} />
+                  <Typography variant="body-4-regular" color="dark-blue">
+                    {currentAddress}
+                  </Typography>
+                </div>
+              )}
+
+              <div className={style.mobileResults}>
+                {desktopProducts &&
+                  desktopProducts.map((product, index) => {
                     let tmp = {
                       latitude: product.location._lat,
                       longitude: product.location._long,
@@ -217,65 +195,43 @@ const Home = (props) => {
                     );
 
                     return (
-                      <Link
-                        to={`/listing/${product.id}`}
-                        state={{
-                          categoryLabel: product.categoryLabel,
-                          categoryValue: product.categoryValue,
-                          createdAt: product.createdAt,
-                          createdByFirstName: product.createdByFirstName,
-                          createdById: product.createdByIdent,
-                          createdByLastName: product.createdByLastName,
-                          createdByNickName: product.createdByNickName,
-                          description: product.description,
-                          lat: product.lat,
-                          location: product.location,
-                          long: product.long,
-                          meetUpAddress: product.meetUpAddress,
-                          meetUpInfo: product.meetUpInfo,
-                          name: product.name,
-                          price: product.price,
-                          qty: product.qty,
-                        }}
-                      >
-                        <ActiveListingCard
-                          key={product.id}
-                          distance={!!error ? 0 : distance}
-                          days={days}
-                          source={
-                            product.imageUrl
-                              ? product.imageUrl
-                              : "https://picsum.photos/400"
-                          }
-                          itemname={product.name}
-                          price={product.price}
-                          stock={product.qty}
-                          alt="Banana"
-                          onClick={() => console.log(product.id)}
-                          maxwidth={lg ? "180px" : "150px"}
-                          width={lg ? "180px" : "150px"}
-                        />
-                      </Link>
+                      <ActiveListingCard
+                        key={product.id}
+                        distance={!!error ? 0 : distance}
+                        source={
+                          product.images
+                            ? product.images[0]
+                            : "src/assets/images/NoImage.jpg"
+                        }
+                        itemname={product.name}
+                        price={product.price}
+                        stock={product.qty}
+                        alt={product.name}
+                        onClick={() => console.log(product.id)}
+                        maxwidth={xl || lg ? "185px" : "150px"}
+                        width={xl || lg ? "185px" : "150px"}
+                        height={xl || lg ? "185px" : "150px"}
+                        style={{ marginBottom: "1rem" }}
+                      />
                     );
-                  })
-                }
-                hasMore={hasMore}
-                onScroll={handleOnScroll}
-              />
-            )}
+                  })}
+              </div>
+            </div>
           </div>
         </>
-      )}{" "}
-      <div className={style.displayButton}>
-        <Button
-          variant="black"
-          type="submit"
-          size="sm"
-          label={`Display ${toggleDisplay ? "Map" : "Listings"}`}
-          hoverable
-          onClickHandler={toggleDisplayHandler}
-        />
-      </div>
+      )}
+      {(xl || lg) && (
+        <div className={style.displayButton}>
+          <Button
+            variant="black"
+            type="submit"
+            size="sm"
+            label={`Display ${toggleDisplay ? "Map" : "Listings"}`}
+            hoverable
+            onClickHandler={toggleDisplayHandler}
+          />
+        </div>
+      )}
     </div>
   );
 };

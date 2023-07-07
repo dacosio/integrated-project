@@ -4,9 +4,13 @@ import styles from "./mapSearch.module.css";
 import SearchField from "../SearchField/SearchField";
 import { Place } from "../../../context/PlaceContext";
 
-const { wrapper, prediction, predictionItem } = styles;
+const { wrapper, predictionBottom, predictionTop, predictionItem } = styles;
 
-const MapSearch = ({ placeholder = "Search location" }) => {
+const MapSearch = ({
+  placeholder = "Search location",
+  height,
+  bottom = false,
+}) => {
   const {
     placesService,
     placePredictions,
@@ -45,8 +49,9 @@ const MapSearch = ({ placeholder = "Search location" }) => {
         }}
         placeholder={placeholder}
         location
+        height={height}
       />
-      <div className={prediction}>
+      <div className={bottom ? predictionBottom : predictionTop}>
         {!isPlacePredictionsLoading &&
           placePredictions.map((item) => (
             <div

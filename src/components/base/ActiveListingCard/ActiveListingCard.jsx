@@ -9,11 +9,15 @@ const ActiveListingCard = (props) => {
   return (
     <div {...props} className={styles.activeListingCard}>
       <div className={styles.box} style={{ width }}>
-        <ImageLabel
-          className={styles.boxTitle}
-          distance={distance}
-          days={days}
-        />
+        {distance ? (
+          <ImageLabel
+            className={styles.boxTitle}
+            distance={distance}
+            days={days}
+          />
+        ) : (
+          <></>
+        )}
         <img src={source} alt={alt} style={{ height, width }} />
       </div>
       <div>

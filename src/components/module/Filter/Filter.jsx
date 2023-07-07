@@ -51,15 +51,15 @@ const Filter = ({ onChange, options, placeholder, screenSize }) => {
           Location
         </Typography>
         <div className={style.mapContainer}>
-          {/* <MapSearch /> */}
-          <SelectDropdown
+          <MapSearch height="36px" bottom />
+          {/* <SelectDropdown
             options={options}
             placeholder={placeholder}
             clearable
             backspaceDelete
             onChange={onChange}
             searchable={false}
-          />
+          /> */}
         </div>
       </div>
       <div>
