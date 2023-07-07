@@ -25,7 +25,6 @@ const firebaseApp = initializeApp(firebaseConfig, {
   }),
   cacheSizeBytes: CACHE_SIZE_UNLIMITED,
 });
-console.log(firebaseApp);
 export const auth = getAuth(firebaseApp);
 export const storage = getStorage(firebaseApp);
 
