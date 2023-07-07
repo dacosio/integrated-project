@@ -31,7 +31,7 @@ const TransactionDetail = () => {
   console.log(order);
   const generatedProps = {
     order,
-    navigate,
+    Navigate,
   };
 
   return <TransactionDetailView {...generatedProps} />;
