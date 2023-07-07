@@ -28,7 +28,6 @@ const Layout = () => {
     else {
       body.style.backgroundColor = "white"; // Set the desired background color for other pages
     }
-    console.log(location.pathname);
 
     // return () => {
     //   body.style.backgroundColor = ""; // Reset the background color when the component unmounts

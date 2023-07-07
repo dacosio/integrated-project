@@ -43,7 +43,6 @@ const MapLeaflet = ({
   currentAddress,
   ...props
 }) => {
-  console.log(currentAddress);
   return (
     <>
       <MapContainer
@@ -73,7 +72,6 @@ const MapLeaflet = ({
                   icon={customIcon}
                   eventHandlers={{
                     click: (e) => {
-                      console.log("marker clicked", e);
                       currentAddress
                         ? window.open(
                             `https://www.google.com/maps/dir/${currentAddress}/${el.meetUpAddress}/`,

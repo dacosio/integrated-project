@@ -28,6 +28,13 @@ const Home = () => {
   const md = useMediaQuery("(min-width: 600px) and (max-width: 768px)");
   const sm = useMediaQuery("(min-width: 360px) and (max-width: 599px");
 
+  Geocode.setApiKey(process.env.REACT_APP_MAPS_API_KEY);
+  Geocode.setLanguage("en");
+  Geocode.setRegion("ca");
+
+  const { placeValue, updatePlaceValue } = Place();
+  const [locationFilter, setLocationFilter] = useState({});
+
   const navigate = useNavigate();
   const handleLogOut = async () => {
     await logout();
@@ -43,8 +50,6 @@ const Home = () => {
 
   // global sort value
   const { sortValue } = Sort();
-
-  console.log(sortValue);
 
   // /**************** */
   useEffect(() => {
@@ -105,51 +110,47 @@ const Home = () => {
     setCurrentPageIndex(pageIndex);
   };
 
+  useEffect(() => {
+    updatePlaceValue("");
+  }, []);
+
   const { latitude, longitude, error } = usePosition();
 
   const [currentAddress, setCurrentAddress] = useState("");
 
-  Geocode.setApiKey(process.env.REACT_APP_MAPS_API_KEY);
-  Geocode.setLanguage("en");
-  Geocode.setRegion("ca");
-  Geocode.fromLatLng(latitude, longitude).then(
-    (response) => {
-      const address = response.results[0].formatted_address;
-      setCurrentAddress(address);
-    },
-    (error) => {
-      console.error(error);
+  useEffect(() => {
+    if (latitude && longitude) {
+      Geocode.fromLatLng(latitude, longitude).then(
+        (response) => {
+          const address = response.results[0].formatted_address;
+          setCurrentAddress(address);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
     }
-  );
+  }, [latitude, longitude]);
+
+  useEffect(() => {
+    if (placeValue?.formatted_address) {
+      Geocode.fromAddress(placeValue.formatted_address).then(
+        (response) => {
+          const { lat, lng } = response.results[0].geometry.location;
+          setLocationFilter({ lat, long: lng });
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    }
+  }, [placeValue?.formatted_address]);
 
   const [toggleDisplay, setToggleDisplay] = useState(true);
 
   const toggleDisplayHandler = () => {
     setToggleDisplay(!toggleDisplay);
   };
-
-  const { placeValue, updatePlaceValue } = Place();
-
-  useEffect(() => {
-    updatePlaceValue("");
-  }, []);
-
-  console.log(placeValue.formatted_address);
-
-  const [locationFilter, setLocationFilter] = useState({});
-
-  Geocode.setApiKey(process.env.REACT_APP_MAPS_API_KEY);
-  Geocode.setLanguage("en");
-  Geocode.setRegion("ca");
-  Geocode.fromAddress(placeValue.formatted_address).then(
-    (response) => {
-      const { lat, lng } = response.results[0].geometry.location;
-      setLocationFilter({ lat, long: lng });
-    },
-    (error) => {
-      console.error(error);
-    }
-  );
 
   const [isOpen, setIsOpen] = useState(true);
 
