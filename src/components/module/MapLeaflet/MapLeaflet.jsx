@@ -43,7 +43,6 @@ const MapLeaflet = ({
   currentAddress,
   ...props
 }) => {
-  console.log(currentAddress);
   return (
     <>
       <MapContainer
@@ -63,7 +62,7 @@ const MapLeaflet = ({
               return el.id ? (
                 <Marker
                   key={el.id}
-                  position={[el.location._lat, el.location._long]}
+                  position={[el.location.latitude, el.location.longitude]}
                   onMouseOver={(e) => {
                     e.target.openPopup();
                   }}
@@ -73,7 +72,6 @@ const MapLeaflet = ({
                   icon={customIcon}
                   eventHandlers={{
                     click: (e) => {
-                      console.log("marker clicked", e);
                       currentAddress
                         ? window.open(
                             `https://www.google.com/maps/dir/${currentAddress}/${el.meetUpAddress}/`,
@@ -92,7 +90,11 @@ const MapLeaflet = ({
                         key={el.id}
                         distance={2}
                         days={2}
-                        source={el.images[0]}
+                        source={
+                          el.images.length > 0
+                            ? el.images[0]
+                            : "../../../assets/images/NoImages.png"
+                        }
                         itemname={el.name}
                         price={el.price}
                         stock={el.qyty}
@@ -106,7 +108,7 @@ const MapLeaflet = ({
                 </Marker>
               ) : (
                 <Marker
-                  position={[el.location._lat, el.location._long]}
+                  position={[el.location.latitude, el.location.longitude]}
                   onMouseOver={(e) => {
                     e.target.openPopup();
                   }}

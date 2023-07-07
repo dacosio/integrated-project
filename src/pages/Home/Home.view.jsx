@@ -70,6 +70,7 @@ const Home = (props) => {
                       latitude: product.location._lat,
                       longitude: product.location._long,
                     };
+
                     let distance = 0;
                     if (latitude && longitude) {
                       distance = getDistance(tmp, {
@@ -176,6 +177,7 @@ const Home = (props) => {
                       latitude: product.location._lat,
                       longitude: product.location._long,
                     };
+
                     let distance = 0;
                     if (latitude && longitude) {
                       distance = getDistance(tmp, {
