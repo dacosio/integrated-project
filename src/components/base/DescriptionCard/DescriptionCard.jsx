@@ -12,7 +12,7 @@ const DescriptionCard = ({
 }) => {
   return (
     <div className={`${styles.wrapper}`}>
-      <Typography variant="h4-graphik-bold">Description</Typography>
+      <Typography variant="h3-graphik-bold">Description</Typography>
       <div style={{ display: "grid", gap: "20px" }}>
         <Typography variant="body-2-regular" color="gray">
           {description}

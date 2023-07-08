@@ -1,10 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import useMediaQuery from "../../../utils/useMediaQuery";
 import ImageList from "../../../components/base/ImageList/ImageList";
 import Card from "../../../components/base/Card/Card";
 import DescriptionCard from "../../../components/base/DescriptionCard/DescriptionCard";
 import ProductInfoCard from "../../../components/base/ProductInfoCard/ProductInfoCard";
 import MeetUpInfoCard from "../../../components/base/MeetUpInfoCard/MeetUpInfoCard";
+import BackButton from "../../../components/base/BackButton/BackButton";
 import BeatLoader from "react-spinners/BeatLoader";
 import Typography from "../../../components/base/Typography/Typography";
 import SellerInfoCard from "../../../components/base/SellerInfoCard/SellerInfoCard";
@@ -19,9 +21,9 @@ const ListingDetail = (props) => {
     user,
     product,
     seller,
-    transactions,
     quantity,
     setQuantity,
+    isRequested,
     carouselVisibility,
     requestVisibility,
     cancelVisibility,
@@ -35,25 +37,21 @@ const ListingDetail = (props) => {
     handleOnCloseCancel,
   } = props;
 
+  const navigate = useNavigate();
+
   const isDesktop = useMediaQuery("(min-width: 1200px)");
   const isTablet = useMediaQuery("(min-width: 1200px)");
   const isMobile = useMediaQuery("(min-width: 360px)");
-
-  if (product) {
-    const today = new Date();
-    let createdAt = new Date(product.createdAt.toDate());
-    createdAt.setHours(0, 0, 0, 0);
-    today.setHours(0, 0, 0, 0);
-    const timeDiff = today.getTime() - createdAt.getTime();
-    product.date = Math.abs(Math.floor(timeDiff / (1000 * 60 * 60 * 24)));
-  }
 
   return (
     <>
       {isDesktop ? (
         <>
           <div className={`${styles.wrapper}`}>
-            {user && product && seller && transactions ? (
+            <div>
+              <BackButton onClickHandler={() => navigate(-1)} />
+            </div>
+            {user && product && seller && isRequested != undefined ? (
               <Card>
                 <div
                   style={{
@@ -67,7 +65,7 @@ const ListingDetail = (props) => {
                       title={product.name}
                       price={product.price}
                       quantity={product.qty}
-                      date={product.date}
+                      createdAt={product.createdAt}
                       name={`${product.createdByNickName}`}
                     />
                   </div>
@@ -86,7 +84,7 @@ const ListingDetail = (props) => {
                     <Card nopadding noborder noshadow>
                       <SellerInfoCard
                         source={seller.imageUrl}
-                        username={`${seller.nickName}`}
+                        username={`${seller.displayName}`}
                         location={seller.address}
                         items={seller.qty}
                       />
@@ -105,16 +103,16 @@ const ListingDetail = (props) => {
                           description={product.description}
                           own
                         />
-                      ) : transactions.length === 0 ? (
-                        <DescriptionCard
-                          description={product.description}
-                          handleOnOpenRequest={handleOnOpenRequest}
-                        />
-                      ) : (
+                      ) : isRequested ? (
                         <DescriptionCard
                           description={product.description}
                           handleOnOpenCancel={handleOnOpenCancel}
                           requested
+                        />
+                      ) : (
+                        <DescriptionCard
+                          description={product.description}
+                          handleOnOpenRequest={handleOnOpenRequest}
                         />
                       )}
                     </Card>
@@ -133,8 +131,8 @@ const ListingDetail = (props) => {
                         minute: "numeric",
                         hour12: true,
                       })}
-                      latitude={product.lat}
-                      longitude={product.long}
+                      latitude={product.location._lat}
+                      longitude={product.location._long}
                       location={product.meetUpAddress}
                     />
                   </div>
@@ -228,7 +226,10 @@ const ListingDetail = (props) => {
       ) : (
         <>
           <div className={`${styles.wrapper}`}>
-            {user && product && seller && transactions ? (
+            <div>
+              <BackButton onClickHandler={() => navigate(-1)} />
+            </div>
+            {user && product && seller && isRequested !== undefined ? (
               <>
                 <Card>
                   <div
@@ -241,7 +242,7 @@ const ListingDetail = (props) => {
                       title={product.name}
                       price={product.price}
                       quantity={product.qty}
-                      date={product.date}
+                      createdAt={product.createdAt}
                       name={`${product.createdByNickName}`}
                     />
                     <ImageList images={product.images} onClick={handleOnOpen} />
@@ -250,16 +251,16 @@ const ListingDetail = (props) => {
                 <Card nopadding noborder>
                   {user.email === seller.email ? (
                     <DescriptionCard description={product.description} own />
-                  ) : transactions.length === 0 ? (
-                    <DescriptionCard
-                      description={product.description}
-                      handleOnOpenRequest={handleOnOpenRequest}
-                    />
-                  ) : (
+                  ) : isRequested ? (
                     <DescriptionCard
                       description={product.description}
                       handleOnOpenCancel={handleOnOpenCancel}
                       requested
+                    />
+                  ) : (
+                    <DescriptionCard
+                      description={product.description}
+                      handleOnOpenRequest={handleOnOpenRequest}
                     />
                   )}
                 </Card>
@@ -279,8 +280,8 @@ const ListingDetail = (props) => {
                       minute: "numeric",
                       hour12: true,
                     })}
-                    latitude={product.lat}
-                    longitude={product.long}
+                    latitude={product.location._lat}
+                    longitude={product.location._long}
                     location={product.meetUpAddress}
                   />
                 </Card>
