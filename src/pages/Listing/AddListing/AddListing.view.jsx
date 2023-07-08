@@ -15,7 +15,9 @@ import FormikControl from "../../../components/base/FormikControl/FormikControl"
 import BackButton from "../../../components/base/BackButton/BackButton";
 import MapLeaflet from "../../../components/module/MapLeaflet/MapLeaflet";
 
-const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
+const AddListing = (props) => {
+  const { initialValues, validationSchema, onSubmit } = props;
+
   const isDesktop = useMediaQuery("(min-width: 1440px)");
   const [selectedOption, setSelectedOption] = useState("");
   const [multipleImages, setMultipleImages] = useState([]);

@@ -6,7 +6,6 @@ import db from "../../../config/firebaseConfig";
 import { collection, doc, setDoc } from "@firebase/firestore";
 
 const AddListing = () => {
-
   const navigate = useNavigate();
 
   const initialValues = {
@@ -18,12 +17,16 @@ const AddListing = () => {
   const validationSchema = Yup.object({
     itemName: Yup.string().required("Your item name is required"),
     description: Yup.string().required("Your item description is required"),
-    originalItemPrice: Yup.string().required("Your item price is required"),
+    originalItemPrice: Yup.number().required("Your item price is required"),
   });
 
+  const onSubmit = () => {};
 
   const generatedProps = {
-    validationSchema, navigate,
+    initialValues,
+    validationSchema,
+    onSubmit,
+    navigate,
   };
   return <AddListingView {...generatedProps} />;
 };
