@@ -94,7 +94,7 @@ const BottomNav = (props) => {
               </li>
               <li>
                 {user ? (
-                  <Link to="register">
+                  <Link to="settings">
                     <SettingsSVG stroke={colorSVG("/register")} />
                     <Typography
                       variant="body-3-medium"
