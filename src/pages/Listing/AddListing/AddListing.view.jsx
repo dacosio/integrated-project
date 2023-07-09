@@ -16,20 +16,31 @@ import BackButton from "../../../components/base/BackButton/BackButton";
 import MapLeaflet from "../../../components/module/MapLeaflet/MapLeaflet";
 
 const AddListing = (props) => {
-  const { initialValues, validationSchema, onSubmit } = props;
+  const {
+    images,
+    setImages,
+    meetupDate,
+    setMeetupDate,
+    meetupTime,
+    setMeetupTime,
+    divisionNumber,
+    setDivisionNumber,
+    portionNumber,
+    setPortionNumber,
+    category,
+    setCategory,
+    initialValues,
+    validationSchema,
+    onSubmit,
+  } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
-  const [selectedOption, setSelectedOption] = useState("");
-  const [multipleImages, setMultipleImages] = useState([]);
   const options = [
     { value: "value1", label: "Fresh Food" },
     { value: "value2", label: "Packaged Food" },
     { value: "value3", label: "Household" },
     { value: "value3", label: "Beauty & Wellness" },
   ];
-  const [date, setDate] = useState();
-  const [time, setTime] = useState("");
-  const [number, setNumber] = useState(0);
 
   return (
     <div className={styles.contentWrapper}>
@@ -80,10 +91,7 @@ const AddListing = (props) => {
                           boxSizing: "border-box",
                         }}
                       >
-                        <ImageInput
-                          images={multipleImages}
-                          setImages={setMultipleImages}
-                        />
+                        <ImageInput images={images} setImages={setImages} />
                       </div>
                     </div>
 
@@ -132,8 +140,8 @@ const AddListing = (props) => {
 
                     <div>
                       <Dropdown
-                        selectedOption={selectedOption}
-                        setSelectedOption={setSelectedOption}
+                        selectedOption={category}
+                        setSelectedOption={setCategory}
                         options={options}
                         label="Select"
                       />
@@ -159,7 +167,7 @@ const AddListing = (props) => {
                       <FormikControl
                         control="input"
                         type="text"
-                        name="originalItemPrice"
+                        name="originalPrice"
                         placeholder="$CAD"
                         style={{
                           borderRadius: "8px",
@@ -189,8 +197,8 @@ const AddListing = (props) => {
                       </div>
 
                       <NumberInput
-                        inputNumber={number}
-                        setInputNumber={setNumber}
+                        inputNumber={divisionNumber}
+                        setInputNumber={setDivisionNumber}
                         maxValue={10}
                       />
                     </div>
@@ -212,8 +220,8 @@ const AddListing = (props) => {
                         </Typography>
                       </div>
                       <NumberInput
-                        inputNumber={number}
-                        setInputNumber={setNumber}
+                        inputNumber={portionNumber}
+                        setInputNumber={setPortionNumber}
                         maxValue={10}
                         style={{ width: "100%" }}
                       />
@@ -336,7 +344,7 @@ const AddListing = (props) => {
                       >
                         Meet-up Date
                       </Typography>
-                      <DatePicker date={date} setDate={setDate} />
+                      <DatePicker date={meetupDate} setDate={setMeetupDate} />
                     </div>
 
                     <div>
@@ -346,7 +354,7 @@ const AddListing = (props) => {
                       >
                         Meet-up Time
                       </Typography>
-                      <TimePicker time={time} setTime={setTime} />
+                      <TimePicker time={meetupTime} setTime={setMeetupTime} />
                     </div>
 
                     <div>
@@ -409,10 +417,7 @@ const AddListing = (props) => {
                           boxSizing: "border-box",
                         }}
                       >
-                        <ImageInput
-                          images={multipleImages}
-                          setImages={setMultipleImages}
-                        />
+                        <ImageInput images={images} setImages={setImages} />
                       </div>
                     </div>
                     <div className={styles.sectionGap}>
@@ -420,7 +425,7 @@ const AddListing = (props) => {
                         control="input"
                         type="text"
                         label="Item Name"
-                        name="item-name"
+                        name="itemName"
                         placeholder="What are you splitting?"
                         style={{
                           borderRadius: "8px",
@@ -460,8 +465,8 @@ const AddListing = (props) => {
                     </div>
                     <div className={styles.sectionGap}>
                       <Dropdown
-                        selectedOption={selectedOption}
-                        setSelectedOption={setSelectedOption}
+                        selectedOption={category}
+                        setSelectedOption={setCategory}
                         options={options}
                         label="Select"
                       />
@@ -484,7 +489,7 @@ const AddListing = (props) => {
                       <FormikControl
                         control="input"
                         type="text"
-                        name="originalItemPrice"
+                        name="originalPrice"
                         placeholder="$CAD"
                         style={{
                           borderRadius: "8px",
@@ -512,8 +517,8 @@ const AddListing = (props) => {
                         </Typography>
                       </div>
                       <NumberInput
-                        inputNumber={number}
-                        setInputNumber={setNumber}
+                        inputNumber={divisionNumber}
+                        setInputNumber={setDivisionNumber}
                         maxValue={10}
                         style={{ width: "100%", marginBottom: "24px" }}
                       />
@@ -535,8 +540,8 @@ const AddListing = (props) => {
                         </Typography>
                       </div>
                       <NumberInput
-                        inputNumber={number}
-                        setInputNumber={setNumber}
+                        inputNumber={portionNumber}
+                        setInputNumber={setPortionNumber}
                         maxValue={10}
                         style={{ width: "100%" }}
                       />
@@ -657,7 +662,7 @@ const AddListing = (props) => {
                       >
                         Meet-up Date
                       </Typography>
-                      <DatePicker date={date} setDate={setDate} />
+                      <DatePicker date={meetupDate} setDate={setMeetupDate} />
                     </div>
                     <div className={styles.sectionGap}>
                       <Typography
@@ -666,7 +671,7 @@ const AddListing = (props) => {
                       >
                         Meet-up Time
                       </Typography>
-                      <TimePicker time={time} setTime={setTime} />
+                      <TimePicker time={meetupTime} setTime={setMeetupTime} />
                     </div>
                     <div>
                       <Button
