@@ -18,6 +18,11 @@ const Settings = () => {
     newPassword: "",
   };
 
+  const changePersonalInfoValues = {
+    contactNumber: "",
+    address: "",
+  }
+
   const validatePasswordSchema = Yup.object({
     password: Yup.string().required("Your password is required"),
     newPassword: Yup.string().required("Your new password is required"),
@@ -73,6 +78,7 @@ const Settings = () => {
     changePasswordValues,
     validatePasswordSchema,
     onSubmitNewPassword,
+    changePersonalInfoValues,
   };
   return <SettingsView {...generatedProps} />;
 };

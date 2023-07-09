@@ -28,6 +28,8 @@ const Settings = (props) => {
     changePasswordValues,
     validatePasswordSchema,
     onSubmitNewPassword,
+    changePersonalInfoValues,
+    
   } = props;
 
   const formikStyle = {
@@ -65,7 +67,7 @@ const Settings = (props) => {
         </div>
         <div className={style.settingsDetail}>
           <Formik
-            initialValues={initialValues}
+            initialValues={changePersonalInfoValues}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
