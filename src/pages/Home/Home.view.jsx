@@ -1,20 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import MapLeaflet from "../../components/module/MapLeaflet/MapLeaflet";
 import style from "./Home.module.css";
 import Typography from "../../components/base/Typography/Typography";
 import { MapMarkerSVG } from "../../components/base/SVG";
-import Grid from "../../components/layout/Grid/Grid";
 import ActiveListingCard from "../../components/base/ActiveListingCard/ActiveListingCard";
-import Pagination from "../../components/base/Pagination/Pagination";
-import InfinitePagination from "../../components/base/InfinitePagination/InfinitePagination";
 import getDistance from "geolib/es/getDistance";
 import Button from "../../components/base/Button/Button";
-
-// import component 👇
-import Drawer from "react-modern-drawer";
-
-//import styles 👇
-import "react-modern-drawer/dist/index.css";
 
 const Home = (props) => {
   const {
@@ -31,8 +22,6 @@ const Home = (props) => {
     toggleDisplay,
     debouncedValue,
     categoryValue,
-    isOpen,
-    toggleDrawer,
   } = props;
 
   if (
