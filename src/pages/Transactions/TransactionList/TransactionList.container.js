@@ -16,6 +16,8 @@ const TransactionList = () => {
   const { user } = UserAuth();
   const [orders, setOrders] = useState([]);
   const [orderStatus, setOrderStatus] = useState("pending");
+  const orderTabs = ["Pending", "Confirmed", "Completed", "Cancelled"];
+  const [selectedTab, setSelectedTab] = useState(orderTabs[0]);
 
   const [orderResults, setOrderResults] = useState([]);
   const orderTypeOptions = [
@@ -27,20 +29,22 @@ const TransactionList = () => {
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "order"), (snapshot) => {
-      const orders = snapshot.docs.map((doc) => ({
+      let orders = snapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
 
       const selling = orders.filter((order) => {
         return (
-          order.orderStatus === orderStatus && order.splitterId === user.uid
+          order.orderStatus.toLowerCase() === selectedTab.toLowerCase() &&
+          order.splitterId === user.uid
         );
       });
 
       const buying = orders.filter((order) => {
         return (
-          order.orderStatus === orderStatus && order.splitteeId === user.uid
+          order.orderStatus.toLowerCase() === selectedTab.toLowerCase() &&
+          order.splitteeId === user.uid
         );
       });
 
@@ -52,9 +56,12 @@ const TransactionList = () => {
     });
 
     return () => unsubscribe();
-  }, [orderStatus, orderType, user.uid]);
+  }, [orderStatus, orderType, user.uid, selectedTab]);
+  console.log(selectedTab);
+  const handleTabChange = (selectedTab) => {
+    setSelectedTab(selectedTab);
+  };
 
-  // console.log(orderType);
   const onChange = (v) => {
     setOrderType(v[0].value);
   };
@@ -96,23 +103,25 @@ const TransactionList = () => {
   };
 
   const onDecline = (orderId, productId) => {
-    console.log("decline");
+    // console.log("decline");
     clickHandler(orderId, "cancelled", productId);
   };
   const onAccept = (orderId, productId) => {
-    console.log("accepted", orderId, productId);
+    // console.log("accepted", orderId, productId);
     clickHandler(orderId, "confirmed", productId);
   };
 
   const onCancel = (orderId, productId) => {
-    console.log("cancel");
+    // console.log("cancel");
     clickHandler(orderId, "cancelled", productId);
   };
+
   const onComplete = (orderId, productId) => {
-    console.log("complete");
+    // console.log("complete");
     clickHandler(orderId, "complete", productId);
   };
 
+  console.log(selectedTab);
   const generatedProps = {
     // generated props here
     orderStatus,
@@ -125,6 +134,8 @@ const TransactionList = () => {
     orderResults,
     onChange,
     orderType,
+    orderTabs,
+    handleTabChange,
   };
   return <TransactionListView {...generatedProps} />;
 };

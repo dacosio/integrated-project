@@ -29,7 +29,6 @@ const TransactionCard = (props) => {
     }
   };
 
-  console.log(orderType);
   const buttons = () => {
     if (type === "buying" && orderStatus === "pending") {
       return (
@@ -88,11 +87,11 @@ const TransactionCard = (props) => {
   };
 
   return (
-    <div className={["transaction-card", { type }].join(" ")} onClick={onClick}>
-      <div className="image-container">
+    <div className={["transaction-card", { type }].join(" ")}>
+      <div className="image-container" onClick={onClick}>
         <img src={source} alt="" />
       </div>
-      <div className="product-information">
+      <div className="product-information" onClick={onClick}>
         <div>
           <Typography variant="h4-graphik-bold" color="dark-blue">
             {itemName}

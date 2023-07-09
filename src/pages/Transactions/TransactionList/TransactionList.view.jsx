@@ -17,6 +17,8 @@ const TransactionList = (props) => {
     orderResults,
     onChange,
     orderType,
+    orderTabs,
+    handleTabChange,
   } = props;
   const navigate = useNavigate();
 
@@ -29,12 +31,7 @@ const TransactionList = (props) => {
           onChange={onChange}
           searchable={false}
         />
-        <PageTabs
-          item1="Pending"
-          item2="Confirmed"
-          item3="Completed"
-          item4="Cancelled"
-        />
+        <PageTabs tabs={orderTabs} onTabChange={handleTabChange} />
       </div>
 
       <div className="orders">
