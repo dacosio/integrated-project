@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "../Button/Button";
-import "./TransactionCard.css";
+import style from "./TransactionCard.module.css";
 import Typography from "../Typography/Typography";
 
 const TransactionCard = (props) => {
@@ -34,7 +34,7 @@ const TransactionCard = (props) => {
       return (
         <Button
           size="sm"
-          variant="gray"
+          variant="cancel"
           label="Cancel"
           onClickHandler={onCancel}
           hoverable
@@ -51,7 +51,6 @@ const TransactionCard = (props) => {
             variant="decline"
             label="Cancel"
             onClickHandler={onDecline}
-            hoverable
           />
           <Button
             size="sm"
@@ -87,11 +86,11 @@ const TransactionCard = (props) => {
   };
 
   return (
-    <div className={["transaction-card", { type }].join(" ")}>
-      <div className="image-container" onClick={onClick}>
+    <div className={[style.transactionCard, { type }].join(" ")}>
+      <div className={style.imageContainer} onClick={onClick}>
         <img src={source} alt="" />
       </div>
-      <div className="product-information" onClick={onClick}>
+      <div className={style.productInformation} onClick={onClick}>
         <div>
           <Typography variant="h4-graphik-bold" color="dark-blue">
             {itemName}
@@ -99,22 +98,22 @@ const TransactionCard = (props) => {
           <Typography variant="h3-graphik-bold">${price}</Typography>
         </div>
         <Typography variant="body-1-medium">{days()}</Typography>
-        <div className="quantity">
+        <div className={style.quantity}>
           <Typography variant="h4-graphik-bold" color="gray">
             Quantity:
           </Typography>
           <Typography variant="body-2-regular">{portions}</Typography>
         </div>
-        <div className="seller-container">
+        <div className={style.sellerContainer}>
           <Typography variant="h4-graphik-bold" color="gray">
-            {orderType === "buying" ? "Seller" : "Buyer"}
+            {orderType === "buying" ? "Seller:" : "Buyer:"}
           </Typography>
           <Typography variant="body-1-medium" color="dark-blue">
             {splitterName}
           </Typography>
         </div>
       </div>
-      <div className="button-container">{buttons()}</div>
+      <div className={style.buttonContainer}>{buttons()}</div>
     </div>
   );
 };
