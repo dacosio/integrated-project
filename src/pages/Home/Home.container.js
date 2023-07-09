@@ -203,10 +203,10 @@ const Home = () => {
     setToggleDisplay(!toggleDisplay);
   };
 
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleDrawer = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prevState) => !prevState);
   };
 
   const generatedProps = {
