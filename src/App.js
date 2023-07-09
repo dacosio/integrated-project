@@ -8,6 +8,7 @@ import "./utils/variable.css";
 
 // Lazy loading and suspense
 const Home = loadable(() => import("./pages/Home"));
+const Settings = loadable(() => import("./pages/Settings"));
 const ProfileDetail = loadable(() => import("./pages/Profile/ProfileDetail"));
 const Login = loadable(() => import("./pages/Auth/Login"));
 const Register = loadable(() => import("./pages/Auth/Register"));
@@ -82,7 +83,9 @@ function App() {
             />
           </Route>
 
-          {/* <Route path="testComponent" element={<TestComponents />} /> */}
+          
+          <Route path="settings" element={<Settings />} />
+          <Route path="testComponent" element={<TestComponents />} />
 
           {/* Catch all - replace with 404 Not Found page if preferred */}
           {/* Catch all - replace with 404 Not Found page if preferred */}
