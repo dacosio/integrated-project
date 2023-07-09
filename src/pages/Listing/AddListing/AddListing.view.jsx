@@ -29,6 +29,8 @@ const AddListing = (props) => {
     setPortionNumber,
     category,
     setCategory,
+    portionPrice,
+    totalPrice,
     initialValues,
     validationSchema,
     onSubmit,
@@ -243,7 +245,9 @@ const AddListing = (props) => {
                             >
                               $
                             </Typography>
-                            <Typography variant="h3-graphik-bold">0</Typography>
+                            <Typography variant="h3-graphik-bold">
+                              {portionPrice}
+                            </Typography>
                             <Typography
                               variant="body-1-medium"
                               style={{ marginTop: "8px" }}
@@ -267,7 +271,9 @@ const AddListing = (props) => {
                             >
                               $
                             </Typography>
-                            <Typography variant="h3-graphik-bold">0</Typography>
+                            <Typography variant="h3-graphik-bold">
+                              {totalPrice}
+                            </Typography>
                             <Typography
                               variant="body-1-medium"
                               style={{ marginTop: "8px" }}
@@ -566,7 +572,9 @@ const AddListing = (props) => {
                           >
                             $
                           </Typography>
-                          <Typography variant="h3-graphik-bold">0</Typography>
+                          <Typography variant="h3-graphik-bold">
+                            {portionPrice}
+                          </Typography>
                           <Typography
                             variant="body-1-medium"
                             style={{ marginTop: "8px" }}
@@ -589,7 +597,9 @@ const AddListing = (props) => {
                           >
                             $
                           </Typography>
-                          <Typography variant="h3-graphik-bold">0</Typography>
+                          <Typography variant="h3-graphik-bold">
+                            {totalPrice}
+                          </Typography>
                           <Typography
                             variant="body-1-medium"
                             style={{ marginTop: "8px" }}

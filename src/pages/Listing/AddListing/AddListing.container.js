@@ -10,6 +10,7 @@ import {
   doc,
   setDoc,
 } from "@firebase/firestore";
+import { useEffect } from "react";
 
 const AddListing = () => {
   const [meetupDate, setMeetupDate] = useState();
@@ -18,6 +19,10 @@ const AddListing = () => {
   const [portionNumber, setPortionNumber] = useState(1);
   const [category, setCategory] = useState("");
   const [images, setImages] = useState([]);
+  const [portionPrice, setPortionPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {}, []);
 
   const navigate = useNavigate();
 
@@ -33,10 +38,9 @@ const AddListing = () => {
     originalPrice: Yup.number().required("Your item price is required"),
   });
 
-  const onSubmit = ({ itemName, description, originalItemPrice }) => {
-    console.log(itemName);
-
-    addDoc(db, "product", {
+  const onSubmit = ({ itemName, description, originalPrice }) => {
+    console.log(itemName, description, originalPrice, category);
+    addDoc(collection(db, "product"), {
       categoryLabel: category,
       categoryValue: category,
       createdAt: serverTimestamp(),
@@ -44,6 +48,11 @@ const AddListing = () => {
       createdById: doc(db, "user", "LPGuEmp6UdcHRn27OWvd"),
       createdByLastName: "Last",
       createdBydisplayName: "LPGuEmp6UdcHRn27OWvd",
+      description: description,
+      name: itemName,
+      price: originalPrice,
+    }).then((response) => {
+      console.log(response.id);
     });
   };
 
@@ -60,6 +69,8 @@ const AddListing = () => {
     setPortionNumber,
     category,
     setCategory,
+    portionPrice,
+    totalPrice,
     initialValues,
     validationSchema,
     onSubmit,
