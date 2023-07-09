@@ -7,41 +7,32 @@ import Button from "../../../components/base/Button/Button";
 import useMediaQuery from "../../../utils/useMediaQuery";
 import BackButton from "../../../components/base/BackButton/BackButton";
 import styles from "./transactionDetail.module.css";
-import MapLeaflet from "../../../components/module/MapLeaflet/MapLeaflet";
-import { orderBy } from "lodash";
 
 const TransactionDetail = (props) => {
-  const { orders, navigate } = props;
+  const { order, navigate, handleOnDecline, handleOnAccept, handleOnComplete } =
+    props;
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
 
-  let order = null;
-  let dateApproved = null;
-
-  if (orders && orders.length > 0) {
-    order = orders[0];
-    dateApproved = order.dateApproved ? order.dateApproved.toDate() : null;
-  }
-
-  const dateApprovedFormatted = dateApproved
-    ? dateApproved.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      })
-    : "";
+  const dateApprovedFormatted =
+    order && order.updatedAt
+      ? order.updatedAt.toDate().toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
+      : "";
 
   let meetUpDate = "";
   let meetUpTime = "";
 
-  if (order && order.meetUpInfo) {
-    const meetUpInfo = new Date(order.meetUpInfo.seconds * 1000);
-    meetUpDate = meetUpInfo.toLocaleDateString("en-US", {
+  if (order && order.meetupSchedule) {
+    meetUpDate = order.meetupSchedule.toDate().toLocaleDateString("en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
     });
-    meetUpTime = meetUpInfo.toLocaleTimeString("en-US", {
+    meetUpTime = order.meetupSchedule.toDate().toLocaleTimeString("en-US", {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
@@ -76,7 +67,7 @@ const TransactionDetail = (props) => {
             >
               <Grid columns={1} gap="0">
                 <SellingItemCard
-                  source={order.coverImage}
+                  source={order.imageUrl}
                   itemName={order.name}
                   dateApproved={dateApprovedFormatted}
                   price={order.price}
@@ -84,7 +75,10 @@ const TransactionDetail = (props) => {
                 />
 
                 <BuyerContactCard
-                  source={order.coverImage}
+                  label={
+                    order.orderStatus === "completed" ? "Sold to" : "Selling to"
+                  }
+                  source={order.imageUrl}
                   nameOfBuyer={order.splitteeName}
                   contactTel={order.splitteeContactNumber}
                   email={order.splitteeEmail}
@@ -95,29 +89,54 @@ const TransactionDetail = (props) => {
                 <MeetUpInfoCard
                   date={meetUpDate}
                   time={meetUpTime}
-                  location={order.meetUpAddress}
-                  latitude={order.lat}
-                  longitude={order.long}
+                  location={order.meetupAddress}
+                  latitude={order.latitude}
+                  longitude={order.longitude}
                 />
               </Grid>
             </Grid>
           )}
 
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Button
-              variant="white"
-              label="Cancel"
-              size="sm"
-              style={{ marginRight: ".5rem" }}
-              onClick={() => console.log("test")}
-            />
-            <Button
-              variant="yellow"
-              label="Complete"
-              size="sm"
-              style={{ marginRight: ".5rem" }}
-              onClick={() => console.log("test")}
-            />
+            {order &&
+            (order.orderStatus === "completed" ||
+              order.orderStatus === "cancelled") ? (
+              <></>
+            ) : order && order.orderStatus === "pending" ? (
+              <>
+                <Button
+                  variant="white"
+                  label="Decline"
+                  size="sm"
+                  style={{ marginRight: ".5rem" }}
+                  onClick={handleOnDecline}
+                />
+                <Button
+                  variant="yellow"
+                  label="Accept"
+                  size="sm"
+                  style={{ marginRight: ".5rem" }}
+                  onClick={handleOnAccept}
+                />
+              </>
+            ) : (
+              <>
+                <Button
+                  variant="white"
+                  label="Cancel"
+                  size="sm"
+                  style={{ marginRight: ".5rem" }}
+                  onClick={handleOnDecline}
+                />
+                <Button
+                  variant="yellow"
+                  label="Complete"
+                  size="sm"
+                  style={{ marginRight: ".5rem" }}
+                  onClick={handleOnComplete}
+                />
+              </>
+            )}
           </div>
         </Grid>
       ) : (
@@ -126,7 +145,7 @@ const TransactionDetail = (props) => {
             <div style={{ padding: "3rem 20px 130px" }}>
               <div style={{ marginBottom: "20px" }}>
                 <SellingItemCard
-                  source={order.coverImage}
+                  source={order.imageUrl}
                   itemName={order.name}
                   dateApproved={dateApprovedFormatted}
                   price={order.price}
@@ -136,7 +155,10 @@ const TransactionDetail = (props) => {
 
               <div style={{ marginBottom: "20px" }}>
                 <BuyerContactCard
-                  source={order.coverImage}
+                  label={
+                    order.orderStatus === "completed" ? "Sold to" : "Selling to"
+                  }
+                  source={order.imageUrl}
                   nameOfBuyer={order.splitteeName}
                   contactTel={order.splitteeContactNumber}
                   email={order.splitteeEmail}
@@ -147,27 +169,52 @@ const TransactionDetail = (props) => {
                 <MeetUpInfoCard
                   date={meetUpDate}
                   time={meetUpTime}
-                  location={order.meetUpAddress}
-                  latitude={order.lat}
-                  longitude={order.long}
+                  location={order.meetupAddress}
+                  latitude={order.latitude}
+                  longitude={order.longitude}
                 />
               </div>
 
               <div style={{ display: "flex", paddingBottom: "20px" }}>
-                <Button
-                  variant="white"
-                  label="Cancel"
-                  size="sm"
-                  style={{ marginRight: ".5rem", width: "100%" }}
-                  onClick={() => console.log("test")}
-                />
-                <Button
-                  variant="yellow"
-                  label="Complete"
-                  size="sm"
-                  style={{ marginLeft: ".5rem", width: "100%" }}
-                  onClick={() => console.log("test")}
-                />
+                {order &&
+                (order.orderStatus === "completed" ||
+                  order.orderStatus === "cancelled") ? (
+                  <></>
+                ) : order && order.orderStatus === "pending" ? (
+                  <>
+                    <Button
+                      variant="white"
+                      label="Decline"
+                      size="lg"
+                      style={{ marginRight: ".5rem" }}
+                      onClick={handleOnDecline}
+                    />
+                    <Button
+                      variant="yellow"
+                      label="Accept"
+                      size="lg"
+                      style={{ marginRight: ".5rem" }}
+                      onClick={handleOnAccept}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      variant="white"
+                      label="Cancel"
+                      size="lg"
+                      style={{ marginRight: ".5rem" }}
+                      onClick={handleOnDecline}
+                    />
+                    <Button
+                      variant="yellow"
+                      label="Complete"
+                      size="lg"
+                      style={{ marginRight: ".5rem" }}
+                      onClick={handleOnComplete}
+                    />
+                  </>
+                )}
               </div>
             </div>
           )}

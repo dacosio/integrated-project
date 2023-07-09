@@ -1,51 +1,109 @@
 import React, { useEffect, useState } from "react";
-import { query, collection, orderBy, getDocs } from "firebase/firestore";
+import {
+  query,
+  collection,
+  orderBy,
+  getDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import db from "../../../config/firebaseConfig";
+
 import TransactionDetailView from "./TransactionDetail.view";
-import { Navigate, useNavigate } from "react-router-dom";
 
 const TransactionDetail = () => {
-  const [orders, setOrders] = useState([]);
+  const [order, setOrder] = useState();
+  const location = useLocation();
+  const { transactionId } = useParams();
+  const navigate = useNavigate();
+  const orderStatusRef = doc(db, "order", transactionId);
+
+  const handleOnDecline = async () => {
+    console.log("Declined");
+    try {
+      await updateDoc(orderStatusRef, { orderStatus: "cancelled" });
+      setOrder((oldData) => ({ ...oldData, orderStatus: "cancelled" }));
+
+      console.log("Order status updated successfully");
+    } catch (error) {
+      console.error("Order status fail to update");
+    }
+  };
+
+  const handleOnAccept = async () => {
+
+    try{
+      await updateDoc(orderStatusRef, { orderStatus: "confirmed" });
+      setOrder((oldData) => ({ ...oldData, orderStatus: "confirmed" }));
+      console.log("Order status updated successfully");
+    } catch (error) {
+      console.error("Order status fail to update");
+    }
+  };
+
+  const handleOnComplete = async () => {
+    try{
+    await updateDoc(orderStatusRef, { orderStatus: "completed" })
+    setOrder((oldData) => ({ ...oldData, orderStatus: "completed" }));
+    console.log("Order status updated successfully");
+  } catch (error) {
+    console.error("Order status fail to update");
+  }
+};
+  
+
+//   const handleOnDecline = async () => {
+//     console.log("Declined");
+//     updateDoc(orderStatusRef, { orderStatus: "cancelled" }).then((response) => {
+//       setOrder((oldData) => ({ ...oldData, orderStatus: "cancelled" }));
+//       console.log(response);
+//     });
+//     console.log("Order status updated successfully");
+//   };
+
+//   const handleOnAccept = async () => {
+//     updateDoc(orderStatusRef, { orderStatus: "confirmed" }).then((response) => {
+//     setOrder((oldData) => ({ ...oldData, orderStatus: "confirmed" }));
+//   });
+//   console.log("Order status updated successfully");
+// };
+
+//   const handleOnComplete = async () => {
+//     updateDoc(orderStatusRef, { orderStatus: "completed" }).then((response) => {
+//     setOrder((oldData) => ({ ...oldData, orderStatus: "completed" }));
+//   });
+//   console.log("Order status updated successfully");
+// };
 
   useEffect(() => {
-    const ordersCollectionRef = collection(db, "order");
-    const ordersQuery = query(
-      ordersCollectionRef,
-      orderBy("dateApproved", "desc")
-    );
+    const fetchDocument = async () => {
+      try {
+        const orderDocRef = doc(db, "order", transactionId);
+        const orderSnap = await getDoc(orderDocRef);
+        if (orderSnap.exists) {
+          setOrder({
+            id: orderSnap.id,
+            ...orderSnap.data(),
+          });
+        } else {
+          console.log("Document does not exist!");
+        }
+      } catch (error) {
+        console.error("Error fetching document: ", error);
+      }
+    };
 
-    getDocs(ordersQuery)
-      .then((__ordersResponse) => {
-        const orderPromises = __ordersResponse.docs.map(async (doc) => {
-          const orderData = doc.data();
-          const imageResponse = await getDocs(
-            collection(ordersCollectionRef, doc.id, "image")
-          );
-          const imageDocs = imageResponse.docs;
-          const image = imageDocs.filter(
-            (imageDoc) => imageDoc.data().isCover === true
-          );
-          const imageUrl = image.length > 0 ? image[0].data().imageUrl : null;
+    fetchDocument();
+  }, [transactionId, location]);
 
-          return {
-            ...orderData,
-            id: doc.id,
-            imageUrl: imageUrl,
-          };
-        });
-
-        Promise.all(orderPromises)
-          .then((orders) => setOrders(orders))
-          .catch((error) => console.log(error));
-      })
-      .catch((error) => console.log(error));
-  }, []);
-
-  const navigate = useNavigate();
-
+  console.log(order);
   const generatedProps = {
-    orders,
+    order,
     navigate,
+    handleOnDecline,
+    handleOnAccept,
+    handleOnComplete,
   };
 
   return <TransactionDetailView {...generatedProps} />;

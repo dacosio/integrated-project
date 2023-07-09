@@ -1,12 +1,24 @@
-.contentWrapper{
+.contentWrapper {
   background-color: var(--bg-gray);
   padding: 2rem;
 }
 
-@media screen and (min-width: 800px) {
-  .contentWrapper{
-  padding: 7rem 10rem;
+.mobileWrapper {
+  background-color: var(--white);
+  border: 1px solid var(--black);
+  padding: 24px 16px;
+  border-radius: 20px;
+  height: auto;
 }
+
+.sectionGap {
+  margin-bottom: 24px;
+}
+
+@media screen and (min-width: 800px) {
+  .contentWrapper {
+    padding: 7rem 10rem;
+  }
 }
 
 .imageWrapper {
@@ -22,6 +34,7 @@
   box-shadow: 2px 2px black;
   margin: 32px 0;
 }
+
 
 .itemNameWrapper,
 .itemDescriptionWrapper,
@@ -44,11 +57,16 @@
   justify-content: center;
 }
 
+.meetUpWrapper {
+  margin-bottom: 24px;
+}
+
 .meetUpMap {
   width: 100%;
   height: 284px;
   border: 2px solid black;
   border-radius: 20px;
+  margin-bottom: 24px;
 }
 
 .meetUpWrapper {
@@ -59,12 +77,24 @@
   width: 50%;
 }
 
-.backButtonWrap{
+.backButtonWrap {
   margin-bottom: 1rem;
 }
 
+
 @media screen and (min-width: 1440px) {
-  .backButtonWrap{
-  margin-bottom: 2rem;
-}
+  .backButtonWrap {
+    margin-bottom: 2rem;
+  }
+  .meetUpMap {
+    margin-bottom: 0;
+  }
+
+  .itemNameWrapper{
+    margin: 0;
+  }
+
+  .lineBreak {
+    margin: 26px 0;
+  }
 }

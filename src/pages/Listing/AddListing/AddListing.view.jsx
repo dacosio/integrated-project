@@ -13,8 +13,9 @@ import { RiInformationFill } from "react-icons/ri";
 import { Formik, Form } from "formik";
 import FormikControl from "../../../components/base/FormikControl/FormikControl";
 import BackButton from "../../../components/base/BackButton/BackButton";
+import MapLeaflet from "../../../components/module/MapLeaflet/MapLeaflet";
 
-const AddListing = (initialValues, validationSchema, onSubmit, props) => {
+const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
   const isDesktop = useMediaQuery("(min-width: 1440px)");
   const [selectedOption, setSelectedOption] = useState("");
   const [multipleImages, setMultipleImages] = useState([]);
@@ -88,8 +89,8 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                       <FormikControl
                         control="input"
                         type="text"
-                        label="ItemName"
-                        name="item-name"
+                        label="Item Name"
+                        name="itemName"
                         placeholder="What are you splitting?"
                         style={{
                           borderRadius: "8px",
@@ -122,6 +123,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                           width: "100%",
                           boxSizing: "border-box",
                           border: "2px solid var(--black)",
+                          fontFamily: "Graphik",
                         }}
                       />
                     </div>
@@ -155,7 +157,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                       <FormikControl
                         control="input"
                         type="text"
-                        name="original-item-price"
+                        name="originalItemPrice"
                         placeholder="$CAD"
                         style={{
                           borderRadius: "8px",
@@ -183,6 +185,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                           The number of portions to divide your items into
                         </Typography>
                       </div>
+
                       <NumberInput
                         inputNumber={number}
                         setInputNumber={setNumber}
@@ -311,7 +314,18 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                           boxSizing: "border-box",
                         }}
                       />
-                      <div className={styles.meetUpMap}></div>
+                      <div className={styles.meetUpMap}>
+                        <MapLeaflet
+                          // zoom={zoom}
+                          // markerData={/}
+                          direction="top"
+                          height="100%"
+                          borderRadius="20px"
+                          zIndex={2}
+                          // bounds="[49.225693],[-123.107326]"
+                          showActiveListing={false}
+                        />
+                      </div>
                     </div>
                     <div>
                       <Typography
@@ -343,6 +357,8 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                           display: "block",
                           margin: "60px auto auto",
                         }}
+                        disable={!formik.isValid}
+                        type="submit"
                       />
                     </div>
                   </Grid>
@@ -352,7 +368,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
           </Formik>
         </div>
       ) : (
-        <div className={styles.mobileWrapper}>
+        <div>
           {/* Mobile view */}
           <Formik
             initialValues={initialValues}
@@ -365,31 +381,30 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                   <div className={styles.backButtonWrap}>
                     <BackButton />
                   </div>
-                  <Grid
-                    style={{
-                      border: "1px solid var(--black)",
-                      padding: "24px 16px",
-                      rowGap: "24px",
-                      backgroundColor: "var(--white)",
-                      height: "auto",
-                      borderRadius: "20px"
-                    }}
-                  >
+                  <div className={styles.mobileWrapper}>
+                    {/* <Grid columns={1}
+                      style={{
+                        border: "1px solid var(--black)",
+                        padding: "24px 16px",
+                        rowGap: "24px",
+                        backgroundColor: "var(--white)",
+                        height: "auto",
+                        borderRadius: "20px"
+                      }} */}
                     <Typography variant="h3-graphik-bold">
                       Create Listing
                     </Typography>
-                    <div>
+                    <div className={styles.sectionGap}>
                       <Typography
                         variant="h4-graphik-bold"
-                        style={{ marginBottom: "8px" }}
+                        style={{ margin: "24px auto 8px" }}
                       >
                         Item Photos
                       </Typography>
                       <div
                         style={{
                           width: "100%",
-                          boxSizing: "border-box"
-
+                          boxSizing: "border-box",
                         }}
                       >
                         <ImageInput
@@ -398,12 +413,11 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                         />
                       </div>
                     </div>
-
-                    <div>
+                    <div className={styles.sectionGap}>
                       <FormikControl
                         control="input"
                         type="text"
-                        label="ItemName"
+                        label="Item Name"
                         name="item-name"
                         placeholder="What are you splitting?"
                         style={{
@@ -414,34 +428,35 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                         }}
                       />
                     </div>
-
-                    <div>
-                      <FormikControl
-                        control="textarea"
-                        type="text"
-                        rows="6"
-                        label={
-                          <Typography
-                            variant="h4-graphik-bold"
-                            color="black"
-                            style={{ marginBottom: "8px" }}
-                          >
-                            Description
-                          </Typography>
-                        }
-                        name="description"
-                        placeholder="Describe your item? (ex. 400g of rice)"
-                        style={{
-                          borderRadius: "8px",
-                          padding: "6px 16px",
-                          width: "100%",
-                          boxSizing: "border-box",
-                          border: "2px solid var(--black)",
-                        }}
-                      />
+                    <div className={styles.sectionGap}>
+                      <div className={styles.itemDescriptionWrapper}>
+                        <FormikControl
+                          control="textarea"
+                          type="text"
+                          rows="6"
+                          label={
+                            <Typography
+                              variant="h4-graphik-bold"
+                              color="black"
+                              style={{ marginBottom: "8px" }}
+                            >
+                              Description
+                            </Typography>
+                          }
+                          name="description"
+                          placeholder="Describe your item? (ex. 400g of rice)"
+                          style={{
+                            borderRadius: "8px",
+                            padding: "6px 16px",
+                            width: "100%",
+                            boxSizing: "border-box",
+                            border: "2px solid var(--black)",
+                            fontFamily: "Graphik",
+                          }}
+                        />
+                      </div>
                     </div>
-
-                    <div>
+                    <div className={styles.sectionGap}>
                       <Dropdown
                         selectedOption={selectedOption}
                         setSelectedOption={setSelectedOption}
@@ -449,10 +464,8 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                         label="Select"
                       />
                     </div>
-
                     <div className={styles.lineBreak}></div>
-
-                    <div>
+                    <div className={styles.sectionGap}>
                       <Typography
                         variant="h4-graphik-bold"
                         style={{ marginBottom: "8px" }}
@@ -466,11 +479,10 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                       >
                         The price of your bulk item at purchase
                       </Typography>
-
                       <FormikControl
                         control="input"
                         type="text"
-                        name="original-item-price"
+                        name="originalItemPrice"
                         placeholder="$CAD"
                         style={{
                           borderRadius: "8px",
@@ -481,8 +493,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                         }}
                       />
                     </div>
-
-                    <div>
+                    <div className={styles.sectionGap}>
                       <div className={styles.divideWrapper}>
                         <Typography
                           variant="h4-graphik-bold"
@@ -502,10 +513,10 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                         inputNumber={number}
                         setInputNumber={setNumber}
                         maxValue={10}
+                        style={{ width: "100%", marginBottom: "24px" }}
                       />
                     </div>
-
-                    <div>
+                    <div className={styles.sectionGap}>
                       <div className={styles.divideWrapper}>
                         <Typography
                           variant="h4-graphik-bold"
@@ -528,9 +539,8 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                         style={{ width: "100%" }}
                       />
                     </div>
-
                     <div className={styles.priceDisplayWrapper}>
-                      <Grid columns={2}>
+                      <Grid columns={2} style={{ marginBottom: "24px" }}>
                         <div>
                           <Typography
                             variant="h4-graphik-bold"
@@ -538,23 +548,25 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                           >
                             Price per portion
                           </Typography>
-                          <div className={styles.portionPriceWrapper}>
-                            <Typography
-                              variant="body-1-medium"
-                              style={{ marginBottom: "8px" }}
-                            >
-                              $
-                            </Typography>
-                            <Typography variant="h3-graphik-bold">0</Typography>
-                            <Typography
-                              variant="body-1-medium"
-                              style={{ marginTop: "8px" }}
-                            >
-                              CAD
-                            </Typography>
-                          </div>
                         </div>
-
+                        <div
+                          className={styles.portionPriceWrapper}
+                          style={{ gridRow: 2 }}
+                        >
+                          <Typography
+                            variant="body-1-medium"
+                            style={{ marginBottom: "8px" }}
+                          >
+                            $
+                          </Typography>
+                          <Typography variant="h3-graphik-bold">0</Typography>
+                          <Typography
+                            variant="body-1-medium"
+                            style={{ marginTop: "8px" }}
+                          >
+                            CAD
+                          </Typography>
+                        </div>
                         <div>
                           <Typography
                             variant="h4-graphik-bold"
@@ -562,21 +574,21 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                           >
                             Total expected sales
                           </Typography>
-                          <div className={styles.salesWrapper}>
-                            <Typography
-                              variant="body-1-medium"
-                              style={{ marginBottom: "8px" }}
-                            >
-                              $
-                            </Typography>
-                            <Typography variant="h3-graphik-bold">0</Typography>
-                            <Typography
-                              variant="body-1-medium"
-                              style={{ marginTop: "8px" }}
-                            >
-                              CAD
-                            </Typography>
-                          </div>
+                        </div>
+                        <div className={styles.salesWrapper}>
+                          <Typography
+                            variant="body-1-medium"
+                            style={{ marginBottom: "8px" }}
+                          >
+                            $
+                          </Typography>
+                          <Typography variant="h3-graphik-bold">0</Typography>
+                          <Typography
+                            variant="body-1-medium"
+                            style={{ marginTop: "8px" }}
+                          >
+                            CAD
+                          </Typography>
                         </div>
                         <div
                           style={{
@@ -602,9 +614,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                         </div>
                       </Grid>
                     </div>
-
                     <div className={styles.lineBreak}></div>
-
                     <div className={styles.meetUpWrapper}>
                       <Typography
                         variant="h4-graphik-bold"
@@ -612,7 +622,6 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                       >
                         Meet-up Location
                       </Typography>
-
                       <FormikControl
                         control="input"
                         type="text"
@@ -626,9 +635,20 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                           boxSizing: "border-box",
                         }}
                       />
-                      <div className={styles.meetUpMap}></div>
+                      <div className={styles.meetUpMap}>
+                        <MapLeaflet
+                          // zoom={zoom}
+                          // markerData={/}
+                          direction="top"
+                          height="100%"
+                          borderRadius="20px"
+                          zIndex={2}
+                          // bounds="[49.225693],[-123.107326]"
+                          showActiveListing={false}
+                        />
+                      </div>
                     </div>
-                    <div>
+                    <div className={styles.sectionGap}>
                       <Typography
                         variant="h4-graphik-bold"
                         style={{ marginBottom: "8px" }}
@@ -637,8 +657,7 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                       </Typography>
                       <DatePicker date={date} setDate={setDate} />
                     </div>
-
-                    <div>
+                    <div className={styles.sectionGap}>
                       <Typography
                         variant="h4-graphik-bold"
                         style={{ marginBottom: "8px" }}
@@ -647,20 +666,20 @@ const AddListing = (initialValues, validationSchema, onSubmit, props) => {
                       </Typography>
                       <TimePicker time={time} setTime={setTime} />
                     </div>
-
                     <div>
                       <Button
                         variant="yellow"
                         label="Post Listing"
                         size="lg"
                         style={{
-                          // width: "326px",
                           display: "block",
                           margin: "60px auto",
                         }}
+                        disable={!formik.isValid}
+                        type="submit"
                       />
                     </div>
-                  </Grid>
+                  </div>
                 </Form>
               );
             }}
