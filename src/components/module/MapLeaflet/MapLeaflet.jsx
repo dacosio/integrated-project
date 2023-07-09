@@ -46,19 +46,6 @@ const MapLeaflet = ({
   currentAddress,
   ...props
 }) => {
-  const defaultBounds = [[49.225693, -123.107326]];
-  const [boundsVal, setBoundsVal] = useState(defaultBounds);
-  const map = useMap();
-
-  const innerBounds = markerData.map((product) => [
-    product.location._lat,
-    product.location._long,
-  ]);
-
-  useLayoutEffect(() => {
-    setBoundsVal(innerBounds);
-    map.fitBounds(innerBounds);
-  }, [map]);
   return (
     <>
       <MapContainer
