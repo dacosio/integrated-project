@@ -41,10 +41,10 @@ const TransactionList = (props) => {
         {orderResults &&
           orderResults.map((o) => {
             const today = new Date();
-            let createdAt = new Date(o.createdAt.toDate());
-            createdAt.setHours(0, 0, 0, 0);
+            let updatedAt = new Date(o.updatedAt.toDate());
+            updatedAt.setHours(0, 0, 0, 0);
             today.setHours(0, 0, 0, 0);
-            const timeDiff = today.getTime() - createdAt.getTime();
+            const timeDiff = today.getTime() - updatedAt.getTime();
             const days = Math.abs(Math.floor(timeDiff / (1000 * 60 * 60 * 24)));
             return (
               <TransactionCard
@@ -52,8 +52,11 @@ const TransactionList = (props) => {
                 type={o.orderType}
                 itemName={o.name}
                 time={days}
+                orderType={orderType}
                 portions={o.qty}
-                splitterName={o.splitterName}
+                splitterName={
+                  orderType === "selling" ? o.splitteeName : o.splitterName
+                }
                 price={o.price}
                 source={o.imageUrl}
                 orderStatus={o.orderStatus}

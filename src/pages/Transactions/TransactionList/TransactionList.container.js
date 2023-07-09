@@ -24,32 +24,6 @@ const TransactionList = () => {
   ];
 
   const [orderType, setOrderType] = useState("selling");
-  // useEffect(
-  //   () =>
-  //     onSnapshot(collection(db, "order"), (snapshot) => {
-  //       return setOrders(
-  //         snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-  //       );
-  //     }),
-  //   []
-  // );
-
-  // useEffect(() => {
-  //   const splitterOrders = orders.filter((order) => {
-  //     console.log(order.splitterId, user.uid);
-  //     return order.orderStatus === orderStatus && order.splitterId === user.uid;
-  //   });
-  //   // console.log(splitterOrders);
-  //   const splitteeOrders = orders.filter((order) => {
-  //     return order.orderStatus === orderStatus && order.splitteeId === user.uid;
-  //   });
-
-  //   if (orderType === "selling") {
-  //     setOrderResults(splitterOrders);
-  //   } else if (orderType === "buying") {
-  //     setOrderResults(splitteeOrders);
-  //   }
-  // }, [orderType]);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "order"), (snapshot) => {
@@ -58,23 +32,22 @@ const TransactionList = () => {
         id: doc.id,
       }));
 
-      const splitterOrders = orders.filter((order) => {
-        console.log(order.splitterId, user.uid);
+      const selling = orders.filter((order) => {
         return (
           order.orderStatus === orderStatus && order.splitterId === user.uid
         );
       });
 
-      const splitteeOrders = orders.filter((order) => {
+      const buying = orders.filter((order) => {
         return (
           order.orderStatus === orderStatus && order.splitteeId === user.uid
         );
       });
 
       if (orderType === "selling") {
-        setOrderResults(splitterOrders);
+        setOrderResults(selling);
       } else if (orderType === "buying") {
-        setOrderResults(splitteeOrders);
+        setOrderResults(buying);
       }
     });
 

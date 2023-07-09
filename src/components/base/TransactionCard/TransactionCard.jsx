@@ -18,6 +18,7 @@ const TransactionCard = (props) => {
     orderStatus,
     onComplete,
     onClick,
+    orderType,
   } = props;
 
   const days = () => {
@@ -28,6 +29,7 @@ const TransactionCard = (props) => {
     }
   };
 
+  console.log(orderType);
   const buttons = () => {
     if (type === "buying" && orderStatus === "pending") {
       return (
@@ -100,15 +102,13 @@ const TransactionCard = (props) => {
         <Typography variant="body-1-medium">{days()}</Typography>
         <div className="quantity">
           <Typography variant="h4-graphik-bold" color="gray">
-            {" "}
             Quantity:
           </Typography>
           <Typography variant="body-2-regular">{portions}</Typography>
         </div>
         <div className="seller-container">
           <Typography variant="h4-graphik-bold" color="gray">
-            {" "}
-            Seller:
+            {orderType === "buying" ? "Seller" : "Buyer"}
           </Typography>
           <Typography variant="body-1-medium" color="dark-blue">
             {splitterName}
