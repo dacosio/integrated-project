@@ -1,9 +1,6 @@
-import { useEffect, useState } from "react";
 import Typography from "../../../components/base/Typography/Typography";
 import PageTabs from "../../../components/base/PageTabs/PageTabs";
-import Dropdown from "../../../components/base/Dropdown/Dropdown";
 import TransactionCard from "../../../components/base/TransactionCard/TransactionCard";
-import "./TransactionList.css";
 import { useNavigate } from "react-router-dom";
 import SelectDropdown from "../../../components/base/SelectDropdown/SelectDropdown";
 import style from "./TransactionList.module.css";
