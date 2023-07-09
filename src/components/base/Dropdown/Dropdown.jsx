@@ -12,23 +12,7 @@ const Dropdown = ({
     setSelectedOption(event.target.value);
   };
 
-  return (
-    <select
-      className={`${styles["select"]}`}
-      onChange={handleOnChange}
-      defaultValue=""
-      style={props}
-    >
-      <option value="" disabled>
-        {label}
-      </option>
-      {options.map((option, index) => (
-        <option key={index} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </select>
-  );
+   
 };
 
 export default React.memo(Dropdown);

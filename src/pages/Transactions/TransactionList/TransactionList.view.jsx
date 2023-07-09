@@ -3,7 +3,7 @@ import Typography from "../../../components/base/Typography/Typography";
 import PageTabs from "../../../components/base/PageTabs/PageTabs";
 import Dropdown from "../../../components/base/Dropdown/Dropdown";
 import TransactionCard from "../../../components/base/TransactionCard/TransactionCard";
-import "./TransactionList.css";
+import style from "./TransactionList.module.css";
 
 const TransactionList = (props) => {
   const {
