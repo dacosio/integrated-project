@@ -6,6 +6,7 @@ import TransactionCard from "../../../components/base/TransactionCard/Transactio
 import "./TransactionList.css";
 import { useNavigate } from "react-router-dom";
 import SelectDropdown from "../../../components/base/SelectDropdown/SelectDropdown";
+import style from "./TransactionList.module.css";
 
 const TransactionList = (props) => {
   const {
