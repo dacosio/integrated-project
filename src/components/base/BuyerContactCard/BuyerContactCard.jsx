@@ -10,6 +10,7 @@ const BuyerContactCard = ({
   nameOfBuyer,
   contactTel,
   email,
+  label,
   ...props
 }) => {
   return (
@@ -20,7 +21,7 @@ const BuyerContactCard = ({
           color="black"
           style={{ marginBottom: "12px" }}
         >
-          Sold to
+          {label}
         </Typography>
         <div className={`${styles["buyer-contact-details"]}`}>
           <div className={`${styles["image-container"]}`}>
