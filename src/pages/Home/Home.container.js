@@ -16,6 +16,9 @@ import { Sort } from "../../context/SortContext";
 import getDistance from "geolib/es/getDistance";
 
 import { Place } from "../../context/PlaceContext";
+import { useMap } from "react-leaflet";
+import { useMemo } from "react";
+import { useLayoutEffect } from "react";
 
 const Home = () => {
   const { user, logout } = UserAuth();
