@@ -10,10 +10,11 @@ import TimePicker from "../../../components/base/TimePicker/TimePicker";
 import styles from "./AddListing.module.css";
 import Typography from "../../../components/base/Typography/Typography";
 import { RiInformationFill } from "react-icons/ri";
-import { Formik, Form } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import FormikControl from "../../../components/base/FormikControl/FormikControl";
 import BackButton from "../../../components/base/BackButton/BackButton";
 import MapLeaflet from "../../../components/module/MapLeaflet/MapLeaflet";
+import TextError from "../../../components/base/TextError/TextError";
 
 const AddListing = (props) => {
   const {
@@ -33,7 +34,8 @@ const AddListing = (props) => {
     totalPrice,
     initialValues,
     validationSchema,
-    onSubmit,
+    handleOnSubmit,
+    handleOnBlur,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
@@ -51,7 +53,7 @@ const AddListing = (props) => {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={onSubmit}
+            onSubmit={handleOnSubmit}
           >
             {(formik) => {
               return (
@@ -165,7 +167,6 @@ const AddListing = (props) => {
                       >
                         The price of your bulk item at purchase
                       </Typography>
-
                       <FormikControl
                         control="input"
                         type="text"
@@ -178,6 +179,7 @@ const AddListing = (props) => {
                           boxSizing: "border-box",
                           border: "2px solid var(--black)",
                         }}
+                        onBlur={(event) => handleOnBlur(event, formik)}
                       />
                     </div>
 
@@ -201,7 +203,6 @@ const AddListing = (props) => {
                       <NumberInput
                         inputNumber={divisionNumber}
                         setInputNumber={setDivisionNumber}
-                        maxValue={10}
                       />
                     </div>
 
@@ -224,7 +225,7 @@ const AddListing = (props) => {
                       <NumberInput
                         inputNumber={portionNumber}
                         setInputNumber={setPortionNumber}
-                        maxValue={10}
+                        maxValue={divisionNumber}
                         style={{ width: "100%" }}
                       />
                     </div>
@@ -389,7 +390,7 @@ const AddListing = (props) => {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={onSubmit}
+            onSubmit={handleOnSubmit}
           >
             {(formik) => {
               return (
@@ -504,6 +505,7 @@ const AddListing = (props) => {
                           boxSizing: "border-box",
                           border: "2px solid var(--black)",
                         }}
+                        onBlur={(event) => handleOnBlur(event, formik)}
                       />
                     </div>
                     <div className={styles.sectionGap}>
@@ -525,7 +527,6 @@ const AddListing = (props) => {
                       <NumberInput
                         inputNumber={divisionNumber}
                         setInputNumber={setDivisionNumber}
-                        maxValue={10}
                         style={{ width: "100%", marginBottom: "24px" }}
                       />
                     </div>
@@ -548,7 +549,7 @@ const AddListing = (props) => {
                       <NumberInput
                         inputNumber={portionNumber}
                         setInputNumber={setPortionNumber}
-                        maxValue={10}
+                        maxValue={divisionNumber}
                         style={{ width: "100%" }}
                       />
                     </div>

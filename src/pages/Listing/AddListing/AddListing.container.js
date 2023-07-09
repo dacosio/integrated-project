@@ -2,14 +2,9 @@ import React, { useState } from "react";
 import AddListingView from "./AddListing.view";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-import db from "../../../config/firebaseConfig";
-import {
-  addDoc,
-  serverTimestamp,
-  collection,
-  doc,
-  setDoc,
-} from "@firebase/firestore";
+import db, { storage } from "../../../config/firebaseConfig";
+import { addDoc, serverTimestamp, collection, doc } from "@firebase/firestore";
+import { uploadBytes, ref, getDownloadURL } from "@firebase/storage";
 import { useEffect } from "react";
 
 const AddListing = () => {
@@ -19,10 +14,9 @@ const AddListing = () => {
   const [portionNumber, setPortionNumber] = useState(1);
   const [category, setCategory] = useState("");
   const [images, setImages] = useState([]);
+  const [originalPrice, setOriginalPrice] = useState(0);
   const [portionPrice, setPortionPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
-
-  useEffect(() => {}, []);
 
   const navigate = useNavigate();
 
@@ -33,13 +27,33 @@ const AddListing = () => {
   };
 
   const validationSchema = Yup.object({
-    itemName: Yup.string().required("Your item name is required"),
-    description: Yup.string().required("Your item description is required"),
-    originalPrice: Yup.number().required("Your item price is required"),
+    itemName: Yup.string().required("Your item name is required."),
+    description: Yup.string().required("Your item description is required."),
+    originalPrice: Yup.number()
+      .required("Your item price is required.")
+      .typeError("Your item price should be a number."),
   });
 
-  const onSubmit = ({ itemName, description, originalPrice }) => {
-    console.log(itemName, description, originalPrice, category);
+  useEffect(() => {
+    setPortionPrice((originalPrice / divisionNumber).toFixed(2));
+    setTotalPrice((originalPrice / divisionNumber).toFixed(2) * portionNumber);
+  }, [originalPrice, divisionNumber, portionNumber]);
+
+  const handleOnSubmit = ({ itemName, description, originalPrice }) => {
+    // console.log(itemName, description, originalPrice, category);
+
+    // for (const image of images) {
+    //   const file = image.file;
+    //   const fileRef = ref(storage, "test-product-image/" + file.name);
+
+    // uploadBytes(fileRef, file).then((snapshot) => {
+    //   console.log(snapshot);
+    // getDownloadURL(fileRef).then((url) => {
+    //   console.log(url);
+    // });
+    // });
+    // }
+
     addDoc(collection(db, "product"), {
       categoryLabel: category,
       categoryValue: category,
@@ -54,6 +68,11 @@ const AddListing = () => {
     }).then((response) => {
       console.log(response.id);
     });
+  };
+
+  const handleOnBlur = (event, formik) => {
+    setOriginalPrice(event.target.value);
+    formik.handleBlur(event);
   };
 
   const generatedProps = {
@@ -73,7 +92,8 @@ const AddListing = () => {
     totalPrice,
     initialValues,
     validationSchema,
-    onSubmit,
+    handleOnSubmit,
+    handleOnBlur,
     navigate,
   };
   return <AddListingView {...generatedProps} />;
