@@ -46,8 +46,8 @@ const MapLeaflet = ({
   currentAddress,
   ...props
 }) => {
-  // const defaultBounds = [[49.225693, -123.107326]];
-  const [boundsVal, setBoundsVal] = useState(bounds);
+  const defaultBounds = [[49.225693, -123.107326]];
+  const [boundsVal, setBoundsVal] = useState(defaultBounds);
   const map = useMap();
 
   const innerBounds = markerData.map((product) => [
@@ -64,7 +64,7 @@ const MapLeaflet = ({
       <MapContainer
         {...props}
         style={{ width, height, borderRadius, zIndex }}
-        bounds={boundsVal}
+        bounds={bounds}
         scrollWheelZoom
         zoomControl={false}
       >
