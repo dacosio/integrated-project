@@ -16,6 +16,8 @@ import BackButton from "../../../components/base/BackButton/BackButton";
 import MapLeaflet from "../../../components/module/MapLeaflet/MapLeaflet";
 import TextError from "../../../components/base/TextError/TextError";
 import MapSearch from "../../../components/base/MapSearch/MapSearch";
+import { Place } from "../../../context/PlaceContext";
+import { latitudeKeys } from "geolib";
 
 const AddListing = (props) => {
   const {
@@ -38,6 +40,9 @@ const AddListing = (props) => {
     handleOnSubmit,
     handleOnBlur,
   } = props;
+
+  const { placeValue } = Place();
+  console.log(placeValue && placeValue.geometry.location.lat());
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
   const options = [
@@ -322,7 +327,7 @@ const AddListing = (props) => {
                         Meet-up Location
                       </Typography>
                       <div className={styles.sectionGap}>
-                        <MapSearch styles={{ borderRadius: "8px" }} bottom/>
+                        <MapSearch styles={{ borderRadius: "8px" }} bottom />
                       </div>
                       {/* <FormikControl
                         control="input"
@@ -338,17 +343,34 @@ const AddListing = (props) => {
                         }}
                       /> */}
 
+                      {/* placeValue && placeValue.geometry.location.lat() */}
+                      {/* position={[el.location.latitude, el.location.longitude]} */}
                       <div className={styles.meetUpMap}>
-                        <MapLeaflet
-                          // zoom={zoom}
-                          // markerData={/}
-                          direction="top"
-                          height="100%"
-                          borderRadius="20px"
-                          zIndex={2}
-                          // bounds="[49.225693],[-123.107326]"
-                          showActiveListing={false}
-                        />
+                        {placeValue && (
+                          <MapLeaflet
+                            // zoom={zoom}
+                            markerData={[
+                              {
+                                id: 1,
+                                location: {
+                                  latitude: placeValue.geometry.location.lat(),
+                                  longitude: placeValue.geometry.location.lng(),
+                                },
+                              },
+                            ]}
+                            direction="top"
+                            height="100%"
+                            borderRadius="20px"
+                            zIndex={2}
+                            bounds={[
+                              [
+                                placeValue.geometry.location.lat(),
+                                placeValue.geometry.location.lng(),
+                              ],
+                            ]}
+                            showActiveListing={false}
+                          />
+                        )}
                       </div>
                     </div>
                     <div>
@@ -652,30 +674,32 @@ const AddListing = (props) => {
                       >
                         Meet-up Location
                       </Typography>
-                      <FormikControl
-                        control="input"
-                        type="text"
-                        name="meet-up-location"
-                        placeholder="Type to search"
-                        style={{
-                          borderRadius: "8px",
-                          padding: "6px 16px",
-                          width: "100%",
-                          marginBottom: "26px",
-                          boxSizing: "border-box",
-                        }}
-                      />
                       <div className={styles.meetUpMap}>
-                        <MapLeaflet
-                          // zoom={zoom}
-                          // markerData={/}
-                          direction="top"
-                          height="100%"
-                          borderRadius="20px"
-                          zIndex={2}
-                          // bounds="[49.225693],[-123.107326]"
-                          showActiveListing={false}
-                        />
+                        {placeValue && (
+                          <MapLeaflet
+                            // zoom={zoom}
+                            markerData={[
+                              {
+                                id: 1,
+                                location: {
+                                  latitude: placeValue.geometry.location.lat(),
+                                  longitude: placeValue.geometry.location.lng(),
+                                },
+                              },
+                            ]}
+                            direction="top"
+                            height="100%"
+                            borderRadius="20px"
+                            zIndex={2}
+                            bounds={[
+                              [
+                                placeValue.geometry.location.lat(),
+                                placeValue.geometry.location.lng(),
+                              ],
+                            ]}
+                            showActiveListing={false}
+                          />
+                        )}
                       </div>
                     </div>
                     <div className={styles.sectionGap}>
