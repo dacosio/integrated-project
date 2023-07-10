@@ -65,12 +65,22 @@
   border: none;
   background-color: var(--white);
   box-shadow: none;
-  padding: 4px 16px;
+  font-size: 12px;
+  padding: 12px 20px;
 }
 
 .accept {
   color: var(--black);
   background-color: var(--yellow);
   box-shadow: none;
-  padding: 4px 16px;
+  font-size: 12px;
+  padding: 12px 20px;
+}
+
+.cancel {
+  color: var(--black);
+  background-color: var(--light-blue);
+  box-shadow: none;
+  font-size: 12px;
+  padding: 12px 20px;
 }
