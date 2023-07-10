@@ -288,7 +288,7 @@ const ListingDetail = (props) => {
                 <Card nopadding noborder>
                   <SellerInfoCard
                     source={seller.imageUrl}
-                    username={`${seller.nickName}`}
+                    username={`${seller.displayName}`}
                     location={seller.address}
                     items={seller.qty}
                   />

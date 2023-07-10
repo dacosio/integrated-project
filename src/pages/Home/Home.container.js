@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import HomeView from "./Home.view";
 import { UserAuth } from "../../context/AuthContext";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useMediaQuery from "../../utils/useMediaQuery";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import db from "../../config/firebaseConfig";
@@ -200,12 +200,6 @@ const Home = () => {
     setToggleDisplay(!toggleDisplay);
   };
 
-  const [isOpen, setIsOpen] = useState(true);
-
-  const toggleDrawer = () => {
-    setIsOpen(!isOpen);
-  };
-
   const generatedProps = {
     user,
     desktopProducts,
@@ -227,8 +221,6 @@ const Home = () => {
     toggleDisplay,
     debouncedValue,
     categoryValue,
-    toggleDrawer,
-    isOpen,
   };
   return <HomeView {...generatedProps} />;
 };

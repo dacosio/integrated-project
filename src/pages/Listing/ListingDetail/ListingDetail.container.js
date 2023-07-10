@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import store, { storage } from "../../../config/firebaseConfig";
+import store from "../../../config/firebaseConfig";
 import {
   collection,
   doc,
@@ -67,12 +67,13 @@ const ListingDetail = () => {
   }, []);
 
   useEffect(() => {
-    if (user.email) {
+    if (user.uid) {
+      console.log(user.uid);
       getDocs(
         query(
           collection(store, "order"),
           where("productId", "==", listingId),
-          where("splitteeId", "==", "LPGuEmp6UdcHRn27OWvd")
+          where("splitteeId", "==", user.uid)
         )
       ).then((orderResponse) => {
         if (orderResponse.empty) {
@@ -113,7 +114,7 @@ const ListingDetail = () => {
         price: product.price,
         productId: listingId,
         qty: quantity,
-        splitteeId: "LPGuEmp6UdcHRn27OWvd",
+        splitteeId: user.uid,
         splitterId: seller.id,
         splitterName: seller.displayName,
         updatedAt: time,
