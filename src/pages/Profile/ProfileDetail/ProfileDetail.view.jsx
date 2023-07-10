@@ -5,8 +5,19 @@ import Avatar from "react-avatar";
 import Typography from "../../../components/base/Typography/Typography";
 import ActiveListingCard from "../../../components/base/ActiveListingCard/ActiveListingCard";
 import Grid from "../../../components/layout/Grid/Grid";
+import getDistance from "geolib/es/getDistance";
 
-const ProfileDetail = ({ data, sm, md, lg, xl }) => {
+const ProfileDetail = ({
+  data,
+  product,
+  sm,
+  md,
+  lg,
+  xl,
+  latitude,
+  longitude,
+  error,
+}) => {
   return (
     <div className={style.wrapper}>
       {/* <div>
@@ -14,7 +25,7 @@ const ProfileDetail = ({ data, sm, md, lg, xl }) => {
       </div> */}
       <div
         style={{
-          height: "150px",
+          height: "200px",
           width: "100%",
           backgroundColor: "var(--light-blue)",
           borderBottom: "2px solid black",
@@ -39,7 +50,9 @@ const ProfileDetail = ({ data, sm, md, lg, xl }) => {
               : { transform: "translateY(0%)" }
           }
         >
-          <Typography variant="h3-graphik-bold">{data?.displayName}</Typography>
+          <Typography variant="h3-graphik-bold" style={{ marginTop: "25px" }}>
+            {data?.displayName}
+          </Typography>
           {data?.address && (
             <div className={style.location}>
               <MarkerSmallSVG />
@@ -54,121 +67,72 @@ const ProfileDetail = ({ data, sm, md, lg, xl }) => {
       </div>
 
       <div className={style.listings}>
-        <div
-          style={sm || md || lg ? { padding: "0 16px" } : { margin: "0 180px" }}
-        >
-          <Grid
-            columns={sm ? 2 : md ? 3 : lg ? 4 : 4}
-            style={{
-              justifyItems: "center",
-              alignItems: "center",
-              margin: "auto",
-            }}
+        {product && product.length > 0 ? (
+          <div
+            style={
+              sm || md || lg ? { padding: "0 16px" } : { margin: "0 180px" }
+            }
           >
-            <Typography
-              variant="h1-graphik-bold"
-              style={{ gridColumn: "1/-1", justifySelf: "flex-start" }}
+            <Grid
+              columns={sm ? 2 : md ? 3 : lg ? 4 : 4}
+              style={{
+                justifySelf: "flex-start",
+                margin: "auto",
+                marginBottom: "50px",
+              }}
             >
-              Active Listings
+              <Typography
+                variant="h1-graphik-bold"
+                style={{
+                  gridColumn: "1/-1",
+                  justifySelf: "flex-start",
+                  marginBottom: "24px",
+                }}
+              >
+                Active Listings
+              </Typography>
+              {product.map((productItem) => {
+                let tmp = {
+                  latitude: productItem.latitude,
+                  longitude: productItem.longitude,
+                };
+                let distance = 0;
+                if (latitude && longitude) {
+                  distance = getDistance(tmp, {
+                    latitude,
+                    longitude,
+                  });
+                  distance = Math.ceil(Number(distance) / 1000);
+                }
+                return (
+                  <ActiveListingCard
+                    key={productItem.id}
+                    distance={!!error ? 0 : distance}
+                    // days={productItem.days}
+                    source={
+                      productItem.images
+                        ? productItem.images[0]
+                        : "src/assets/images/NoImage.jpg"
+                    }
+                    itemname={productItem.name}
+                    price={productItem.price}
+                    stock={productItem.qty}
+                    alt={productItem.name}
+                    onClick={() => console.log("activelistingcard")}
+                    height={sm || md || lg ? "160px" : "256px"}
+                    width={sm || md || lg ? "160px" : "256px"}
+                  />
+                );
+              })}
+            </Grid>
+          </div>
+        ) : (
+          <Grid>
+            <Typography variant="body-3-medium">
+              No products available
             </Typography>
-            <ActiveListingCard
-              distance={2}
-              days={2}
-              source="https://picsum.photos/400"
-              itemname="Banana"
-              price={1.25}
-              stock={5}
-              alt="Banana"
-              onClick={() => console.log("activelistingcard")}
-              width={sm || md || lg ? "160px" : "256px"}
-              height={sm || md || lg ? "160px" : "256px"}
-            />
-            <ActiveListingCard
-              distance={2}
-              days={2}
-              source="https://picsum.photos/400"
-              itemname="Banana"
-              price={1.25}
-              stock={5}
-              alt="Banana"
-              onClick={() => console.log("activelistingcard")}
-              width={sm || md || lg ? "160px" : "256px"}
-              height={sm || md || lg ? "160px" : "256px"}
-            />
-            <ActiveListingCard
-              distance={2}
-              days={2}
-              source="https://picsum.photos/400"
-              itemname="Banana"
-              price={1.25}
-              stock={5}
-              alt="Banana"
-              onClick={() => console.log("activelistingcard")}
-              width={sm || md || lg ? "160px" : "256px"}
-              height={sm || md || lg ? "160px" : "256px"}
-            />
-            <ActiveListingCard
-              distance={2}
-              days={2}
-              source="https://picsum.photos/400"
-              itemname="Banana"
-              price={1.25}
-              stock={5}
-              alt="Banana"
-              onClick={() => console.log("activelistingcard")}
-              height={sm || md || lg ? "160px" : "256px"}
-              width={sm || md || lg ? "160px" : "256px"}
-            />
-            <ActiveListingCard
-              distance={2}
-              days={2}
-              source="https://picsum.photos/400"
-              itemname="Banana"
-              price={1.25}
-              stock={5}
-              alt="Banana"
-              onClick={() => console.log("activelistingcard")}
-              height={sm || md || lg ? "160px" : "256px"}
-              width={sm || md || lg ? "160px" : "256px"}
-            />
-            <ActiveListingCard
-              distance={2}
-              days={2}
-              source="https://picsum.photos/400"
-              itemname="Banana"
-              price={1.25}
-              stock={5}
-              alt="Banana"
-              onClick={() => console.log("activelistingcard")}
-              height={sm || md || lg ? "160px" : "256px"}
-              width={sm || md || lg ? "160px" : "256px"}
-            />
-            <ActiveListingCard
-              distance={2}
-              days={2}
-              source="https://picsum.photos/400"
-              itemname="Banana"
-              price={1.25}
-              stock={5}
-              alt="Banana"
-              onClick={() => console.log("activelistingcard")}
-              height={sm || md || lg ? "160px" : "256px"}
-              width={sm || md || lg ? "160px" : "256px"}
-            />
-            <ActiveListingCard
-              distance={2}
-              days={2}
-              source="https://picsum.photos/400"
-              itemname="Banana"
-              price={1.25}
-              stock={5}
-              alt="Banana"
-              onClick={() => console.log("activelistingcard")}
-              height={sm || md || lg ? "160px" : "256px"}
-              width={sm || md || lg ? "160px" : "256px"}
-            />
           </Grid>
-        </div>
+        )}
       </div>
     </div>
   );
