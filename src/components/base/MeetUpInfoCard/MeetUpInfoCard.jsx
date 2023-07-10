@@ -6,23 +6,10 @@ import ClockSVG from "../SVG/ClockSVG";
 import LocationBoldSVG from "../SVG/LocationBoldSVG";
 import MapLeaflet from "../../module/MapLeaflet/MapLeaflet";
 
-const MeetUpInfoCard = ({
-  date,
-  time,
-  location,
-  latitude,
-  longitude,
-  showActiveListing,
-  ...prop
-}) => {
+const MeetUpInfoCard = ({ date, time, location, latitude, longitude, showActiveListing, ...prop }) => {
   const coordinates =
     latitude && longitude
-      ? [
-          {
-            id: location.replace(/\s/g, ""),
-            location: { latitude: latitude, longitude: longitude },
-          },
-        ]
+      ? [{ id: location.replace(/\s/g, ""), location: { _lat: latitude, _long: longitude } }]
       : [];
   const bounds = latitude && longitude ? [[latitude, longitude]] : [];
 
@@ -76,6 +63,7 @@ const MeetUpInfoCard = ({
           showActiveListing={false}
         />
       </div>
+      
     </div>
   );
 };
