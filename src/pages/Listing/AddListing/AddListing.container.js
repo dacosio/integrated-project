@@ -17,6 +17,7 @@ const AddListing = () => {
   const [originalPrice, setOriginalPrice] = useState(0);
   const [portionPrice, setPortionPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [selectedOption, setSelectedOption] = useState(false);
 
   const navigate = useNavigate();
 
@@ -95,6 +96,7 @@ const AddListing = () => {
     handleOnSubmit,
     handleOnBlur,
     navigate,
+    selectedOption,
   };
   return <AddListingView {...generatedProps} />;
 };

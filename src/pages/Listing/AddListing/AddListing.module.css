@@ -80,6 +80,11 @@
   grid-row: 2/16;
 }
 
+.selectDropdown {
+  z-index: 0;
+  position: relative;
+}
+
 @media screen and (min-width: 1440px) {
   .meetUpMap {
     margin-bottom: 0;

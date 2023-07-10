@@ -4,7 +4,7 @@ import Button from "../../../components/base/Button/Button";
 import useMediaQuery from "../../../utils/useMediaQuery";
 import ImageInput from "../../../components/base/ImageInput/ImageInput";
 import NumberInput from "../../../components/base/NumberInput/NumberInput";
-import Dropdown from "../../../components/base/Dropdown/Dropdown";
+import SelectDropdown from "../../../components/base/SelectDropdown/SelectDropdown";
 import DatePicker from "../../../components/base/DatePicker/DatePicker";
 import TimePicker from "../../../components/base/TimePicker/TimePicker";
 import styles from "./AddListing.module.css";
@@ -15,6 +15,7 @@ import FormikControl from "../../../components/base/FormikControl/FormikControl"
 import BackButton from "../../../components/base/BackButton/BackButton";
 import MapLeaflet from "../../../components/module/MapLeaflet/MapLeaflet";
 import TextError from "../../../components/base/TextError/TextError";
+import MapSearch from "../../../components/base/MapSearch/MapSearch";
 
 const AddListing = (props) => {
   const {
@@ -142,12 +143,15 @@ const AddListing = (props) => {
                       />
                     </div>
 
-                    <div>
-                      <Dropdown
-                        selectedOption={category}
-                        setSelectedOption={setCategory}
+                    <div className={styles.selectDropdown}>
+                      <SelectDropdown
                         options={options}
-                        label="Select"
+                        placeholder="Search location.."
+                        clearable
+                        backspaceDelete
+                        onChange={(value) => console.log(value)}
+                        searchable={false}
+                        style={{ borderRadius: "8px" }}
                       />
                     </div>
 
@@ -317,8 +321,10 @@ const AddListing = (props) => {
                       >
                         Meet-up Location
                       </Typography>
-
-                      <FormikControl
+                      <div className={styles.sectionGap}>
+                        <MapSearch styles={{ borderRadius: "8px" }} bottom/>
+                      </div>
+                      {/* <FormikControl
                         control="input"
                         type="text"
                         name="meet-up-location"
@@ -330,7 +336,8 @@ const AddListing = (props) => {
                           marginBottom: "26px",
                           boxSizing: "border-box",
                         }}
-                      />
+                      /> */}
+
                       <div className={styles.meetUpMap}>
                         <MapLeaflet
                           // zoom={zoom}
@@ -471,12 +478,17 @@ const AddListing = (props) => {
                       </div>
                     </div>
                     <div className={styles.sectionGap}>
-                      <Dropdown
-                        selectedOption={category}
-                        setSelectedOption={setCategory}
-                        options={options}
-                        label="Select"
-                      />
+                      <div className={styles.selectDropdown}>
+                        <SelectDropdown
+                          options={options}
+                          placeholder="Select Category"
+                          clearable
+                          backspaceDelete
+                          onChange={(value) => console.log(value)}
+                          searchable={false}
+                          style={{ borderRadius: "8px" }}
+                        />
+                      </div>
                     </div>
                     <div className={styles.lineBreak}></div>
                     <div className={styles.sectionGap}>
