@@ -3,22 +3,32 @@ import AddListingView from "./AddListing.view";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import db, { storage } from "../../../config/firebaseConfig";
-import { addDoc, serverTimestamp, collection, doc } from "@firebase/firestore";
+import {
+  addDoc,
+  getDocs,
+  serverTimestamp,
+  collection,
+  doc,
+  GeoPoint,
+} from "@firebase/firestore";
 import { uploadBytes, ref, getDownloadURL } from "@firebase/storage";
 import { useEffect } from "react";
+import { Place } from "../../../context/PlaceContext";
+import { UserAuth } from "../../../context/AuthContext";
 
 const AddListing = () => {
+  const { user } = UserAuth();
+  const { placeValue } = Place();
   const [meetupDate, setMeetupDate] = useState();
   const [meetupTime, setMeetupTime] = useState("");
   const [divisionNumber, setDivisionNumber] = useState(1);
   const [portionNumber, setPortionNumber] = useState(1);
-  const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState();
   const [images, setImages] = useState([]);
   const [originalPrice, setOriginalPrice] = useState(0);
   const [portionPrice, setPortionPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [selectedOption, setSelectedOption] = useState(false);
-
   const navigate = useNavigate();
 
   const initialValues = {
@@ -36,39 +46,77 @@ const AddListing = () => {
   });
 
   useEffect(() => {
+    getDocs(collection(db, "category")).then((categoriesResponse) => {
+      setCategories(
+        categoriesResponse.docs.map((doc) => {
+          return { value: doc.data().value, label: doc.data().label };
+        })
+      );
+    });
+  }, []);
+
+  useEffect(() => {
     setPortionPrice((originalPrice / divisionNumber).toFixed(2));
     setTotalPrice((originalPrice / divisionNumber).toFixed(2) * portionNumber);
   }, [originalPrice, divisionNumber, portionNumber]);
 
-  const handleOnSubmit = ({ itemName, description, originalPrice }) => {
-    // console.log(itemName, description, originalPrice, category);
+  const handleOnSubmit = async ({ itemName, description, originalPrice }) => {
+    if (
+      images.length !== 0 &&
+      placeValue &&
+      category &&
+      meetupDate &&
+      meetupTime
+    ) {
+      const _images = [];
+      const promises = images.map(async (image, index) => {
+        const file = image.file;
+        const fileRef = ref(storage, "test-product-image/" + file.name);
+        return uploadBytes(fileRef, file).then(async (uploadResponse) => {
+          return getDownloadURL(uploadResponse.ref).then((url) => {
+            _images.push({ index: index, url: url });
+          });
+        });
+      });
 
-    // for (const image of images) {
-    //   const file = image.file;
-    //   const fileRef = ref(storage, "test-product-image/" + file.name);
+      Promise.all(promises).then((response) => {
+        _images.sort((previous, next) => previous.index - next.index);
+        const __images = _images.map((image) => image.url);
+        // console.log(__images);
+        // console.log(user);
+        // console.log(placeValue);
+        const [year, month, day] = meetupDate.split("-");
+        const [hours, minutes] = meetupTime.split(":");
 
-    // uploadBytes(fileRef, file).then((snapshot) => {
-    //   console.log(snapshot);
-    // getDownloadURL(fileRef).then((url) => {
-    //   console.log(url);
-    // });
-    // });
-    // }
+        addDoc(collection(db, "product"), {
+          categoryLabel: category.label,
+          categoryValue: category.value,
+          createdAt: serverTimestamp(),
+          createdByFirstName: "First",
+          createdById: doc(db, "user", user.uid),
+          createdByIdent: user.uid,
+          createdByLastName: "Last",
+          createdByDisplayName: user.displayName,
+          images: __images,
+          latitude: placeValue.geometry.location.lat(),
+          location: new GeoPoint(
+            placeValue.geometry.location.lat(),
+            placeValue.geometry.location.lng()
+          ),
+          longitude: placeValue.geometry.location.lng(),
+          meetUpAddress: placeValue.formatted_address,
+          meetUpInfo: new Date(year, month - 1, day, hours, minutes),
+          description: description,
+          name: itemName,
+          price: originalPrice,
+          qty: portionNumber,
+        }).then((response) => {
+          console.log(response.id);
 
-    addDoc(collection(db, "product"), {
-      categoryLabel: category,
-      categoryValue: category,
-      createdAt: serverTimestamp(),
-      createdByFirstName: "First",
-      createdById: doc(db, "user", "LPGuEmp6UdcHRn27OWvd"),
-      createdByLastName: "Last",
-      createdBydisplayName: "LPGuEmp6UdcHRn27OWvd",
-      description: description,
-      name: itemName,
-      price: originalPrice,
-    }).then((response) => {
-      console.log(response.id);
-    });
+          navigate(`/listing/${response.id}`);
+        });
+      });
+    }
   };
 
   const handleOnBlur = (event, formik) => {
@@ -77,6 +125,7 @@ const AddListing = () => {
   };
 
   const generatedProps = {
+    placeValue,
     images,
     setImages,
     meetupDate,
@@ -87,7 +136,7 @@ const AddListing = () => {
     setDivisionNumber,
     portionNumber,
     setPortionNumber,
-    category,
+    categories,
     setCategory,
     portionPrice,
     totalPrice,
@@ -96,7 +145,6 @@ const AddListing = () => {
     handleOnSubmit,
     handleOnBlur,
     navigate,
-    selectedOption,
   };
   return <AddListingView {...generatedProps} />;
 };

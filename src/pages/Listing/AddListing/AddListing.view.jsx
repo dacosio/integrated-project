@@ -14,13 +14,11 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import FormikControl from "../../../components/base/FormikControl/FormikControl";
 import BackButton from "../../../components/base/BackButton/BackButton";
 import MapLeaflet from "../../../components/module/MapLeaflet/MapLeaflet";
-import TextError from "../../../components/base/TextError/TextError";
 import MapSearch from "../../../components/base/MapSearch/MapSearch";
-import { Place } from "../../../context/PlaceContext";
-import { latitudeKeys } from "geolib";
 
 const AddListing = (props) => {
   const {
+    placeValue,
     images,
     setImages,
     meetupDate,
@@ -31,7 +29,7 @@ const AddListing = (props) => {
     setDivisionNumber,
     portionNumber,
     setPortionNumber,
-    category,
+    categories,
     setCategory,
     portionPrice,
     totalPrice,
@@ -41,15 +39,12 @@ const AddListing = (props) => {
     handleOnBlur,
   } = props;
 
-  const { placeValue } = Place();
-  console.log(placeValue && placeValue.geometry.location.lat());
-
   const isDesktop = useMediaQuery("(min-width: 1440px)");
   const options = [
     { value: "value1", label: "Fresh Food" },
     { value: "value2", label: "Packaged Food" },
     { value: "value3", label: "Household" },
-    { value: "value3", label: "Beauty & Wellness" },
+    { value: "value4", label: "Beauty & Wellness" },
   ];
 
   return (
@@ -150,13 +145,12 @@ const AddListing = (props) => {
 
                     <div className={styles.selectDropdown}>
                       <SelectDropdown
-                        options={options}
-                        placeholder="Search location.."
+                        options={categories}
+                        placeholder="Select Category"
                         clearable
                         backspaceDelete
-                        onChange={(value) => console.log(value)}
+                        onChange={(value) => setCategory(value[0])}
                         searchable={false}
-                        style={{ borderRadius: "8px" }}
                       />
                     </div>
 
@@ -327,24 +321,8 @@ const AddListing = (props) => {
                         Meet-up Location
                       </Typography>
                       <div className={styles.sectionGap}>
-                        <MapSearch styles={{ borderRadius: "8px" }} bottom />
+                        <MapSearch bottom />
                       </div>
-                      {/* <FormikControl
-                        control="input"
-                        type="text"
-                        name="meet-up-location"
-                        placeholder="Type to search"
-                        style={{
-                          borderRadius: "8px",
-                          padding: "6px 16px",
-                          width: "80%",
-                          marginBottom: "26px",
-                          boxSizing: "border-box",
-                        }}
-                      /> */}
-
-                      {/* placeValue && placeValue.geometry.location.lat() */}
-                      {/* position={[el.location.latitude, el.location.longitude]} */}
                       <div className={styles.meetUpMap}>
                         {placeValue && (
                           <MapLeaflet
@@ -502,13 +480,12 @@ const AddListing = (props) => {
                     <div className={styles.sectionGap}>
                       <div className={styles.selectDropdown}>
                         <SelectDropdown
-                          options={options}
+                          options={categories}
                           placeholder="Select Category"
                           clearable
                           backspaceDelete
-                          onChange={(value) => console.log(value)}
+                          onChange={(value) => setCategory(value[0])}
                           searchable={false}
-                          style={{ borderRadius: "8px" }}
                         />
                       </div>
                     </div>
@@ -674,6 +651,9 @@ const AddListing = (props) => {
                       >
                         Meet-up Location
                       </Typography>
+                      <div className={styles.sectionGap}>
+                        <MapSearch bottom />
+                      </div>
                       <div className={styles.meetUpMap}>
                         {placeValue && (
                           <MapLeaflet
