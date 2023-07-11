@@ -10,7 +10,7 @@ import {
   serverTimestamp,
 } from "@firebase/firestore";
 import db from "../../../config/firebaseConfig";
-import { redirect } from "react-router-dom";
+import { redirect, useLocation } from "react-router-dom";
 
 const TransactionList = () => {
   const [orders, setOrders] = useState([]);
@@ -91,6 +91,12 @@ const TransactionList = () => {
     console.log("complete");
     clickHandler(orderId, "complete", productId);
   };
+
+  // get the state of the products from here*****************
+  const location = useLocation();
+  console.log(location, " useLocation Hook");
+  const data = location.state;
+  console.log(data);
 
   const redirectTo = (id) => redirect(`/transaction${id}`);
   const generatedProps = {

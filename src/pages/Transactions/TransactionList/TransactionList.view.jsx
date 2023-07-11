@@ -4,6 +4,7 @@ import PageTabs from "../../../components/base/PageTabs/PageTabs";
 import Dropdown from "../../../components/base/Dropdown/Dropdown";
 import TransactionCard from "../../../components/base/TransactionCard/TransactionCard";
 import "./TransactionList.css";
+import { Link } from "react-router-dom";
 
 const TransactionList = (props) => {
   const {
@@ -47,24 +48,26 @@ const TransactionList = (props) => {
             const timeDiff = today.getTime() - createdAt.getTime();
             const days = Math.abs(Math.floor(timeDiff / (1000 * 60 * 60 * 24)));
             return (
-              <TransactionCard
-                key={o.id}
-                type={o.orderType}
-                itemName={o.name}
-                time={days}
-                portions={o.qty}
-                sellerName={o.splitterName}
-                price={o.price}
-                source={o.imageUrl}
-                orderStatus={o.orderStatus}
-                onCancel={() => onCancel(o.id, o.productId)}
-                onDecline={() => onDecline(o.id, o.productId)}
-                onAccept={() => onAccept(o.id, o.productId)}
-                onComplete={() => onComplete(o.id, o.productId)}
-                onClick={() => {
-                  console.log("test");
-                }}
-              />
+              <Link to={`/listing/${o.id}`} state={{ data: o }}>
+                <TransactionCard
+                  key={o.id}
+                  type={o.orderType}
+                  itemName={o.name}
+                  time={days}
+                  portions={o.qty}
+                  sellerName={o.splitterName}
+                  price={o.price}
+                  source={o.imageUrl}
+                  orderStatus={o.orderStatus}
+                  onCancel={() => onCancel(o.id, o.productId)}
+                  onDecline={() => onDecline(o.id, o.productId)}
+                  onAccept={() => onAccept(o.id, o.productId)}
+                  onComplete={() => onComplete(o.id, o.productId)}
+                  onClick={() => {
+                    console.log("test");
+                  }}
+                />
+              </Link>
             );
           })}
       </div>
