@@ -124,7 +124,7 @@ const ProfileDetail = ({
                     <ActiveListingCard
                       key={productItem.id}
                       distance={!!error ? 0 : distance}
-                      days={dateDiff}
+                      days={dateDiff? dateDiff : <></>}
                       source={
                         productItem.images
                           ? productItem.images[0]
@@ -144,8 +144,8 @@ const ProfileDetail = ({
             </div>
           ) : (
             <div style={{ textAlign: "center" }}>
-              <Typography variant="body-3-medium">
-                No products available
+              <Typography variant="h4-graphik-bold">
+                No listings available
               </Typography>
             </div>
           )
