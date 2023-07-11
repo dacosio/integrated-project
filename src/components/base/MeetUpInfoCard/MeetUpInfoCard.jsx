@@ -6,10 +6,24 @@ import ClockSVG from "../SVG/ClockSVG";
 import LocationBoldSVG from "../SVG/LocationBoldSVG";
 import MapLeaflet from "../../module/MapLeaflet/MapLeaflet";
 
-const MeetUpInfoCard = ({ date, time, location, latitude, longitude, showActiveListing, ...prop }) => {
+const MeetUpInfoCard = ({
+  date,
+  time,
+  location,
+  latitude,
+  longitude,
+  showActiveListing,
+  ...prop
+}) => {
+  console.log(latitude, longitude);
   const coordinates =
     latitude && longitude
-      ? [{ id: location.replace(/\s/g, ""), location: { _lat: latitude, _long: longitude } }]
+      ? [
+          {
+            id: location.replace(/\s/g, ""),
+            location: { latitude: latitude, longitude: longitude },
+          },
+        ]
       : [];
   const bounds = latitude && longitude ? [[latitude, longitude]] : [];
 
@@ -18,38 +32,36 @@ const MeetUpInfoCard = ({ date, time, location, latitude, longitude, showActiveL
       <div className={`${styles["title-container"]}`}>
         <Typography variant="h4-graphik-bold">Meet-up Info</Typography>
       </div>
-  
-        <CalendarSVG
-          height={23}
-          width={20}
-          fill={"black"}
-          style={{ marginRight: "1rem" }}
-        />
-        <Typography variant="body-1-medium" color="gray">
-          {date}
-        </Typography>
 
-      
-        <ClockSVG
-          height={23}
-          width={20}
-          fill={"black"}
-          style={{ marginRight: "1rem" }}
-        />
-        <Typography variant="body-1-medium" color="gray">
-          {time}
-        </Typography>
+      <CalendarSVG
+        height={23}
+        width={20}
+        fill={"black"}
+        style={{ marginRight: "1rem" }}
+      />
+      <Typography variant="body-1-medium" color="gray">
+        {date}
+      </Typography>
 
-      
-        <LocationBoldSVG
-          style={{ gridColumn: "0", marginRight: "1rem" }}
-          height={23}
-          width={20}
-        />
-        <Typography variant="body-1-medium" color="gray">
-          {location}
-        </Typography>
-      
+      <ClockSVG
+        height={23}
+        width={20}
+        fill={"black"}
+        style={{ marginRight: "1rem" }}
+      />
+      <Typography variant="body-1-medium" color="gray">
+        {time}
+      </Typography>
+
+      <LocationBoldSVG
+        style={{ gridColumn: "0", marginRight: "1rem" }}
+        height={23}
+        width={20}
+      />
+      <Typography variant="body-1-medium" color="gray">
+        {location}
+      </Typography>
+
       <div className={`${styles["map-container"]}`}>
         <MapLeaflet
           markerData={coordinates}
@@ -63,7 +75,6 @@ const MeetUpInfoCard = ({ date, time, location, latitude, longitude, showActiveL
           showActiveListing={false}
         />
       </div>
-      
     </div>
   );
 };
