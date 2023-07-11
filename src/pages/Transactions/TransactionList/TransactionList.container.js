@@ -118,7 +118,7 @@ const TransactionList = () => {
 
   const onComplete = (orderId, productId) => {
     // console.log("complete");
-    clickHandler(orderId, "complete", productId);
+    clickHandler(orderId, "completed", productId);
   };
 
   console.log(selectedTab);
@@ -136,6 +136,7 @@ const TransactionList = () => {
     orderType,
     orderTabs,
     handleTabChange,
+    user,
   };
   return <TransactionListView {...generatedProps} />;
 };
