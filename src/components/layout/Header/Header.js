@@ -160,15 +160,15 @@ const Header = () => {
                 </a>
               )}
             </li>
-            {/* <li>
+            <li>
               {user != null ? (
                 <Link
                   style={
-                    location.pathname === "/register"
+                    location.pathname === "/settings"
                       ? { color: "var(--yellow)", fontWeight: "bold" }
                       : { color: "var(--white)" }
                   }
-                  to="register"
+                  to="settings"
                 >
                   Settings
                 </Link>
@@ -182,7 +182,7 @@ const Header = () => {
                   Settings
                 </a>
               )}
-            </li> */}
+            </li>
             <li>
               {user != null ? (
                 <Link
@@ -295,15 +295,15 @@ const Header = () => {
                   </a>
                 )}
               </li>
-              {/* <li>
+              <li>
                 {user != null ? (
                   <Link
                     style={
-                      location.pathname === "/register"
+                      location.pathname === "/settings"
                         ? { color: "var(--yellow)", fontWeight: "bold" }
                         : { color: "var(--white)" }
                     }
-                    to="register"
+                    to="settings"
                   >
                     Settings
                   </Link>
@@ -317,7 +317,7 @@ const Header = () => {
                     Settings
                   </a>
                 )}
-              </li> */}
+              </li>
               <li>
                 {user != null ? (
                   <Link
@@ -430,6 +430,29 @@ const Header = () => {
               )}
             </li>
 
+            <li>
+              {user != null ? (
+                <Link
+                  style={
+                    location.pathname === "/settings"
+                      ? { color: "var(--yellow)", fontWeight: "bold" }
+                      : { color: "var(--white)" }
+                  }
+                  to="settings"
+                >
+                  Settings
+                </Link>
+              ) : (
+                <a
+                  href="#"
+                  onClick={() => {
+                    toast.warning("Log in to view settings");
+                  }}
+                >
+                  Settings
+                </a>
+              )}
+            </li>
             <li>
               {user != null ? (
                 <Link

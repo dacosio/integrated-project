@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 const LogoSVG = ({ width, height, fill, onClick, ...props }) => {
   const navigate = useNavigate();
   return (
-    <div onClick={() => navigate("/")}>
+    <div onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={width}

@@ -136,6 +136,7 @@ const TransactionList = () => {
     orderType,
     orderTabs,
     handleTabChange,
+    user,
   };
   return <TransactionListView {...generatedProps} />;
 };
