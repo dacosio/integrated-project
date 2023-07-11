@@ -6,6 +6,7 @@ import Typography from "../../../components/base/Typography/Typography";
 import ActiveListingCard from "../../../components/base/ActiveListingCard/ActiveListingCard";
 import Grid from "../../../components/layout/Grid/Grid";
 import getDistance from "geolib/es/getDistance";
+import { BeatLoader } from "react-spinners";
 
 const ProfileDetail = ({
   data,
@@ -67,71 +68,91 @@ const ProfileDetail = ({
       </div>
 
       <div className={style.listings}>
-        {product && product.length > 0 ? (
-          <div
-            style={
-              sm || md || lg ? { padding: "0 16px" } : { margin: "0 180px" }
-            }
-          >
-            <Grid
-              columns={sm ? 2 : md ? 3 : lg ? 4 : 4}
-              style={{
-                justifySelf: "flex-start",
-                margin: "auto",
-                marginBottom: "50px",
-              }}
+        {product ? (
+          product.length > 0 ? (
+            <div
+              style={
+                sm || md || lg ? { padding: "0 16px" } : { margin: "0 180px" }
+              }
             >
-              <Typography
-                variant="h1-graphik-bold"
+              <Grid
+                columns={sm ? 2 : md ? 3 : lg ? 4 : 4}
                 style={{
-                  gridColumn: "1/-1",
                   justifySelf: "flex-start",
-                  marginBottom: "24px",
+                  margin: "auto",
+                  marginBottom: "50px",
                 }}
               >
-                Active Listings
+                <Typography
+                  variant="h1-graphik-bold"
+                  style={{
+                    gridColumn: "1/-1",
+                    justifySelf: "flex-start",
+                    marginBottom: "24px",
+                  }}
+                >
+                  Active Listings
+                </Typography>
+                {product.map((productItem) => {
+                  let tmp = {
+                    latitude: productItem.latitude,
+                    longitude: productItem.longitude,
+                  };
+                  let distance = 0;
+                  if (latitude && longitude) {
+                    distance = getDistance(tmp, {
+                      latitude,
+                      longitude,
+                    });
+                    distance = Math.ceil(Number(distance) / 1000);
+                  }
+
+                  const productCreatedDate = new Date(
+                    productItem.createdAt.toDate()
+                  );
+                  productCreatedDate.setHours(0, 0, 0, 0);
+                  const today = new Date();
+                  today.setHours(0, 0, 0, 0);
+                  const timeDiff =
+                    today.getTime() - productCreatedDate.getTime();
+                  const dateDiff = Math.abs(
+                    Math.floor(timeDiff / (1000 * 60 * 60 * 24))
+                  );
+                  console.log(dateDiff);
+
+                  return (
+                    <ActiveListingCard
+                      key={productItem.id}
+                      distance={!!error ? 0 : distance}
+                      days={dateDiff}
+                      source={
+                        productItem.images
+                          ? productItem.images[0]
+                          : "src/assets/images/NoImage.jpg"
+                      }
+                      itemname={productItem.name}
+                      price={productItem.price}
+                      stock={productItem.qty}
+                      alt={productItem.name}
+                      onClick={() => console.log("activelistingcard")}
+                      height={sm || md || lg ? "160px" : "256px"}
+                      width={sm || md || lg ? "160px" : "256px"}
+                    />
+                  );
+                })}
+              </Grid>
+            </div>
+          ) : (
+            <div style={{ textAlign: "center" }}>
+              <Typography variant="body-3-medium">
+                No products available
               </Typography>
-              {product.map((productItem) => {
-                let tmp = {
-                  latitude: productItem.latitude,
-                  longitude: productItem.longitude,
-                };
-                let distance = 0;
-                if (latitude && longitude) {
-                  distance = getDistance(tmp, {
-                    latitude,
-                    longitude,
-                  });
-                  distance = Math.ceil(Number(distance) / 1000);
-                }
-                return (
-                  <ActiveListingCard
-                    key={productItem.id}
-                    distance={!!error ? 0 : distance}
-                    // days={productItem.days}
-                    source={
-                      productItem.images
-                        ? productItem.images[0]
-                        : "src/assets/images/NoImage.jpg"
-                    }
-                    itemname={productItem.name}
-                    price={productItem.price}
-                    stock={productItem.qty}
-                    alt={productItem.name}
-                    onClick={() => console.log("activelistingcard")}
-                    height={sm || md || lg ? "160px" : "256px"}
-                    width={sm || md || lg ? "160px" : "256px"}
-                  />
-                );
-              })}
-            </Grid>
-          </div>
+            </div>
+          )
         ) : (
-          <Grid>
-            <Typography variant="body-3-medium">
-              No products available
-            </Typography>
-          </Grid>
+          <div style={{ textAlign: "center" }}>
+            <BeatLoader color="#1c2aae" />
+          </div>
         )}
       </div>
     </div>

@@ -11,11 +11,17 @@ import {
   query,
 } from "@firebase/firestore";
 import useMediaQuery from "../../../utils/useMediaQuery";
+import { usePosition } from "../../../utils/usePosition";
 
 const ProfileDetail = () => {
   const { user } = UserAuth();
+  const { latitude, longitude, error } = usePosition();
   const [data, setData] = useState();
   const [product, setProduct] = useState();
+
+  useEffect(() => {
+    console.log(latitude, longitude);
+  }, [latitude, longitude]);
 
   useEffect(() => {
     const getUserById = async (userId) => {
@@ -24,23 +30,33 @@ const ProfileDetail = () => {
         const userSnapshot = await getDoc(userDocRef);
 
         if (userSnapshot.exists()) {
-          const user = userSnapshot.data();
-          setData(user);
+          const _user = userSnapshot.data();
+          setData(_user);
 
-          const userProductQuery = query(
-            collection(db, "product"),
-            where("createdById", "==", userDocRef)
-          );
-          const userProductSnapshot = await getDocs(userProductQuery);
+          // const userProductQuery = query(
+          //   collection(db, "product"),
+          //   where("createdById", "==", userDocRef)
+          // );
+
+          const productDocRef = collection(db, "product");
+          const userProductSnapshot = await getDocs(productDocRef);
           const productData = userProductSnapshot.docs.map((doc) => doc.data());
+          // console.log(productData);
+          console.log(user.uid);
+          const result = productData.filter(
+            (productData) => productData.createdByIdent === user.uid
+          );
 
-          setProduct(productData);
+          console.log(result);
+
+          setProduct(result);
         } else {
           console.log("User not found");
         }
       } catch (error) {
         console.error("Error retrieving user:", error);
       }
+      // console.log("here", user.uid);
     };
 
     if (user && user.uid) {
@@ -48,9 +64,8 @@ const ProfileDetail = () => {
     }
   }, [user]);
 
-
-  console.log(data);
-  console.log(product);
+  // console.log(data);
+  // console.log(product);
 
   const sm = useMediaQuery("(min-width: 360px) and (max-width:600px)");
   const md = useMediaQuery("(min-width: 601px) and (max-width:1020px)");
@@ -66,6 +81,9 @@ const ProfileDetail = () => {
     md,
     lg,
     xl,
+    latitude,
+    longitude,
+    error,
   };
   return <ProfileDetailView {...generatedProps} />;
 };
