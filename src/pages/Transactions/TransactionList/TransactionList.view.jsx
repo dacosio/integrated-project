@@ -82,7 +82,7 @@ const TransactionList = (props) => {
                 />
               );
             })}
-          <TransactionCard
+          {/* <TransactionCard
             type="selling"
             itemName="banana"
             time="3"
@@ -92,29 +92,7 @@ const TransactionList = (props) => {
             price="8"
             source=""
             orderStatus="pending"
-          />
-          <TransactionCard
-            type="selling"
-            itemName="banana"
-            time="3"
-            orderType={orderType}
-            portions="4"
-            splitterName="daniel"
-            price="8"
-            source=""
-            orderStatus="pending"
-          />
-          <TransactionCard
-            type="selling"
-            itemName="banana"
-            time="3"
-            orderType={orderType}
-            portions="4"
-            splitterName="daniel"
-            price="8"
-            source=""
-            orderStatus="pending"
-          />
+          /> */}
       </Grid>
     </div>
   );

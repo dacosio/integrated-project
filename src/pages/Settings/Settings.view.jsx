@@ -16,11 +16,8 @@ const Settings = (props) => {
     profileVisibility,
     passwordVisibility,
     aboutUsVisibility,
-    initialValues,
-    validationSchema,
     singleImage,
     setSingleImage,
-    onSubmit,
     navigate,
     setProfileVisibility,
     setPasswordVisibility,
@@ -28,6 +25,9 @@ const Settings = (props) => {
     changePasswordValues,
     validatePasswordSchema,
     onSubmitNewPassword,
+    changeContactValues,
+    // validateContactSchema,
+    onSubmitUpdateInfo,
   } = props;
 
   const formikStyle = {
@@ -65,9 +65,8 @@ const Settings = (props) => {
         </div>
         <div className={style.settingsDetail}>
           <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
+            initialValues={changeContactValues}
+            onSubmit={onSubmitUpdateInfo}
           >
             {(formik) => {
               return (
