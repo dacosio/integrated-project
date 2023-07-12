@@ -6,7 +6,7 @@ import Typography from "../../../components/base/Typography/Typography";
 import ActiveListingCard from "../../../components/base/ActiveListingCard/ActiveListingCard";
 import Grid from "../../../components/layout/Grid/Grid";
 import getDistance from "geolib/es/getDistance";
-import { BeatLoader } from "react-spinners";
+// import { BeatLoader } from "react-spinners";
 
 const ProfileDetail = ({
   data,
@@ -95,8 +95,8 @@ const ProfileDetail = ({
                 </Typography>
                 {product.map((productItem) => {
                   let tmp = {
-                    latitude: productItem.latitude,
-                    longitude: productItem.longitude,
+                    latitude: productItem.lat,
+                    longitude: productItem.long,
                   };
                   let distance = 0;
                   if (latitude && longitude) {
@@ -124,7 +124,7 @@ const ProfileDetail = ({
                     <ActiveListingCard
                       key={productItem.id}
                       distance={!!error ? 0 : distance}
-                      days={dateDiff? dateDiff : <></>}
+                      days={dateDiff ? dateDiff : <></>}
                       source={
                         productItem.images
                           ? productItem.images[0]
@@ -151,7 +151,7 @@ const ProfileDetail = ({
           )
         ) : (
           <div style={{ textAlign: "center" }}>
-            <BeatLoader color="#1c2aae" />
+            {/* <BeatLoader color="#1c2aae" /> */}
           </div>
         )}
       </div>
