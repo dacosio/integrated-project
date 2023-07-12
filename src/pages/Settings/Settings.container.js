@@ -9,7 +9,6 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import { Place } from "../../context/PlaceContext";
 import {
-  collection,
   doc,
   getDoc,
   onSnapshot,
@@ -17,6 +16,7 @@ import {
   updateDoc,
   serverTimestamp,
 } from "@firebase/firestore";
+import { getAuth, updateProfile } from "firebase/auth";
 import db from "../../config/firebaseConfig";
 
 const Settings = () => {
@@ -40,6 +40,7 @@ const Settings = () => {
   };
 
   const user = auth.currentUser;
+  console.log(user);
 
   const validatePasswordSchema = Yup.object({
     password: Yup.string().required("Your password is required"),
@@ -49,8 +50,6 @@ const Settings = () => {
       "Your new password does not match"
     ),
   });
-
-  console.log(user);
 
   const onSubmitUpdateInfo = async ({ contactNumber }) => {
     console.log(contactNumber);
@@ -77,29 +76,49 @@ const Settings = () => {
           },
           async () => {
             await getDownloadURL(fileRef).then(async (imageUrl) => {
-              console.log(imageUrl);
-              console.log(contactNumber);
-              getAuth().updateUser(user, {
-                  phoneNumber: contactNumber ? contactNumber : user.phoneNumber,
-                  photoURL: imageUrl ? imageUrl : user.photoURL,
-                })
-                .then(async (userRecord) => {
-                  // See the UserRecord reference doc for the contents of userRecord.
-                  console.log("Successfully updated user", userRecord.toJSON());
-                  const userDocRef = doc(db, "user", userRecord.uid);
-                  const userSnap = await getDoc(userDocRef); 
-                  await updateDoc(userDocRef, {
-                    imageUrl: userRecord.photoURL,
-                    contactNumber: userRecord.phoneNumber,
-                    address: placeValue.formatted_address
-                    ? placeValue.formatted_address
-                    : "",
-                    updatedAt: serverTimestamp(),
-                  });
-                })
-                .catch((error) => {
-                  console.log("Error updating user:", error);
+              console.log(
+                "here1",
+                contactNumber ? contactNumber : user.phoneNumber
+              );
+              console.log("here2", imageUrl ? imageUrl : user.photoURL);
+              const userDocRef = doc(db, "user", user.uid);
+              updateDoc(userDocRef, {
+                imageUrl: imageUrl,
+                contactNumber: contactNumber,
+                address: placeValue.formatted_address
+                  ? placeValue.formatted_address
+                  : "",
+                updatedAt: serverTimestamp(),
+              })
+              .then(() => {
+                console.log("Information has been successfully updated.");
+                toast.success("Information has been successfully updated.", {
+                  position: "top-center",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  newestOnTop: false,
+                  theme: "light",
                 });
+              })
+              .catch((error) => {
+                console.log("Error updating your information", error);
+                toast.error("Error updating your information", {
+                  position: "top-center",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  newestOnTop: false,
+                  theme: "light",
+                });
+              });
+
             });
           }
         );
@@ -108,54 +127,7 @@ const Settings = () => {
     }
   };
 
-  // const onSubmitUpdateInfo = async ({
-  //   contactNumber,
-  // }) => {
-  //  else {
-  //           createUser(
-  //             email,
-  //             password,
-  //             firstName,
-  //             lastName,
-  //             contactNumber,
-  //             "",
-  //             placeValue.formatted_address ? placeValue.formatted_address : ""
-  //           );
-  //         }
-  //         navigate("/");
-  //       };
 
-  // const onSubmitUpdateInfo = async ({ contactNumber }) => {
-  //   updateUser(user, contactNumber)
-  //     .then(() => {
-  //       console.log("Information updated successfully.");
-  //       toast.success("Information updated successfully!", {
-  //         position: "top-center",
-  //         autoClose: 5000,
-  //         hideProgressBar: false,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         progress: undefined,
-  //         newestOnTop: false,
-  //         theme: "light",
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.log("Error updating user information", error);
-  //       toast.error("There was an error updating your personal information.", {
-  //         position: "top-center",
-  //         autoClose: 5000,
-  //         hideProgressBar: false,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         progress: undefined,
-  //         newestOnTop: false,
-  //         theme: "light",
-  //       });
-  //     });
-  // };
 
   const onSubmitNewPassword = async ({ newPassword }) => {
     updatePassword(user, newPassword)
