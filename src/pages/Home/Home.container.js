@@ -100,7 +100,7 @@ const Home = () => {
         }
       );
     } else {
-      setLocationFilter({ lat: "", long: "" });
+      setLocationFilter({ latitude: "", longitude: "" });
     }
   }, [placeValue]);
 
@@ -155,7 +155,6 @@ const Home = () => {
         //     result.sort((a, b) => b.price - a.price);
         //   }
         // }
-
         if (locationFilter.latitude && locationFilter.longitude) {
           result = result.filter((product) => {
             let tmp = {
@@ -169,9 +168,11 @@ const Home = () => {
             };
             const distance = getPreciseDistance(locFilter, tmp);
 
-            console.log(tmp, locFilter);
+            // console.log(tmp, locFilter, distance);
             return distance <= 25000;
           });
+
+          // console.log(result);
         }
 
         if (currentAddress && sortValue === "") {
@@ -200,7 +201,11 @@ const Home = () => {
     locationFilter.latitude,
     locationFilter.longitude,
     currentAddress,
+    locationFilter,
   ]);
+
+  // console.log("locationFilter", locationFilter);
+  // console.log("currentAddress", { longitude, latitude });
 
   // ********************************
 
@@ -247,6 +252,7 @@ const Home = () => {
     toggleDisplay,
     debouncedValue,
     categoryValue,
+    locationFilter,
   };
   return <HomeView {...generatedProps} />;
 };
