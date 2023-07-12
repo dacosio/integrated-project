@@ -4,7 +4,7 @@ import style from "./Home.module.css";
 import Typography from "../../components/base/Typography/Typography";
 import { MapMarkerSVG } from "../../components/base/SVG";
 import ActiveListingCard from "../../components/base/ActiveListingCard/ActiveListingCard";
-import getDistance from "geolib/es/getDistance";
+import getPreciseDistance from "geolib/es/getDistance";
 import Button from "../../components/base/Button/Button";
 
 const Home = (props) => {
@@ -22,8 +22,9 @@ const Home = (props) => {
     toggleDisplay,
     debouncedValue,
     categoryValue,
+    locationFilter,
   } = props;
-
+  // console.log(latitude, longitude, locationFilter);
   if (
     desktopProducts.length === 0 &&
     (debouncedValue || categoryValue.length > 0)
@@ -74,12 +75,29 @@ const Home = (props) => {
                       longitude: product.location._long,
                     };
 
+                    let locFilter = {
+                      latitude: locationFilter.latitude,
+                      longitude: locationFilter.longitude,
+                    };
+
                     let distance = 0;
-                    if (latitude && longitude) {
-                      distance = getDistance(tmp, {
+                    if (
+                      latitude &&
+                      longitude &&
+                      locationFilter.latitude === "" &&
+                      locationFilter.longitude === ""
+                    ) {
+                      console.log("inside distance");
+                      distance = getPreciseDistance(tmp, {
                         latitude,
                         longitude,
                       });
+                      distance = Math.ceil(Number(distance) / 1000);
+                    } else if (
+                      locationFilter.latitude &&
+                      locationFilter.longitude
+                    ) {
+                      distance = getPreciseDistance(tmp, locFilter);
                       distance = Math.ceil(Number(distance) / 1000);
                     }
                     return (
@@ -157,13 +175,29 @@ const Home = (props) => {
                         latitude: product.location._lat,
                         longitude: product.location._long,
                       };
+                      let locFilter = {
+                        latitude: locationFilter.latitude,
+                        longitude: locationFilter.longitude,
+                      };
 
                       let distance = 0;
-                      if (latitude && longitude) {
-                        distance = getDistance(tmp, {
+                      if (
+                        latitude &&
+                        longitude &&
+                        locationFilter.latitude === "" &&
+                        locationFilter.longitude === ""
+                      ) {
+                        console.log("test");
+                        distance = getPreciseDistance(tmp, {
                           latitude,
                           longitude,
                         });
+                        distance = Math.ceil(Number(distance) / 1000);
+                      } else if (
+                        locationFilter.latitude &&
+                        locationFilter.longitude
+                      ) {
+                        distance = getPreciseDistance(tmp, locFilter);
                         distance = Math.ceil(Number(distance) / 1000);
                       }
 
