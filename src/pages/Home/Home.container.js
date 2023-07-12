@@ -4,7 +4,13 @@ import HomeView from "./Home.view";
 import { UserAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import useMediaQuery from "../../utils/useMediaQuery";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import db from "../../config/firebaseConfig";
 import { SearchContext } from "../../context/SearchContext";
 import useDebounce from "../../utils/useDebounce";
@@ -16,9 +22,6 @@ import { Sort } from "../../context/SortContext";
 import getDistance from "geolib/es/getDistance";
 
 import { Place } from "../../context/PlaceContext";
-import { useMap } from "react-leaflet";
-import { useMemo } from "react";
-import { useLayoutEffect } from "react";
 
 const Home = () => {
   const { user, logout } = UserAuth();
@@ -105,7 +108,12 @@ const Home = () => {
   // /**************** */
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      query(collection(db, "product"), orderBy("createdAt", "asc")),
+      query(
+        collection(db, "product"),
+        where("qty", "!=", 0),
+        orderBy("qty"),
+        orderBy("createdAt", "asc")
+      ),
       (snapshot) => {
         let newProducts = snapshot.docs
           // .filter((doc) => {
@@ -203,12 +211,6 @@ const Home = () => {
     setToggleDisplay(!toggleDisplay);
   };
 
-  const [isOpen, setIsOpen] = useState(true);
-
-  const toggleDrawer = () => {
-    setIsOpen(!isOpen);
-  };
-
   const generatedProps = {
     user,
     desktopProducts,
@@ -230,8 +232,6 @@ const Home = () => {
     toggleDisplay,
     debouncedValue,
     categoryValue,
-    toggleDrawer,
-    isOpen,
   };
   return <HomeView {...generatedProps} />;
 };

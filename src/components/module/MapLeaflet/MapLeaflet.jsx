@@ -73,19 +73,19 @@ const MapLeaflet = ({
                     e.target.closePopup();
                   }}
                   icon={customIcon}
-                  // eventHandlers={{
-                  //   click: (e) => {
-                  //     currentAddress
-                  //       ? window.open(
-                  //           `https://www.google.com/maps/dir/${currentAddress}/${el.meetUpAddress}/`,
-                  //           "_blank"
-                  //         )
-                  //       : window.open(
-                  //           `http://maps.google.com/?q=${el.meetUpAddress}`,
-                  //           "_blank"
-                  //         );
-                  //   },
-                  // }}
+                  eventHandlers={{
+                    click: (e) => {
+                      currentAddress
+                        ? window.open(
+                            `https://www.google.com/maps/dir/${currentAddress}/${el.meetUpAddress}/`,
+                            "_blank"
+                          )
+                        : window.open(
+                            `http://maps.google.com/?q=${el.meetUpAddress}`,
+                            "_blank"
+                          );
+                    },
+                  }}
                 >
                   {showActiveListing && (
                     <>
@@ -108,7 +108,7 @@ const MapLeaflet = ({
                           width={"150px"}
                         />
                       </Tooltip>
-                      <Popup
+                      {/* <Popup
                         interactive
                         eventHandlers={{
                           click: (e) => {
@@ -123,7 +123,25 @@ const MapLeaflet = ({
                                 );
                           },
                         }}
-                      ></Popup>
+                      >
+                        <ActiveListingCard
+                          key={el.id}
+                          distance={2}
+                          days={2}
+                          source={
+                            el.images.length > 0
+                              ? el.images[0]
+                              : "../../../assets/images/NoImages.png"
+                          }
+                          itemname={el.name}
+                          price={el.price}
+                          stock={el.qyty}
+                          alt={el.name}
+                          onClick={() => console.log(el.id)}
+                          maxwidth={"150px"}
+                          width={"150px"}
+                        />
+                      </Popup> */}
                     </>
                   )}
                 </Marker>
