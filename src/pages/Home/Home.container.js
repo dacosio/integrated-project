@@ -20,6 +20,7 @@ import { Category } from "../../context/CategoryContext";
 import Geocode from "react-geocode";
 import { Sort } from "../../context/SortContext";
 import getDistance from "geolib/es/getDistance";
+import getPreciseDistance from "geolib/es/getDistance";
 
 import { Place } from "../../context/PlaceContext";
 
@@ -99,30 +100,37 @@ const Home = () => {
         }
       );
     } else {
-      setLocationFilter({ lat: "", long: "" });
+      setLocationFilter({ latitude: "", longitude: "" });
     }
   }, [placeValue]);
 
   // end of location
 
   // /**************** */
+
+  const sorting = (sv) => {
+    if (!!sv) {
+      return orderBy(
+        "price",
+        sortValue === "lowToHigh"
+          ? "asc"
+          : sortValue === "highToLow"
+          ? "desc"
+          : "desc"
+      );
+    } else {
+      return orderBy("createdAt", "asc");
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      query(
-        collection(db, "product"),
-        where("qty", "!=", 0),
-        orderBy("qty"),
-        orderBy("createdAt", "asc")
-      ),
+      query(collection(db, "product"), sorting(sortValue)),
       (snapshot) => {
-        let newProducts = snapshot.docs
-          // .filter((doc) => {
-          //   return doc.data().lat !== undefined && doc.data().long !== undefined;
-          // })
-          .map((doc) => ({
-            ...doc.data(),
-            id: doc.id,
-          }));
+        let newProducts = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
 
         let result = newProducts;
 
@@ -140,32 +148,40 @@ const Home = () => {
           );
         }
 
-        if (sortValue) {
-          if (sortValue === "lowToHigh") {
-            result.sort((a, b) => a.price - b.price);
-          } else if (sortValue === "highToLow") {
-            result.sort((a, b) => b.price - a.price);
-          }
-        }
-
+        // if (sortValue) {
+        //   if (sortValue === "lowToHigh") {
+        //     result.sort((a, b) => a.price - b.price);
+        //   } else if (sortValue === "highToLow") {
+        //     result.sort((a, b) => b.price - a.price);
+        //   }
+        // }
         if (locationFilter.latitude && locationFilter.longitude) {
           result = result.filter((product) => {
             let tmp = {
               latitude: product.location._lat,
               longitude: product.location._long,
             };
-            const distance = getDistance({ latitude, longitude }, tmp);
+
+            let locFilter = {
+              latitude: locationFilter.latitude,
+              longitude: locationFilter.longitude,
+            };
+            const distance = getPreciseDistance(locFilter, tmp);
+
+            // console.log(tmp, locFilter, distance);
             return distance <= 25000;
           });
+
+          // console.log(result);
         }
 
-        if (currentAddress) {
+        if (currentAddress && sortValue === "") {
           result = result.sort((a, b) => {
-            const distanceA = getDistance(
+            const distanceA = getPreciseDistance(
               { latitude, longitude },
               { latitude: a.location._lat, longitude: a.location._long }
             );
-            const distanceB = getDistance(
+            const distanceB = getPreciseDistance(
               { latitude, longitude },
               { latitude: b.location._lat, longitude: b.location._long }
             );
@@ -185,7 +201,11 @@ const Home = () => {
     locationFilter.latitude,
     locationFilter.longitude,
     currentAddress,
+    locationFilter,
   ]);
+
+  // console.log("locationFilter", locationFilter);
+  // console.log("currentAddress", { longitude, latitude });
 
   // ********************************
 
@@ -232,6 +252,7 @@ const Home = () => {
     toggleDisplay,
     debouncedValue,
     categoryValue,
+    locationFilter,
   };
   return <HomeView {...generatedProps} />;
 };

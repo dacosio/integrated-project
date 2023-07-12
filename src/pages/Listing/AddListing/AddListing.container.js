@@ -99,11 +99,13 @@ const AddListing = () => {
           createdByDisplayName: user.displayName,
           images: __images,
           latitude: placeValue.geometry.location.lat(),
+          lat: placeValue.geometry.location.lat(),
           location: new GeoPoint(
             placeValue.geometry.location.lat(),
             placeValue.geometry.location.lng()
           ),
           longitude: placeValue.geometry.location.lng(),
+          long: placeValue.geometry.location.lng(),
           meetUpAddress: placeValue.formatted_address,
           meetUpInfo: new Date(year, month - 1, day, hours, minutes),
           description: description,
