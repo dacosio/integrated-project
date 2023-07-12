@@ -124,7 +124,7 @@ const ProfileDetail = ({
                     <ActiveListingCard
                       key={productItem.id}
                       distance={!!error ? 0 : distance}
-                      days={dateDiff ? dateDiff : <></>}
+                      days={dateDiff}
                       source={
                         productItem.images
                           ? productItem.images[0]
