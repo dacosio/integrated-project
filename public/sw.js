@@ -3,7 +3,7 @@ const assets = ["/", "/index.html", "static/js", "offline.html"];
 
 const self = this;
 self.addEventListener("install", (e) => {
-  console.log("installing service worker");
+  // console.log("installing service worker");
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(assets).then(() => self.skipWaiting());
@@ -12,7 +12,7 @@ self.addEventListener("install", (e) => {
 });
 
 self.addEventListener("activate", (event) => {
-  console.log("Activating new service worker...");
+  // console.log("Activating new service worker...");
 
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -55,7 +55,7 @@ self.addEventListener("activate", (event) => {
 // });
 
 self.addEventListener("fetch", (event) => {
-  console.log("Fetch event for", event.request.url);
+  // console.log("Fetch event for", event.request.url);
 
   event.respondWith(
     caches
@@ -63,7 +63,7 @@ self.addEventListener("fetch", (event) => {
       .then((response) => {
         //If the response is found in the cache
         if (response) {
-          console.log("Found ", event.request.url, " in cache");
+          // console.log("Found ", event.request.url, " in cache");
           return response;
         }
 
