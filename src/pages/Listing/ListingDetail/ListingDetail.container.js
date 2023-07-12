@@ -68,7 +68,6 @@ const ListingDetail = () => {
 
   useEffect(() => {
     if (user.uid) {
-      console.log(user.uid);
       getDocs(
         query(
           collection(store, "order"),

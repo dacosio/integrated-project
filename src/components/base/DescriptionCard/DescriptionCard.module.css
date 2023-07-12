@@ -6,6 +6,6 @@
   box-sizing: border-box;
   display: grid;
   align-content: space-between;
-  justify-content: center;
+  justify-content: stretch;
   gap: 12px;
 }
