@@ -20,6 +20,7 @@ import { Category } from "../../context/CategoryContext";
 import Geocode from "react-geocode";
 import { Sort } from "../../context/SortContext";
 import getDistance from "geolib/es/getDistance";
+import getPreciseDistance from "geolib/es/getDistance";
 
 import { Place } from "../../context/PlaceContext";
 
@@ -132,7 +133,6 @@ const Home = () => {
         }));
 
         let result = newProducts;
-        console.table(newProducts);
 
         if (!!debouncedValue) {
           result = result.filter((n) =>
@@ -162,18 +162,25 @@ const Home = () => {
               latitude: product.location._lat,
               longitude: product.location._long,
             };
-            const distance = getDistance({ latitude, longitude }, tmp);
+
+            let locFilter = {
+              latitude: locationFilter.latitude,
+              longitude: locationFilter.longitude,
+            };
+            const distance = getPreciseDistance(locFilter, tmp);
+
+            console.log(tmp, locFilter);
             return distance <= 25000;
           });
         }
 
         if (currentAddress && sortValue === "") {
           result = result.sort((a, b) => {
-            const distanceA = getDistance(
+            const distanceA = getPreciseDistance(
               { latitude, longitude },
               { latitude: a.location._lat, longitude: a.location._long }
             );
-            const distanceB = getDistance(
+            const distanceB = getPreciseDistance(
               { latitude, longitude },
               { latitude: b.location._lat, longitude: b.location._long }
             );
