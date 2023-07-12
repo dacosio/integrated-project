@@ -33,6 +33,7 @@ const Header = () => {
   const [sortLow, setSortLow] = useState(false);
   const [selectedOption, setSelectedOption] = useState(false);
   const [options, setOptions] = useState([]);
+
   useEffect(
     () =>
       onSnapshot(collection(db, "category"), (snapshot) => {
@@ -58,7 +59,14 @@ const Header = () => {
   const sm = useMediaQuery("(min-width: 360px) and (max-width:576px)");
   const md = useMediaQuery("(min-width: 577px) and (max-width:799px)");
   const lg = useMediaQuery("(min-width: 800px) and (max-width:1270px)");
-  const xl = useMediaQuery("(min-width: 1271px");
+  const xl = useMediaQuery("(min-width: 1271px)");
+
+  useEffect(() => {
+    if (location.pathname !== "/") {
+      setFilterSelected(false);
+    }
+  }, [location.pathname]);
+
   const filterSize = useMediaQuery("(min-width: 990px");
 
   let headerSm = () => {

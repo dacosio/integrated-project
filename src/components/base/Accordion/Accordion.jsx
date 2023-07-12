@@ -4,7 +4,6 @@ import Typography from "../Typography/Typography";
 import styles from "./accordion.module.css";
 
 const Accordion = ({ children, visibility, onToggle, id, label, ...props }) => {
-  console.log(visibility);
   return (
     <>
       <div className={`${styles["wrapper"]}`}>

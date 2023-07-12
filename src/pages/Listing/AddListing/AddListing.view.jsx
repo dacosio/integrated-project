@@ -4,30 +4,48 @@ import Button from "../../../components/base/Button/Button";
 import useMediaQuery from "../../../utils/useMediaQuery";
 import ImageInput from "../../../components/base/ImageInput/ImageInput";
 import NumberInput from "../../../components/base/NumberInput/NumberInput";
-import Dropdown from "../../../components/base/Dropdown/Dropdown";
+import SelectDropdown from "../../../components/base/SelectDropdown/SelectDropdown";
 import DatePicker from "../../../components/base/DatePicker/DatePicker";
 import TimePicker from "../../../components/base/TimePicker/TimePicker";
 import styles from "./AddListing.module.css";
 import Typography from "../../../components/base/Typography/Typography";
 import { RiInformationFill } from "react-icons/ri";
-import { Formik, Form } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import FormikControl from "../../../components/base/FormikControl/FormikControl";
 import BackButton from "../../../components/base/BackButton/BackButton";
 import MapLeaflet from "../../../components/module/MapLeaflet/MapLeaflet";
+import MapSearch from "../../../components/base/MapSearch/MapSearch";
 
-const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
+const AddListing = (props) => {
+  const {
+    placeValue,
+    images,
+    setImages,
+    meetupDate,
+    setMeetupDate,
+    meetupTime,
+    setMeetupTime,
+    divisionNumber,
+    setDivisionNumber,
+    portionNumber,
+    setPortionNumber,
+    categories,
+    setCategory,
+    portionPrice,
+    totalPrice,
+    initialValues,
+    validationSchema,
+    handleOnSubmit,
+    handleOnBlur,
+  } = props;
+
   const isDesktop = useMediaQuery("(min-width: 1440px)");
-  const [selectedOption, setSelectedOption] = useState("");
-  const [multipleImages, setMultipleImages] = useState([]);
   const options = [
     { value: "value1", label: "Fresh Food" },
     { value: "value2", label: "Packaged Food" },
     { value: "value3", label: "Household" },
-    { value: "value3", label: "Beauty & Wellness" },
+    { value: "value4", label: "Beauty & Wellness" },
   ];
-  const [date, setDate] = useState();
-  const [time, setTime] = useState("");
-  const [number, setNumber] = useState(0);
 
   return (
     <div className={styles.contentWrapper}>
@@ -36,7 +54,7 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={onSubmit}
+            onSubmit={handleOnSubmit}
           >
             {(formik) => {
               return (
@@ -78,10 +96,7 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                           boxSizing: "border-box",
                         }}
                       >
-                        <ImageInput
-                          images={multipleImages}
-                          setImages={setMultipleImages}
-                        />
+                        <ImageInput images={images} setImages={setImages} />
                       </div>
                     </div>
 
@@ -128,12 +143,14 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                       />
                     </div>
 
-                    <div>
-                      <Dropdown
-                        selectedOption={selectedOption}
-                        setSelectedOption={setSelectedOption}
-                        options={options}
-                        label="Select"
+                    <div className={styles.selectDropdown}>
+                      <SelectDropdown
+                        options={categories}
+                        placeholder="Select Category"
+                        clearable
+                        backspaceDelete
+                        onChange={(value) => setCategory(value[0])}
+                        searchable={false}
                       />
                     </div>
 
@@ -153,11 +170,10 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                       >
                         The price of your bulk item at purchase
                       </Typography>
-
                       <FormikControl
                         control="input"
                         type="text"
-                        name="originalItemPrice"
+                        name="originalPrice"
                         placeholder="$CAD"
                         style={{
                           borderRadius: "8px",
@@ -166,6 +182,7 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                           boxSizing: "border-box",
                           border: "2px solid var(--black)",
                         }}
+                        onBlur={(event) => handleOnBlur(event, formik)}
                       />
                     </div>
 
@@ -187,9 +204,8 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                       </div>
 
                       <NumberInput
-                        inputNumber={number}
-                        setInputNumber={setNumber}
-                        maxValue={10}
+                        inputNumber={divisionNumber}
+                        setInputNumber={setDivisionNumber}
                       />
                     </div>
 
@@ -210,9 +226,9 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                         </Typography>
                       </div>
                       <NumberInput
-                        inputNumber={number}
-                        setInputNumber={setNumber}
-                        maxValue={10}
+                        inputNumber={portionNumber}
+                        setInputNumber={setPortionNumber}
+                        maxValue={divisionNumber}
                         style={{ width: "100%" }}
                       />
                     </div>
@@ -233,7 +249,9 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                             >
                               $
                             </Typography>
-                            <Typography variant="h3-graphik-bold">0</Typography>
+                            <Typography variant="h3-graphik-bold">
+                              {portionPrice}
+                            </Typography>
                             <Typography
                               variant="body-1-medium"
                               style={{ marginTop: "8px" }}
@@ -257,7 +275,9 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                             >
                               $
                             </Typography>
-                            <Typography variant="h3-graphik-bold">0</Typography>
+                            <Typography variant="h3-graphik-bold">
+                              {totalPrice}
+                            </Typography>
                             <Typography
                               variant="body-1-medium"
                               style={{ marginTop: "8px" }}
@@ -300,31 +320,35 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                       >
                         Meet-up Location
                       </Typography>
-
-                      <FormikControl
-                        control="input"
-                        type="text"
-                        name="meet-up-location"
-                        placeholder="Type to search"
-                        style={{
-                          borderRadius: "8px",
-                          padding: "6px 16px",
-                          width: "80%",
-                          marginBottom: "26px",
-                          boxSizing: "border-box",
-                        }}
-                      />
+                      <div className={styles.sectionGap}>
+                        <MapSearch bottom />
+                      </div>
                       <div className={styles.meetUpMap}>
-                        <MapLeaflet
-                          // zoom={zoom}
-                          // markerData={/}
-                          direction="top"
-                          height="100%"
-                          borderRadius="20px"
-                          zIndex={2}
-                          // bounds="[49.225693],[-123.107326]"
-                          showActiveListing={false}
-                        />
+                        {placeValue && (
+                          <MapLeaflet
+                            // zoom={zoom}
+                            markerData={[
+                              {
+                                id: 1,
+                                location: {
+                                  latitude: placeValue.geometry.location.lat(),
+                                  longitude: placeValue.geometry.location.lng(),
+                                },
+                              },
+                            ]}
+                            direction="top"
+                            height="100%"
+                            borderRadius="20px"
+                            zIndex={2}
+                            bounds={[
+                              [
+                                placeValue.geometry.location.lat(),
+                                placeValue.geometry.location.lng(),
+                              ],
+                            ]}
+                            showActiveListing={false}
+                          />
+                        )}
                       </div>
                     </div>
                     <div>
@@ -334,7 +358,7 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                       >
                         Meet-up Date
                       </Typography>
-                      <DatePicker date={date} setDate={setDate} />
+                      <DatePicker date={meetupDate} setDate={setMeetupDate} />
                     </div>
 
                     <div>
@@ -344,7 +368,7 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                       >
                         Meet-up Time
                       </Typography>
-                      <TimePicker time={time} setTime={setTime} />
+                      <TimePicker time={meetupTime} setTime={setMeetupTime} />
                     </div>
 
                     <div>
@@ -373,7 +397,7 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={onSubmit}
+            onSubmit={handleOnSubmit}
           >
             {(formik) => {
               return (
@@ -407,10 +431,7 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                           boxSizing: "border-box",
                         }}
                       >
-                        <ImageInput
-                          images={multipleImages}
-                          setImages={setMultipleImages}
-                        />
+                        <ImageInput images={images} setImages={setImages} />
                       </div>
                     </div>
                     <div className={styles.sectionGap}>
@@ -418,7 +439,7 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                         control="input"
                         type="text"
                         label="Item Name"
-                        name="item-name"
+                        name="itemName"
                         placeholder="What are you splitting?"
                         style={{
                           borderRadius: "8px",
@@ -457,12 +478,16 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                       </div>
                     </div>
                     <div className={styles.sectionGap}>
-                      <Dropdown
-                        selectedOption={selectedOption}
-                        setSelectedOption={setSelectedOption}
-                        options={options}
-                        label="Select"
-                      />
+                      <div className={styles.selectDropdown}>
+                        <SelectDropdown
+                          options={categories}
+                          placeholder="Select Category"
+                          clearable
+                          backspaceDelete
+                          onChange={(value) => setCategory(value[0])}
+                          searchable={false}
+                        />
+                      </div>
                     </div>
                     <div className={styles.lineBreak}></div>
                     <div className={styles.sectionGap}>
@@ -482,7 +507,7 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                       <FormikControl
                         control="input"
                         type="text"
-                        name="originalItemPrice"
+                        name="originalPrice"
                         placeholder="$CAD"
                         style={{
                           borderRadius: "8px",
@@ -491,6 +516,7 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                           boxSizing: "border-box",
                           border: "2px solid var(--black)",
                         }}
+                        onBlur={(event) => handleOnBlur(event, formik)}
                       />
                     </div>
                     <div className={styles.sectionGap}>
@@ -510,9 +536,8 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                         </Typography>
                       </div>
                       <NumberInput
-                        inputNumber={number}
-                        setInputNumber={setNumber}
-                        maxValue={10}
+                        inputNumber={divisionNumber}
+                        setInputNumber={setDivisionNumber}
                         style={{ width: "100%", marginBottom: "24px" }}
                       />
                     </div>
@@ -533,9 +558,9 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                         </Typography>
                       </div>
                       <NumberInput
-                        inputNumber={number}
-                        setInputNumber={setNumber}
-                        maxValue={10}
+                        inputNumber={portionNumber}
+                        setInputNumber={setPortionNumber}
+                        maxValue={divisionNumber}
                         style={{ width: "100%" }}
                       />
                     </div>
@@ -559,7 +584,9 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                           >
                             $
                           </Typography>
-                          <Typography variant="h3-graphik-bold">0</Typography>
+                          <Typography variant="h3-graphik-bold">
+                            {portionPrice}
+                          </Typography>
                           <Typography
                             variant="body-1-medium"
                             style={{ marginTop: "8px" }}
@@ -582,7 +609,9 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                           >
                             $
                           </Typography>
-                          <Typography variant="h3-graphik-bold">0</Typography>
+                          <Typography variant="h3-graphik-bold">
+                            {totalPrice}
+                          </Typography>
                           <Typography
                             variant="body-1-medium"
                             style={{ marginTop: "8px" }}
@@ -622,30 +651,35 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                       >
                         Meet-up Location
                       </Typography>
-                      <FormikControl
-                        control="input"
-                        type="text"
-                        name="meet-up-location"
-                        placeholder="Type to search"
-                        style={{
-                          borderRadius: "8px",
-                          padding: "6px 16px",
-                          width: "100%",
-                          marginBottom: "26px",
-                          boxSizing: "border-box",
-                        }}
-                      />
+                      <div className={styles.sectionGap}>
+                        <MapSearch bottom />
+                      </div>
                       <div className={styles.meetUpMap}>
-                        <MapLeaflet
-                          // zoom={zoom}
-                          // markerData={/}
-                          direction="top"
-                          height="100%"
-                          borderRadius="20px"
-                          zIndex={2}
-                          // bounds="[49.225693],[-123.107326]"
-                          showActiveListing={false}
-                        />
+                        {placeValue && (
+                          <MapLeaflet
+                            // zoom={zoom}
+                            markerData={[
+                              {
+                                id: 1,
+                                location: {
+                                  latitude: placeValue.geometry.location.lat(),
+                                  longitude: placeValue.geometry.location.lng(),
+                                },
+                              },
+                            ]}
+                            direction="top"
+                            height="100%"
+                            borderRadius="20px"
+                            zIndex={2}
+                            bounds={[
+                              [
+                                placeValue.geometry.location.lat(),
+                                placeValue.geometry.location.lng(),
+                              ],
+                            ]}
+                            showActiveListing={false}
+                          />
+                        )}
                       </div>
                     </div>
                     <div className={styles.sectionGap}>
@@ -655,7 +689,7 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                       >
                         Meet-up Date
                       </Typography>
-                      <DatePicker date={date} setDate={setDate} />
+                      <DatePicker date={meetupDate} setDate={setMeetupDate} />
                     </div>
                     <div className={styles.sectionGap}>
                       <Typography
@@ -664,7 +698,7 @@ const AddListing = ({ initialValues, validationSchema, onSubmit }) => {
                       >
                         Meet-up Time
                       </Typography>
-                      <TimePicker time={time} setTime={setTime} />
+                      <TimePicker time={meetupTime} setTime={setMeetupTime} />
                     </div>
                     <div>
                       <Button

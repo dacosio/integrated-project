@@ -1,6 +1,6 @@
 .contentWrapper {
   background-color: var(--bg-gray);
-  padding: 2rem;
+  padding: 16px;
 }
 
 .mobileWrapper {
@@ -15,16 +15,6 @@
   margin-bottom: 24px;
 }
 
-@media screen and (min-width: 800px) {
-  .contentWrapper {
-    padding: 7rem 10rem;
-  }
-}
-
-.imageWrapper {
-  grid-row: 2/16;
-}
-
 .lineBreak {
   height: 7px;
   width: 100%;
@@ -34,7 +24,6 @@
   box-shadow: 2px 2px black;
   margin: 32px 0;
 }
-
 
 .itemNameWrapper,
 .itemDescriptionWrapper,
@@ -78,19 +67,30 @@
 }
 
 .backButtonWrap {
-  margin-bottom: 1rem;
+  margin-bottom: 12px;
 }
 
+@media screen and (min-width: 800px) {
+  .contentWrapper {
+    padding: 16px 10rem;
+  }
+}
+
+.imageWrapper {
+  grid-row: 2/16;
+}
+
+.selectDropdown {
+  z-index: 0;
+  position: relative;
+}
 
 @media screen and (min-width: 1440px) {
-  .backButtonWrap {
-    margin-bottom: 2rem;
-  }
   .meetUpMap {
     margin-bottom: 0;
   }
 
-  .itemNameWrapper{
+  .itemNameWrapper {
     margin: 0;
   }
 

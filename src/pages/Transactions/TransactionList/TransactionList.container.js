@@ -118,7 +118,7 @@ const TransactionList = () => {
 
   const onComplete = (orderId, productId) => {
     // console.log("complete");
-    clickHandler(orderId, "complete", productId);
+    clickHandler(orderId, "completed", productId);
   };
 
   console.log(selectedTab);

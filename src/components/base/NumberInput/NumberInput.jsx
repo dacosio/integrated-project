@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
-import styles from "./number-input.module.css";
+import styles from "./NumberInput.module.css";
 
 const NumberInput = ({
   inputNumber,
   setInputNumber,
   minValue = 0,
-  maxValue,
+  maxValue = 1000,
   ...props
 }) => {
   const [error, setError] = useState("");
