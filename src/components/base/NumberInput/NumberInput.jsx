@@ -6,7 +6,7 @@ const NumberInput = ({
   inputNumber,
   setInputNumber,
   minValue = 0,
-  maxValue,
+  maxValue = 1000,
   ...props
 }) => {
   const [error, setError] = useState("");
