@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import db, { storage } from "../../../config/firebaseConfig";
 import {
   addDoc,
+  getDoc,
   getDocs,
   serverTimestamp,
   collection,
@@ -88,34 +89,36 @@ const AddListing = () => {
         const [year, month, day] = meetupDate.split("-");
         const [hours, minutes] = meetupTime.split(":");
 
-        addDoc(collection(db, "product"), {
-          categoryLabel: category.label,
-          categoryValue: category.value,
-          createdAt: serverTimestamp(),
-          createdByFirstName: "First",
-          createdById: doc(db, "user", user.uid),
-          createdByIdent: user.uid,
-          createdByLastName: "Last",
-          createdByDisplayName: user.displayName,
-          images: __images,
-          latitude: placeValue.geometry.location.lat(),
-          lat: placeValue.geometry.location.lat(),
-          location: new GeoPoint(
-            placeValue.geometry.location.lat(),
-            placeValue.geometry.location.lng()
-          ),
-          longitude: placeValue.geometry.location.lng(),
-          long: placeValue.geometry.location.lng(),
-          meetUpAddress: placeValue.formatted_address,
-          meetUpInfo: new Date(year, month - 1, day, hours, minutes),
-          description: description,
-          name: itemName,
-          price: originalPrice,
-          qty: portionNumber,
-        }).then((response) => {
-          console.log(response.id);
+        getDoc(doc(db, "user", user.uid)).then((userResponse) => {
+          addDoc(collection(db, "product"), {
+            categoryLabel: category.label,
+            categoryValue: category.value,
+            createdAt: serverTimestamp(),
+            createdByFirstName: userResponse.data().firstName,
+            createdById: doc(db, "user", user.uid),
+            createdByIdent: user.uid,
+            createdByLastName: userResponse.data().lastName,
+            createdByDisplayName: userResponse.data().displayName,
+            description: description,
+            images: __images,
+            lat: placeValue.geometry.location.lat(),
+            latitude: placeValue.geometry.location.lat(),
+            location: new GeoPoint(
+              placeValue.geometry.location.lat(),
+              placeValue.geometry.location.lng()
+            ),
+            long: placeValue.geometry.location.lng(),
+            longitude: placeValue.geometry.location.lng(),
+            meetUpAddress: placeValue.formatted_address,
+            meetUpInfo: new Date(year, month - 1, day, hours, minutes),
+            name: itemName,
+            price: originalPrice,
+            qty: portionNumber,
+          }).then((response) => {
+            console.log(response.id);
 
-          navigate(`/listing/${response.id}`);
+            navigate(`/listing/${response.id}`);
+          });
         });
       });
     }
