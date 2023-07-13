@@ -38,6 +38,7 @@ const TransactionList = (props) => {
           options={orderTypeOptions}
           onChange={onChange}
           searchable={false}
+          placeholder="Selling"
         />
         <PageTabs tabs={orderTabs} onTabChange={handleTabChange} />
       </div>
