@@ -1,28 +1,39 @@
 import React from "react";
-import "./DescriptionCard.css";
+import styles from "./DescriptionCard.module.css";
 import Button from "./../Button/Button";
 import Typography from "../Typography/Typography";
 
-const DescriptionCard = ({ description, onClick }) => {
+const DescriptionCard = ({
+  description,
+  own = false,
+  requested = false,
+  handleOnOpenRequest,
+  handleOnOpenCancel,
+}) => {
   return (
-    <div className="dcwrapper">
-      <div className="description-container">
-        <div className="item-description">
-          <Typography variant="h4-graphik-bold" style={{ margin: "8px 0" }}>
-            Description
-          </Typography>
-          <Typography variant="body-2-regular" color="gray">
-            {description}
-          </Typography>
-        </div>
-        <div className="button">
+    <div className={`${styles.wrapper}`}>
+      <Typography variant="h3-graphik-bold">Description</Typography>
+      <div style={{ display: "grid", gap: "20px" }}>
+        <Typography variant="body-2-regular" color="gray">
+          {description}
+        </Typography>
+        {own ? (
+          <></>
+        ) : !requested ? (
           <Button
-            onClickHandler={onClick}
+            onClickHandler={handleOnOpenRequest}
             size="lg"
             variant="yellow"
             label="Request Purchase"
           />
-        </div>
+        ) : (
+          <Button
+            onClickHandler={handleOnOpenCancel}
+            size="lg"
+            variant="white"
+            label="Cancel Request"
+          />
+        )}
       </div>
     </div>
   );

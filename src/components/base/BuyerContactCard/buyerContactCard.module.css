@@ -21,13 +21,21 @@
   align-items: center;
 }
 
+.buyer-contact-description {
+  display: grid;
+  grid-template-columns: 0.1fr 1fr;
+  gap: 0.5rem;
+  margin-left: 0.5rem;
+  align-items: center;
+}
+
 .buyer-contact-card .image-container {
   width: 80px;
   height: 80px;
   border-radius: 500px;
   justify-items: center;
   align-items: center;
-  display: flex;
+  /* display: flex; */
   margin-right: 0.5rem;
 }
 
@@ -36,25 +44,13 @@
   width: 80px;
   height: 80px;
   border: 2px solid;
-  margin-right: 12px;
-}
-
-.buyer-description {
-  display: flex;
-  align-items: center;
-}
-
-.name-container,
-.conatct-tel-container,
-.email-container {
-  display: flex;
-  gap: 0.5rem;
-  margin: 0.5rem;
-  align-items: center;
+  margin-right: 20px;
+  object-fit: cover;
 }
 
 @media screen and (min-width: 1440px) {
   .buyer-contact-card {
-    height: 152px;
+    height: 100%;
+    padding: 16px 16px 20px;
   }
 }

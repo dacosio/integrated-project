@@ -6,11 +6,14 @@ import {
   Marker,
   Tooltip,
   useMap,
+  Popup,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import ActiveListingCard from "../../base/ActiveListingCard/ActiveListingCard";
 import { useEffect } from "react";
+import { useState } from "react";
+import { useLayoutEffect } from "react";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -85,25 +88,61 @@ const MapLeaflet = ({
                   }}
                 >
                   {showActiveListing && (
-                    <Tooltip permanent={permanent} direction={direction}>
-                      <ActiveListingCard
-                        key={el.id}
-                        distance={2}
-                        days={2}
-                        source={
-                          el.images.length > 0
-                            ? el.images[0]
-                            : "../../../assets/images/NoImages.png"
-                        }
-                        itemname={el.name}
-                        price={el.price}
-                        stock={el.qyty}
-                        alt={el.name}
-                        onClick={() => console.log(el.id)}
-                        maxwidth={"150px"}
-                        width={"150px"}
-                      />
-                    </Tooltip>
+                    <>
+                      <Tooltip permanent={permanent} direction={direction}>
+                        <ActiveListingCard
+                          key={el.id}
+                          distance={2}
+                          days={2}
+                          source={
+                            el.images.length > 0
+                              ? el.images[0]
+                              : "../../../assets/images/NoImages.png"
+                          }
+                          itemname={el.name}
+                          price={el.price}
+                          stock={el.qyty}
+                          alt={el.name}
+                          onClick={() => console.log(el.id)}
+                          maxwidth={"150px"}
+                          width={"150px"}
+                        />
+                      </Tooltip>
+                      {/* <Popup
+                        interactive
+                        eventHandlers={{
+                          click: (e) => {
+                            currentAddress
+                              ? window.open(
+                                  `https://www.google.com/maps/dir/${currentAddress}/${el.meetUpAddress}/`,
+                                  "_blank"
+                                )
+                              : window.open(
+                                  `http://maps.google.com/?q=${el.meetUpAddress}`,
+                                  "_blank"
+                                );
+                          },
+                        }}
+                      >
+                        <ActiveListingCard
+                          key={el.id}
+                          distance={2}
+                          days={2}
+                          source={
+                            el.images.length > 0
+                              ? el.images[0]
+                              : "../../../assets/images/NoImages.png"
+                          }
+                          itemname={el.name}
+                          price={el.price}
+                          stock={el.qyty}
+                          alt={el.name}
+                          onClick={() => console.log(el.id)}
+                          maxwidth={"150px"}
+                          width={"150px"}
+                        />
+                      </Popup> */}
+                    </>
                   )}
                 </Marker>
               ) : (

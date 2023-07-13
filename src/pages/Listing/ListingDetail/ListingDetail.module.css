@@ -1,0 +1,16 @@
+main {
+  background-color: var(--bg-gray);
+}
+
+.wrapper {
+  padding: 16px 16px 125px 16px;
+  display: grid;
+  gap: 16px;
+}
+
+@media screen and (min-width: 1200px) {
+  .wrapper {
+    max-width: 992px;
+    margin: auto;
+  }
+}

@@ -1,10 +1,10 @@
 import React from "react";
 import { GrClose } from "react-icons/gr";
-import styles from "./modal.module.css";
+import styles from "./Modal.module.css";
 
 const Modal = ({
   width = "50vw",
-  hasBackground = true,
+  noBackground = false,
   visibility,
   onClose,
   children,
@@ -16,9 +16,8 @@ const Modal = ({
         <div className={`${styles["outer-background"]}`}>
           <div
             className={`${styles.wrapper} ${
-              hasBackground ? styles["inner-background"] : null
+              !noBackground ? styles["inner-background"] : null
             }`}
-            // style={{ width: width }}
           >
             <div className={`${styles["btn-wrapper"]} `}>
               <GrClose
