@@ -37,25 +37,12 @@ const ListingDetail = (props) => {
     if (!product) {
       navigate("/");
     } else {
-      // getDoc(doc(store, "product", listingId))
-      //   .then((productResponse) => {
-      //     console.log(location.state.createdAt);
-      //     console.log(productResponse.data().createdAt);
-
-      // setProduct(productResponse.data());
-      // const data = location.state;
-      // console.log(data);
-      // setProduct(data);
-
-      // const sellerRef = productResponse.data().createdById;
-      const sellerRef = doc(store, "user", product.createdByIdent);
-
-      getDoc(sellerRef)
+      getDoc(doc(store, "user", product.createdByIdent))
         .then((sellerResponse) => {
           getDocs(
             query(
               collection(store, "order"),
-              where("createdById", "==", sellerRef.id),
+              where("createdById", "==", product.createdByIdent),
               where("orderStatus", "==", "completed")
             )
           ).then((itemsResponse) => {
@@ -68,10 +55,6 @@ const ListingDetail = (props) => {
         .catch((error) => {
           console.log(error);
         });
-      // })
-      // .catch((error) => {
-      //   console.log(error);
-      // });
     }
   }, []);
 
