@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import db from "../../../config/firebaseConfig";
-
+import { UserAuth } from "../../../context/AuthContext";
 import TransactionDetailView from "./TransactionDetail.view";
+
 
 const TransactionDetail = () => {
   const location = useLocation();
@@ -11,6 +12,8 @@ const TransactionDetail = () => {
   const { transactionId } = useParams();
   const navigate = useNavigate();
   const orderStatusRef = doc(db, "order", transactionId);
+  const {user} = UserAuth()
+
 
   const handleOnDecline = async () => {
     console.log("Declined");

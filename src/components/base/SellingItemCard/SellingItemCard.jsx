@@ -7,6 +7,7 @@ const SellingItemCard = ({
   dateApproved,
   quantity,
   price,
+  label,
   ...props
 }) => {
   return (
@@ -15,7 +16,7 @@ const SellingItemCard = ({
         variant="h2-graphik-bold"
         style={{ margin: "16px 16px 12px" }}
       >
-        Selling Details
+       {label}
       </Typography>
       <div className={`${styles["selling-item-card"]}`}>
         <div className={`${styles["image-container"]}`}>
