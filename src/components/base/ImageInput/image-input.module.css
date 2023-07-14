@@ -65,6 +65,10 @@
   justify-content: flex-end;
 }
 
+.footer.flex-left {
+  gap: 8px;
+}
+
 .grid-center {
   display: grid;
   align-items: center;
@@ -73,8 +77,4 @@
 
 .bold {
   font-weight: bold;
-}
-
-.text-light-gray {
-  color: var(--light-gray);
 }

@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 import db, { storage } from "../../../config/firebaseConfig";
 import {
   addDoc,
+  getDoc,
   getDocs,
+  updateDoc,
   serverTimestamp,
   collection,
   doc,
@@ -60,7 +62,7 @@ const AddListing = () => {
     setTotalPrice((originalPrice / divisionNumber).toFixed(2) * portionNumber);
   }, [originalPrice, divisionNumber, portionNumber]);
 
-  const handleOnSubmit = async ({ itemName, description, originalPrice }) => {
+  const handleOnSubmit = ({ itemName, description, originalPrice }) => {
     if (
       images.length !== 0 &&
       placeValue &&
@@ -68,54 +70,58 @@ const AddListing = () => {
       meetupDate &&
       meetupTime
     ) {
-      const _images = [];
-      const promises = images.map(async (image, index) => {
-        const file = image.file;
-        const fileRef = ref(storage, "test-product-image/" + file.name);
-        return uploadBytes(fileRef, file).then(async (uploadResponse) => {
-          return getDownloadURL(uploadResponse.ref).then((url) => {
-            _images.push({ index: index, url: url });
-          });
-        });
-      });
+      const [year, month, day] = meetupDate.split("-");
+      const [hours, minutes] = meetupTime.split(":");
 
-      Promise.all(promises).then((response) => {
-        _images.sort((previous, next) => previous.index - next.index);
-        const __images = _images.map((image) => image.url);
-        // console.log(__images);
-        // console.log(user);
-        // console.log(placeValue);
-        const [year, month, day] = meetupDate.split("-");
-        const [hours, minutes] = meetupTime.split(":");
-
+      getDoc(doc(db, "user", user.uid)).then((userResponse) => {
         addDoc(collection(db, "product"), {
           categoryLabel: category.label,
           categoryValue: category.value,
           createdAt: serverTimestamp(),
-          createdByFirstName: "First",
+          createdByFirstName: userResponse.data().firstName,
           createdById: doc(db, "user", user.uid),
           createdByIdent: user.uid,
-          createdByLastName: "Last",
-          createdByDisplayName: user.displayName,
-          images: __images,
-          latitude: placeValue.geometry.location.lat(),
+          createdByLastName: userResponse.data().lastName,
+          createdByDisplayName: userResponse.data().displayName,
+          description: description,
           lat: placeValue.geometry.location.lat(),
+          latitude: placeValue.geometry.location.lat(),
           location: new GeoPoint(
             placeValue.geometry.location.lat(),
             placeValue.geometry.location.lng()
           ),
-          longitude: placeValue.geometry.location.lng(),
           long: placeValue.geometry.location.lng(),
+          longitude: placeValue.geometry.location.lng(),
           meetUpAddress: placeValue.formatted_address,
           meetUpInfo: new Date(year, month - 1, day, hours, minutes),
-          description: description,
           name: itemName,
-          price: originalPrice,
+          price: originalPrice / portionNumber,
           qty: portionNumber,
-        }).then((response) => {
-          console.log(response.id);
+        }).then(async (productResponse) => {
+          const _images = [];
+          const promises = images.map(async (image, index) => {
+            const file = image.file;
+            const fileRef = ref(
+              storage,
+              `product-image/${productResponse.id}/${file.name}`
+            );
+            return uploadBytes(fileRef, file).then(async (uploadResponse) => {
+              return getDownloadURL(uploadResponse.ref).then((url) => {
+                _images.push({ index: index, url: url });
+              });
+            });
+          });
 
-          navigate(`/listing/${response.id}`);
+          Promise.all(promises).then((response) => {
+            _images.sort((previous, next) => previous.index - next.index);
+            const __images = _images.map((image) => image.url);
+
+            updateDoc(doc(db, "product", productResponse.id), {
+              images: __images,
+            }).then((updateResponse) => {
+              navigate(`/listing/${productResponse.id}`);
+            });
+          });
         });
       });
     }

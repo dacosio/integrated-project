@@ -15,7 +15,6 @@ const MeetUpInfoCard = ({
   showActiveListing,
   ...prop
 }) => {
-  console.log(latitude, longitude);
   const coordinates =
     latitude && longitude
       ? [
@@ -30,7 +29,7 @@ const MeetUpInfoCard = ({
   return (
     <div className={`${styles["meet-up-info-card"]}`}>
       <div className={`${styles["title-container"]}`}>
-        <Typography variant="h4-graphik-bold">Meet-up Info</Typography>
+        <Typography variant="h3-graphik-bold">Meet-up Info</Typography>
       </div>
 
       <CalendarSVG
@@ -72,6 +71,8 @@ const MeetUpInfoCard = ({
           borderRadius="20px"
           zIndex={2}
           bounds={bounds}
+          meetup
+          meetupLocation={location}
           showActiveListing={false}
         />
       </div>
