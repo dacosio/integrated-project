@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  query,
-  collection,
-  orderBy,
-  getDoc,
-  doc,
-  updateDoc,
-} from "firebase/firestore";
+import { getDoc, doc, updateDoc } from "firebase/firestore";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import db from "../../../config/firebaseConfig";
 
@@ -14,6 +7,7 @@ import TransactionDetailView from "./TransactionDetail.view";
 
 const TransactionDetail = () => {
   const [order, setOrder] = useState();
+  const [user, setUser] = useState();
   const location = useLocation();
   const { transactionId } = useParams();
   const navigate = useNavigate();
@@ -32,8 +26,7 @@ const TransactionDetail = () => {
   };
 
   const handleOnAccept = async () => {
-
-    try{
+    try {
       await updateDoc(orderStatusRef, { orderStatus: "confirmed" });
       setOrder((oldData) => ({ ...oldData, orderStatus: "confirmed" }));
       console.log("Order status updated successfully");
@@ -43,38 +36,37 @@ const TransactionDetail = () => {
   };
 
   const handleOnComplete = async () => {
-    try{
-    await updateDoc(orderStatusRef, { orderStatus: "completed" })
-    setOrder((oldData) => ({ ...oldData, orderStatus: "completed" }));
-    console.log("Order status updated successfully");
-  } catch (error) {
-    console.error("Order status fail to update");
-  }
-};
-  
+    try {
+      await updateDoc(orderStatusRef, { orderStatus: "completed" });
+      setOrder((oldData) => ({ ...oldData, orderStatus: "completed" }));
+      console.log("Order status updated successfully");
+    } catch (error) {
+      console.error("Order status fail to update");
+    }
+  };
 
-//   const handleOnDecline = async () => {
-//     console.log("Declined");
-//     updateDoc(orderStatusRef, { orderStatus: "cancelled" }).then((response) => {
-//       setOrder((oldData) => ({ ...oldData, orderStatus: "cancelled" }));
-//       console.log(response);
-//     });
-//     console.log("Order status updated successfully");
-//   };
+  //   const handleOnDecline = async () => {
+  //     console.log("Declined");
+  //     updateDoc(orderStatusRef, { orderStatus: "cancelled" }).then((response) => {
+  //       setOrder((oldData) => ({ ...oldData, orderStatus: "cancelled" }));
+  //       console.log(response);
+  //     });
+  //     console.log("Order status updated successfully");
+  //   };
 
-//   const handleOnAccept = async () => {
-//     updateDoc(orderStatusRef, { orderStatus: "confirmed" }).then((response) => {
-//     setOrder((oldData) => ({ ...oldData, orderStatus: "confirmed" }));
-//   });
-//   console.log("Order status updated successfully");
-// };
+  //   const handleOnAccept = async () => {
+  //     updateDoc(orderStatusRef, { orderStatus: "confirmed" }).then((response) => {
+  //     setOrder((oldData) => ({ ...oldData, orderStatus: "confirmed" }));
+  //   });
+  //   console.log("Order status updated successfully");
+  // };
 
-//   const handleOnComplete = async () => {
-//     updateDoc(orderStatusRef, { orderStatus: "completed" }).then((response) => {
-//     setOrder((oldData) => ({ ...oldData, orderStatus: "completed" }));
-//   });
-//   console.log("Order status updated successfully");
-// };
+  //   const handleOnComplete = async () => {
+  //     updateDoc(orderStatusRef, { orderStatus: "completed" }).then((response) => {
+  //     setOrder((oldData) => ({ ...oldData, orderStatus: "completed" }));
+  //   });
+  //   console.log("Order status updated successfully");
+  // };
 
   useEffect(() => {
     const fetchDocument = async () => {
@@ -95,9 +87,13 @@ const TransactionDetail = () => {
     };
 
     fetchDocument();
-  }, [transactionId, location]);
+  }, [transactionId]);
 
-  console.log(order);
+  // console.log(location, " useLocation Hook");
+  const data = location.state;
+  console.log(data);
+
+  // console.log(order);
   const generatedProps = {
     order,
     navigate,

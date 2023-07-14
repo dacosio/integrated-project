@@ -71,7 +71,7 @@ const TransactionDetail = (props) => {
                   itemName={order.name}
                   dateApproved={dateApprovedFormatted}
                   price={order.price}
-                  quantity={order.qtyOrdered}
+                  quantity={order.qty}
                 />
 
                 <BuyerContactCard
@@ -149,7 +149,7 @@ const TransactionDetail = (props) => {
                   itemName={order.name}
                   dateApproved={dateApprovedFormatted}
                   price={order.price}
-                  quantity={order.qtyOrdered}
+                  quantity={order.qty}
                 />
               </div>
 

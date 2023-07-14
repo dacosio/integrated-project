@@ -34,7 +34,7 @@ const SellingItemCard = ({
               variant="body-1-medium"
               style={{ marginRight: "0.3rem" }}
             >
-              Quantity:{" "}
+              Quantity:
             </Typography>
             <Typography variant="body-1-medium">{quantity}</Typography>
           </div>
