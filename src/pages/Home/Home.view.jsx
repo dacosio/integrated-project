@@ -111,8 +111,8 @@ const Home = (props) => {
                           createdByIdent: product.createdByIdent,
                           description: product.description,
                           images: product.images,
-                          latitude: product.latitude,
-                          longitude: product.longitude,
+                          latitude: product.lat,
+                          longitude: product.long,
                           meetUpAddress: product.meetUpAddress,
                           meetUpInfo: product.meetUpInfo,
                           name: product.name,
@@ -222,24 +222,43 @@ const Home = (props) => {
                       }
 
                       return (
-                        <ActiveListingCard
-                          key={product.id}
-                          distance={!!error ? 0 : distance}
-                          source={
-                            product.images
-                              ? product.images[0]
-                              : "src/assets/images/NoImage.jpg"
-                          }
-                          itemname={product.name}
-                          price={product.price}
-                          stock={product.qty}
-                          alt={product.name}
-                          onClick={() => console.log(product.id)}
-                          maxwidth={xl || lg ? "185px" : "150px"}
-                          width={xl || lg ? "185px" : "150px"}
-                          height={xl || lg ? "185px" : "150px"}
-                          style={{ marginBottom: "1rem" }}
-                        />
+                        <Link
+                          to={`/listing/${product.id}`}
+                          state={{
+                            id: product.id,
+                            createdAt: product.createdAt,
+                            createdByDisplayName: product.createdByNickName,
+                            createdByIdent: product.createdByIdent,
+                            description: product.description,
+                            images: product.images,
+                            latitude: product.lat,
+                            longitude: product.long,
+                            meetUpAddress: product.meetUpAddress,
+                            meetUpInfo: product.meetUpInfo,
+                            name: product.name,
+                            price: product.price,
+                            qty: product.qty,
+                          }}
+                        >
+                          <ActiveListingCard
+                            key={product.id}
+                            distance={!!error ? 0 : distance}
+                            source={
+                              product.images
+                                ? product.images[0]
+                                : "src/assets/images/NoImage.jpg"
+                            }
+                            itemname={product.name}
+                            price={product.price}
+                            stock={product.qty}
+                            alt={product.name}
+                            onClick={() => console.log(product.id)}
+                            maxwidth={xl || lg ? "185px" : "150px"}
+                            width={xl || lg ? "185px" : "150px"}
+                            height={xl || lg ? "185px" : "150px"}
+                            style={{ marginBottom: "1rem" }}
+                          />
+                        </Link>
                       );
                     })}
                 </div>
