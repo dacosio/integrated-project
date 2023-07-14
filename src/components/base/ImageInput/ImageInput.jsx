@@ -12,6 +12,7 @@ function ImageInput({ images, setImages, maxImageNumber = 12, ...props }) {
   const isDesktop = useMediaQuery("(min-width: 1200px)");
 
   const onChange = (imageList) => {
+    console.log(imageList);
     setImages(imageList);
   };
 
@@ -61,7 +62,7 @@ function ImageInput({ images, setImages, maxImageNumber = 12, ...props }) {
                         <div
                           className={`${styles["flex-center"]} ${styles["bold"]}`}
                         >
-                          <BiImageAdd size={36} />
+                          <BiImageAdd size={32} />
                           <Typography variant="h3-graphik-bold">
                             Add Photos
                           </Typography>
@@ -78,7 +79,7 @@ function ImageInput({ images, setImages, maxImageNumber = 12, ...props }) {
                         <div
                           className={`${styles["grid-center"]} ${styles["bold"]}`}
                         >
-                          <BiImageAdd size={36} />
+                          <BiImageAdd size={32} />
                           <Typography variant="h4-graphik-bold">
                             Add Photos
                           </Typography>
@@ -94,7 +95,7 @@ function ImageInput({ images, setImages, maxImageNumber = 12, ...props }) {
                     {...dragProps}
                   >
                     <div>
-                      <BiImageAdd size={36} />
+                      <BiImageAdd size={32} />
                     </div>
                   </div>
                 ))}
@@ -109,7 +110,7 @@ function ImageInput({ images, setImages, maxImageNumber = 12, ...props }) {
             </div>
             {images.length === 0 ? (
               <div className={`${styles["footer"]} ${styles["flex-left"]}`}>
-                <RiInformationFill size={36} color="var(--light-gray)" />
+                <RiInformationFill size={32} color="var(--light-gray)" />
                 <Typography variant="body-4-regular" color="light-gray">
                   Select your cover photo first. You can add up to{" "}
                   {maxImageNumber} photos.
