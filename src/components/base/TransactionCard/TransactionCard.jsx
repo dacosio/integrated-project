@@ -95,7 +95,9 @@ const TransactionCard = (props) => {
           <Typography variant="h4-graphik-bold" color="dark-blue">
             {itemName}
           </Typography>
-          <Typography variant="h3-graphik-bold">${price}</Typography>
+          <Typography variant="h3-graphik-bold">
+            ${Number(price).toFixed(2)}
+          </Typography>
         </div>
         <Typography variant="body-1-medium">{days()}</Typography>
         <div className={style.quantity}>

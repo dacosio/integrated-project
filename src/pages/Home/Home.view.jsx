@@ -6,6 +6,7 @@ import { MapMarkerSVG } from "../../components/base/SVG";
 import ActiveListingCard from "../../components/base/ActiveListingCard/ActiveListingCard";
 import getPreciseDistance from "geolib/es/getDistance";
 import Button from "../../components/base/Button/Button";
+import { Link } from "react-router-dom";
 
 const Home = (props) => {
   const {
@@ -101,24 +102,43 @@ const Home = (props) => {
                       distance = Math.ceil(Number(distance) / 1000);
                     }
                     return (
-                      <ActiveListingCard
-                        key={product.id}
-                        distance={!!error ? 0 : distance}
-                        source={
-                          product.images
-                            ? product.images[0]
-                            : "src/assets/images/NoImage.jpg"
-                        }
-                        itemname={product.name}
-                        price={product.price}
-                        stock={product.qty}
-                        alt={product.name}
-                        onClick={() => console.log(product.id)}
-                        maxwidth={xl || lg ? "185px" : "150px"}
-                        width={xl || lg ? "185px" : "150px"}
-                        height={xl || lg ? "185px" : "150px"}
-                        style={{ marginBottom: "1rem" }}
-                      />
+                      <Link
+                        to={`/listing/${product.id}`}
+                        state={{
+                          id: product.id,
+                          createdAt: product.createdAt,
+                          createdByDisplayName: product.createdByNickName,
+                          createdByIdent: product.createdByIdent,
+                          description: product.description,
+                          images: product.images,
+                          latitude: product.lat,
+                          longitude: product.long,
+                          meetUpAddress: product.meetUpAddress,
+                          meetUpInfo: product.meetUpInfo,
+                          name: product.name,
+                          price: product.price,
+                          qty: product.qty,
+                        }}
+                      >
+                        <ActiveListingCard
+                          key={product.id}
+                          distance={!!error ? 0 : distance}
+                          source={
+                            product.images
+                              ? product.images[0]
+                              : "src/assets/images/NoImage.jpg"
+                          }
+                          itemname={product.name}
+                          price={product.price}
+                          stock={product.qty}
+                          alt={product.name}
+                          onClick={() => console.log(product.id)}
+                          maxwidth={xl || lg ? "185px" : "150px"}
+                          width={xl || lg ? "185px" : "150px"}
+                          height={xl || lg ? "185px" : "150px"}
+                          style={{ marginBottom: "1rem" }}
+                        />
+                      </Link>
                     );
                   })}
               </div>
@@ -202,24 +222,43 @@ const Home = (props) => {
                       }
 
                       return (
-                        <ActiveListingCard
-                          key={product.id}
-                          distance={!!error ? 0 : distance}
-                          source={
-                            product.images
-                              ? product.images[0]
-                              : "src/assets/images/NoImage.jpg"
-                          }
-                          itemname={product.name}
-                          price={product.price}
-                          stock={product.qty}
-                          alt={product.name}
-                          onClick={() => console.log(product.id)}
-                          maxwidth={xl || lg ? "185px" : "150px"}
-                          width={xl || lg ? "185px" : "150px"}
-                          height={xl || lg ? "185px" : "150px"}
-                          style={{ marginBottom: "1rem" }}
-                        />
+                        <Link
+                          to={`/listing/${product.id}`}
+                          state={{
+                            id: product.id,
+                            createdAt: product.createdAt,
+                            createdByDisplayName: product.createdByNickName,
+                            createdByIdent: product.createdByIdent,
+                            description: product.description,
+                            images: product.images,
+                            latitude: product.lat,
+                            longitude: product.long,
+                            meetUpAddress: product.meetUpAddress,
+                            meetUpInfo: product.meetUpInfo,
+                            name: product.name,
+                            price: product.price,
+                            qty: product.qty,
+                          }}
+                        >
+                          <ActiveListingCard
+                            key={product.id}
+                            distance={!!error ? 0 : distance}
+                            source={
+                              product.images
+                                ? product.images[0]
+                                : "src/assets/images/NoImage.jpg"
+                            }
+                            itemname={product.name}
+                            price={product.price}
+                            stock={product.qty}
+                            alt={product.name}
+                            onClick={() => console.log(product.id)}
+                            maxwidth={xl || lg ? "185px" : "150px"}
+                            width={xl || lg ? "185px" : "150px"}
+                            height={xl || lg ? "185px" : "150px"}
+                            style={{ marginBottom: "1rem" }}
+                          />
+                        </Link>
                       );
                     })}
                 </div>

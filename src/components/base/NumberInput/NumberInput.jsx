@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import Typography from "../Typography/Typography";
 import styles from "./NumberInput.module.css";
 
 const NumberInput = ({
@@ -7,6 +8,9 @@ const NumberInput = ({
   setInputNumber,
   minValue = 0,
   maxValue = 1000,
+  nanErrMsg,
+  minErrMsg,
+  maxErrMsg,
   ...props
 }) => {
   const [error, setError] = useState("");
@@ -15,13 +19,13 @@ const NumberInput = ({
     const input = event.target.value;
 
     if (isNaN(input)) {
-      setError("NaN");
+      setError(nanErrMsg);
       setInputNumber(input);
     } else if (Number(input) < minValue) {
-      setError("< min");
+      setError(minErrMsg);
       setInputNumber(input);
     } else if (maxValue < Number(input)) {
-      setError("max <");
+      setError(maxErrMsg);
       setInputNumber(input);
     } else {
       setError("");
@@ -59,7 +63,17 @@ const NumberInput = ({
           <FaPlus size={16} />
         </div>
       </div>
-      <div className={`${styles["footer"]}`}>{error && <div>{error}</div>}</div>
+      <div className={`${styles["footer"]}`}>
+        {error && (
+          <Typography
+            variant="body-4-regular"
+            color="error"
+            style={{ paddingTop: "8px" }}
+          >
+            {error}
+          </Typography>
+        )}
+      </div>
     </div>
   );
 };

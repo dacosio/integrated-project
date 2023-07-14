@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import store from "../../../config/firebaseConfig";
 import {
   collection,
@@ -11,14 +11,20 @@ import {
   deleteDoc,
   query,
   serverTimestamp,
+  Timestamp,
+  GeoPoint,
+  setDoc,
+  updateDoc,
+  increment,
 } from "firebase/firestore";
 import { UserAuth } from "../../../context/AuthContext";
 import ListDetailView from "./ListingDetail.view";
 
-const ListingDetail = () => {
+const ListingDetail = (props) => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const { user } = UserAuth();
-  const { listingId } = useParams();
-  const [product, setProduct] = useState();
+  const [product, setProduct] = useState(location.state);
   const [seller, setSeller] = useState();
   const [quantity, setQuantity] = useState(1);
   const [isRequested, setIsRequested] = useState();
@@ -27,52 +33,37 @@ const ListingDetail = () => {
   const [requestVisibility, setRequestVisibility] = useState(false);
   const [cancelVisibility, setCancelVisibility] = useState(false);
 
-  // get the state of the products from here*****************
-  // const location = useLocation();
-  // console.log(location, " useLocation Hook");
-  // const data = location.state;
-  // console.log(data);
-  //
-
   useEffect(() => {
-    getDoc(doc(store, "product", listingId))
-      .then((productResponse) => {
-        setProduct(productResponse.data());
-
-        const sellerRef = productResponse.data().createdById;
-
-        getDoc(sellerRef)
-          .then((sellerResponse) => {
-            getDocs(
-              query(
-                collection(store, "order"),
-                where("createdById", "==", sellerRef.id),
-                where("orderStatus", "==", "completed")
-              )
-            ).then((itemsResponse) => {
-              setSeller({
-                id: sellerResponse.id,
-                ...sellerResponse.data(),
-                qty: itemsResponse.docs.length,
-              });
+    if (!product) {
+      navigate("/");
+    } else {
+      getDoc(doc(store, "user", product.createdByIdent))
+        .then((sellerResponse) => {
+          getDocs(
+            query(
+              collection(store, "order"),
+              where("createdById", "==", product.createdByIdent),
+              where("orderStatus", "==", "completed")
+            )
+          ).then((itemsResponse) => {
+            setSeller({
+              ...sellerResponse.data(),
+              qty: itemsResponse.docs.length,
             });
-          })
-          .catch((error) => {
-            console.log(error);
           });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }, []);
 
   useEffect(() => {
     if (user.uid) {
-      console.log(user.uid);
       getDocs(
         query(
           collection(store, "order"),
-          where("productId", "==", listingId),
+          where("productId", "==", product.id),
           where("splitteeId", "==", user.uid)
         )
       ).then((orderResponse) => {
@@ -84,7 +75,7 @@ const ListingDetail = () => {
         }
       });
     }
-  }, [user]);
+  }, [user, product]);
 
   const handleOnOpen = () => {
     setCarouselVisibility(true);
@@ -104,15 +95,18 @@ const ListingDetail = () => {
       addDoc(collection(store, "order"), {
         createdAt: time,
         imageUrl: product.images[0],
-        latitude: product.location._lat,
-        longitude: product.location._long,
+        latitude: product.latitude,
+        location: new GeoPoint(product.latitude, product.longitude),
+        longitude: product.longitude,
         meetupAddress: product.meetUpAddress,
-        meetupSchedule: product.meetUpInfo,
+        meetupSchedule: new Timestamp(
+          product.meetUpInfo.seconds,
+          product.meetUpInfo.nanoseconds
+        ),
         name: product.name,
         orderStatus: "pending",
-        orderType: "buying",
         price: product.price,
-        productId: listingId,
+        productId: product.id,
         qty: quantity,
         splitteeId: user.uid,
         splitterId: seller.id,
@@ -164,7 +158,6 @@ const ListingDetail = () => {
     handleOnOpenCancel,
     handleOnConfirmCancel,
     handleOnCloseCancel,
-    // data,
   };
   return <ListDetailView {...generatedProps} />;
 };
