@@ -68,7 +68,7 @@ const TransactionList = (props) => {
                 splitterName={
                   orderType === "selling" ? o.splitteeName : o.splitterName
                 }
-                price={o.price}
+                price={Number(o.price) * Number(o.qty)}
                 source={o.imageUrl}
                 orderStatus={o.orderStatus}
                 onCancel={() => onCancel(o.id, o.productId)}
