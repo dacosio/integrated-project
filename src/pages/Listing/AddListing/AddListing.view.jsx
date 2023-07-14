@@ -37,6 +37,7 @@ const AddListing = (props) => {
     validationSchema,
     handleOnSubmit,
     handleOnBlur,
+    navigate,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
@@ -54,7 +55,7 @@ const AddListing = (props) => {
               return (
                 <Form>
                   <div className={styles.backButtonWrap}>
-                    <BackButton />
+                    <BackButton onClick={() => navigate(-1)} />
                   </div>
                   <Grid
                     columns={2}
