@@ -13,7 +13,7 @@ function ImageList({ images, mode = "horizontal", onClick, ...props }) {
       }
     >
       {images.slice(0, 3).map((image, index) => (
-        <div className={`${styles["item"]}`} key={index}>
+        <div className={`${styles["item"]}`} key={index} onClick={onClick}>
           <img src={image} className={`${styles["image"]}`} />
         </div>
       ))}
