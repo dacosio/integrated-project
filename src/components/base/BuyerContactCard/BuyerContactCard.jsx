@@ -17,7 +17,7 @@ const BuyerContactCard = ({
     <div className={`${styles["buyer-contact-card-wrapper"]}`}>
       <div className={`${styles["buyer-contact-card"]}`}>
         <Typography
-          variant="h4-graphik-bold"
+          variant="h3-graphik-bold"
           color="black"
           style={{ marginBottom: "12px" }}
         >

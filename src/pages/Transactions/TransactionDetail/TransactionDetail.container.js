@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { getDoc, doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import db from "../../../config/firebaseConfig";
 
 import TransactionDetailView from "./TransactionDetail.view";
 
 const TransactionDetail = () => {
-  const [order, setOrder] = useState();
-  const [user, setUser] = useState();
   const location = useLocation();
+  const [order, setOrder] = useState(location.state);
   const { transactionId } = useParams();
   const navigate = useNavigate();
   const orderStatusRef = doc(db, "order", transactionId);
@@ -69,29 +68,10 @@ const TransactionDetail = () => {
   // };
 
   useEffect(() => {
-    const fetchDocument = async () => {
-      try {
-        const orderDocRef = doc(db, "order", transactionId);
-        const orderSnap = await getDoc(orderDocRef);
-        if (orderSnap.exists) {
-          setOrder({
-            id: orderSnap.id,
-            ...orderSnap.data(),
-          });
-        } else {
-          console.log("Document does not exist!");
-        }
-      } catch (error) {
-        console.error("Error fetching document: ", error);
-      }
-    };
-
-    fetchDocument();
-  }, [transactionId]);
-
-  // console.log(location, " useLocation Hook");
-  const data = location.state;
-  console.log(data);
+    if (!order || !order.id) {
+      navigate("/transaction"); // Navigate to the home page
+    }
+  }, [order, navigate]);
 
   // console.log(order);
   const generatedProps = {

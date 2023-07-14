@@ -12,7 +12,7 @@ const SellingItemCard = ({
   return (
     <div className={`${styles["selling-item-wrapper"]}`}>
       <Typography
-        variant="h3-graphik-bold"
+        variant="h2-graphik-bold"
         style={{ margin: "16px 16px 12px" }}
       >
         Selling Details
