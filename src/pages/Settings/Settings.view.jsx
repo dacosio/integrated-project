@@ -48,6 +48,8 @@ const Settings = (props) => {
         label="Update Profile"
         id="profile"
       >
+
+        
         <hr></hr>
         <div className={style.imageUpload}>
           <SingleImageInput
