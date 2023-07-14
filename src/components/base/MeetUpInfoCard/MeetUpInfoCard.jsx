@@ -71,6 +71,8 @@ const MeetUpInfoCard = ({
           borderRadius="20px"
           zIndex={2}
           bounds={bounds}
+          meetup
+          meetupLocation={location}
           showActiveListing={false}
         />
       </div>
