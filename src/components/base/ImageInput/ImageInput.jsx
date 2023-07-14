@@ -12,13 +12,12 @@ function ImageInput({ images, setImages, maxImageNumber = 12, ...props }) {
   const isDesktop = useMediaQuery("(min-width: 1200px)");
 
   const onChange = (imageList) => {
-    console.log(imageList);
     setImages(imageList);
   };
 
   const onError = (error) => {
     if (error.maxNumber) {
-      toast.error(`The maximum number is ${maxImageNumber}!`);
+      toast.error(`You can add up to ${maxImageNumber} photos.`);
     }
     if (error.acceptType) {
       toast.error("You can upload jpg, png only!");

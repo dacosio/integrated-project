@@ -70,20 +70,6 @@ const AddListing = () => {
       meetupDate &&
       meetupTime
     ) {
-      // const _images = [];
-      // const promises = images.map(async (image, index) => {
-      //   const file = image.file;
-      //   const fileRef = ref(storage, `product-image//${file.name}`);
-      //   return uploadBytes(fileRef, file).then(async (uploadResponse) => {
-      //     return getDownloadURL(uploadResponse.ref).then((url) => {
-      //       _images.push({ index: index, url: url });
-      //     });
-      //   });
-      // });
-
-      // // Promise.all(promises).then((response) => {
-      //   _images.sort((previous, next) => previous.index - next.index);
-      //   const __images = _images.map((image) => image.url);
       const [year, month, day] = meetupDate.split("-");
       const [hours, minutes] = meetupTime.split(":");
 
@@ -109,7 +95,7 @@ const AddListing = () => {
           meetUpAddress: placeValue.formatted_address,
           meetUpInfo: new Date(year, month - 1, day, hours, minutes),
           name: itemName,
-          price: originalPrice,
+          price: originalPrice / portionNumber,
           qty: portionNumber,
         }).then(async (productResponse) => {
           const _images = [];
@@ -138,7 +124,6 @@ const AddListing = () => {
           });
         });
       });
-      // });
     }
   };
 
