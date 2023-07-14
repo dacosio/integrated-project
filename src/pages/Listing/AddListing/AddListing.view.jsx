@@ -40,12 +40,6 @@ const AddListing = (props) => {
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
-  const options = [
-    { value: "value1", label: "Fresh Food" },
-    { value: "value2", label: "Packaged Food" },
-    { value: "value3", label: "Household" },
-    { value: "value4", label: "Beauty & Wellness" },
-  ];
 
   return (
     <div className={styles.contentWrapper}>
@@ -147,7 +141,6 @@ const AddListing = (props) => {
                       <SelectDropdown
                         options={categories}
                         placeholder="Select Category"
-                        clearable
                         backspaceDelete
                         onChange={(value) => setCategory(value[0])}
                         searchable={false}
@@ -485,7 +478,6 @@ const AddListing = (props) => {
                         <SelectDropdown
                           options={categories}
                           placeholder="Select Category"
-                          clearable
                           backspaceDelete
                           onChange={(value) => setCategory(value[0])}
                           searchable={false}
