@@ -206,6 +206,9 @@ const AddListing = (props) => {
                       <NumberInput
                         inputNumber={divisionNumber}
                         setInputNumber={setDivisionNumber}
+                        nanErrMsg={"test1"}
+                        minErrMsg={"test2"}
+                        maxErrMsg={"test3"}
                       />
                     </div>
 

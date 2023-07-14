@@ -43,12 +43,21 @@ const ListingDetail = (props) => {
   const isTablet = useMediaQuery("(min-width: 1200px)");
   const isMobile = useMediaQuery("(min-width: 360px)");
 
+  const getDate = (seconds) => {
+    const _createdAt = new Date(seconds * 1000);
+    _createdAt.setHours(0, 0, 0, 0);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const timeDiff = today.getTime() - _createdAt.getTime();
+    return Math.abs(Math.floor(timeDiff / (1000 * 60 * 60 * 24)));
+  };
+
   return (
     <>
       {isDesktop ? (
         <>
           <div className={`${styles.wrapper}`}>
-            <div>
+            <div className={styles.btn}>
               <BackButton onClickHandler={() => navigate(-1)} />
             </div>
             {user && product && seller && isRequested != undefined ? (
@@ -65,8 +74,8 @@ const ListingDetail = (props) => {
                       title={product.name}
                       price={product.price}
                       quantity={product.qty}
-                      createdAt={product.createdAt}
-                      name={`${product.createdByNickName}`}
+                      date={getDate(product.createdAt.seconds)}
+                      name={product.createdByDisplayName}
                     />
                   </div>
                   <div
@@ -131,8 +140,8 @@ const ListingDetail = (props) => {
                         minute: "numeric",
                         hour12: true,
                       })}
-                      latitude={product.location._lat}
-                      longitude={product.location._long}
+                      latitude={product.latitude}
+                      longitude={product.longitude}
                       location={product.meetUpAddress}
                     />
                   </div>
@@ -173,6 +182,11 @@ const ListingDetail = (props) => {
                     setInputNumber={setQuantity}
                     minValue={1}
                     maxValue={product.qty}
+                    nanErrMsg={"Please enter a number."}
+                    minErrMsg={"Number must be at least 1."}
+                    maxErrMsg={
+                      "Number cannot be larger than available portions."
+                    }
                   />
                 </div>
                 <div style={{ display: "flex", gap: "20px" }}>
@@ -226,7 +240,7 @@ const ListingDetail = (props) => {
       ) : (
         <>
           <div className={`${styles.wrapper}`}>
-            <div>
+            <div className={styles.btn}>
               <BackButton onClickHandler={() => navigate(-1)} />
             </div>
             {user && product && seller && isRequested !== undefined ? (
@@ -242,8 +256,8 @@ const ListingDetail = (props) => {
                       title={product.name}
                       price={product.price}
                       quantity={product.qty}
-                      createdAt={product.createdAt}
-                      name={`${product.createdByNickName}`}
+                      date={getDate(product.createdAt.seconds)}
+                      name={product.createdByDisplayName}
                     />
                     <ImageList images={product.images} onClick={handleOnOpen} />
                   </div>
@@ -280,8 +294,8 @@ const ListingDetail = (props) => {
                       minute: "numeric",
                       hour12: true,
                     })}
-                    latitude={product.location._lat}
-                    longitude={product.location._long}
+                    latitude={product.latitude}
+                    longitude={product.longitude}
                     location={product.meetUpAddress}
                   />
                 </Card>
@@ -329,6 +343,11 @@ const ListingDetail = (props) => {
                     setInputNumber={setQuantity}
                     minValue={1}
                     maxValue={product.qty}
+                    nanErrMsg={"Please enter a number."}
+                    minErrMsg={"Number must be at least 1."}
+                    maxErrMsg={
+                      "Number cannot be larger than available portions."
+                    }
                   />
                 </div>
                 <div style={{ display: "flex", gap: "20px" }}>

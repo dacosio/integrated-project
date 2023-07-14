@@ -44,6 +44,8 @@ const MapLeaflet = ({
   bounds,
   showActiveListing,
   currentAddress,
+  meetup,
+  meetupLocation,
   ...props
 }) => {
   return (
@@ -75,15 +77,22 @@ const MapLeaflet = ({
                   icon={customIcon}
                   eventHandlers={{
                     click: (e) => {
-                      currentAddress
-                        ? window.open(
-                            `https://www.google.com/maps/dir/${currentAddress}/${el.meetUpAddress}/`,
-                            "_blank"
-                          )
-                        : window.open(
-                            `http://maps.google.com/?q=${el.meetUpAddress}`,
-                            "_blank"
-                          );
+                      if (!meetup) {
+                        currentAddress
+                          ? window.open(
+                              `https://www.google.com/maps/dir/${currentAddress}/${el.meetUpAddress}/`,
+                              "_blank"
+                            )
+                          : window.open(
+                              `http://maps.google.com/?q=${el.meetUpAddress}`,
+                              "_blank"
+                            );
+                      } else {
+                        window.open(
+                          `http://maps.google.com/?q=${meetupLocation}`,
+                          "_blank"
+                        );
+                      }
                     },
                   }}
                 >
