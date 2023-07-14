@@ -20,10 +20,14 @@ function ImageInput({ images, setImages, maxImageNumber = 12, ...props }) {
       toast.error(`You can add up to ${maxImageNumber} photos.`);
     }
     if (error.acceptType) {
-      toast.error("You can upload jpg, png only!");
+      toast.error(
+        "The file format is not supported. Only files with the following extensions are allowed: jpg, png."
+      );
     }
     if (error.maxFileSize) {
-      toast.error("The maximum file size is 10MB!");
+      toast.error(
+        "The file is too large and cannot be uploaded. The maximum file size per image is 10MB."
+      );
     }
   };
 
