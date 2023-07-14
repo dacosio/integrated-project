@@ -1,5 +1,5 @@
 .transactionCard h3,
-.transactionCard p  {
+.transactionCard p {
   margin: 0;
   padding: 4px 0;
 }
@@ -12,11 +12,14 @@
   grid-template-columns: 0.7fr 1fr;
   column-gap: 12px;
   row-gap: 8px;
+  transition: transform 0.1s ease;
+  cursor: pointer;
+  background-color: var(--white);
 }
 
 .transactionCard:hover {
-  box-shadow: 2px 2px black;
-  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 2px var(--black);
+  transform: scale(0.98);
 }
 
 .imageContainer {

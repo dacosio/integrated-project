@@ -133,20 +133,22 @@ const Header = () => {
         </div>
         <div className={styles.mdMid}>
           <ul>
-            <li>
-              <Link
-                style={
-                  location.pathname === "/"
-                    ? { color: "var(--yellow)", fontWeight: "bold" }
-                    : { color: "var(--white)" }
-                }
-                to="/"
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              {user != null ? (
+            {user != null && (
+              <li>
+                <Link
+                  style={
+                    location.pathname === "/"
+                      ? { color: "var(--yellow)", fontWeight: "bold" }
+                      : { color: "var(--white)" }
+                  }
+                  to="/"
+                >
+                  Home
+                </Link>
+              </li>
+            )}
+            {user != null && (
+              <li>
                 <Link
                   style={
                     location.pathname === "/transaction"
@@ -157,19 +159,10 @@ const Header = () => {
                 >
                   Orders
                 </Link>
-              ) : (
-                <a
-                  href="#"
-                  onClick={() => {
-                    toast.warning("Log in to view orders");
-                  }}
-                >
-                  Orders
-                </a>
-              )}
-            </li>
-            <li>
-              {user != null ? (
+              </li>
+            )}
+            {user != null && (
+              <li>
                 <Link
                   style={
                     location.pathname === "/settings"
@@ -180,19 +173,10 @@ const Header = () => {
                 >
                   Settings
                 </Link>
-              ) : (
-                <a
-                  href="#"
-                  onClick={() => {
-                    toast.warning("Log in to view settings");
-                  }}
-                >
-                  Settings
-                </a>
-              )}
-            </li>
-            <li>
-              {user != null ? (
+              </li>
+            )}
+            {user != null && (
+              <li>
                 <Link
                   style={
                     location.pathname === "/user"
@@ -203,17 +187,8 @@ const Header = () => {
                 >
                   Profile
                 </Link>
-              ) : (
-                <a
-                  href="#"
-                  onClick={() => {
-                    toast.warning("Log in to view profile");
-                  }}
-                >
-                  Profile
-                </a>
-              )}
-            </li>
+              </li>
+            )}
           </ul>
         </div>
         {location.pathname === "/" && (
@@ -268,20 +243,22 @@ const Header = () => {
         <div className={styles.lgBot}>
           <div className={styles.lgNavLeft}>
             <ul>
-              <li>
-                <Link
-                  style={
-                    location.pathname === "/"
-                      ? { color: "var(--yellow)", fontWeight: "bold" }
-                      : { color: "var(--white)" }
-                  }
-                  to="/"
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                {user != null ? (
+              {user != null && (
+                <li>
+                  <Link
+                    style={
+                      location.pathname === "/"
+                        ? { color: "var(--yellow)", fontWeight: "bold" }
+                        : { color: "var(--white)" }
+                    }
+                    to="/"
+                  >
+                    Home
+                  </Link>
+                </li>
+              )}
+              {user != null && (
+                <li>
                   <Link
                     style={
                       location.pathname === "/transaction"
@@ -292,19 +269,10 @@ const Header = () => {
                   >
                     Orders
                   </Link>
-                ) : (
-                  <a
-                    href="#"
-                    onClick={() => {
-                      toast.warning("Log in to view orders");
-                    }}
-                  >
-                    Orders
-                  </a>
-                )}
-              </li>
-              <li>
-                {user != null ? (
+                </li>
+              )}
+              {user != null && (
+                <li>
                   <Link
                     style={
                       location.pathname === "/settings"
@@ -315,19 +283,10 @@ const Header = () => {
                   >
                     Settings
                   </Link>
-                ) : (
-                  <a
-                    href="#"
-                    onClick={() => {
-                      toast.warning("Log in to view settings");
-                    }}
-                  >
-                    Settings
-                  </a>
-                )}
-              </li>
-              <li>
-                {user != null ? (
+                </li>
+              )}
+              {user != null && (
+                <li>
                   <Link
                     style={
                       location.pathname === "/user"
@@ -338,17 +297,8 @@ const Header = () => {
                   >
                     Profile
                   </Link>
-                ) : (
-                  <a
-                    href="#"
-                    onClick={() => {
-                      toast.warning("Log in to view profile");
-                    }}
-                  >
-                    Profile
-                  </a>
-                )}
-              </li>
+                </li>
+              )}
             </ul>
           </div>
 
@@ -402,20 +352,22 @@ const Header = () => {
         </div>
         <div className={styles.xlRight}>
           <ul>
-            <li>
-              <Link
-                style={
-                  location.pathname === "/"
-                    ? { color: "var(--yellow)", fontWeight: "bold" }
-                    : { color: "var(--white)" }
-                }
-                to="/"
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              {user != null ? (
+            {user != null && (
+              <li>
+                <Link
+                  style={
+                    location.pathname === "/"
+                      ? { color: "var(--yellow)", fontWeight: "bold" }
+                      : { color: "var(--white)" }
+                  }
+                  to="/"
+                >
+                  Home
+                </Link>
+              </li>
+            )}
+            {user != null && (
+              <li>
                 <Link
                   style={
                     location.pathname === "/transaction"
@@ -426,20 +378,11 @@ const Header = () => {
                 >
                   Orders
                 </Link>
-              ) : (
-                <a
-                  href="#"
-                  onClick={() => {
-                    toast.warning("Log in to view orders");
-                  }}
-                >
-                  Orders
-                </a>
-              )}
-            </li>
+              </li>
+            )}
 
-            <li>
-              {user != null ? (
+            {user != null && (
+              <li>
                 <Link
                   style={
                     location.pathname === "/settings"
@@ -450,19 +393,10 @@ const Header = () => {
                 >
                   Settings
                 </Link>
-              ) : (
-                <a
-                  href="#"
-                  onClick={() => {
-                    toast.warning("Log in to view settings");
-                  }}
-                >
-                  Settings
-                </a>
-              )}
-            </li>
-            <li>
-              {user != null ? (
+              </li>
+            )}
+            {user != null && (
+              <li>
                 <Link
                   style={
                     location.pathname === "/user"
@@ -473,17 +407,8 @@ const Header = () => {
                 >
                   Profile
                 </Link>
-              ) : (
-                <a
-                  href="#"
-                  onClick={() => {
-                    toast.warning("Log in to view profile");
-                  }}
-                >
-                  Profile
-                </a>
-              )}
-            </li>
+              </li>
+            )}
             <li>
               <Button
                 variant="yellow"

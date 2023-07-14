@@ -2,8 +2,9 @@ import { Outlet, useLocation } from "react-router-dom";
 import Header from "../Header/Header";
 import BottomNav from "../BottomNav/BottomNav";
 import useWindowSize from "../../../utils/useWindowSize";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useMediaQuery from "../../../utils/useMediaQuery";
+import Typography from "../../base/Typography/Typography";
 const bottomNavStyle = {
   position: "absolute",
   left: 0,
@@ -14,6 +15,25 @@ const bottomNavStyle = {
 const Layout = () => {
   const md = useMediaQuery("(min-width: 300px) and (max-width: 768px)");
   const location = useLocation();
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+  useEffect(() => {
+    function onlineHandler() {
+      setIsOnline(true);
+    }
+
+    function offlineHandler() {
+      setIsOnline(false);
+    }
+
+    window.addEventListener("online", onlineHandler);
+    window.addEventListener("offline", offlineHandler);
+
+    return () => {
+      window.removeEventListener("online", onlineHandler);
+      window.removeEventListener("offline", offlineHandler);
+    };
+  }, []);
   useEffect(() => {
     const body = document.querySelector("body");
     if (location.pathname === "/login" || location.pathname === "/register") {
@@ -26,7 +46,7 @@ const Layout = () => {
     //     "linear-gradient(90deg,var(--dark-blue) 60% , var(--yellow) 60%)";
     // }
     else {
-      body.style.backgroundColor = "white"; // Set the desired background color for other pages
+      body.style.backgroundColor = "var(--bg-gray)"; // Set the desired background color for other pages
     }
 
     // return () => {
@@ -44,7 +64,15 @@ const Layout = () => {
         )}
       </header>
       <main className="App">
-        <Outlet />
+        {isOnline ? (
+          <Outlet />
+        ) : (
+          <div style={{ textAlign: "center", marginTop: "15%" }}>
+            <Typography color="error" variant="h4-graphik-bold">
+              You are offline. Please check your internet connection.
+            </Typography>
+          </div>
+        )}
       </main>
       <div
         style={{
