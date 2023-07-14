@@ -42,7 +42,9 @@ const TransactionDetail = (props) => {
   return (
     <div style={{ backgroundColor: "var(--bg-gray)", minHeight: "100vh" }}>
       <div className={styles.backButtonWrapper}>
-        <BackButton onClick={() => navigate(-1)} />
+        <BackButton
+          onClick={() => navigate("/transaction", { replace: true })}
+        />
       </div>
 
       {isDesktop ? (
