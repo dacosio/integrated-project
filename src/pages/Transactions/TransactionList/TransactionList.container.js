@@ -57,7 +57,6 @@ const TransactionList = () => {
 
     return () => unsubscribe();
   }, [orderStatus, orderType, user.uid, selectedTab]);
-  console.log(selectedTab);
   const handleTabChange = (selectedTab) => {
     setSelectedTab(selectedTab);
   };
@@ -121,7 +120,7 @@ const TransactionList = () => {
     clickHandler(orderId, "completed", productId);
   };
 
-  console.log(selectedTab);
+  console.log(orderResults);
   const generatedProps = {
     // generated props here
     orderStatus,
