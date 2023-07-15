@@ -78,11 +78,13 @@ const TransactionList = (props) => {
                   splitteeId: o.splitteeId,
                   splitteeContactNumber: o.splitteeContactNumber,
                   splitteeEmail: o.splitteeEmail,
+                  splitteeImageURL: o.splitteeImageURL,
                   splitterContactNumber: o.splitteeContactNumber,
                   splitterImageURL: o.splitterImageURL,
                   splitterEmail: o.splitterEmail,
                   splitterId: o.splitterId,
-                  orderStatus: o.orderStatus
+                  splitterImageURL: o.splitterImageURL,
+                  orderStatus: o.orderStatus,
                 }}
               >
                 <TransactionCard

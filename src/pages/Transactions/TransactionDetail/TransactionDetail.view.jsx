@@ -69,7 +69,7 @@ const TransactionDetail = (props) => {
           columns={1}
           gap="24px"
           style={{
-            padding: "3r 157px 157px",
+            padding: "30px 157px 157px",
             justifyContent: "center",
             boxSizing: "border-box",
           }}
@@ -87,14 +87,11 @@ const TransactionDetail = (props) => {
                 <SellingItemCard
                   label={
                     order.splitterId === user.uid
-                      ? order.orderStatus === "completed"
-                        ? "Sold to"
-                        : "Selling to"
-                      : order.orderStatus === "completed"
-                      ? "bought from"
-                      : "Buying from"
+                      ? "Selling Details"
+                      : "Buying Details"
                   }
                   source={order.imageUrl}
+                  alt={order.name}
                   itemName={order.name}
                   dateApproved={dateApprovedFormatted}
                   price={order.price}
@@ -102,27 +99,47 @@ const TransactionDetail = (props) => {
                 />
 
                 <BuyerContactCard
-                  label={
-                    order.orderStatus === "completed" ? "Sold to" : "Selling to"
+                  source={
+                    order.splitterId === user.uid
+                      ? order.splitterImageURL
+                      : order.splitteeImageURL
                   }
-                  source={order.splitteeImageURL}
-                  nameOfBuyer={order.splitteeName}
+                  alt="profile image"
+                  label={
+                    order.splitterId === user.uid
+                      ? order.orderStatus === "completed"
+                        ? "Sold to"
+                        : "Selling to"
+                      : order.orderStatus === "completed"
+                      ? "Bought from"
+                      : "Buying from"
+                  }
+                  nameOfBuyer={
+                    order.splitterId === user.uid
+                      ? order.splitterName
+                      : order.splitteeName
+                  }
                   contactTel={
                     order.orderStatus === "pending" ? (
                       <Typography color="error">
-                        {" "}
-                        not available until confirmed{" "}
+                        not available until confirmed
                       </Typography>
+                    ) : order.splitterId === user.uid ? (
+                      order.splitterContactNumber
                     ) : (
                       order.splitteeContactNumber
                     )
                   }
                   email={
                     order.orderStatus === "pending" ? (
-                      <Typography color="error">
-                        {" "}
-                        not available until confirmed{" "}
+                      <Typography
+                        color="error"
+                        style={{ wordBreak: "keep-all" }}
+                      >
+                        not available until confirmed
                       </Typography>
+                    ) : order.splitterId === user.uid ? (
+                      order.splitterEmail
                     ) : (
                       order.splitteeEmail
                     )
@@ -192,14 +209,11 @@ const TransactionDetail = (props) => {
                 <SellingItemCard
                   label={
                     order.splitterId === user.uid
-                      ? order.orderStatus === "completed"
-                        ? "Sold to"
-                        : "Selling to"
-                      : order.orderStatus === "completed"
-                      ? "bought from"
-                      : "Buying from"
+                      ? "Selling Details"
+                      : "Buying Details"
                   }
                   source={order.imageUrl}
+                  alt={order.name}
                   itemName={order.name}
                   dateApproved={dateApprovedFormatted}
                   price={order.price}
@@ -209,20 +223,50 @@ const TransactionDetail = (props) => {
 
               <div style={{ marginBottom: "20px" }}>
                 <BuyerContactCard
-                  label={
-                    order.orderStatus === "completed" ? "Sold to" : "Selling to"
+                  source={
+                    order.splitterId === user.uid
+                      ? order.splitterImageURL
+                      : order.splitteeImageURL
                   }
-                  source={order.splitteeImageURL}
-                  nameOfBuyer={order.splitteeName}
+                  alt="profile image"
+                  label={
+                    order.splitterId === user.uid
+                      ? order.orderStatus === "completed"
+                        ? "Sold to"
+                        : "Selling to"
+                      : order.orderStatus === "completed"
+                      ? "Bought from"
+                      : "Buying from"
+                  }
+                  nameOfBuyer={
+                    order.splitterId === user.uid
+                      ? order.splitterName
+                      : order.splitteeName
+                  }
                   contactTel={
-                    order.orderStatus === "pending"
-                      ? "not available until confirmed"
-                      : order.splitteeContactNumber
+                    order.orderStatus === "pending" ? (
+                      <Typography color="error">
+                        not available until confirmed
+                      </Typography>
+                    ) : order.splitterId === user.uid ? (
+                      order.splitterContactNumber
+                    ) : (
+                      order.splitteeContactNumber
+                    )
                   }
                   email={
-                    order.orderStatus === "pending"
-                      ? "not available until confirmed"
-                      : order.splitteeEmail
+                    order.orderStatus === "pending" ? (
+                      <Typography
+                        color="error"
+                        style={{ wordBreak: "keep-all" }}
+                      >
+                        not available until confirmed
+                      </Typography>
+                    ) : order.splitterId === user.uid ? (
+                      order.splitterEmail
+                    ) : (
+                      order.splitteeEmail
+                    )
                   }
                 />
               </div>

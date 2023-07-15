@@ -7,6 +7,7 @@ import styles from "./buyerContactCard.module.css";
 
 const BuyerContactCard = ({
   source,
+  alt,
   nameOfBuyer,
   contactTel,
   email,
@@ -25,7 +26,7 @@ const BuyerContactCard = ({
         </Typography>
         <div className={`${styles["buyer-contact-details"]}`}>
           <div className={`${styles["image-container"]}`}>
-            <img src={source} alt="" />
+            <img src={source} alt={alt} />
           </div>
           <div className={`${styles["buyer-contact-description"]}`}>
             <UserSVG height={21} width={21} fill={"black"} />

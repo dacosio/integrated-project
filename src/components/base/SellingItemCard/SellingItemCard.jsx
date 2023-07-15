@@ -8,6 +8,7 @@ const SellingItemCard = ({
   quantity,
   price,
   label,
+  alt,
   ...props
 }) => {
   return (
@@ -20,7 +21,7 @@ const SellingItemCard = ({
       </Typography>
       <div className={`${styles["selling-item-card"]}`}>
         <div className={`${styles["image-container"]}`}>
-          <img src={source} alt="" />
+          <img src={source} alt={alt} />
         </div>
         <div className={`${styles["selling-item-description"]}`}>
           <Typography variant="h4-graphik-bold" color="dark-blue">
