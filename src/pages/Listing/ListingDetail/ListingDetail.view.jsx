@@ -188,6 +188,7 @@ const ListingDetail = (props) => {
                       "Number cannot be larger than available portions."
                     }
                   />
+                  <div>${Number((quantity * product.price).toFixed(2))}</div>
                 </div>
                 <div style={{ display: "flex", gap: "20px" }}>
                   <Button
