@@ -78,12 +78,16 @@ const AddListing = () => {
           categoryLabel: category.label,
           categoryValue: category.value,
           createdAt: serverTimestamp(),
+          createdByDisplayName: userResponse.data().displayName,
           createdByFirstName: userResponse.data().firstName,
           createdById: doc(db, "user", user.uid),
           createdByIdent: user.uid,
           createdByLastName: userResponse.data().lastName,
-          createdByDisplayName: userResponse.data().displayName,
+          createdByNickName: userResponse.data().displayName,
           description: description,
+          images: [
+            "https://firebasestorage.googleapis.com/v0/b/splitshare-67496.appspot.com/o/system-image%2Fno-image.jpg?alt=media&token=3f828f90-b19c-42a7-a458-7a8dabca0870",
+          ],
           lat: placeValue.geometry.location.lat(),
           latitude: placeValue.geometry.location.lat(),
           location: new GeoPoint(
