@@ -20,9 +20,6 @@ const Settings = () => {
   const [profileVisibility, setProfileVisibility] = useState(true);
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [aboutUsVisibility, setAboutUsVisibility] = useState(true);
-  const [profileVisibility, setProfileVisibility] = useState(true);
-  const [passwordVisibility, setPasswordVisibility] = useState(true);
-  const [aboutUsVisibility, setAboutUsVisibility] = useState(true);
   const [singleImage, setSingleImage] = useState([]);
   const { placeValue, updatePlaceValue } = Place();
 
@@ -254,10 +251,8 @@ const Settings = () => {
     validatePasswordSchema,
     onSubmitNewPassword,
     changeContactValues,
-    // validateContactSchema,
     onSubmitUpdateInfo,
-    // singleImage,
-    // setSingleImage,
+
   };
   return <SettingsView {...generatedProps} />;
 };
