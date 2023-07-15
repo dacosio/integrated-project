@@ -82,6 +82,7 @@ const TransactionList = (props) => {
                   splitterImageURL: o.splitterImageURL,
                   splitterEmail: o.splitterEmail,
                   splitterId: o.splitterId,
+                  orderStatus: o.orderStatus
                 }}
               >
                 <TransactionCard

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "../../../components/layout/Grid/Grid";
 import SellingItemCard from "../../../components/base/SellingItemCard/SellingItemCard";
 import BuyerContactCard from "../../../components/base/BuyerContactCard/BuyerContactCard";
@@ -7,18 +7,21 @@ import Button from "../../../components/base/Button/Button";
 import useMediaQuery from "../../../utils/useMediaQuery";
 import BackButton from "../../../components/base/BackButton/BackButton";
 import styles from "./transactionDetail.module.css";
-import { UserAuth } from "../../../context/AuthContext";
-import { useEffect, useState } from "react";
-
 import { userEvent } from "@storybook/testing-library";
+import Typography from "../../../components/base/Typography/Typography";
 
 const TransactionDetail = (props) => {
-  const { order, navigate, handleOnDecline, handleOnAccept, handleOnComplete } =
-    props;
+  const {
+    user,
+    order,
+    navigate,
+    handleOnDecline,
+    handleOnAccept,
+    handleOnComplete,
+  } = props;
 
   const [meetUpDate, setMeetUpDate] = useState();
   const [meetUpTime, setMeetUpTime] = useState();
-
   const isDesktop = useMediaQuery("(min-width: 1440px)");
 
   const dateApprovedFormatted =
@@ -30,21 +33,27 @@ const TransactionDetail = (props) => {
         })
       : "";
 
-  if (order && order.meetupSchedule) {
-    let meetUpDate = order.meetupSchedule.toDate().toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-    setMeetUpDate(meetUpDate);
+  useEffect(() => {
+    if (order && order.meetUpInfo) {
+      setMeetUpDate(
+        new Date(order.meetUpInfo.seconds * 1000).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
+      );
 
-    let meetUpTime = order.meetupSchedule.toDate().toLocaleTimeString("en-US", {
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    });
-    setMeetUpTime(meetUpTime);
-  }
+      setMeetUpTime(
+        new Date(order.meetUpInfo.seconds * 1000).toLocaleTimeString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+          hour12: true,
+        })
+      );
+    }
+  }, [order]);
+
+  // return { meetUpDate, meetUpTime };
 
   return (
     <div style={{ backgroundColor: "var(--bg-gray)", minHeight: "100vh" }}>
@@ -60,7 +69,7 @@ const TransactionDetail = (props) => {
           columns={1}
           gap="24px"
           style={{
-            padding: "3rem 157px 157px",
+            padding: "3r 157px 157px",
             justifyContent: "center",
             boxSizing: "border-box",
           }}
@@ -77,7 +86,13 @@ const TransactionDetail = (props) => {
               <Grid columns={1} gap="0">
                 <SellingItemCard
                   label={
-                    order.orderStatus === "completed" ? "Sold to" : "Selling to"
+                    order.splitterId === user.uid
+                      ? order.orderStatus === "completed"
+                        ? "Sold to"
+                        : "Selling to"
+                      : order.orderStatus === "completed"
+                      ? "bought from"
+                      : "Buying from"
                   }
                   source={order.imageUrl}
                   itemName={order.name}
@@ -93,14 +108,24 @@ const TransactionDetail = (props) => {
                   source={order.splitteeImageURL}
                   nameOfBuyer={order.splitteeName}
                   contactTel={
-                    order.orderStatus === "pending"
-                      ? order.splitteeContactNumber
-                      : "not available until confirmed"
+                    order.orderStatus === "pending" ? (
+                      <Typography color="error">
+                        {" "}
+                        not available until confirmed{" "}
+                      </Typography>
+                    ) : (
+                      order.splitteeContactNumber
+                    )
                   }
                   email={
-                    order.orderStatus === "pending"
-                      ? order.splitteeEmail
-                      : "not available until confirmed"
+                    order.orderStatus === "pending" ? (
+                      <Typography color="error">
+                        {" "}
+                        not available until confirmed{" "}
+                      </Typography>
+                    ) : (
+                      order.splitteeEmail
+                    )
                   }
                 />
               </Grid>
@@ -165,6 +190,15 @@ const TransactionDetail = (props) => {
             <div style={{ padding: "3rem 20px 130px" }}>
               <div style={{ marginBottom: "20px" }}>
                 <SellingItemCard
+                  label={
+                    order.splitterId === user.uid
+                      ? order.orderStatus === "completed"
+                        ? "Sold to"
+                        : "Selling to"
+                      : order.orderStatus === "completed"
+                      ? "bought from"
+                      : "Buying from"
+                  }
                   source={order.imageUrl}
                   itemName={order.name}
                   dateApproved={dateApprovedFormatted}
@@ -182,13 +216,13 @@ const TransactionDetail = (props) => {
                   nameOfBuyer={order.splitteeName}
                   contactTel={
                     order.orderStatus === "pending"
-                      ? order.splitteeContactNumber
-                      : "not available until confirmed"
+                      ? "not available until confirmed"
+                      : order.splitteeContactNumber
                   }
                   email={
                     order.orderStatus === "pending"
-                      ? order.splitteeEmail
-                      : "not available until confirmed"
+                      ? "not available until confirmed"
+                      : order.splitteeEmail
                   }
                 />
               </div>

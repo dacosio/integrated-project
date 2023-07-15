@@ -5,15 +5,23 @@ import db from "../../../config/firebaseConfig";
 import { UserAuth } from "../../../context/AuthContext";
 import TransactionDetailView from "./TransactionDetail.view";
 
-
 const TransactionDetail = () => {
   const location = useLocation();
   const [order, setOrder] = useState(location.state);
   const { transactionId } = useParams();
   const navigate = useNavigate();
   const orderStatusRef = doc(db, "order", transactionId);
-  const {user} = UserAuth()
+  const { user } = UserAuth();
+  // const [meetUpDate, setMeetUpDate] = useState();
+  // const [meetUpTime, setMeetUpTime] = useState();
 
+  useEffect(() => {
+    if (user) {
+      console.log(user);
+    } else {
+      console.log("error");
+    }
+  }, [user]);
 
   const handleOnDecline = async () => {
     console.log("Declined");
@@ -78,6 +86,7 @@ const TransactionDetail = () => {
 
   // console.log(order);
   const generatedProps = {
+    user,
     order,
     navigate,
     handleOnDecline,
