@@ -3,9 +3,13 @@ main {
 }
 
 .wrapper {
-  padding: 16px 16px 125px 16px;
+  padding: 32px 16px 125px 16px;
   display: grid;
   gap: 16px;
+}
+
+.btn {
+  margin-bottom: 16px;
 }
 
 @media screen and (min-width: 1200px) {

@@ -20,6 +20,9 @@ const Settings = () => {
   const [profileVisibility, setProfileVisibility] = useState(true);
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [aboutUsVisibility, setAboutUsVisibility] = useState(true);
+  const [profileVisibility, setProfileVisibility] = useState(true);
+  const [passwordVisibility, setPasswordVisibility] = useState(true);
+  const [aboutUsVisibility, setAboutUsVisibility] = useState(true);
   const [singleImage, setSingleImage] = useState([]);
   const { placeValue, updatePlaceValue } = Place();
 

@@ -38,18 +38,19 @@ const TransactionList = (props) => {
           options={orderTypeOptions}
           onChange={onChange}
           searchable={false}
+          placeholder="Selling"
         />
         <PageTabs tabs={orderTabs} onTabChange={handleTabChange} />
       </div>
 
-      <Grid
-        className={style.orders}
-        columns={sm ? 1 : md ? 2 : lg ? 3 : 1}
-        gap={sm ? "12px" : md ? "16px" : lg ? "16px" : "0"}
-        style={{ alignItems: "center" }}
-      >
-        {orderResults &&
-          orderResults.map((o) => {
+      {orderResults.length > 0 ? (
+        <Grid
+          className={style.orders}
+          columns={sm ? 1 : md ? 2 : lg ? 3 : 1}
+          gap={sm ? "12px" : md ? "16px" : lg ? "16px" : "0"}
+          style={{ alignItems: "center" }}
+        >
+          {orderResults.map((o) => {
             const today = new Date();
             let updatedAt = new Date(o.updatedAt.toDate());
             updatedAt.setHours(0, 0, 0, 0);
@@ -67,7 +68,7 @@ const TransactionList = (props) => {
                 splitterName={
                   orderType === "selling" ? o.splitteeName : o.splitterName
                 }
-                price={o.price}
+                price={Number(o.price) * Number(o.qty)}
                 source={o.imageUrl}
                 orderStatus={o.orderStatus}
                 onCancel={() => onCancel(o.id, o.productId)}
@@ -80,7 +81,14 @@ const TransactionList = (props) => {
               />
             );
           })}
-      </Grid>
+        </Grid>
+      ) : (
+        <div style={{ textAlign: "center", marginTop: "15%" }}>
+          <Typography color="error" variant="h4-graphik-bold">
+            You have no items here.
+          </Typography>
+        </div>
+      )}
     </div>
   );
 };

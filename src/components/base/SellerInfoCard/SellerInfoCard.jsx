@@ -11,7 +11,7 @@ const SellerInfoCard = ({ source, username, location, items, ...props }) => {
 
   return (
     <div className={`${styles["seller-information-wrapper"]}`}>
-      <Typography variant="h4-graphik-bold" style={{ marginBottom: "12px" }}>
+      <Typography variant="h3-graphik-bold" style={{ marginBottom: "12px" }}>
         Seller Information
       </Typography>
       <div className={`${styles["seller-information"]}`}>
