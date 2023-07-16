@@ -4,8 +4,6 @@ import BottomNav from "../BottomNav/BottomNav";
 import useWindowSize from "../../../utils/useWindowSize";
 import { useEffect, useState } from "react";
 import useMediaQuery from "../../../utils/useMediaQuery";
-import { Detector, Offline, Online } from "react-detect-offline";
-import { ToastContainer, toast } from "react-toastify";
 import Typography from "../../base/Typography/Typography";
 const bottomNavStyle = {
   position: "absolute",
@@ -66,21 +64,15 @@ const Layout = () => {
         )}
       </header>
       <main className="App">
-        <Detector
-          render={({ online }) => (
-            <div className={online ? "normal" : "warning"}>
-              {online ? (
-                <Outlet />
-              ) : (
-                <div style={{ textAlign: "center", marginTop: "15%" }}>
-                  <Typography color="error" variant="h4-graphik-bold">
-                    Please connect to the internet to enjoy SplitShare!
-                  </Typography>
-                </div>
-              )}
-            </div>
-          )}
-        />
+        {isOnline ? (
+          <Outlet />
+        ) : (
+          <div style={{ textAlign: "center", marginTop: "15%" }}>
+            <Typography color="error" variant="h4-graphik-bold">
+              You are offline. Please check your internet connection.
+            </Typography>
+          </div>
+        )}
       </main>
       <div
         style={{
