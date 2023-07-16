@@ -4,6 +4,7 @@ import SellingItemCard from "../../../components/base/SellingItemCard/SellingIte
 import BuyerContactCard from "../../../components/base/BuyerContactCard/BuyerContactCard";
 import MeetUpInfoCard from "../../../components/base/MeetUpInfoCard/MeetUpInfoCard";
 import Button from "../../../components/base/Button/Button";
+import Card from "../../../components/base/Card/Card";
 import useMediaQuery from "../../../utils/useMediaQuery";
 import BackButton from "../../../components/base/BackButton/BackButton";
 import styles from "./transactionDetail.module.css";
@@ -18,6 +19,7 @@ const TransactionDetail = (props) => {
     handleOnDecline,
     handleOnAccept,
     handleOnComplete,
+    handleOnCancel,
   } = props;
 
   const [meetUpDate, setMeetUpDate] = useState();
@@ -101,8 +103,8 @@ const TransactionDetail = (props) => {
                 <BuyerContactCard
                   source={
                     order.splitterId === user.uid
-                      ? order.splitterImageURL
-                      : order.splitteeImageURL
+                      ? order.splitteeImageUrl
+                      : order.splitterImageUrl
                   }
                   alt="profile image"
                   label={
@@ -116,8 +118,8 @@ const TransactionDetail = (props) => {
                   }
                   nameOfBuyer={
                     order.splitterId === user.uid
-                      ? order.splitterName
-                      : order.splitteeName
+                      ? order.splitteeName
+                      : order.splitterName
                   }
                   contactTel={
                     order.orderStatus === "pending" ? (
@@ -125,9 +127,9 @@ const TransactionDetail = (props) => {
                         not available until confirmed
                       </Typography>
                     ) : order.splitterId === user.uid ? (
-                      order.splitterContactNumber
-                    ) : (
                       order.splitteeContactNumber
+                    ) : (
+                      order.splitterContactNumber
                     )
                   }
                   email={
@@ -139,56 +141,91 @@ const TransactionDetail = (props) => {
                         not available until confirmed
                       </Typography>
                     ) : order.splitterId === user.uid ? (
-                      order.splitterEmail
-                    ) : (
                       order.splitteeEmail
+                    ) : (
+                      order.splitterEmail
                     )
                   }
                 />
               </Grid>
 
               <Grid style={{ gridColumn: "-7/-1" }}>
-                <MeetUpInfoCard
-                  date={meetUpDate}
-                  time={meetUpTime}
-                  location={order.meetUpAddress}
-                  latitude={order.latitude}
-                  longitude={order.longitude}
-                />
+                <Card noborder nopadding>
+                  <MeetUpInfoCard
+                    date={meetUpDate}
+                    time={meetUpTime}
+                    location={order.meetUpAddress}
+                    latitude={order.latitude}
+                    longitude={order.longitude}
+                  />
+                </Card>
               </Grid>
             </Grid>
           )}
 
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            {order &&
-            (order.orderStatus === "completed" ||
-              order.orderStatus === "cancelled") ? (
-              <></>
-            ) : order && order.orderStatus === "pending" ? (
+            {order && order.splitterId === user.uid ? (
               <>
-                <Button
-                  variant="white"
-                  label="Decline"
-                  size="sm"
-                  style={{ marginRight: ".5rem" }}
-                  onClick={handleOnDecline}
-                />
-                <Button
-                  variant="yellow"
-                  label="Accept"
-                  size="sm"
-                  style={{ marginRight: ".5rem" }}
-                  onClick={handleOnAccept}
-                />
+                {order.orderStatus === "completed" ||
+                order.orderStatus === "cancelled" ? (
+                  <></>
+                ) : order.orderStatus === "pending" ? (
+                  <>
+                    <Button
+                      variant="white"
+                      label="Decline"
+                      size="sm"
+                      style={{ marginRight: ".5rem" }}
+                      onClick={handleOnDecline}
+                    />
+                    <Button
+                      variant="yellow"
+                      label="Accept"
+                      size="sm"
+                      style={{ marginRight: ".5rem" }}
+                      onClick={handleOnAccept}
+                    />
+                  </>
+                ) : (
+                  <div>
+                    <Button
+                      variant="white"
+                      label="Cancel"
+                      size="sm"
+                      style={{ marginRight: ".5rem" }}
+                      onClick={handleOnCancel}
+                    />
+                    <Button
+                      variant="yellow"
+                      label="Complete"
+                      size="sm"
+                      style={{ marginRight: ".5rem" }}
+                      onClick={handleOnComplete}
+                    />
+                  </div>
+                )}
               </>
-            ) : (
-              <>
+            ) : order.orderStatus === "completed" ||
+              order.orderStatus === "cancelled" ? (
+              <></>
+            ) : order.orderStatus === "pending" ? (
+              <div>
                 <Button
                   variant="white"
                   label="Cancel"
                   size="sm"
                   style={{ marginRight: ".5rem" }}
                   onClick={handleOnDecline}
+                />
+              </div>
+            ) : (
+              <div>
+                <Button
+                  variant="white"
+                  label="Cancel"
+                  size="sm"
+                  style={{ marginRight: ".5rem" }}
+                  onClick={handleOnCancel}
                 />
                 <Button
                   variant="yellow"
@@ -197,7 +234,7 @@ const TransactionDetail = (props) => {
                   style={{ marginRight: ".5rem" }}
                   onClick={handleOnComplete}
                 />
-              </>
+              </div>
             )}
           </div>
         </Grid>
@@ -225,8 +262,8 @@ const TransactionDetail = (props) => {
                 <BuyerContactCard
                   source={
                     order.splitterId === user.uid
-                      ? order.splitterImageURL
-                      : order.splitteeImageURL
+                      ? order.splitteeImageUrl
+                      : order.splitterImageUrl
                   }
                   alt="profile image"
                   label={
@@ -240,8 +277,8 @@ const TransactionDetail = (props) => {
                   }
                   nameOfBuyer={
                     order.splitterId === user.uid
-                      ? order.splitterName
-                      : order.splitteeName
+                      ? order.splitteeName
+                      : order.splitterName
                   }
                   contactTel={
                     order.orderStatus === "pending" ? (
@@ -249,9 +286,9 @@ const TransactionDetail = (props) => {
                         not available until confirmed
                       </Typography>
                     ) : order.splitterId === user.uid ? (
-                      order.splitterContactNumber
-                    ) : (
                       order.splitteeContactNumber
+                    ) : (
+                      order.splitterContactNumber
                     )
                   }
                   email={
@@ -263,63 +300,102 @@ const TransactionDetail = (props) => {
                         not available until confirmed
                       </Typography>
                     ) : order.splitterId === user.uid ? (
-                      order.splitterEmail
-                    ) : (
                       order.splitteeEmail
+                    ) : (
+                      order.splitterEmail
                     )
                   }
                 />
               </div>
 
               <div style={{ marginBottom: "20px" }}>
-                <MeetUpInfoCard
-                  date={meetUpDate}
-                  time={meetUpTime}
-                  location={order.meetUpAddress}
-                  latitude={order.latitude}
-                  longitude={order.longitude}
-                />
+                <Card noborder nopadding>
+                  <MeetUpInfoCard
+                    date={meetUpDate}
+                    time={meetUpTime}
+                    location={order.meetUpAddress}
+                    latitude={order.latitude}
+                    longitude={order.longitude}
+                  />
+                </Card>
               </div>
 
               <div style={{ display: "flex", paddingBottom: "20px" }}>
-                {order &&
-                (order.orderStatus === "completed" ||
-                  order.orderStatus === "cancelled") ? (
-                  <></>
-                ) : order && order.orderStatus === "pending" ? (
+                {order && order.splitterId === user.uid ? (
                   <>
-                    <Button
-                      variant="white"
-                      label="Decline"
-                      size="lg"
-                      style={{ marginRight: ".5rem" }}
-                      onClick={handleOnDecline}
-                    />
-                    <Button
-                      variant="yellow"
-                      label="Accept"
-                      size="lg"
-                      style={{ marginRight: ".5rem" }}
-                      onClick={handleOnAccept}
-                    />
+                    {order.orderStatus === "completed" ||
+                    order.orderStatus === "cancelled" ? (
+                      <></>
+                    ) : order.orderStatus === "pending" ? (
+                      <div style={{}}>
+                        <Button
+                          variant="white"
+                          label="Decline"
+                          size="sm"
+                          style={{ marginRight: ".5rem" }}
+                          onClick={handleOnDecline}
+                        />
+                        <Button
+                          variant="yellow"
+                          label="Accept"
+                          size="sm"
+                          style={{ marginRight: ".5rem" }}
+                          onClick={handleOnAccept}
+                        />
+                      </div>
+                    ) : (
+                      <>
+                        <grid>
+                          <Button
+                            variant="white"
+                            label="Cancel"
+                            size="sm"
+                            style={{ marginRight: ".5rem" }}
+                            onClick={handleOnCancel}
+                          />
+                          <Button
+                            variant="yellow"
+                            label="Complete"
+                            size="sm"
+                            style={{ marginRight: ".5rem" }}
+                            onClick={handleOnComplete}
+                          />
+                        </grid>
+                      </>
+                    )}
                   </>
-                ) : (
-                  <>
+                ) : order.orderStatus === "completed" ||
+                  order.orderStatus === "cancelled" ? (
+                  <></>
+                ) : order.orderStatus === "pending" ? (
+                  <div style={{ display: "flex", justifyContent: "flex-end" }}>
                     <Button
                       variant="white"
                       label="Cancel"
-                      size="lg"
+                      size="sm"
                       style={{ marginRight: ".5rem" }}
                       onClick={handleOnDecline}
                     />
-                    <Button
-                      variant="yellow"
-                      label="Complete"
-                      size="lg"
-                      style={{ marginRight: ".5rem" }}
-                      onClick={handleOnComplete}
-                    />
-                  </>
+                  </div>
+                ) : (
+                  <div>
+                    <grid>
+                      <Button
+                        variant="white"
+                        label="Cancel"
+                        size="lg"
+                        style={{ marginRight: ".5rem" }}
+                        onClick={handleOnCancel}
+                      />
+                      <Button
+                        variant="yellow"
+                        label="Complete"
+                        size="lg"
+                        style={{ marginRight: ".5rem" }}
+                        onClick={handleOnComplete}
+                      />
+                    </grid>
+                  </div>
                 )}
               </div>
             </div>

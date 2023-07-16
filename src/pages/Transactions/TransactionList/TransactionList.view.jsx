@@ -78,13 +78,13 @@ const TransactionList = (props) => {
                   splitteeId: o.splitteeId,
                   splitteeContactNumber: o.splitteeContactNumber,
                   splitteeEmail: o.splitteeEmail,
-                  splitteeImageURL: o.splitteeImageURL,
+                  splitteeImageUrl: o.splitteeImageUrl,
                   splitterContactNumber: o.splitteeContactNumber,
-                  splitterImageURL: o.splitterImageURL,
                   splitterEmail: o.splitterEmail,
                   splitterId: o.splitterId,
-                  splitterImageURL: o.splitterImageURL,
+                  splitterImageUrl: o.splitterImageUrl,
                   orderStatus: o.orderStatus,
+                  productId: o.productId,
                 }}
               >
                 <TransactionCard
@@ -104,9 +104,6 @@ const TransactionList = (props) => {
                   onDecline={() => onDecline(o.id, o.productId)}
                   onAccept={() => onAccept(o.id, o.productId)}
                   onComplete={() => onComplete(o.id, o.productId)}
-                  onClick={() =>
-                    navigate(`/transaction/${o.id}`, { replace: true })
-                  }
                 />
               </Link>
             );

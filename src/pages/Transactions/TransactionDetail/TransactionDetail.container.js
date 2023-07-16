@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { doc, updateDoc, getDoc } from "firebase/firestore";
+import { doc, updateDoc, increment } from "firebase/firestore";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import db from "../../../config/firebaseConfig";
 import { UserAuth } from "../../../context/AuthContext";
@@ -12,8 +12,6 @@ const TransactionDetail = () => {
   const navigate = useNavigate();
   const orderStatusRef = doc(db, "order", transactionId);
   const { user } = UserAuth();
-  // const [meetUpDate, setMeetUpDate] = useState();
-  // const [meetUpTime, setMeetUpTime] = useState();
 
   useEffect(() => {
     if (user) {
@@ -29,19 +27,40 @@ const TransactionDetail = () => {
       await updateDoc(orderStatusRef, { orderStatus: "cancelled" });
       setOrder((oldData) => ({ ...oldData, orderStatus: "cancelled" }));
 
-      console.log("Order status updated successfully");
+      console.log("Order status and quantity updated successfully");
     } catch (error) {
-      console.error("Order status fail to update");
+      console.error("Failed to update order status and quantity:", error);
+    }
+  };
+
+  const handleOnCancel = async () => {
+    try {
+      const docRef = doc(db, "product", order.productId);
+      await updateDoc(docRef, {
+        qty: increment(order.qty),
+      });
+      await updateDoc(orderStatusRef, { orderStatus: "cancelled" });
+      setOrder((oldData) => ({ ...oldData, orderStatus: "cancelled" }));
+
+      console.log("Order status and quantity updated successfully");
+    } catch (error) {
+      console.error("Failed to update order status and quantity:", error);
     }
   };
 
   const handleOnAccept = async () => {
     try {
+      console.log(order.productId);
+      const docRef = doc(db, "product", order.productId);
+      await updateDoc(docRef, {
+        qty: increment(-order.qty),
+      });
       await updateDoc(orderStatusRef, { orderStatus: "confirmed" });
       setOrder((oldData) => ({ ...oldData, orderStatus: "confirmed" }));
-      console.log("Order status updated successfully");
+
+      console.log("Order status and quantity updated successfully");
     } catch (error) {
-      console.error("Order status fail to update");
+      console.error("Failed to update order status and quantity:", error);
     }
   };
 
@@ -78,11 +97,11 @@ const TransactionDetail = () => {
   //   console.log("Order status updated successfully");
   // };
 
-  useEffect(() => {
-    if (!order || !order.id) {
-      navigate("/transaction"); // Navigate to the home page
-    }
-  }, [order, navigate]);
+  // useEffect(() => {
+  //   if (!order || !order.id) {
+  //     navigate("/transaction");
+  //   }
+  // }, [order, navigate]);
 
   // console.log(order);
   const generatedProps = {
@@ -92,6 +111,7 @@ const TransactionDetail = () => {
     handleOnDecline,
     handleOnAccept,
     handleOnComplete,
+    handleOnCancel,
   };
 
   return <TransactionDetailView {...generatedProps} />;
