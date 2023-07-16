@@ -101,8 +101,8 @@ const MapLeaflet = ({
                       <Tooltip permanent={permanent} direction={direction}>
                         <ActiveListingCard
                           key={el.id}
-                          distance={2}
-                          days={2}
+                          distance={0}
+                          // days={2}
                           source={
                             el.images.length > 0
                               ? el.images[0]
