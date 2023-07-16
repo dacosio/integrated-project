@@ -2,17 +2,15 @@
 import React, { useEffect, useState } from "react";
 import SettingsView from "./Settings.view";
 import * as Yup from "yup";
-import { updatePassword } from 'firebase/auth';
+import { updatePassword } from "firebase/auth";
 import { auth } from "./../../config/firebaseConfig";
 import { toast } from "react-toastify";
 
-
 const Settings = () => {
-  const [profileVisibility, setProfileVisibility] = useState(false);
-  const [passwordVisibility, setPasswordVisibility] = useState(false);
-  const [aboutUsVisibility, setAboutUsVisibility] = useState(false);
+  const [profileVisibility, setProfileVisibility] = useState(true);
+  const [passwordVisibility, setPasswordVisibility] = useState(true);
+  const [aboutUsVisibility, setAboutUsVisibility] = useState(true);
   const [singleImage, setSingleImage] = useState([]);
-
   const changePasswordValues = {
     password: "",
     newPassword: "",
@@ -32,7 +30,7 @@ const Settings = () => {
 
     updatePassword(user, newPassword)
       .then(() => {
-        console.log('Password changed successfully.');
+        console.log("Password changed successfully.");
         toast.success("Password has been changed successfully!", {
           position: "top-center",
           autoClose: 5000,
@@ -46,7 +44,7 @@ const Settings = () => {
         });
       })
       .catch((error) => {
-        console.log('Error changing password:', error);
+        console.log("Error changing password:", error);
         toast.error("Error changing password", {
           position: "top-center",
           autoClose: 5000,
