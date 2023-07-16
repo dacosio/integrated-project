@@ -202,7 +202,7 @@ const ListingDetail = (props) => {
                     nanErrMsg={"Please enter a number."}
                     minErrMsg={"Number must be at least 1."}
                     maxErrMsg={
-                      "Number cannot be larger than available portions."
+                      "Number cannot be larger than available portions."
                     }
                   />
                   <div>${Number((quantity * product.price).toFixed(2))}</div>
@@ -415,7 +415,7 @@ const ListingDetail = (props) => {
                     nanErrMsg={"Please enter a number."}
                     minErrMsg={"Number must be at least 1."}
                     maxErrMsg={
-                      "Number cannot be larger than available portions."
+                      "Number cannot be larger than available portions."
                     }
                   />
                 </div>
