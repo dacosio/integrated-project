@@ -20,10 +20,10 @@ const TransactionDetail = (props) => {
     handleOnAccept,
     handleOnComplete,
     handleOnCancel,
+    meetUpDate,
+    meetUpTime
   } = props;
 
-  const [meetUpDate, setMeetUpDate] = useState();
-  const [meetUpTime, setMeetUpTime] = useState();
   const isDesktop = useMediaQuery("(min-width: 1440px)");
 
   const dateApprovedFormatted =
@@ -34,26 +34,6 @@ const TransactionDetail = (props) => {
           day: "numeric",
         })
       : "";
-
-  useEffect(() => {
-    if (order && order.meetUpInfo) {
-      setMeetUpDate(
-        new Date(order.meetUpInfo.seconds * 1000).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        })
-      );
-
-      setMeetUpTime(
-        new Date(order.meetUpInfo.seconds * 1000).toLocaleTimeString("en-US", {
-          hour: "numeric",
-          minute: "numeric",
-          hour12: true,
-        })
-      );
-    }
-  }, [order]);
 
   // return { meetUpDate, meetUpTime };
 

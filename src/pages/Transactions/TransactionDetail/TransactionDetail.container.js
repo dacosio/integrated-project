@@ -5,6 +5,7 @@ import db from "../../../config/firebaseConfig";
 import { UserAuth } from "../../../context/AuthContext";
 import TransactionDetailView from "./TransactionDetail.view";
 
+
 const TransactionDetail = () => {
   const location = useLocation();
   const [order, setOrder] = useState(location.state);
@@ -12,6 +13,29 @@ const TransactionDetail = () => {
   const navigate = useNavigate();
   const orderStatusRef = doc(db, "order", transactionId);
   const { user } = UserAuth();
+  const [meetUpDate, setMeetUpDate] = useState();
+  const [meetUpTime, setMeetUpTime] = useState();
+
+  useEffect(() => {
+    if (order && order.meetUpInfo) {
+      setMeetUpDate(
+        new Date(order.meetUpInfo.seconds * 1000).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
+      );
+
+      setMeetUpTime(
+        new Date(order.meetUpInfo.seconds * 1000).toLocaleTimeString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+          hour12: true,
+        })
+      );
+    }
+  }, [order]);
+
 
   useEffect(() => {
     if (user) {
@@ -112,6 +136,8 @@ const TransactionDetail = () => {
     handleOnAccept,
     handleOnComplete,
     handleOnCancel,
+    meetUpDate,
+    meetUpTime
   };
 
   return <TransactionDetailView {...generatedProps} />;
