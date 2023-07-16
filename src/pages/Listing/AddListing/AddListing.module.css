@@ -21,7 +21,6 @@
   background-color: var(--yellow);
   border-radius: 100px;
   border: 2px solid black;
-  box-shadow: 2px 2px black;
   margin: 32px 0;
 }
 
@@ -67,7 +66,8 @@
 }
 
 .backButtonWrap {
-  margin-bottom: 12px;
+  margin-bottom: 20px;
+  margin-top: 60px;
 }
 
 @media screen and (min-width: 800px) {
