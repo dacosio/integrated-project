@@ -110,7 +110,7 @@ const MapLeaflet = ({
                           }
                           itemname={el.name}
                           price={el.price}
-                          stock={el.qyty}
+                          stock={el.qty}
                           alt={el.name}
                           onClick={() => console.log(el.id)}
                           maxwidth={"150px"}
