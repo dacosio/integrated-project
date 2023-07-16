@@ -6,6 +6,7 @@ import SelectDropdown from "../../../components/base/SelectDropdown/SelectDropdo
 import style from "./TransactionList.module.css";
 import Grid from "../../../components/layout/Grid/Grid";
 import useMediaQuery from "../../../utils/useMediaQuery";
+import { Link } from "react-router-dom";
 
 const TransactionList = (props) => {
   const {
@@ -57,28 +58,54 @@ const TransactionList = (props) => {
             today.setHours(0, 0, 0, 0);
             const timeDiff = today.getTime() - updatedAt.getTime();
             const days = Math.abs(Math.floor(timeDiff / (1000 * 60 * 60 * 24)));
+            console.log(o);
             return (
-              <TransactionCard
-                key={o.id}
-                type={o.splitteeId === user.uid ? "buying" : "selling"}
-                itemName={o.name}
-                time={days}
-                orderType={orderType}
-                portions={o.qty}
-                splitterName={
-                  orderType === "selling" ? o.splitteeName : o.splitterName
-                }
-                price={Number(o.price) * Number(o.qty)}
-                source={o.imageUrl}
-                orderStatus={o.orderStatus}
-                onCancel={() => onCancel(o.id, o.productId)}
-                onDecline={() => onDecline(o.id, o.productId)}
-                onAccept={() => onAccept(o.id, o.productId)}
-                onComplete={() => onComplete(o.id, o.productId)}
-                onClick={() =>
-                  navigate(`/transaction/${o.id}`, { replace: true })
-                }
-              />
+              <Link
+                to={`/transaction/${o.id}`}
+                state={{
+                  id: o.id,
+                  createdAt: o.createdAt,
+                  splitteeName: o.splitteeName,
+                  splitterName: o.splitterName,
+                  imageUrl: o.imageUrl,
+                  latitude: o.latitude,
+                  longitude: o.longitude,
+                  meetUpAddress: o.meetupAddress,
+                  meetUpInfo: o.meetupSchedule,
+                  name: o.name,
+                  price: o.price,
+                  qty: o.qty,
+                  splitteeId: o.splitteeId,
+                  splitteeContactNumber: o.splitteeContactNumber,
+                  splitteeEmail: o.splitteeEmail,
+                  splitteeImageUrl: o.splitteeImageUrl,
+                  splitterContactNumber: o.splitteeContactNumber,
+                  splitterEmail: o.splitterEmail,
+                  splitterId: o.splitterId,
+                  splitterImageUrl: o.splitterImageUrl,
+                  orderStatus: o.orderStatus,
+                  productId: o.productId,
+                }}
+              >
+                <TransactionCard
+                  key={o.id}
+                  type={o.splitteeId === user.uid ? "buying" : "selling"}
+                  itemName={o.name}
+                  time={days}
+                  orderType={orderType}
+                  portions={o.qty}
+                  splitterName={
+                    orderType === "selling" ? o.splitteeName : o.splitterName
+                  }
+                  price={o.price}
+                  source={o.imageUrl}
+                  orderStatus={o.orderStatus}
+                  onCancel={() => onCancel(o.id, o.productId)}
+                  onDecline={() => onDecline(o.id, o.productId)}
+                  onAccept={() => onAccept(o.id, o.productId)}
+                  onComplete={() => onComplete(o.id, o.productId)}
+                />
+              </Link>
             );
           })}
         </Grid>
