@@ -56,7 +56,7 @@ const AddListing = (props) => {
                 <Form>
                   <div className={styles.backButtonWrap}>
                     <BackButton
-                      onClick={() => navigate("/user", { replace: true })}
+                      onClick={() => navigate("/", { replace: true })}
                     />
                   </div>
                   <Grid
@@ -402,7 +402,9 @@ const AddListing = (props) => {
               return (
                 <Form>
                   <div className={styles.backButtonWrap}>
-                    <BackButton />
+                    <BackButton
+                      onClick={() => navigate("/", { replace: true })}
+                    />
                   </div>
                   <div className={styles.mobileWrapper}>
                     {/* <Grid columns={1}
