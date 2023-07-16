@@ -126,25 +126,34 @@ const TransactionDetail = (props) => {
                       <Typography color="error">
                         not available until confirmed
                       </Typography>
+                    ) : order.orderStatus === "completed" ? (
+                      <Typography>order is completed</Typography>
+                    ) : order.orderStatus === "cancelled" ? (
+                      <Typography color="error">order is cancelled</Typography>
                     ) : order.splitterId === user.uid ? (
-                      order.splitteeContactNumber
-                    ) : (
-                      order.splitterContactNumber
-                    )
+                      order.orderStatus === "confirmed" ? (
+                        order.splitteeContactNumber
+                      ) : (
+                        order.splitterContactNumber
+                      )
+                    ) : null
                   }
                   email={
                     order.orderStatus === "pending" ? (
-                      <Typography
-                        color="error"
-                        style={{ wordBreak: "keep-all" }}
-                      >
+                      <Typography color="error">
                         not available until confirmed
                       </Typography>
+                    ) : order.orderStatus === "completed" ? (
+                      <Typography>order is completed</Typography>
+                    ) : order.orderStatus === "cancelled" ? (
+                      <Typography color="error">order is cancelled</Typography>
                     ) : order.splitterId === user.uid ? (
-                      order.splitteeEmail
-                    ) : (
-                      order.splitterEmail
-                    )
+                      order.orderStatus === "confirmed" ? (
+                        order.splitteeEmail
+                      ) : (
+                        order.splitterEmail
+                      )
+                    ) : null
                   }
                 />
               </Grid>
@@ -285,25 +294,34 @@ const TransactionDetail = (props) => {
                       <Typography color="error">
                         not available until confirmed
                       </Typography>
+                    ) : order.orderStatus === "completed" ? (
+                      <Typography>order is completed</Typography>
+                    ) : order.orderStatus === "cancelled" ? (
+                      <Typography color="error">order is cancelled</Typography>
                     ) : order.splitterId === user.uid ? (
-                      order.splitteeContactNumber
-                    ) : (
-                      order.splitterContactNumber
-                    )
+                      order.orderStatus === "confirmed" ? (
+                        order.splitteeContactNumber
+                      ) : (
+                        order.splitterContactNumber
+                      )
+                    ) : null
                   }
                   email={
                     order.orderStatus === "pending" ? (
-                      <Typography
-                        color="error"
-                        style={{ wordBreak: "keep-all" }}
-                      >
+                      <Typography color="error">
                         not available until confirmed
                       </Typography>
+                    ) : order.orderStatus === "completed" ? (
+                      <Typography>order is completed</Typography>
+                    ) : order.orderStatus === "cancelled" ? (
+                      <Typography color="error">order is cancelled</Typography>
                     ) : order.splitterId === user.uid ? (
-                      order.splitteeEmail
-                    ) : (
-                      order.splitterEmail
-                    )
+                      order.orderStatus === "confirmed" ? (
+                        order.splitteeEmail
+                      ) : (
+                        order.splitterEmail
+                      )
+                    ) : null
                   }
                 />
               </div>
@@ -320,48 +338,46 @@ const TransactionDetail = (props) => {
                 </Card>
               </div>
 
-              <div style={{ display: "flex", paddingBottom: "20px" }}>
+              <div style={{ paddingBottom: "20px" }}>
                 {order && order.splitterId === user.uid ? (
                   <>
                     {order.orderStatus === "completed" ||
                     order.orderStatus === "cancelled" ? (
                       <></>
                     ) : order.orderStatus === "pending" ? (
-                      <div style={{}}>
+                      <div style={{ display: "flex" }}>
                         <Button
                           variant="white"
                           label="Decline"
-                          size="sm"
+                          size="lg"
                           style={{ marginRight: ".5rem" }}
                           onClick={handleOnDecline}
                         />
                         <Button
                           variant="yellow"
                           label="Accept"
-                          size="sm"
+                          size="lg"
                           style={{ marginRight: ".5rem" }}
                           onClick={handleOnAccept}
                         />
                       </div>
                     ) : (
-                      <>
-                        <grid>
-                          <Button
-                            variant="white"
-                            label="Cancel"
-                            size="sm"
-                            style={{ marginRight: ".5rem" }}
-                            onClick={handleOnCancel}
-                          />
-                          <Button
-                            variant="yellow"
-                            label="Complete"
-                            size="sm"
-                            style={{ marginRight: ".5rem" }}
-                            onClick={handleOnComplete}
-                          />
-                        </grid>
-                      </>
+                      <div style={{ display: "flex" }}>
+                        <Button
+                          variant="white"
+                          label="Cancel"
+                          size="lg"
+                          style={{ marginRight: ".5rem" }}
+                          onClick={handleOnCancel}
+                        />
+                        <Button
+                          variant="yellow"
+                          label="Complete"
+                          size="lg"
+                          style={{ marginRight: ".5rem" }}
+                          onClick={handleOnComplete}
+                        />
+                      </div>
                     )}
                   </>
                 ) : order.orderStatus === "completed" ||
@@ -378,23 +394,21 @@ const TransactionDetail = (props) => {
                     />
                   </div>
                 ) : (
-                  <div>
-                    <grid>
-                      <Button
-                        variant="white"
-                        label="Cancel"
-                        size="lg"
-                        style={{ marginRight: ".5rem" }}
-                        onClick={handleOnCancel}
-                      />
-                      <Button
-                        variant="yellow"
-                        label="Complete"
-                        size="lg"
-                        style={{ marginRight: ".5rem" }}
-                        onClick={handleOnComplete}
-                      />
-                    </grid>
+                  <div style={{ display: "flex" }}>
+                    <Button
+                      variant="white"
+                      label="Cancel"
+                      size="lg"
+                      style={{ marginRight: ".5rem" }}
+                      onClick={handleOnCancel}
+                    />
+                    <Button
+                      variant="yellow"
+                      label="Complete"
+                      size="lg"
+                      style={{ marginRight: ".5rem" }}
+                      onClick={handleOnComplete}
+                    />
                   </div>
                 )}
               </div>
