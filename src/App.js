@@ -83,8 +83,14 @@ function App() {
             />
           </Route>
 
-          
-          <Route path="settings" element={<Settings />} />
+          <Route
+            path="settings"
+            element={
+              <ProtectedRoute>
+                <Settings />
+              </ProtectedRoute>
+            }
+          />
           <Route path="testComponent" element={<TestComponents />} />
 
           {/* Catch all - replace with 404 Not Found page if preferred */}
