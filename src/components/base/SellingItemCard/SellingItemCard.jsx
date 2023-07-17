@@ -7,19 +7,21 @@ const SellingItemCard = ({
   dateApproved,
   quantity,
   price,
+  label,
+  alt,
   ...props
 }) => {
   return (
     <div className={`${styles["selling-item-wrapper"]}`}>
       <Typography
-        variant="h3-graphik-bold"
+        variant="h2-graphik-bold"
         style={{ margin: "16px 16px 12px" }}
       >
-        Selling Details
+       {label}
       </Typography>
       <div className={`${styles["selling-item-card"]}`}>
         <div className={`${styles["image-container"]}`}>
-          <img src={source} alt="" />
+          <img src={source} alt={alt} />
         </div>
         <div className={`${styles["selling-item-description"]}`}>
           <Typography variant="h4-graphik-bold" color="dark-blue">
@@ -34,7 +36,7 @@ const SellingItemCard = ({
               variant="body-1-medium"
               style={{ marginRight: "0.3rem" }}
             >
-              Quantity:{" "}
+              Quantity:
             </Typography>
             <Typography variant="body-1-medium">{quantity}</Typography>
           </div>

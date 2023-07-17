@@ -55,7 +55,9 @@ const AddListing = (props) => {
               return (
                 <Form>
                   <div className={styles.backButtonWrap}>
-                    <BackButton onClick={() => navigate(-1)} />
+                    <BackButton
+                      onClick={() => navigate("/", { replace: true })}
+                    />
                   </div>
                   <Grid
                     columns={2}
@@ -63,7 +65,7 @@ const AddListing = (props) => {
                       border: "1px solid var(--black)",
                       padding: "40px 40px 80px",
                       rowGap: "26px",
-                      columnGap: "18px",
+                      columnGap: "40px",
                       backgroundColor: "var(--white)",
                       borderRadius: "20px",
                       boxShadow: "2px 2px var(--black)",
@@ -87,7 +89,7 @@ const AddListing = (props) => {
                       <div
                         style={{
                           width: "100%",
-                          maxWidth: "500px",
+                          // maxWidth: "500px",
                           boxSizing: "border-box",
                         }}
                       >
@@ -400,7 +402,9 @@ const AddListing = (props) => {
               return (
                 <Form>
                   <div className={styles.backButtonWrap}>
-                    <BackButton />
+                    <BackButton
+                      onClick={() => navigate("/", { replace: true })}
+                    />
                   </div>
                   <div className={styles.mobileWrapper}>
                     {/* <Grid columns={1}

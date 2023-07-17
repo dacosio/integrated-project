@@ -101,8 +101,8 @@ const MapLeaflet = ({
                       <Tooltip permanent={permanent} direction={direction}>
                         <ActiveListingCard
                           key={el.id}
-                          distance={2}
-                          days={2}
+                          distance={0}
+                          // days={2}
                           source={
                             el.images.length > 0
                               ? el.images[0]
@@ -110,7 +110,7 @@ const MapLeaflet = ({
                           }
                           itemname={el.name}
                           price={el.price}
-                          stock={el.qyty}
+                          stock={el.qty}
                           alt={el.name}
                           onClick={() => console.log(el.id)}
                           maxwidth={"150px"}

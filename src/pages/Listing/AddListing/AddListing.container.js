@@ -17,12 +17,46 @@ import { uploadBytes, ref, getDownloadURL } from "@firebase/storage";
 import { useEffect } from "react";
 import { Place } from "../../../context/PlaceContext";
 import { UserAuth } from "../../../context/AuthContext";
+import { toast } from "react-toastify";
+
+async function getWebpFile(source) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+
+    image.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = image.width;
+      canvas.height = image.height;
+
+      const context = canvas.getContext("2d");
+      context.drawImage(image, 0, 0);
+
+      canvas.toBlob(function (blob) {
+        resolve(
+          new File(
+            [blob],
+            source.file.name.substr(0, source.file.name.lastIndexOf(".")) +
+              "." +
+              "webp",
+            { type: "image/webp" }
+          )
+        );
+      }, "image/webp");
+    };
+
+    image.onerror = (error) => {
+      reject(error);
+    };
+
+    image.src = source.data_url;
+  });
+}
 
 const AddListing = () => {
   const { user } = UserAuth();
   const { placeValue } = Place();
   const [meetupDate, setMeetupDate] = useState();
-  const [meetupTime, setMeetupTime] = useState("");
+  const [meetupTime, setMeetupTime] = useState();
   const [divisionNumber, setDivisionNumber] = useState(1);
   const [portionNumber, setPortionNumber] = useState(1);
   const [categories, setCategories] = useState([]);
@@ -78,12 +112,16 @@ const AddListing = () => {
           categoryLabel: category.label,
           categoryValue: category.value,
           createdAt: serverTimestamp(),
+          createdByDisplayName: userResponse.data().displayName,
           createdByFirstName: userResponse.data().firstName,
           createdById: doc(db, "user", user.uid),
           createdByIdent: user.uid,
           createdByLastName: userResponse.data().lastName,
-          createdByDisplayName: userResponse.data().displayName,
+          createdByNickName: userResponse.data().displayName,
           description: description,
+          images: [
+            "https://firebasestorage.googleapis.com/v0/b/splitshare-67496.appspot.com/o/system-image%2Fno-image.jpg?alt=media&token=3f828f90-b19c-42a7-a458-7a8dabca0870",
+          ],
           lat: placeValue.geometry.location.lat(),
           latitude: placeValue.geometry.location.lat(),
           location: new GeoPoint(
@@ -100,11 +138,13 @@ const AddListing = () => {
         }).then(async (productResponse) => {
           const _images = [];
           const promises = images.map(async (image, index) => {
-            const file = image.file;
+            const file = await getWebpFile(image);
+
             const fileRef = ref(
               storage,
               `product-image/${productResponse.id}/${file.name}`
             );
+
             return uploadBytes(fileRef, file).then(async (uploadResponse) => {
               return getDownloadURL(uploadResponse.ref).then((url) => {
                 _images.push({ index: index, url: url });
@@ -119,11 +159,39 @@ const AddListing = () => {
             updateDoc(doc(db, "product", productResponse.id), {
               images: __images,
             }).then((updateResponse) => {
-              navigate(`/listing/${productResponse.id}`);
+              getDoc(doc(db, "product", productResponse.id)).then(
+                (_productResponse) => {
+                  navigate(`/listing/${_productResponse.id}`, {
+                    state: {
+                      id: _productResponse.id,
+                      createdAt: _productResponse.data().createdAt,
+                      createdByDisplayName:
+                        _productResponse.data().createdByNickName,
+                      createdByIdent: _productResponse.data().createdByIdent,
+                      description: _productResponse.data().description,
+                      images: _productResponse.data().images,
+                      latitude: _productResponse.data().lat,
+                      longitude: _productResponse.data().long,
+                      meetUpAddress: _productResponse.data().meetUpAddress,
+                      meetUpInfo: _productResponse.data().meetUpInfo,
+                      name: _productResponse.data().name,
+                      price: _productResponse.data().price,
+                      qty: _productResponse.data().qty,
+                    },
+                  });
+                }
+              );
             });
           });
         });
       });
+    } else if (images.length === 0) {
+      if (!toast.isActive()) {
+        toast.error("At least one photo is required.", {
+          toastId: 0,
+          autoClose: 3000,
+        });
+      }
     }
   };
 

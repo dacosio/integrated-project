@@ -13,7 +13,6 @@ import {
   serverTimestamp,
   Timestamp,
   GeoPoint,
-  setDoc,
   updateDoc,
   increment,
 } from "firebase/firestore";
@@ -29,9 +28,13 @@ const ListingDetail = (props) => {
   const [quantity, setQuantity] = useState(1);
   const [isRequested, setIsRequested] = useState();
   const [orderId, setOrderId] = useState("");
+  const [orderStatus, setOrderStatus] = useState("");
+  const [orderQty, setOrderQty] = useState(0);
   const [carouselVisibility, setCarouselVisibility] = useState(false);
   const [requestVisibility, setRequestVisibility] = useState(false);
-  const [cancelVisibility, setCancelVisibility] = useState(false);
+  const [cancelRequestVisibility, setCancelRequestVisibility] = useState(false);
+  const [cancelTransactionVisibility, setCancelTransactionVisibility] =
+    useState(false);
 
   useEffect(() => {
     if (!product) {
@@ -63,15 +66,20 @@ const ListingDetail = (props) => {
       getDocs(
         query(
           collection(store, "order"),
+          where("orderStatus", "in", ["pending", "confirmed"]),
           where("productId", "==", product.id),
           where("splitteeId", "==", user.uid)
         )
       ).then((orderResponse) => {
         if (orderResponse.empty) {
           setIsRequested(false);
+          setOrderStatus("");
+          setOrderQty(0);
         } else {
           setIsRequested(true);
           setOrderId(orderResponse.docs[0].id);
+          setOrderStatus(orderResponse.docs[0].data().orderStatus);
+          setOrderQty(orderResponse.docs[0].data().qty);
         }
       });
     }
@@ -92,30 +100,46 @@ const ListingDetail = (props) => {
   const handleOnConfirmRequest = () => {
     if (0 < quantity && quantity <= product.qty) {
       const time = serverTimestamp();
-      addDoc(collection(store, "order"), {
-        createdAt: time,
-        imageUrl: product.images[0],
-        latitude: product.latitude,
-        location: new GeoPoint(product.latitude, product.longitude),
-        longitude: product.longitude,
-        meetupAddress: product.meetUpAddress,
-        meetupSchedule: new Timestamp(
-          product.meetUpInfo.seconds,
-          product.meetUpInfo.nanoseconds
-        ),
-        name: product.name,
-        orderStatus: "pending",
-        price: product.price,
-        productId: product.id,
-        qty: quantity,
-        splitteeId: user.uid,
-        splitterId: seller.id,
-        splitterName: seller.displayName,
-        updatedAt: time,
-      }).then((response) => {
-        setIsRequested(true);
-        setOrderId(response.id);
-        setRequestVisibility(false);
+
+      getDoc(doc(store, "user", user.uid)).then((userResponse) => {
+        addDoc(collection(store, "order"), {
+          createdAt: time,
+          imageUrl: product.images[0],
+          latitude: product.latitude,
+          location: new GeoPoint(product.latitude, product.longitude),
+          longitude: product.longitude,
+          meetupAddress: product.meetUpAddress,
+          meetupSchedule: new Timestamp(
+            product.meetUpInfo.seconds,
+            product.meetUpInfo.nanoseconds
+          ),
+          name: product.name,
+          orderStatus: "pending",
+          price: product.price,
+          productId: product.id,
+          qty: quantity,
+          splitteeContactNumber: userResponse.data().contactNumber,
+          splitteeEmail: userResponse.data().email,
+          splitteeId: userResponse.data().id,
+          splitteeImageUrl: userResponse.data().imageUrl,
+          splitteeName: userResponse.data().displayName,
+          splitterContactNumber: seller.contactNumber,
+          splitterEmail: seller.email,
+          splitterId: seller.id,
+          splitterImageUrl: seller.imageUrl,
+          splitterName: seller.displayName,
+          updatedAt: time,
+        }).then((orderResponse) => {
+          updateDoc(doc(store, "order", orderResponse.id), {
+            orderId: orderResponse.id,
+          }).then((response) => {
+            setIsRequested(true);
+            setOrderId(orderResponse.id);
+            setOrderStatus("pending");
+            setOrderQty(quantity);
+            setRequestVisibility(false);
+          });
+        });
       });
     }
   };
@@ -124,20 +148,48 @@ const ListingDetail = (props) => {
     setRequestVisibility(false);
   };
 
-  const handleOnOpenCancel = () => {
-    setCancelVisibility(true);
+  const handleOnOpenCancelRequest = () => {
+    setCancelRequestVisibility(true);
   };
 
-  const handleOnConfirmCancel = () => {
-    deleteDoc(doc(store, "order", orderId)).then(() => {
+  const handleOnOpenCancelTransaction = () => {
+    setCancelTransactionVisibility(true);
+  };
+
+  const handleOnConfirmCancelRequest = () => {
+    updateDoc(doc(store, "order", orderId), {
+      orderStatus: "cancelled",
+    }).then((cancelResponse) => {
       setIsRequested(false);
       setOrderId("");
-      setCancelVisibility(false);
+      setOrderStatus("");
+      setOrderQty(0);
+      setCancelRequestVisibility(false);
     });
   };
 
-  const handleOnCloseCancel = () => {
-    setCancelVisibility(false);
+  const handleOnConfirmCancelTransaction = () => {
+    updateDoc(doc(store, "order", orderId), {
+      orderStatus: "cancelled",
+    }).then((cancelResponse) => {
+      updateDoc(doc(store, "product", product.id), {
+        qty: increment(orderQty),
+      }).then((updateResponse) => {
+        setIsRequested(false);
+        setOrderId("");
+        setOrderStatus("");
+        setOrderQty(0);
+        setCancelTransactionVisibility(false);
+      });
+    });
+  };
+
+  const handleOnCloseCancelRequest = () => {
+    setCancelRequestVisibility(false);
+  };
+
+  const handleOnCloseCancelTransaction = () => {
+    setCancelTransactionVisibility(false);
   };
 
   const generatedProps = {
@@ -147,17 +199,22 @@ const ListingDetail = (props) => {
     quantity,
     setQuantity,
     isRequested,
+    orderStatus,
     carouselVisibility,
     requestVisibility,
-    cancelVisibility,
+    cancelRequestVisibility,
+    cancelTransactionVisibility,
     handleOnOpen,
     handleOnClose,
     handleOnOpenRequest,
     handleOnConfirmRequest,
     handleOnCloseRequest,
-    handleOnOpenCancel,
-    handleOnConfirmCancel,
-    handleOnCloseCancel,
+    handleOnOpenCancelRequest,
+    handleOnOpenCancelTransaction,
+    handleOnConfirmCancelRequest,
+    handleOnConfirmCancelTransaction,
+    handleOnCloseCancelRequest,
+    handleOnCloseCancelTransaction,
   };
   return <ListDetailView {...generatedProps} />;
 };
