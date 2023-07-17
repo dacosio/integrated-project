@@ -16,11 +16,8 @@ const Settings = (props) => {
     profileVisibility,
     passwordVisibility,
     aboutUsVisibility,
-    initialValues,
-    validationSchema,
     singleImage,
     setSingleImage,
-    onSubmit,
     navigate,
     setProfileVisibility,
     setPasswordVisibility,
@@ -28,6 +25,9 @@ const Settings = (props) => {
     changePasswordValues,
     validatePasswordSchema,
     onSubmitNewPassword,
+    changeContactValues,
+    // validateContactSchema,
+    onSubmitUpdateInfo,
   } = props;
 
   const formikStyle = {
@@ -42,69 +42,68 @@ const Settings = (props) => {
         <Typography variant="h2-graphik-bold">Settings</Typography>
       </div>
       <div className={style.settingsItem}>
-      <Accordion
-        visibility={profileVisibility}
-        onToggle={() => setProfileVisibility(!profileVisibility)}
-        label="Update Profile"
-        id="profile"
-      >
-        <hr></hr>
-        <div className={style.imageUpload}>
-          <SingleImageInput
-            images={singleImage}
-            setImages={setSingleImage}
-            disableLabel
-          />
-          <Typography
-            color="gray"
-            variant="body-2-regular"
-            style={{ textAlign: "center" }}
-          >
-            Upload Photo
-          </Typography>
-        </div>
-        <div className={style.settingsDetail}>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
-          >
-            {(formik) => {
-              return (
-                <Form>
-                  <FormikControl
-                    control="input"
-                    type="text"
-                    label="Contact Number"
-                    name="contactNumber"
-                    placeholder="Type your number"
-                    style={formikStyle}
-                  />
-                  <div>
-                    <Typography
-                      variant="h4-graphik-bold"
-                      style={{ paddingBottom: "8px" }}
-                    >
-                      Address
-                    </Typography>
-                    {/* Uncomment to see the mapsearch but ensure that the key is in env */}
-                    <MapSearch placeholder="Type your address" />
-                  </div>
-                  <div className={"buttonWrapper"}>
-                    <Button
-                      variant="yellow"
-                      size="lg"
-                      label="Apply Changes"
-                      type="submit"
-                      // onClickHandler={() => navigate("/login")}
+        <Accordion
+          visibility={profileVisibility}
+          onToggle={() => setProfileVisibility(!profileVisibility)}
+          label="Update Profile"
+          id="profile"
+        >
+          <hr></hr>
+          <div className={style.imageUpload}>
+            <SingleImageInput
+              images={singleImage}
+              setImages={setSingleImage}
+              disableLabel
+            />
+            <Typography
+              color="gray"
+              variant="body-2-regular"
+              style={{ textAlign: "center" }}
+            >
+              Upload Photo
+            </Typography>
+          </div>
+          <div className={style.settingsDetail}>
+            <Formik
+              initialValues={changeContactValues}
+              onSubmit={onSubmitUpdateInfo}
+            >
+              {(formik) => {
+                return (
+                  <Form>
+                    <FormikControl
+                      control="input"
+                      type="text"
+                      label="Contact Number"
+                      name="contactNumber"
+                      placeholder="Type your number"
+                      style={formikStyle}
                     />
-                  </div>
-                </Form>
-              );
-            }}
-          </Formik>
-        </div>
-      </Accordion>
+                    <div>
+                      <Typography
+                        variant="h4-graphik-bold"
+                        style={{ paddingBottom: "8px" }}
+                      >
+                        Address
+                      </Typography>
+                      {/* Uncomment to see the mapsearch but ensure that the key is in env */}
+                      <MapSearch placeholder="Type your address" />
+                    </div>
+                    <div className={"buttonWrapper"}>
+                      <Button
+                        variant="yellow"
+                        size="lg"
+                        label="Apply Changes"
+                        type="submit"
+                        // onClickHandler={() => navigate("/login")}
+                      />
+                    </div>
+                  </Form>
+                );
+              }}
+            </Formik>
+          </div>
+        </Accordion>
       </div>
       <div className={style.settingsItem}>
         <Accordion
@@ -166,15 +165,24 @@ const Settings = (props) => {
         </Accordion>
       </div>
       <div className={style.settingsItem}>
-      <Accordion
-        visibility={aboutUsVisibility}
-        onToggle={() => setAboutUsVisibility(!aboutUsVisibility)}
-        label="About Us"
-        id="aboutUs"
-      >
-        <hr />
-        <p>lorem ipsum</p>
-      </Accordion>
+        <Accordion
+          visibility={aboutUsVisibility}
+          onToggle={() => setAboutUsVisibility(!aboutUsVisibility)}
+          label="About Us"
+          id="aboutUs"
+        >
+          <hr />
+          <Typography variant="body-2-regular">
+            Our goal here at SplitShare is to grow a platform where members can
+            come together and help each other save by finding, sharing, and
+            splitting good deals. Through our platform, we hope that everyone
+            can make the most out of their purchases and collectively maximize
+            their savings.
+          </Typography>
+          <Typography variant="body-3-medium">
+            Copyright © 2023 Team Chopsticks 2.0
+          </Typography>
+        </Accordion>
       </div>
     </div>
   );
