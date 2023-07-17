@@ -6,6 +6,7 @@ import SelectDropdown from "../../../components/base/SelectDropdown/SelectDropdo
 import style from "./TransactionList.module.css";
 import Grid from "../../../components/layout/Grid/Grid";
 import useMediaQuery from "../../../utils/useMediaQuery";
+import { Link } from "react-router-dom";
 
 const TransactionList = (props) => {
   const {
@@ -38,49 +39,83 @@ const TransactionList = (props) => {
           options={orderTypeOptions}
           onChange={onChange}
           searchable={false}
+          placeholder="Selling"
         />
         <PageTabs tabs={orderTabs} onTabChange={handleTabChange} />
       </div>
 
-      <Grid
-        className={style.orders}
-        columns={sm ? 1 : md ? 2 : lg ? 3 : 1}
-        gap={sm ? "12px" : md ? "16px" : lg ? "16px" : "0"}
-        style={{ alignItems: "center" }}
-      >
-        {orderResults &&
-          orderResults.map((o) => {
+      {orderResults.length > 0 ? (
+        <Grid
+          className={style.orders}
+          columns={sm ? 1 : md ? 2 : lg ? 3 : 1}
+          gap={sm ? "12px" : md ? "16px" : lg ? "16px" : "0"}
+          style={{ alignItems: "center" }}
+        >
+          {orderResults.map((o) => {
             const today = new Date();
             let updatedAt = new Date(o.updatedAt.toDate());
             updatedAt.setHours(0, 0, 0, 0);
             today.setHours(0, 0, 0, 0);
             const timeDiff = today.getTime() - updatedAt.getTime();
             const days = Math.abs(Math.floor(timeDiff / (1000 * 60 * 60 * 24)));
+            console.log(o);
             return (
-              <TransactionCard
-                key={o.id}
-                type={o.splitteeId === user.uid ? "buying" : "selling"}
-                itemName={o.name}
-                time={days}
-                orderType={orderType}
-                portions={o.qty}
-                splitterName={
-                  orderType === "selling" ? o.splitteeName : o.splitterName
-                }
-                price={o.price}
-                source={o.imageUrl}
-                orderStatus={o.orderStatus}
-                onCancel={() => onCancel(o.id, o.productId)}
-                onDecline={() => onDecline(o.id, o.productId)}
-                onAccept={() => onAccept(o.id, o.productId)}
-                onComplete={() => onComplete(o.id, o.productId)}
-                onClick={() =>
-                  navigate(`/transaction/${o.id}`, { replace: true })
-                }
-              />
+              <Link
+                to={`/transaction/${o.id}`}
+                state={{
+                  id: o.id,
+                  createdAt: o.createdAt,
+                  splitteeName: o.splitteeName,
+                  splitterName: o.splitterName,
+                  imageUrl: o.imageUrl,
+                  latitude: o.latitude,
+                  longitude: o.longitude,
+                  meetUpAddress: o.meetupAddress,
+                  meetUpInfo: o.meetupSchedule,
+                  name: o.name,
+                  price: o.price,
+                  qty: o.qty,
+                  splitteeId: o.splitteeId,
+                  splitteeContactNumber: o.splitteeContactNumber,
+                  splitteeEmail: o.splitteeEmail,
+                  splitteeImageUrl: o.splitteeImageUrl,
+                  splitterContactNumber: o.splitteeContactNumber,
+                  splitterEmail: o.splitterEmail,
+                  splitterId: o.splitterId,
+                  splitterImageUrl: o.splitterImageUrl,
+                  orderStatus: o.orderStatus,
+                  productId: o.productId,
+                }}
+              >
+                <TransactionCard
+                  key={o.id}
+                  type={o.splitteeId === user.uid ? "buying" : "selling"}
+                  itemName={o.name}
+                  time={days}
+                  orderType={orderType}
+                  portions={o.qty}
+                  splitterName={
+                    orderType === "selling" ? o.splitteeName : o.splitterName
+                  }
+                  price={o.price}
+                  source={o.imageUrl}
+                  orderStatus={o.orderStatus}
+                  onCancel={() => onCancel(o.id, o.productId)}
+                  onDecline={() => onDecline(o.id, o.productId)}
+                  onAccept={() => onAccept(o.id, o.productId)}
+                  onComplete={() => onComplete(o.id, o.productId)}
+                />
+              </Link>
             );
           })}
-      </Grid>
+        </Grid>
+      ) : (
+        <div style={{ textAlign: "center", marginTop: "15%" }}>
+          <Typography color="error" variant="h4-graphik-bold">
+            You have no items here.
+          </Typography>
+        </div>
+      )}
     </div>
   );
 };

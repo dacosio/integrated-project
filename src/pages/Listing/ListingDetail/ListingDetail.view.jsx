@@ -24,17 +24,22 @@ const ListingDetail = (props) => {
     quantity,
     setQuantity,
     isRequested,
+    orderStatus,
     carouselVisibility,
     requestVisibility,
-    cancelVisibility,
+    cancelRequestVisibility,
+    cancelTransactionVisibility,
     handleOnOpen,
     handleOnClose,
     handleOnOpenRequest,
     handleOnConfirmRequest,
     handleOnCloseRequest,
-    handleOnOpenCancel,
-    handleOnConfirmCancel,
-    handleOnCloseCancel,
+    handleOnOpenCancelRequest,
+    handleOnOpenCancelTransaction,
+    handleOnConfirmCancelRequest,
+    handleOnConfirmCancelTransaction,
+    handleOnCloseCancelRequest,
+    handleOnCloseCancelTransaction,
   } = props;
 
   const navigate = useNavigate();
@@ -43,12 +48,21 @@ const ListingDetail = (props) => {
   const isTablet = useMediaQuery("(min-width: 1200px)");
   const isMobile = useMediaQuery("(min-width: 360px)");
 
+  const getDate = (seconds) => {
+    const _createdAt = new Date(seconds * 1000);
+    _createdAt.setHours(0, 0, 0, 0);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const timeDiff = today.getTime() - _createdAt.getTime();
+    return Math.abs(Math.floor(timeDiff / (1000 * 60 * 60 * 24)));
+  };
+
   return (
     <>
       {isDesktop ? (
         <>
           <div className={`${styles.wrapper}`}>
-            <div>
+            <div className={styles.btn}>
               <BackButton onClickHandler={() => navigate(-1)} />
             </div>
             {user && product && seller && isRequested != undefined ? (
@@ -65,8 +79,8 @@ const ListingDetail = (props) => {
                       title={product.name}
                       price={product.price}
                       quantity={product.qty}
-                      createdAt={product.createdAt}
-                      name={`${product.createdByNickName}`}
+                      date={getDate(product.createdAt.seconds)}
+                      name={product.createdByDisplayName}
                     />
                   </div>
                   <div
@@ -98,21 +112,33 @@ const ListingDetail = (props) => {
                     }}
                   >
                     <Card nopadding noborder noshadow>
-                      {user.email === seller.email ? (
+                      {user.uid === seller.id ? (
                         <DescriptionCard
                           description={product.description}
-                          own
+                          nobutton
                         />
                       ) : isRequested ? (
-                        <DescriptionCard
-                          description={product.description}
-                          handleOnOpenCancel={handleOnOpenCancel}
-                          requested
-                        />
+                        orderStatus === "pending" ? (
+                          <DescriptionCard
+                            description={product.description}
+                            handleOnClick={handleOnOpenCancelRequest}
+                            color="white"
+                            label="Cancel Request"
+                          />
+                        ) : (
+                          <DescriptionCard
+                            description={product.description}
+                            handleOnClick={handleOnOpenCancelTransaction}
+                            color="white"
+                            label="Cancel Transaction"
+                          />
+                        )
                       ) : (
                         <DescriptionCard
                           description={product.description}
-                          handleOnOpenRequest={handleOnOpenRequest}
+                          handleOnClick={handleOnOpenRequest}
+                          color="yellow"
+                          label="Request Purchase"
                         />
                       )}
                     </Card>
@@ -131,8 +157,8 @@ const ListingDetail = (props) => {
                         minute: "numeric",
                         hour12: true,
                       })}
-                      latitude={product.location._lat}
-                      longitude={product.location._long}
+                      latitude={product.latitude}
+                      longitude={product.longitude}
                       location={product.meetUpAddress}
                     />
                   </div>
@@ -173,7 +199,13 @@ const ListingDetail = (props) => {
                     setInputNumber={setQuantity}
                     minValue={1}
                     maxValue={product.qty}
+                    nanErrMsg={"Please enter a number."}
+                    minErrMsg={"Number must be at least 1."}
+                    maxErrMsg={
+                      "Number cannot be larger than available portions."
+                    }
                   />
+                  <div>${Number((quantity * product.price).toFixed(2))}</div>
                 </div>
                 <div style={{ display: "flex", gap: "20px" }}>
                   <Button
@@ -192,7 +224,10 @@ const ListingDetail = (props) => {
               </div>
             </Modal>
           )}
-          <Modal visibility={cancelVisibility} onClose={handleOnCloseCancel}>
+          <Modal
+            visibility={cancelRequestVisibility}
+            onClose={handleOnCloseCancelRequest}
+          >
             <div style={{ display: "grid", gap: "20px" }}>
               <div
                 style={{
@@ -208,13 +243,46 @@ const ListingDetail = (props) => {
               </div>
               <div style={{ display: "flex", gap: "20px" }}>
                 <Button
-                  onClickHandler={handleOnCloseCancel}
+                  onClickHandler={handleOnCloseCancelRequest}
                   size="lg"
                   variant="white"
                   label="Cancel"
                 />
                 <Button
-                  onClickHandler={handleOnConfirmCancel}
+                  onClickHandler={handleOnConfirmCancelRequest}
+                  size="lg"
+                  variant="yellow"
+                  label="Confirm"
+                />
+              </div>
+            </div>
+          </Modal>
+          <Modal
+            visibility={cancelTransactionVisibility}
+            onClose={handleOnCloseCancelTransaction}
+          >
+            <div style={{ display: "grid", gap: "20px" }}>
+              <div
+                style={{
+                  display: "grid",
+                  gap: "20px",
+                  justifyItems: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Typography variant="h4-graphik-bold">
+                  Do you really want to cancel the transaction?
+                </Typography>
+              </div>
+              <div style={{ display: "flex", gap: "20px" }}>
+                <Button
+                  onClickHandler={handleOnCloseCancelTransaction}
+                  size="lg"
+                  variant="white"
+                  label="Cancel"
+                />
+                <Button
+                  onClickHandler={handleOnConfirmCancelTransaction}
                   size="lg"
                   variant="yellow"
                   label="Confirm"
@@ -226,7 +294,7 @@ const ListingDetail = (props) => {
       ) : (
         <>
           <div className={`${styles.wrapper}`}>
-            <div>
+            <div className={styles.btn}>
               <BackButton onClickHandler={() => navigate(-1)} />
             </div>
             {user && product && seller && isRequested !== undefined ? (
@@ -242,25 +310,40 @@ const ListingDetail = (props) => {
                       title={product.name}
                       price={product.price}
                       quantity={product.qty}
-                      createdAt={product.createdAt}
-                      name={`${product.createdByNickName}`}
+                      date={getDate(product.createdAt.seconds)}
+                      name={product.createdByDisplayName}
                     />
                     <ImageList images={product.images} onClick={handleOnOpen} />
                   </div>
                 </Card>
                 <Card nopadding noborder>
-                  {user.email === seller.email ? (
-                    <DescriptionCard description={product.description} own />
-                  ) : isRequested ? (
+                  {user.uid === seller.id ? (
                     <DescriptionCard
                       description={product.description}
-                      handleOnOpenCancel={handleOnOpenCancel}
-                      requested
+                      nobutton
                     />
+                  ) : isRequested ? (
+                    orderStatus === "pending" ? (
+                      <DescriptionCard
+                        description={product.description}
+                        handleOnClick={handleOnOpenCancelRequest}
+                        color="white"
+                        label="Cancel Request"
+                      />
+                    ) : (
+                      <DescriptionCard
+                        description={product.description}
+                        handleOnClick={handleOnOpenCancelTransaction}
+                        color="white"
+                        label="Cancel Transaction"
+                      />
+                    )
                   ) : (
                     <DescriptionCard
                       description={product.description}
-                      handleOnOpenRequest={handleOnOpenRequest}
+                      handleOnClick={handleOnOpenRequest}
+                      color="yellow"
+                      label="Request Purchase"
                     />
                   )}
                 </Card>
@@ -280,8 +363,8 @@ const ListingDetail = (props) => {
                       minute: "numeric",
                       hour12: true,
                     })}
-                    latitude={product.location._lat}
-                    longitude={product.location._long}
+                    latitude={product.latitude}
+                    longitude={product.longitude}
                     location={product.meetUpAddress}
                   />
                 </Card>
@@ -329,6 +412,11 @@ const ListingDetail = (props) => {
                     setInputNumber={setQuantity}
                     minValue={1}
                     maxValue={product.qty}
+                    nanErrMsg={"Please enter a number."}
+                    minErrMsg={"Number must be at least 1."}
+                    maxErrMsg={
+                      "Number cannot be larger than available portions."
+                    }
                   />
                 </div>
                 <div style={{ display: "flex", gap: "20px" }}>
@@ -348,7 +436,10 @@ const ListingDetail = (props) => {
               </div>
             </Modal>
           )}
-          <Modal visibility={cancelVisibility} onClose={handleOnCloseCancel}>
+          <Modal
+            visibility={cancelRequestVisibility}
+            onClose={handleOnCloseCancelRequest}
+          >
             <div style={{ display: "grid", gap: "20px" }}>
               <div
                 style={{
@@ -364,13 +455,46 @@ const ListingDetail = (props) => {
               </div>
               <div style={{ display: "flex", gap: "20px" }}>
                 <Button
-                  onClickHandler={handleOnCloseCancel}
+                  onClickHandler={handleOnCloseCancelRequest}
                   size="lg"
                   variant="white"
                   label="Cancel"
                 />
                 <Button
-                  onClickHandler={handleOnConfirmCancel}
+                  onClickHandler={handleOnConfirmCancelRequest}
+                  size="lg"
+                  variant="yellow"
+                  label="Confirm"
+                />
+              </div>
+            </div>
+          </Modal>
+          <Modal
+            visibility={cancelTransactionVisibility}
+            onClose={handleOnCloseCancelTransaction}
+          >
+            <div style={{ display: "grid", gap: "20px" }}>
+              <div
+                style={{
+                  display: "grid",
+                  gap: "20px",
+                  justifyItems: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Typography variant="h4-graphik-bold">
+                  Do you really want to cancel the transaction?
+                </Typography>
+              </div>
+              <div style={{ display: "flex", gap: "20px" }}>
+                <Button
+                  onClickHandler={handleOnCloseCancelTransaction}
+                  size="lg"
+                  variant="white"
+                  label="Cancel"
+                />
+                <Button
+                  onClickHandler={handleOnConfirmCancelTransaction}
                   size="lg"
                   variant="yellow"
                   label="Confirm"

@@ -46,7 +46,7 @@ const Layout = () => {
     //     "linear-gradient(90deg,var(--dark-blue) 60% , var(--yellow) 60%)";
     // }
     else {
-      body.style.backgroundColor = "white"; // Set the desired background color for other pages
+      body.style.backgroundColor = "var(--bg-gray)"; // Set the desired background color for other pages
     }
 
     // return () => {

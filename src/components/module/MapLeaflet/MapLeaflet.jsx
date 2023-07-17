@@ -44,6 +44,8 @@ const MapLeaflet = ({
   bounds,
   showActiveListing,
   currentAddress,
+  meetup,
+  meetupLocation,
   ...props
 }) => {
   return (
@@ -75,15 +77,22 @@ const MapLeaflet = ({
                   icon={customIcon}
                   eventHandlers={{
                     click: (e) => {
-                      currentAddress
-                        ? window.open(
-                            `https://www.google.com/maps/dir/${currentAddress}/${el.meetUpAddress}/`,
-                            "_blank"
-                          )
-                        : window.open(
-                            `http://maps.google.com/?q=${el.meetUpAddress}`,
-                            "_blank"
-                          );
+                      if (!meetup) {
+                        currentAddress
+                          ? window.open(
+                              `https://www.google.com/maps/dir/${currentAddress}/${el.meetUpAddress}/`,
+                              "_blank"
+                            )
+                          : window.open(
+                              `http://maps.google.com/?q=${el.meetUpAddress}`,
+                              "_blank"
+                            );
+                      } else {
+                        window.open(
+                          `http://maps.google.com/?q=${meetupLocation}`,
+                          "_blank"
+                        );
+                      }
                     },
                   }}
                 >
@@ -92,8 +101,8 @@ const MapLeaflet = ({
                       <Tooltip permanent={permanent} direction={direction}>
                         <ActiveListingCard
                           key={el.id}
-                          distance={2}
-                          days={2}
+                          distance={0}
+                          // days={2}
                           source={
                             el.images.length > 0
                               ? el.images[0]
@@ -101,7 +110,7 @@ const MapLeaflet = ({
                           }
                           itemname={el.name}
                           price={el.price}
-                          stock={el.qyty}
+                          stock={el.qty}
                           alt={el.name}
                           onClick={() => console.log(el.id)}
                           maxwidth={"150px"}

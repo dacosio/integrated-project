@@ -6,18 +6,11 @@ function ProductInfoCard({
   title,
   price,
   quantity,
-  createdAt,
+  date,
   name,
   address,
   ...props
 }) {
-  const _createdAt = new Date(createdAt.toDate());
-  _createdAt.setHours(0, 0, 0, 0);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const timeDiff = today.getTime() - _createdAt.getTime();
-  const date = Math.abs(Math.floor(timeDiff / (1000 * 60 * 60 * 24)));
-
   return (
     <div className={`${styles.wrapper}`}>
       <div className={`${styles.grid}`}>

@@ -5,10 +5,10 @@ import Typography from "../Typography/Typography";
 
 const DescriptionCard = ({
   description,
-  own = false,
-  requested = false,
-  handleOnOpenRequest,
-  handleOnOpenCancel,
+  nobutton = false,
+  color,
+  label,
+  handleOnClick,
 }) => {
   return (
     <div className={`${styles.wrapper}`}>
@@ -17,21 +17,14 @@ const DescriptionCard = ({
         <Typography variant="body-2-regular" color="gray">
           {description}
         </Typography>
-        {own ? (
+        {nobutton ? (
           <></>
-        ) : !requested ? (
-          <Button
-            onClickHandler={handleOnOpenRequest}
-            size="lg"
-            variant="yellow"
-            label="Request Purchase"
-          />
         ) : (
           <Button
-            onClickHandler={handleOnOpenCancel}
+            onClickHandler={handleOnClick}
             size="lg"
-            variant="white"
-            label="Cancel Request"
+            variant={color}
+            label={label}
           />
         )}
       </div>

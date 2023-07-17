@@ -1,5 +1,6 @@
 import React from "react";
 import ImageUploading from "react-images-uploading";
+import Typography from "../Typography/Typography";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BiImageAdd } from "react-icons/bi";
@@ -7,22 +8,26 @@ import { RiInformationFill } from "react-icons/ri";
 import useMediaQuery from "../../../utils/useMediaQuery";
 import styles from "./image-input.module.css";
 
-function ImageInput({ images, setImages, maxImageNumber = 11, ...props }) {
+function ImageInput({ images, setImages, maxImageNumber = 12, ...props }) {
   const isDesktop = useMediaQuery("(min-width: 1200px)");
 
-  const onChange = (imageList) => {
+  const onChange = async (imageList) => {
     setImages(imageList);
   };
 
   const onError = (error) => {
     if (error.maxNumber) {
-      toast.error("The maximum number is 11!");
+      toast.error(`You can add up to ${maxImageNumber} photos.`);
     }
     if (error.acceptType) {
-      toast.error("You can upload jpg, png only!");
+      toast.error(
+        "The file format is not supported. Only files with the following extensions are allowed: jpg, png."
+      );
     }
     if (error.maxFileSize) {
-      toast.error("The maximum file size is 10MB!");
+      toast.error(
+        "The file is too large and cannot be uploaded. The maximum file size per image is 10MB."
+      );
     }
   };
 
@@ -47,47 +52,56 @@ function ImageInput({ images, setImages, maxImageNumber = 11, ...props }) {
         }) => (
           <div>
             <div className={`${styles["header"]}`}>
-              {images.length === 0 ? (
-                <div
-                  className={`${styles["input"]} ${styles["half"]}`}
-                  style={isDragging ? { border: "3px solid red" } : null}
-                  onClick={onImageUpload}
-                  {...dragProps}
-                >
-                  {isDesktop ? (
-                    <div>
-                      <div
-                        className={`${styles["flex-center"]} ${styles["bold"]}`}
-                      >
-                        <BiImageAdd size={48} />
-                        Add Photos
+              {images.length !== maxImageNumber &&
+                (images.length === 0 ? (
+                  <div
+                    className={`${styles["input"]} ${styles["half"]}`}
+                    style={isDragging ? { border: "3px solid red" } : null}
+                    onClick={onImageUpload}
+                    {...dragProps}
+                  >
+                    {isDesktop ? (
+                      <div>
+                        <div
+                          className={`${styles["flex-center"]} ${styles["bold"]}`}
+                        >
+                          <BiImageAdd size={32} />
+                          <Typography variant="h3-graphik-bold">
+                            Add Photos
+                          </Typography>
+                        </div>
+                        <Typography variant="body-1-medium">
+                          Choose a file
+                        </Typography>
+                        <Typography variant="body-1-medium">
+                          or drag and drop your files.
+                        </Typography>
                       </div>
-                      <div>Choose a file</div>
-                      <div>or drag and drop your files.</div>
-                    </div>
-                  ) : (
-                    <div>
-                      <div
-                        className={`${styles["grid-center"]} ${styles["bold"]}`}
-                      >
-                        <BiImageAdd size={48} />
-                        Add Photos
+                    ) : (
+                      <div>
+                        <div
+                          className={`${styles["grid-center"]} ${styles["bold"]}`}
+                        >
+                          <BiImageAdd size={32} />
+                          <Typography variant="h4-graphik-bold">
+                            Add Photos
+                          </Typography>
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div
-                  className={`${styles["input"]} ${styles["full"]}`}
-                  style={isDragging ? { border: "3px solid red" } : null}
-                  onClick={onImageUpload}
-                  {...dragProps}
-                >
-                  <div>
-                    <BiImageAdd size={48} />
+                    )}
                   </div>
-                </div>
-              )}
+                ) : (
+                  <div
+                    className={`${styles["input"]} ${styles["full"]}`}
+                    style={isDragging ? { border: "3px solid red" } : null}
+                    onClick={onImageUpload}
+                    {...dragProps}
+                  >
+                    <div>
+                      <BiImageAdd size={32} />
+                    </div>
+                  </div>
+                ))}
               {imageList.map((image, index) => (
                 <img
                   key={index}
@@ -98,19 +112,24 @@ function ImageInput({ images, setImages, maxImageNumber = 11, ...props }) {
               ))}
             </div>
             {images.length === 0 ? (
-              <div
-                className={`${styles["footer"]} ${styles["flex-left"]} ${styles["text-light-gray"]}`}
-              >
-                <RiInformationFill size={32} style={{ marginRight: "8px" }} />
-                Select your cover photo first. You can add up to 11 photos.
+              <div className={`${styles["footer"]} ${styles["flex-left"]}`}>
+                <RiInformationFill size={32} color="var(--light-gray)" />
+                <Typography variant="body-4-regular" color="light-gray">
+                  Select your cover photo first. You can add up to{" "}
+                  {maxImageNumber} photos.
+                </Typography>
               </div>
-            ) : images.length === 11 ? (
+            ) : images.length === maxImageNumber ? (
               <div className={`${styles["footer"]} ${styles["flex-right"]}`}>
-                You have reached your photo limit.
+                <Typography variant="body-4-regular">
+                  You have reached your photo limit.
+                </Typography>
               </div>
             ) : (
               <div className={`${styles["footer"]} ${styles["flex-right"]}`}>
-                You can add {11 - images.length} more photos.
+                <Typography variant="body-4-regular">
+                  You can add {maxImageNumber - images.length} more photos.
+                </Typography>
               </div>
             )}
           </div>

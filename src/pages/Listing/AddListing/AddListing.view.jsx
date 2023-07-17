@@ -37,15 +37,10 @@ const AddListing = (props) => {
     validationSchema,
     handleOnSubmit,
     handleOnBlur,
+    navigate,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
-  const options = [
-    { value: "value1", label: "Fresh Food" },
-    { value: "value2", label: "Packaged Food" },
-    { value: "value3", label: "Household" },
-    { value: "value4", label: "Beauty & Wellness" },
-  ];
 
   return (
     <div className={styles.contentWrapper}>
@@ -60,7 +55,9 @@ const AddListing = (props) => {
               return (
                 <Form>
                   <div className={styles.backButtonWrap}>
-                    <BackButton />
+                    <BackButton
+                      onClick={() => navigate("/", { replace: true })}
+                    />
                   </div>
                   <Grid
                     columns={2}
@@ -68,7 +65,7 @@ const AddListing = (props) => {
                       border: "1px solid var(--black)",
                       padding: "40px 40px 80px",
                       rowGap: "26px",
-                      columnGap: "18px",
+                      columnGap: "40px",
                       backgroundColor: "var(--white)",
                       borderRadius: "20px",
                       boxShadow: "2px 2px var(--black)",
@@ -92,7 +89,7 @@ const AddListing = (props) => {
                       <div
                         style={{
                           width: "100%",
-                          maxWidth: "500px",
+                          // maxWidth: "500px",
                           boxSizing: "border-box",
                         }}
                       >
@@ -147,7 +144,6 @@ const AddListing = (props) => {
                       <SelectDropdown
                         options={categories}
                         placeholder="Select Category"
-                        clearable
                         backspaceDelete
                         onChange={(value) => setCategory(value[0])}
                         searchable={false}
@@ -206,6 +202,9 @@ const AddListing = (props) => {
                       <NumberInput
                         inputNumber={divisionNumber}
                         setInputNumber={setDivisionNumber}
+                        nanErrMsg={"test1"}
+                        minErrMsg={"test2"}
+                        maxErrMsg={"test3"}
                       />
                     </div>
 
@@ -403,7 +402,9 @@ const AddListing = (props) => {
               return (
                 <Form>
                   <div className={styles.backButtonWrap}>
-                    <BackButton />
+                    <BackButton
+                      onClick={() => navigate("/", { replace: true })}
+                    />
                   </div>
                   <div className={styles.mobileWrapper}>
                     {/* <Grid columns={1}
@@ -482,7 +483,6 @@ const AddListing = (props) => {
                         <SelectDropdown
                           options={categories}
                           placeholder="Select Category"
-                          clearable
                           backspaceDelete
                           onChange={(value) => setCategory(value[0])}
                           searchable={false}
