@@ -24,17 +24,22 @@ const ListingDetail = (props) => {
     quantity,
     setQuantity,
     isRequested,
+    orderStatus,
     carouselVisibility,
     requestVisibility,
-    cancelVisibility,
+    cancelRequestVisibility,
+    cancelTransactionVisibility,
     handleOnOpen,
     handleOnClose,
     handleOnOpenRequest,
     handleOnConfirmRequest,
     handleOnCloseRequest,
-    handleOnOpenCancel,
-    handleOnConfirmCancel,
-    handleOnCloseCancel,
+    handleOnOpenCancelRequest,
+    handleOnOpenCancelTransaction,
+    handleOnConfirmCancelRequest,
+    handleOnConfirmCancelTransaction,
+    handleOnCloseCancelRequest,
+    handleOnCloseCancelTransaction,
   } = props;
 
   const navigate = useNavigate();
@@ -107,21 +112,33 @@ const ListingDetail = (props) => {
                     }}
                   >
                     <Card nopadding noborder noshadow>
-                      {user.email === seller.email ? (
+                      {user.uid === seller.id ? (
                         <DescriptionCard
                           description={product.description}
-                          own
+                          nobutton
                         />
                       ) : isRequested ? (
-                        <DescriptionCard
-                          description={product.description}
-                          handleOnOpenCancel={handleOnOpenCancel}
-                          requested
-                        />
+                        orderStatus === "pending" ? (
+                          <DescriptionCard
+                            description={product.description}
+                            handleOnClick={handleOnOpenCancelRequest}
+                            color="white"
+                            label="Cancel Request"
+                          />
+                        ) : (
+                          <DescriptionCard
+                            description={product.description}
+                            handleOnClick={handleOnOpenCancelTransaction}
+                            color="white"
+                            label="Cancel Transaction"
+                          />
+                        )
                       ) : (
                         <DescriptionCard
                           description={product.description}
-                          handleOnOpenRequest={handleOnOpenRequest}
+                          handleOnClick={handleOnOpenRequest}
+                          color="yellow"
+                          label="Request Purchase"
                         />
                       )}
                     </Card>
@@ -185,9 +202,10 @@ const ListingDetail = (props) => {
                     nanErrMsg={"Please enter a number."}
                     minErrMsg={"Number must be at least 1."}
                     maxErrMsg={
-                      "Number cannot be larger than available portions."
+                      "Number cannot be larger than available portions."
                     }
                   />
+                  <div>${Number((quantity * product.price).toFixed(2))}</div>
                 </div>
                 <div style={{ display: "flex", gap: "20px" }}>
                   <Button
@@ -206,7 +224,10 @@ const ListingDetail = (props) => {
               </div>
             </Modal>
           )}
-          <Modal visibility={cancelVisibility} onClose={handleOnCloseCancel}>
+          <Modal
+            visibility={cancelRequestVisibility}
+            onClose={handleOnCloseCancelRequest}
+          >
             <div style={{ display: "grid", gap: "20px" }}>
               <div
                 style={{
@@ -222,13 +243,46 @@ const ListingDetail = (props) => {
               </div>
               <div style={{ display: "flex", gap: "20px" }}>
                 <Button
-                  onClickHandler={handleOnCloseCancel}
+                  onClickHandler={handleOnCloseCancelRequest}
                   size="lg"
                   variant="white"
                   label="Cancel"
                 />
                 <Button
-                  onClickHandler={handleOnConfirmCancel}
+                  onClickHandler={handleOnConfirmCancelRequest}
+                  size="lg"
+                  variant="yellow"
+                  label="Confirm"
+                />
+              </div>
+            </div>
+          </Modal>
+          <Modal
+            visibility={cancelTransactionVisibility}
+            onClose={handleOnCloseCancelTransaction}
+          >
+            <div style={{ display: "grid", gap: "20px" }}>
+              <div
+                style={{
+                  display: "grid",
+                  gap: "20px",
+                  justifyItems: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Typography variant="h4-graphik-bold">
+                  Do you really want to cancel the transaction?
+                </Typography>
+              </div>
+              <div style={{ display: "flex", gap: "20px" }}>
+                <Button
+                  onClickHandler={handleOnCloseCancelTransaction}
+                  size="lg"
+                  variant="white"
+                  label="Cancel"
+                />
+                <Button
+                  onClickHandler={handleOnConfirmCancelTransaction}
                   size="lg"
                   variant="yellow"
                   label="Confirm"
@@ -263,18 +317,33 @@ const ListingDetail = (props) => {
                   </div>
                 </Card>
                 <Card nopadding noborder>
-                  {user.email === seller.email ? (
-                    <DescriptionCard description={product.description} own />
-                  ) : isRequested ? (
+                  {user.uid === seller.id ? (
                     <DescriptionCard
                       description={product.description}
-                      handleOnOpenCancel={handleOnOpenCancel}
-                      requested
+                      nobutton
                     />
+                  ) : isRequested ? (
+                    orderStatus === "pending" ? (
+                      <DescriptionCard
+                        description={product.description}
+                        handleOnClick={handleOnOpenCancelRequest}
+                        color="white"
+                        label="Cancel Request"
+                      />
+                    ) : (
+                      <DescriptionCard
+                        description={product.description}
+                        handleOnClick={handleOnOpenCancelTransaction}
+                        color="white"
+                        label="Cancel Transaction"
+                      />
+                    )
                   ) : (
                     <DescriptionCard
                       description={product.description}
-                      handleOnOpenRequest={handleOnOpenRequest}
+                      handleOnClick={handleOnOpenRequest}
+                      color="yellow"
+                      label="Request Purchase"
                     />
                   )}
                 </Card>
@@ -346,7 +415,7 @@ const ListingDetail = (props) => {
                     nanErrMsg={"Please enter a number."}
                     minErrMsg={"Number must be at least 1."}
                     maxErrMsg={
-                      "Number cannot be larger than available portions."
+                      "Number cannot be larger than available portions."
                     }
                   />
                 </div>
@@ -367,7 +436,10 @@ const ListingDetail = (props) => {
               </div>
             </Modal>
           )}
-          <Modal visibility={cancelVisibility} onClose={handleOnCloseCancel}>
+          <Modal
+            visibility={cancelRequestVisibility}
+            onClose={handleOnCloseCancelRequest}
+          >
             <div style={{ display: "grid", gap: "20px" }}>
               <div
                 style={{
@@ -383,13 +455,46 @@ const ListingDetail = (props) => {
               </div>
               <div style={{ display: "flex", gap: "20px" }}>
                 <Button
-                  onClickHandler={handleOnCloseCancel}
+                  onClickHandler={handleOnCloseCancelRequest}
                   size="lg"
                   variant="white"
                   label="Cancel"
                 />
                 <Button
-                  onClickHandler={handleOnConfirmCancel}
+                  onClickHandler={handleOnConfirmCancelRequest}
+                  size="lg"
+                  variant="yellow"
+                  label="Confirm"
+                />
+              </div>
+            </div>
+          </Modal>
+          <Modal
+            visibility={cancelTransactionVisibility}
+            onClose={handleOnCloseCancelTransaction}
+          >
+            <div style={{ display: "grid", gap: "20px" }}>
+              <div
+                style={{
+                  display: "grid",
+                  gap: "20px",
+                  justifyItems: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Typography variant="h4-graphik-bold">
+                  Do you really want to cancel the transaction?
+                </Typography>
+              </div>
+              <div style={{ display: "flex", gap: "20px" }}>
+                <Button
+                  onClickHandler={handleOnCloseCancelTransaction}
+                  size="lg"
+                  variant="white"
+                  label="Cancel"
+                />
+                <Button
+                  onClickHandler={handleOnConfirmCancelTransaction}
                   size="lg"
                   variant="yellow"
                   label="Confirm"
