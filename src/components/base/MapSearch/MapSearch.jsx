@@ -10,6 +10,8 @@ const MapSearch = ({
   placeholder = "Search location",
   height,
   bottom = false,
+  newValue,
+  resetAddressInfo,
 }) => {
   const {
     placesService,
@@ -22,10 +24,17 @@ const MapSearch = ({
   const [value, setValue] = useState("");
   const { updatePlaceValue } = Place();
 
+  useEffect(() => {
+    if (newValue) {
+      setValue(newValue);
+    }
+  }, [newValue]);
+
   const handleReset = () => {
     setValue("");
     getPlacePredictions({ input: "" });
     updatePlaceValue("");
+    resetAddressInfo();
   };
 
   const handleSelectPlace = (item) => {

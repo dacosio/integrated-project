@@ -8,12 +8,7 @@ import { toast } from "react-toastify";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import { Place } from "../../context/PlaceContext";
-import {
-  doc,
-  getDoc,
-  updateDoc,
-  serverTimestamp,
-} from "@firebase/firestore";
+import { doc, getDoc, updateDoc, serverTimestamp } from "@firebase/firestore";
 import db from "../../config/firebaseConfig";
 
 const Settings = () => {
@@ -21,6 +16,8 @@ const Settings = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [aboutUsVisibility, setAboutUsVisibility] = useState(true);
   const [singleImage, setSingleImage] = useState([]);
+  const [contactNumberInfo, setContactNumberInfo] = useState("");
+  const [addressInfo, setAddressInfo] = useState("");
   const { placeValue, updatePlaceValue } = Place();
 
   const user = auth.currentUser;
@@ -32,8 +29,9 @@ const Settings = () => {
   useEffect(() => {
     if (user) {
       getDoc(doc(db, "user", user.uid)).then((userResponse) => {
-        console.log(userResponse);
         setSingleImage([{ data_url: userResponse.data().imageUrl }]);
+        setContactNumberInfo(userResponse.data().contactNumber);
+        setAddressInfo(userResponse.data().address);
       });
     }
   }, [user]);
@@ -44,10 +42,8 @@ const Settings = () => {
   };
 
   const changeContactValues = {
-    contactNumber: "",
+    contactNumber: contactNumberInfo,
   };
-
-  console.log(user);
 
   const validatePasswordSchema = Yup.object({
     password: Yup.string().required("Your password is required"),
@@ -57,9 +53,11 @@ const Settings = () => {
       "Your new password does not match"
     ),
   });
-
+  const resetAddressInfo = () => {
+    setAddressInfo("");
+  };
   const onSubmitUpdateInfo = async ({ contactNumber }) => {
-    if (singleImage.length !== 0) {
+    if (!singleImage[0].data_url.includes("firebasestorage.googleapis.com")) {
       for (const image of singleImage) {
         const file = image.file;
         const uniqueId = uuidv4();
@@ -68,39 +66,35 @@ const Settings = () => {
           `profile-image/${file.name.split(".")[0]}-${uniqueId}`
         );
         const uploadTask = uploadBytesResumable(fileRef, file);
-
         uploadTask.on(
           "state_changed",
           (snapshot) => {
             const progress =
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
             console.log(progress + "% Done.");
           },
           (error) => {
             console.log(error);
           },
           async () => {
-            await getDownloadURL(fileRef).then(async (imageUrl) => {
-              console.log(
-                "here1",
-                contactNumber ? contactNumber : user.phoneNumber
-              );
-              console.log("here2", imageUrl ? imageUrl : user.photoURL);
+            try {
               const userDocRef = doc(db, "user", user.uid);
-              updateDoc(userDocRef, {
+              const imageUrl = await getDownloadURL(fileRef);
+              await updateDoc(userDocRef, {
                 imageUrl: imageUrl,
                 contactNumber: contactNumber,
                 address: placeValue.formatted_address
                   ? placeValue.formatted_address
-                  : "",
+                  : addressInfo,
                 updatedAt: serverTimestamp(),
               })
                 .then(() => {
-                  console.log("Information has been successfully updated.");
+                  setSingleImage([{ data_url: imageUrl }]);
+                })
+                .then(() => {
                   toast.success("Information has been successfully updated.", {
                     position: "top-center",
-                    autoClose: 5000,
+                    autoClose: 3000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -108,99 +102,61 @@ const Settings = () => {
                     progress: undefined,
                     newestOnTop: false,
                     theme: "light",
-                  });
-                })
-                .catch((error) => {
-                  console.log("Error updating your information", error);
-                  toast.error("Error updating your information", {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    newestOnTop: false,
-                    theme: "light",
+                    toastId: 3,
                   });
                 });
-            });
+            } catch (error) {
+              toast.error("Error updating your information", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                newestOnTop: false,
+                theme: "light",
+                toastId: 4,
+              });
+            }
           }
         );
-        setSingleImage([]);
       }
-    }
-
-    if (contactNumber !== "") {
+    } else {
       const userDocRef = doc(db, "user", user.uid);
+
       updateDoc(userDocRef, {
         contactNumber: contactNumber,
-        updatedAt: serverTimestamp(),
-      })
-        .then(() => {
-          console.log("Information has been successfully updated.");
-          toast.success("Information has been successfully updated.", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            newestOnTop: false,
-            theme: "light",
-          });
-        })
-        .catch((error) => {
-          console.log("Error updating your information", error);
-          toast.error("Error updating your information", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            newestOnTop: false,
-            theme: "light",
-          });
-        });
-    }
-
-    if (placeValue.formatted_address !== "") {
-      const userDocRef = doc(db, "user", user.uid);
-      updateDoc(userDocRef, {
         address: placeValue.formatted_address
           ? placeValue.formatted_address
-          : "",
+          : addressInfo,
         updatedAt: serverTimestamp(),
       })
         .then(() => {
-          console.log("Information has been successfully updated.");
-          toast.success("Information has been successfully updated.", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            newestOnTop: false,
-            theme: "light",
-          });
+          if (!toast.isActive()) {
+            toast.success("Information has been successfully updated.", {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              draggable: true,
+              pauseOnHover: true,
+              progress: undefined,
+              theme: "light",
+              toastId: 5,
+            });
+          }
         })
         .catch((error) => {
-          console.log("Error updating your information", error);
           toast.error("Error updating your information", {
             position: "top-center",
-            autoClose: 5000,
+            autoClose: 3000,
             hideProgressBar: false,
-            closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
             newestOnTop: false,
             theme: "light",
+            toastId: 6,
           });
         });
     }
@@ -212,28 +168,26 @@ const Settings = () => {
         console.log("Password changed successfully.");
         toast.success("Password has been changed successfully!", {
           position: "top-center",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
-          closeOnClick: true,
           pauseOnHover: true,
-          draggable: true,
           progress: undefined,
           newestOnTop: false,
           theme: "light",
+          toastId: 1,
         });
       })
       .catch((error) => {
         console.log("Error changing password", error);
         toast.error("Error changing password", {
           position: "top-center",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
-          closeOnClick: true,
           pauseOnHover: true,
-          draggable: true,
           progress: undefined,
           newestOnTop: false,
           theme: "light",
+          toastId: 2,
         });
       });
   };
@@ -252,7 +206,8 @@ const Settings = () => {
     onSubmitNewPassword,
     changeContactValues,
     onSubmitUpdateInfo,
-
+    addressInfo,
+    resetAddressInfo,
   };
   return <SettingsView {...generatedProps} />;
 };

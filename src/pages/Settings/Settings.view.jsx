@@ -28,6 +28,8 @@ const Settings = (props) => {
     changeContactValues,
     // validateContactSchema,
     onSubmitUpdateInfo,
+    addressInfo,
+    resetAddressInfo,
   } = props;
 
   const formikStyle = {
@@ -60,13 +62,14 @@ const Settings = (props) => {
               variant="body-2-regular"
               style={{ textAlign: "center" }}
             >
-              Upload Photo
+              Update Photo
             </Typography>
           </div>
           <div className={style.settingsDetail}>
             <Formik
               initialValues={changeContactValues}
               onSubmit={onSubmitUpdateInfo}
+              enableReinitialize
             >
               {(formik) => {
                 return (
@@ -86,8 +89,11 @@ const Settings = (props) => {
                       >
                         Address
                       </Typography>
-                      {/* Uncomment to see the mapsearch but ensure that the key is in env */}
-                      <MapSearch placeholder="Type your address" />
+                      <MapSearch
+                        placeholder="Type your address"
+                        newValue={addressInfo}
+                        resetAddressInfo={resetAddressInfo}
+                      />
                     </div>
                     <div className={"buttonWrapper"}>
                       <Button
@@ -95,7 +101,6 @@ const Settings = (props) => {
                         size="lg"
                         label="Apply Changes"
                         type="submit"
-                        // onClickHandler={() => navigate("/login")}
                       />
                     </div>
                   </Form>
