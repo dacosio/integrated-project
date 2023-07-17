@@ -6,6 +6,7 @@ import Typography from "../../../components/base/Typography/Typography";
 import ActiveListingCard from "../../../components/base/ActiveListingCard/ActiveListingCard";
 import Grid from "../../../components/layout/Grid/Grid";
 import getDistance from "geolib/es/getDistance";
+import { Link } from "react-router-dom";
 // import { BeatLoader } from "react-spinners";
 
 const ProfileDetail = ({
@@ -18,6 +19,7 @@ const ProfileDetail = ({
   latitude,
   longitude,
   error,
+  navigate,
 }) => {
   return (
     <div className={style.wrapper}>
@@ -76,7 +78,7 @@ const ProfileDetail = ({
               }
             >
               <Grid
-                columns={sm ? 2 : md ? 3 : lg ? 4 : 4}
+                columns={sm ? 2 : md ? 5 : lg ? 5 : 5}
                 style={{
                   justifySelf: "flex-start",
                   margin: "auto",
@@ -93,10 +95,10 @@ const ProfileDetail = ({
                 >
                   Active Listings
                 </Typography>
-                {product.map((productItem) => {
+                {product.map((product) => {
                   let tmp = {
-                    latitude: productItem.lat,
-                    longitude: productItem.long,
+                    latitude: product.lat,
+                    longitude: product.long,
                   };
                   let distance = 0;
                   if (latitude && longitude) {
@@ -108,7 +110,7 @@ const ProfileDetail = ({
                   }
 
                   const productCreatedDate = new Date(
-                    productItem.createdAt.toDate()
+                    product.createdAt.toDate()
                   );
                   productCreatedDate.setHours(0, 0, 0, 0);
                   const today = new Date();
@@ -121,23 +123,42 @@ const ProfileDetail = ({
                   console.log(dateDiff);
 
                   return (
-                    <ActiveListingCard
-                      key={productItem.id}
-                      distance={!!error ? 0 : distance}
-                      days={dateDiff}
-                      source={
-                        productItem.images
-                          ? productItem.images[0]
-                          : "src/assets/images/NoImage.jpg"
-                      }
-                      itemname={productItem.name}
-                      price={productItem.price}
-                      stock={productItem.qty}
-                      alt={productItem.name}
-                      onClick={() => console.log("activelistingcard")}
-                      height={sm || md || lg ? "160px" : "256px"}
-                      width={sm || md || lg ? "160px" : "256px"}
-                    />
+                    <Link
+                      to={`/listing/${product.id}`}
+                      state={{
+                        id: product.id,
+                        createdAt: product.createdAt,
+                        createdByDisplayName: product.createdByNickName,
+                        createdByIdent: product.createdByIdent,
+                        description: product.description,
+                        images: product.images,
+                        latitude: product.lat,
+                        longitude: product.long,
+                        meetUpAddress: product.meetUpAddress,
+                        meetUpInfo: product.meetUpInfo,
+                        name: product.name,
+                        price: product.price,
+                        qty: product.qty,
+                      }}
+                    >
+                      <ActiveListingCard
+                        key={product.id}
+                        distance={!!error ? 0 : distance}
+                        days={dateDiff}
+                        source={
+                          product.images
+                            ? product.images[0]
+                            : "src/assets/images/NoImage.jpg"
+                        }
+                        itemname={product.name}
+                        price={product.price}
+                        stock={product.qty}
+                        alt={product.name}
+                        onClick={() => console.log(product.id)}
+                        height={sm || md || lg ? "160px" : "256px"}
+                        width={sm || md || lg ? "160px" : "256px"}
+                      />
+                    </Link>
                   );
                 })}
               </Grid>
