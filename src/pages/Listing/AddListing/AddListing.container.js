@@ -17,12 +17,38 @@ import { uploadBytes, ref, getDownloadURL } from "@firebase/storage";
 import { useEffect } from "react";
 import { Place } from "../../../context/PlaceContext";
 import { UserAuth } from "../../../context/AuthContext";
+import { toast } from "react-toastify";
+
+async function getWebpFile(source) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+
+    image.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = image.width;
+      canvas.height = image.height;
+
+      const context = canvas.getContext("2d");
+      context.drawImage(image, 0, 0);
+
+      canvas.toBlob(function (blob) {
+        resolve(new File([blob], source.file.name, { type: "image/webp" }));
+      }, "image/webp");
+    };
+
+    image.onerror = (error) => {
+      reject(error);
+    };
+
+    image.src = source.data_url;
+  });
+}
 
 const AddListing = () => {
   const { user } = UserAuth();
   const { placeValue } = Place();
   const [meetupDate, setMeetupDate] = useState();
-  const [meetupTime, setMeetupTime] = useState("");
+  const [meetupTime, setMeetupTime] = useState();
   const [divisionNumber, setDivisionNumber] = useState(1);
   const [portionNumber, setPortionNumber] = useState(1);
   const [categories, setCategories] = useState([]);
@@ -104,11 +130,13 @@ const AddListing = () => {
         }).then(async (productResponse) => {
           const _images = [];
           const promises = images.map(async (image, index) => {
-            const file = image.file;
+            const file = await getWebpFile(image);
+
             const fileRef = ref(
               storage,
               `product-image/${productResponse.id}/${file.name}`
             );
+
             return uploadBytes(fileRef, file).then(async (uploadResponse) => {
               return getDownloadURL(uploadResponse.ref).then((url) => {
                 _images.push({ index: index, url: url });
@@ -149,6 +177,13 @@ const AddListing = () => {
           });
         });
       });
+    } else if (images.length === 0) {
+      if (!toast.isActive()) {
+        toast.error("At least one photo is required.", {
+          toastId: 0,
+          autoClose: 3000,
+        });
+      }
     }
   };
 
