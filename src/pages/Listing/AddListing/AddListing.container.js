@@ -32,7 +32,15 @@ async function getWebpFile(source) {
       context.drawImage(image, 0, 0);
 
       canvas.toBlob(function (blob) {
-        resolve(new File([blob], source.file.name, { type: "image/webp" }));
+        resolve(
+          new File(
+            [blob],
+            source.file.name.substr(0, source.file.name.lastIndexOf(".")) +
+              "." +
+              "webp",
+            { type: "image/webp" }
+          )
+        );
       }, "image/webp");
     };
 
