@@ -71,7 +71,7 @@
   color: var(--white);
 }
 .mdMid a:hover {
-  color: var(--black) !important;
+  color: var(--yellow) !important;
 }
 
 .mdBot {
@@ -129,7 +129,7 @@
   color: var(--white);
 }
 .lgNavLeft a:hover {
-  color: var(--black) !important;
+  color: var(--yellow) !important;
 }
 
 .lgFilterRight {
@@ -165,7 +165,7 @@
   color: var(--white);
 }
 .xlRight a:hover {
-  color: var(--black) !important;
+  color: var(--yellow) !important;
   border-bottom: 2px solid var(--yellow);
   padding-bottom: 6px;
 }
