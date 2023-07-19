@@ -4,6 +4,7 @@ import Typography from "../Typography/Typography";
 
 export const imageLabel = (props) => {
   const { distance, days, backgroundColor, className, color } = props;
+  console.log(typeof days)
   return (
     <div className={`${style.wrapper} ${className}`} {...props}>
       <div className={style.imageLabel}>

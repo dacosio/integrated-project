@@ -78,7 +78,7 @@ const ProfileDetail = ({
               }
             >
               <Grid
-                columns={sm ? 2 : md ? 5 : lg ? 5 : 5}
+                columns={sm ? 2 : md ? 3 : lg ? 4 : 4}
                 style={{
                   justifySelf: "flex-start",
                   margin: "auto",
