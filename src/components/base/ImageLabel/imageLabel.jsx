@@ -12,11 +12,19 @@ export const imageLabel = (props) => {
             <Typography variant="body-4-regular" color="dark-blue">
               {distance == 1 ? distance + " km" : distance + " kms"}
             </Typography>
-            {days != 0 && (
-              <Typography variant="body-4-regular" color="dark-blue">
-                &nbsp;|&nbsp;{days == 1 ? `${days} day` : `${days} days`}
-              </Typography>
-            )}
+
+            <Typography variant="body-4-regular" color="dark-blue">
+              {days && (
+                <>
+                  &nbsp;|&nbsp;
+                  {days === 0
+                    ? "today"
+                    : 1 < days
+                    ? `${days} days`
+                    : `${days} days`}{" "}
+                </>
+              )}
+            </Typography>
           </>
         )}
       </div>

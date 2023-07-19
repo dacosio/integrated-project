@@ -64,7 +64,7 @@ const ProfileDetail = ({
           )}
           <div className={style.sold}>
             <OrderSmallSVG />
-            <Typography variant="body-3-medium">17 items sold</Typography>
+            <Typography variant="body-3-medium">{data?.qty} items sold</Typography>
           </div>
         </div>
       </div>
@@ -138,7 +138,7 @@ const ProfileDetail = ({
                         stock={product.qty}
                         alt={product.name}
                         onClick={() => {
-                          console.log(product.id)
+                          console.log(product)
                           navigate(`/listing/${product.productId}`, {
                             state: {
                               id: product.productId,
