@@ -13,7 +13,8 @@
 }
 
 .box img:hover {
-  box-shadow: 5px 5px 2px var(--black);
+  box-shadow: 2px 2px black;
+  transform: translate(-2px, -2px);
 }
 .boxTitle {
   background-color: white;
