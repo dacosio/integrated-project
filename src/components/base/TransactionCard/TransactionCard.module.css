@@ -60,6 +60,7 @@
   display: flex;
   justify-content: end;
   align-items: end;
+  z-index: 10;
 }
 
 .productInformation .sellerContainer,
