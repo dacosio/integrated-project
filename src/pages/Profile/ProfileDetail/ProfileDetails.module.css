@@ -23,3 +23,7 @@
 .location {
   padding: 8px 0;
 }
+
+.avatar{
+  object-fit: cover;
+}

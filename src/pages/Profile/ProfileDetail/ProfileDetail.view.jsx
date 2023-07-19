@@ -39,12 +39,14 @@ const ProfileDetail = ({
         style={xl ? { paddingLeft: "180px" } : { paddingLeft: "16px" }}
       >
         <Avatar
+        className= {style.avatar}
           email={data?.email}
           name={data?.displayName}
           size={sm || md ? "80" : lg ? "150" : "200"}
           src={data?.imageUrl}
           round
-          style={{ border: "2px solid var(--black)" }}
+          style={{ border: "2px solid var(--black)", objectFit: "cover"}}
+          
         />
         <div
           style={
