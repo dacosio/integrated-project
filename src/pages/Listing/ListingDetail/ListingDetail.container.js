@@ -45,7 +45,7 @@ const ListingDetail = (props) => {
           getDocs(
             query(
               collection(store, "order"),
-              where("createdById", "==", product.createdByIdent),
+              where("splitterId", "==", product.createdByIdent),
               where("orderStatus", "==", "completed")
             )
           ).then((itemsResponse) => {

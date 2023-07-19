@@ -1,7 +1,3 @@
-main {
-  background-color: var(--bg-gray);
-}
-
 .wrapper {
   padding: 32px 16px 125px 16px;
   display: grid;
