@@ -158,27 +158,29 @@ const AddListing = () => {
 
             updateDoc(doc(db, "product", productResponse.id), {
               images: __images,
+              productId: productResponse.id,
             }).then((updateResponse) => {
               getDoc(doc(db, "product", productResponse.id)).then(
                 (_productResponse) => {
-                  navigate(`/listing/${_productResponse.id}`, {
-                    state: {
-                      id: _productResponse.id,
-                      createdAt: _productResponse.data().createdAt,
-                      createdByDisplayName:
-                        _productResponse.data().createdByNickName,
-                      createdByIdent: _productResponse.data().createdByIdent,
-                      description: _productResponse.data().description,
-                      images: _productResponse.data().images,
-                      latitude: _productResponse.data().lat,
-                      longitude: _productResponse.data().long,
-                      meetUpAddress: _productResponse.data().meetUpAddress,
-                      meetUpInfo: _productResponse.data().meetUpInfo,
-                      name: _productResponse.data().name,
-                      price: _productResponse.data().price,
-                      qty: _productResponse.data().qty,
-                    },
-                  });
+                  navigate("/user");
+                  // navigate(`/listing/${_productResponse.id}`, {
+                  //   state: {
+                  //     id: _productResponse.id,
+                  //     createdAt: _productResponse.data().createdAt,
+                  //     createdByDisplayName:
+                  //       _productResponse.data().createdByNickName,
+                  //     createdByIdent: _productResponse.data().createdByIdent,
+                  //     description: _productResponse.data().description,
+                  //     images: _productResponse.data().images,
+                  //     latitude: _productResponse.data().lat,
+                  //     longitude: _productResponse.data().long,
+                  //     meetUpAddress: _productResponse.data().meetUpAddress,
+                  //     meetUpInfo: _productResponse.data().meetUpInfo,
+                  //     name: _productResponse.data().name,
+                  //     price: _productResponse.data().price,
+                  //     qty: _productResponse.data().qty,
+                  //   },
+                  // });
                 }
               );
             });
