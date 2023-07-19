@@ -101,6 +101,7 @@ const TransactionList = (props) => {
                       splitterImageUrl: o.splitterImageUrl,
                       orderStatus: o.orderStatus,
                       productId: o.productId,
+                      updatedAt: o.updatedAt
                     },
                   });
                 }}

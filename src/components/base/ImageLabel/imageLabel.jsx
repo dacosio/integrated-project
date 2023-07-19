@@ -4,6 +4,7 @@ import Typography from "../Typography/Typography";
 
 export const imageLabel = (props) => {
   const { distance, days, backgroundColor, className, color } = props;
+  console.log(typeof days)
   return (
     <div className={`${style.wrapper} ${className}`} {...props}>
       <div className={style.imageLabel}>
@@ -12,11 +13,19 @@ export const imageLabel = (props) => {
             <Typography variant="body-4-regular" color="dark-blue">
               {distance == 1 ? distance + " km" : distance + " kms"}
             </Typography>
-            {days && (
-              <Typography variant="body-4-regular" color="dark-blue">
-                &nbsp;|&nbsp;{days == 1 ? `${days} day` : `${days} days`}
-              </Typography>
-            )}
+
+            <Typography variant="body-4-regular" color="dark-blue">
+              {days && (
+                <>
+                  &nbsp;|&nbsp;
+                  {days == 0
+                    ? "today"
+                    : 1 < days
+                    ? `${days} days`
+                    : `${days} day`}{" "}
+                </>
+              )}
+            </Typography>
           </>
         )}
       </div>

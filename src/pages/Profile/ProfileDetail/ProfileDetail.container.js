@@ -9,9 +9,11 @@ import {
   collection,
   where,
   query,
+  orderBy,
 } from "@firebase/firestore";
 import useMediaQuery from "../../../utils/useMediaQuery";
 import { usePosition } from "../../../utils/usePosition";
+import { useNavigate } from "react-router";
 
 const ProfileDetail = () => {
   const { user } = UserAuth();
@@ -31,25 +33,33 @@ const ProfileDetail = () => {
 
         if (userSnapshot.exists()) {
           const _user = userSnapshot.data();
-          setData(_user);
-
-          // const userProductQuery = query(
-          //   collection(db, "product"),
-          //   where("createdById", "==", userDocRef)
-          // );
+          console.log(userId);
+          getDocs(
+            query(
+              collection(db, "order"),
+              where("splitterId", "==", userId),
+              where("orderStatus", "==", "completed")
+            )
+          ).then((itemsResponse) => {
+            setData({
+              ..._user,
+              qty: itemsResponse.docs.length,
+            });
+          });
 
           const productDocRef = collection(db, "product");
-          const userProductSnapshot = await getDocs(productDocRef);
-          const productData = userProductSnapshot.docs.map((doc) => doc.data());
-          // console.log(productData);
-          console.log(user.uid);
-          const result = productData.filter(
-            (productData) => productData.createdByIdent === user.uid
+          const userProductSnapshot = await getDocs(
+            query(
+              productDocRef,
+              where("createdByIdent", "==", userId),
+              orderBy("createdAt", "desc")
+            )
           );
+          const productData = userProductSnapshot.docs.map((doc) => doc.data());
 
-          console.log(result);
+          console.log(productData);
 
-          setProduct(result);
+          setProduct(productData);
         } else {
           console.log("User not found");
         }
@@ -71,6 +81,7 @@ const ProfileDetail = () => {
   const md = useMediaQuery("(min-width: 601px) and (max-width:1020px)");
   const lg = useMediaQuery("(min-width: 1024px) and (max-width:1400px)");
   const xl = useMediaQuery("(min-width: 1401px)");
+  const navigate = useNavigate();
 
   const generatedProps = {
     // generated props here
@@ -84,6 +95,7 @@ const ProfileDetail = () => {
     latitude,
     longitude,
     error,
+    navigate,
   };
   return <ProfileDetailView {...generatedProps} />;
 };
