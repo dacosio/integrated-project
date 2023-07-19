@@ -133,7 +133,7 @@ const AddListing = () => {
           meetUpAddress: placeValue.formatted_address,
           meetUpInfo: new Date(year, month - 1, day, hours, minutes),
           name: itemName,
-          price: originalPrice / portionNumber,
+          price: portionPrice,
           qty: portionNumber,
         }).then(async (productResponse) => {
           const _images = [];
