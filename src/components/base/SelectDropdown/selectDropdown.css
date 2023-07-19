@@ -1,6 +1,6 @@
 .react-dropdown-select-dropdown {
   border-radius: 10px !important;
-  z-index: 99;
+  z-index: 60;
 }
 .react-dropdown-select-item:hover {
   color: var(--white) !important;
