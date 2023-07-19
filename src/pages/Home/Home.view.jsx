@@ -131,10 +131,10 @@ const Home = (props) => {
                           stock={product.qty}
                           alt={product.name}
                           onClick={() => console.log(product.id)}
-                          maxwidth={xl || lg ? "185px" : "150px"}
-                          width={xl || lg ? "185px" : "150px"}
-                          height={xl || lg ? "185px" : "150px"}
-                          style={{ marginBottom: "1rem" }}
+                          // maxwidth={xl || lg ? "185px" : "250px"}
+                          // width={xl || lg ? "185px" : "150px"}
+                          // height={xl || lg ? "185px" : "150px"}
+                          // style={{ marginBottom: "1rem" }}
                         />
                       </Link>
                     );
@@ -250,10 +250,10 @@ const Home = (props) => {
                             stock={product.qty}
                             alt={product.name}
                             onClick={() => console.log(product.id)}
-                            maxwidth={xl || lg ? "185px" : "150px"}
-                            width={xl || lg ? "185px" : "150px"}
-                            height={xl || lg ? "185px" : "150px"}
-                            style={{ marginBottom: "1rem" }}
+                            // maxwidth={xl || lg ? "185px" : "150px"}
+                            // width={xl || lg ? "185px" : "150px"}
+                            // height={xl || lg ? "185px" : "150px"}
+                            // style={{ marginBottom: "1rem" }}
                           />
                         </Link>
                       );

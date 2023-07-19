@@ -102,25 +102,20 @@ const TransactionList = () => {
   };
 
   const onDecline = (orderId, productId) => {
-    // console.log("decline");
     clickHandler(orderId, "cancelled", productId);
   };
   const onAccept = (orderId, productId) => {
-    // console.log("accepted", orderId, productId);
     clickHandler(orderId, "confirmed", productId);
   };
 
   const onCancel = (orderId, productId) => {
-    // console.log("cancel");
     clickHandler(orderId, "cancelled", productId);
   };
 
   const onComplete = (orderId, productId) => {
-    // console.log("complete");
     clickHandler(orderId, "completed", productId);
   };
 
-  console.log(orderResults);
   const generatedProps = {
     // generated props here
     orderStatus,
