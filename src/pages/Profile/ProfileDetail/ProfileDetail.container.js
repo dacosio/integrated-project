@@ -12,6 +12,7 @@ import {
 } from "@firebase/firestore";
 import useMediaQuery from "../../../utils/useMediaQuery";
 import { usePosition } from "../../../utils/usePosition";
+import { useNavigate } from "react-router";
 
 const ProfileDetail = () => {
   const { user } = UserAuth();
@@ -71,6 +72,7 @@ const ProfileDetail = () => {
   const md = useMediaQuery("(min-width: 601px) and (max-width:1020px)");
   const lg = useMediaQuery("(min-width: 1024px) and (max-width:1400px)");
   const xl = useMediaQuery("(min-width: 1401px)");
+  const navigate = useNavigate();
 
   const generatedProps = {
     // generated props here
@@ -84,6 +86,7 @@ const ProfileDetail = () => {
     latitude,
     longitude,
     error,
+    navigate
   };
   return <ProfileDetailView {...generatedProps} />;
 };

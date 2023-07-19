@@ -123,24 +123,7 @@ const ProfileDetail = ({
                   console.log(dateDiff);
 
                   return (
-                    <Link
-                      to={`/listing/${product.id}`}
-                      state={{
-                        id: product.id,
-                        createdAt: product.createdAt,
-                        createdByDisplayName: product.createdByNickName,
-                        createdByIdent: product.createdByIdent,
-                        description: product.description,
-                        images: product.images,
-                        latitude: product.lat,
-                        longitude: product.long,
-                        meetUpAddress: product.meetUpAddress,
-                        meetUpInfo: product.meetUpInfo,
-                        name: product.name,
-                        price: product.price,
-                        qty: product.qty,
-                      }}
-                    >
+                  
                       <ActiveListingCard
                         key={product.id}
                         distance={!!error ? 0 : distance}
@@ -154,11 +137,30 @@ const ProfileDetail = ({
                         price={product.price}
                         stock={product.qty}
                         alt={product.name}
-                        onClick={() => console.log(product.id)}
+                        onClick={() => {
+                          console.log(product.id)
+                          navigate(`/listing/${product.productId}`, {
+                            state: {
+                              id: product.productId,
+                              createdAt: product.createdAt,
+                              createdByDisplayName: product.createdByNickName,
+                              createdByIdent: product.createdByIdent,
+                              description: product.description,
+                              images: product.images,
+                              latitude: product.lat,
+                              longitude: product.long,
+                              meetUpAddress: product.meetUpAddress,
+                              meetUpInfo: product.meetUpInfo,
+                              name: product.name,
+                              price: product.price,
+                              qty: product.qty,
+                            },
+                          });
+                        }}
                         height={sm || md || lg ? "160px" : "256px"}
                         width={sm || md || lg ? "160px" : "256px"}
                       />
-                    </Link>
+
                   );
                 })}
               </Grid>
