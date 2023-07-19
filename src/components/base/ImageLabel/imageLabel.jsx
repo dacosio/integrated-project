@@ -18,11 +18,11 @@ export const imageLabel = (props) => {
               {days && (
                 <>
                   &nbsp;|&nbsp;
-                  {days === 0
+                  {days == 0
                     ? "today"
                     : 1 < days
                     ? `${days} days`
-                    : `${days} days`}{" "}
+                    : `${days} day`}{" "}
                 </>
               )}
             </Typography>
