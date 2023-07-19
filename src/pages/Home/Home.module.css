@@ -95,7 +95,7 @@
 }
 
 .mobileListing {
-  padding: 24px;
+  padding: 24px 16px;
   background-color: var(--white);
   margin-bottom: 15%;
 }

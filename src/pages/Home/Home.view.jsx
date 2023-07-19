@@ -25,7 +25,6 @@ const Home = (props) => {
     categoryValue,
     locationFilter,
   } = props;
-  // console.log(latitude, longitude, locationFilter);
   if (
     desktopProducts.length === 0 &&
     (debouncedValue || categoryValue.length > 0)
@@ -88,7 +87,6 @@ const Home = (props) => {
                       locationFilter.latitude === "" &&
                       locationFilter.longitude === ""
                     ) {
-                      console.log("inside distance");
                       distance = getPreciseDistance(tmp, {
                         latitude,
                         longitude,
@@ -207,7 +205,6 @@ const Home = (props) => {
                         locationFilter.latitude === "" &&
                         locationFilter.longitude === ""
                       ) {
-                        console.log("test");
                         distance = getPreciseDistance(tmp, {
                           latitude,
                           longitude,

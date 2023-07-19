@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Accordion from "../../components/base/Accordion/Accordion";
 import Typography from "../../components/base/Typography/Typography";
 import { Formik, Form } from "formik";
@@ -11,14 +11,11 @@ import SingleImageInput from "../../components/base/SingleImageInput/SingleImage
 
 const Settings = (props) => {
   const {
-    styles,
-    source,
     profileVisibility,
     passwordVisibility,
     aboutUsVisibility,
     singleImage,
     setSingleImage,
-    navigate,
     setProfileVisibility,
     setPasswordVisibility,
     setAboutUsVisibility,
@@ -26,7 +23,6 @@ const Settings = (props) => {
     validatePasswordSchema,
     onSubmitNewPassword,
     changeContactValues,
-    // validateContactSchema,
     onSubmitUpdateInfo,
     addressInfo,
     resetAddressInfo,
