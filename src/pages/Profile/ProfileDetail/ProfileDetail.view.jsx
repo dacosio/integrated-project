@@ -39,14 +39,13 @@ const ProfileDetail = ({
         style={xl ? { paddingLeft: "180px" } : { paddingLeft: "16px" }}
       >
         <Avatar
-        className= {style.avatar}
+          className={style.avatar}
           email={data?.email}
           name={data?.displayName}
           size={sm || md ? "80" : lg ? "150" : "200"}
           src={data?.imageUrl}
           round
-          style={{ border: "2px solid var(--black)", objectFit: "cover"}}
-          
+          style={{ border: "2px solid var(--black)", objectFit: "cover" }}
         />
         <div
           style={
@@ -66,7 +65,9 @@ const ProfileDetail = ({
           )}
           <div className={style.sold}>
             <OrderSmallSVG />
-            <Typography variant="body-3-medium">{data?.qty} items sold</Typography>
+            <Typography variant="body-3-medium">
+              {data?.qty} items sold
+            </Typography>
           </div>
         </div>
       </div>
@@ -125,51 +126,49 @@ const ProfileDetail = ({
                   console.log(dateDiff);
 
                   return (
-                  
-                      <ActiveListingCard
-                        key={product.id}
-                        distance={!!error ? 0 : distance}
-                        days={String(dateDiff)}
-                        source={
-                          product.images
-                            ? product.images[0]
-                            : "src/assets/images/NoImage.jpg"
-                        }
-                        itemname={product.name}
-                        price={product.price}
-                        stock={product.qty}
-                        alt={product.name}
-                        onClick={() => {
-                          console.log(product)
-                          navigate(`/listing/${product.productId}`, {
-                            state: {
-                              id: product.productId,
-                              createdAt: product.createdAt,
-                              createdByDisplayName: product.createdByNickName,
-                              createdByIdent: product.createdByIdent,
-                              description: product.description,
-                              images: product.images,
-                              latitude: product.lat,
-                              longitude: product.long,
-                              meetUpAddress: product.meetUpAddress,
-                              meetUpInfo: product.meetUpInfo,
-                              name: product.name,
-                              price: product.price,
-                              qty: product.qty,
-                            },
-                          });
-                        }}
-                        height={sm || md || lg ? "160px" : "256px"}
-                        width={sm || md || lg ? "160px" : "256px"}
-                      />
-
+                    <ActiveListingCard
+                      key={product.id}
+                      distance={!!error ? 0 : distance}
+                      days={String(dateDiff)}
+                      source={
+                        product.images
+                          ? product.images[0]
+                          : "src/assets/images/NoImage.jpg"
+                      }
+                      itemname={product.name}
+                      price={product.price}
+                      stock={product.qty}
+                      alt={product.name}
+                      onClick={() => {
+                        console.log(product);
+                        navigate(`/listing/${product.productId}`, {
+                          state: {
+                            id: product.productId,
+                            createdAt: product.createdAt,
+                            createdByDisplayName: product.createdByNickName,
+                            createdByIdent: product.createdByIdent,
+                            description: product.description,
+                            images: product.images,
+                            latitude: product.lat,
+                            longitude: product.long,
+                            meetUpAddress: product.meetUpAddress,
+                            meetUpInfo: product.meetUpInfo,
+                            name: product.name,
+                            price: product.price,
+                            qty: product.qty,
+                          },
+                        });
+                      }}
+                      height={sm || md || lg ? "160px" : "256px"}
+                      width={sm || md || lg ? "160px" : "256px"}
+                    />
                   );
                 })}
               </Grid>
             </div>
           ) : (
             <div style={{ textAlign: "center" }}>
-              <Typography variant="h4-graphik-bold">
+              <Typography variant="h4-graphik-bold" color="error">
                 No listings available
               </Typography>
             </div>
