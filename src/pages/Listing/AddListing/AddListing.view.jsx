@@ -200,9 +200,12 @@ const AddListing = (props) => {
                       </div>
 
                       <NumberInput
+                        minValue={1}
                         inputNumber={divisionNumber}
                         setInputNumber={setDivisionNumber}
-                        nanErrMsg={"test1"}
+                        nanErrMsg={
+                          "The number of portions to divide should be a number."
+                        }
                         minErrMsg={"test2"}
                         maxErrMsg={"test3"}
                       />
@@ -228,7 +231,9 @@ const AddListing = (props) => {
                         inputNumber={portionNumber}
                         setInputNumber={setPortionNumber}
                         maxValue={divisionNumber}
-                        style={{ width: "100%" }}
+                        nanErrMsg={"test1"}
+                        minErrMsg={"test1"}
+                        maxErrMsg={"test1"}
                       />
                     </div>
 
@@ -541,9 +546,9 @@ const AddListing = (props) => {
                         </Typography>
                       </div>
                       <NumberInput
+                        minValue={1}
                         inputNumber={divisionNumber}
                         setInputNumber={setDivisionNumber}
-                        style={{ width: "100%", marginBottom: "24px" }}
                       />
                     </div>
                     <div className={styles.sectionGap}>
@@ -566,7 +571,6 @@ const AddListing = (props) => {
                         inputNumber={portionNumber}
                         setInputNumber={setPortionNumber}
                         maxValue={divisionNumber}
-                        style={{ width: "100%" }}
                       />
                     </div>
                     <div className={styles.priceDisplayWrapper}>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaMinus, FaPlus } from "react-icons/fa";
+import { Minus, Plus } from "../SVG";
 import Typography from "../Typography/Typography";
 import styles from "./NumberInput.module.css";
 
@@ -44,7 +44,7 @@ const NumberInput = ({
             }
           }}
         >
-          <FaMinus size={16} />
+          <Minus width={16} height={16} fill="black" />
         </div>
         <input
           className={`${styles["ipt"]}`}
@@ -60,7 +60,7 @@ const NumberInput = ({
             }
           }}
         >
-          <FaPlus size={16} />
+          <Plus width={16} height={16} fill="black" />
         </div>
       </div>
       <div className={`${styles["footer"]}`}>

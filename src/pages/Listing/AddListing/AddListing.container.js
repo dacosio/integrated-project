@@ -92,8 +92,23 @@ const AddListing = () => {
   }, []);
 
   useEffect(() => {
-    setPortionPrice((originalPrice / divisionNumber).toFixed(2));
-    setTotalPrice((originalPrice / divisionNumber).toFixed(2) * portionNumber);
+    const _portionPrice = originalPrice / divisionNumber;
+    const _totalPrice = _portionPrice * portionNumber;
+
+    setPortionPrice(
+      isNaN(_portionPrice) ||
+        !isFinite(_portionPrice) ||
+        divisionNumber < portionNumber
+        ? Number(0).toFixed(2)
+        : _portionPrice.toFixed(2)
+    );
+    setTotalPrice(
+      isNaN(_totalPrice) ||
+        !isFinite(_totalPrice) ||
+        divisionNumber < portionNumber
+        ? Number(0).toFixed(2)
+        : _totalPrice.toFixed(2)
+    );
   }, [originalPrice, divisionNumber, portionNumber]);
 
   const handleOnSubmit = ({ itemName, description, originalPrice }) => {

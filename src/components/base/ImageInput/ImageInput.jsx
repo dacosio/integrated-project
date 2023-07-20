@@ -3,8 +3,7 @@ import ImageUploading from "react-images-uploading";
 import Typography from "../Typography/Typography";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { BiImageAdd } from "react-icons/bi";
-import { RiInformationFill } from "react-icons/ri";
+import { Information, ImageAdd } from "../SVG";
 import useMediaQuery from "../../../utils/useMediaQuery";
 import styles from "./image-input.module.css";
 
@@ -65,7 +64,7 @@ function ImageInput({ images, setImages, maxImageNumber = 12, ...props }) {
                         <div
                           className={`${styles["flex-center"]} ${styles["bold"]}`}
                         >
-                          <BiImageAdd size={32} />
+                          <ImageAdd width={32} height={32} fill="black" />
                           <Typography variant="h3-graphik-bold">
                             Add Photos
                           </Typography>
@@ -82,7 +81,7 @@ function ImageInput({ images, setImages, maxImageNumber = 12, ...props }) {
                         <div
                           className={`${styles["grid-center"]} ${styles["bold"]}`}
                         >
-                          <BiImageAdd size={32} />
+                          <ImageAdd width={32} height={32} fill="black" />
                           <Typography variant="h4-graphik-bold">
                             Add Photos
                           </Typography>
@@ -98,7 +97,7 @@ function ImageInput({ images, setImages, maxImageNumber = 12, ...props }) {
                     {...dragProps}
                   >
                     <div>
-                      <BiImageAdd size={32} />
+                      <ImageAdd width={32} height={32} fill="black" />
                     </div>
                   </div>
                 ))}
@@ -113,7 +112,7 @@ function ImageInput({ images, setImages, maxImageNumber = 12, ...props }) {
             </div>
             {images.length === 0 ? (
               <div className={`${styles["footer"]} ${styles["flex-left"]}`}>
-                <RiInformationFill size={32} color="var(--light-gray)" />
+                <Information width={32} height={32} fill="var(--light-gray)" />
                 <Typography variant="body-4-regular" color="light-gray">
                   Select your cover photo first. You can add up to{" "}
                   {maxImageNumber} photos.
