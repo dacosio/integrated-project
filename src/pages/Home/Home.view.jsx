@@ -45,7 +45,13 @@ const Home = (props) => {
     <div className={style.container}>
       {xl || lg ? (
         <div className={style.desktopWrapper}>
-          <div className={style.picksDesktop}>
+          <div
+            className={style.picksDesktop}
+            style={{
+              padding: toggleDisplay ? "28px 36px 0 36px" : "28px 36px",
+              boxSizing: "border-box",
+            }}
+          >
             <div>
               <div className={style.title}>
                 <Typography variant="h2-graphik-bold" color="black">
@@ -146,7 +152,7 @@ const Home = (props) => {
                           maxwidth={xl || lg ? "185px" : "150px"}
                           width={"100%"}
                           height={"100%"}
-                          aspectRatio={1}
+                          ratio={1}
                           style={{ marginBottom: "1rem" }}
                         />
                       </Link>
@@ -154,20 +160,18 @@ const Home = (props) => {
                   })}
               </Grid>
             ) : (
-              <div style={{ height: "90%" }}>
-                <MapLeaflet
-                  zoom={zoom}
-                  markerData={desktopProducts}
-                  direction="top"
-                  // width="100%"
-                  height="100%"
-                  borderRadius="20px"
-                  zIndex={2}
-                  bounds={desktopBounds}
-                  showActiveListing={true}
-                  currentAddress={currentAddress}
-                />
-              </div>
+              <MapLeaflet
+                zoom={zoom}
+                markerData={desktopProducts}
+                direction="top"
+                // width="100%"
+                height="100%"
+                borderRadius="20px"
+                zIndex={2}
+                bounds={desktopBounds}
+                showActiveListing={true}
+                currentAddress={currentAddress}
+              />
             )}
           </div>
         </div>
@@ -266,7 +270,7 @@ const Home = (props) => {
                             maxwidth={xl || lg ? "185px" : "150px"}
                             width={"100%"}
                             height={"100%"}
-                            aspectRatio={1}
+                            ratio={1}
                             style={{ marginBottom: "1rem" }}
                           />
                         </Link>

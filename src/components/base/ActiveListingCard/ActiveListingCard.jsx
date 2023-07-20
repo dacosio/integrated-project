@@ -14,7 +14,7 @@ const ActiveListingCard = (props) => {
     alt,
     width,
     height,
-    aspectRatio,
+    ratio,
     onClick,
   } = props;
   return (
@@ -32,7 +32,7 @@ const ActiveListingCard = (props) => {
         <img
           src={source}
           alt={alt}
-          style={{ height, width, aspectRatio, boxSizing: "border-box" }}
+          style={{ height, width, aspectRatio: ratio, boxSizing: "border-box" }}
         />
       </div>
       <div>
