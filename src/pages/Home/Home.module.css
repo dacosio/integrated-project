@@ -28,7 +28,7 @@
   box-shadow: 5px 5px 0px var(--black);
   background-color: var(--white);
   /* position: relative; */
-  padding: 28px 36px;
+  padding: 28px 36px 0 36px;
   height: 600px;
   display: flex;
   flex-direction: column;
@@ -38,7 +38,7 @@
   width: 0;
 }
 
-.resultContainer {
+/* .resultContainer {
   max-height: 95%;
   overflow: auto;
   scrollbar-width: thin;
@@ -50,7 +50,7 @@
   );
   justify-content: center;
   justify-items: center;
-}
+} */
 
 /* .resultContainer::-webkit-scrollbar {
   background: transparent;
