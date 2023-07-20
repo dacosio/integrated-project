@@ -206,8 +206,9 @@ const AddListing = (props) => {
                         nanErrMsg={
                           "The number of portions to divide should be a number."
                         }
-                        minErrMsg={"test2"}
-                        maxErrMsg={"test3"}
+                        minErrMsg={
+                          "The number of portions to divide should be larger than 0."
+                        }
                       />
                     </div>
 
@@ -231,9 +232,15 @@ const AddListing = (props) => {
                         inputNumber={portionNumber}
                         setInputNumber={setPortionNumber}
                         maxValue={divisionNumber}
-                        nanErrMsg={"test1"}
-                        minErrMsg={"test1"}
-                        maxErrMsg={"test1"}
+                        nanErrMsg={
+                          "The number of portions to sell should be a number."
+                        }
+                        minErrMsg={
+                          "The number of portions to sell should be larger than 0."
+                        }
+                        maxErrMsg={
+                          "The number of portions to sell should be smaller than or equal to the number of portions to divide."
+                        }
                       />
                     </div>
 
@@ -549,6 +556,12 @@ const AddListing = (props) => {
                         minValue={1}
                         inputNumber={divisionNumber}
                         setInputNumber={setDivisionNumber}
+                        nanErrMsg={
+                          "The number of portions to divide should be a number."
+                        }
+                        minErrMsg={
+                          "The number of portions to divide should be larger than 0."
+                        }
                       />
                     </div>
                     <div className={styles.sectionGap}>
@@ -571,6 +584,15 @@ const AddListing = (props) => {
                         inputNumber={portionNumber}
                         setInputNumber={setPortionNumber}
                         maxValue={divisionNumber}
+                        nanErrMsg={
+                          "The number of portions to sell should be a number."
+                        }
+                        minErrMsg={
+                          "The number of portions to sell should be larger than 0."
+                        }
+                        maxErrMsg={
+                          "The number of portions to sell should be smaller than or equal to the number of portions to divide."
+                        }
                       />
                     </div>
                     <div className={styles.priceDisplayWrapper}>
