@@ -6,12 +6,14 @@ import { MapMarkerSVG } from "../../components/base/SVG";
 import ActiveListingCard from "../../components/base/ActiveListingCard/ActiveListingCard";
 import getPreciseDistance from "geolib/es/getDistance";
 import Button from "../../components/base/Button/Button";
+import Grid from "../../components/layout/Grid/Grid";
 import { Link } from "react-router-dom";
 
 const Home = (props) => {
   const {
     lg,
     xl,
+    columns,
     zoom,
     desktopProducts,
     latitude,
@@ -68,7 +70,15 @@ const Home = (props) => {
               )}
             </div>
             {toggleDisplay ? (
-              <div className={style.resultContainer}>
+              <Grid
+                columns={columns}
+                gap="20px"
+                style={{
+                  overflow: "auto",
+                  height: "100%",
+                  scrollbarWidth: "none",
+                }}
+              >
                 {desktopProducts &&
                   desktopProducts.map((product, index) => {
                     let tmp = {
@@ -88,7 +98,7 @@ const Home = (props) => {
                       locationFilter.latitude === "" &&
                       locationFilter.longitude === ""
                     ) {
-                      console.log("inside distance");
+                      // console.log("inside distance");
                       distance = getPreciseDistance(tmp, {
                         latitude,
                         longitude,
@@ -134,14 +144,15 @@ const Home = (props) => {
                           alt={product.name}
                           onClick={() => console.log(product.id)}
                           maxwidth={xl || lg ? "185px" : "150px"}
-                          width={xl || lg ? "185px" : "150px"}
-                          height={xl || lg ? "185px" : "150px"}
+                          width={"100%"}
+                          height={"100%"}
+                          aspectRatio={1}
                           style={{ marginBottom: "1rem" }}
                         />
                       </Link>
                     );
                   })}
-              </div>
+              </Grid>
             ) : (
               <div style={{ height: "90%" }}>
                 <MapLeaflet
@@ -188,7 +199,7 @@ const Home = (props) => {
                 )}
               </div>
               {toggleDisplay ? (
-                <div className={style.mobileResults}>
+                <Grid columns={columns} gap="20px">
                   {desktopProducts &&
                     desktopProducts.map((product, index) => {
                       let tmp = {
@@ -207,7 +218,6 @@ const Home = (props) => {
                         locationFilter.latitude === "" &&
                         locationFilter.longitude === ""
                       ) {
-                        console.log("test");
                         distance = getPreciseDistance(tmp, {
                           latitude,
                           longitude,
@@ -254,14 +264,15 @@ const Home = (props) => {
                             alt={product.name}
                             onClick={() => console.log(product.id)}
                             maxwidth={xl || lg ? "185px" : "150px"}
-                            width={xl || lg ? "185px" : "150px"}
-                            height={xl || lg ? "185px" : "150px"}
+                            width={"100%"}
+                            height={"100%"}
+                            aspectRatio={1}
                             style={{ marginBottom: "1rem" }}
                           />
                         </Link>
                       );
                     })}
-                </div>
+                </Grid>
               ) : (
                 <div
                   style={{
