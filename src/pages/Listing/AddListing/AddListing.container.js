@@ -77,6 +77,7 @@ const AddListing = () => {
     itemName: Yup.string().required("Your item name is required."),
     description: Yup.string().required("Your item description is required."),
     originalPrice: Yup.number()
+      .positive("Your item price should be larger than 0.")
       .required("Your item price is required.")
       .typeError("Your item price should be a number."),
   });
@@ -98,6 +99,7 @@ const AddListing = () => {
     setPortionPrice(
       isNaN(_portionPrice) ||
         !isFinite(_portionPrice) ||
+        _portionPrice < 0 ||
         divisionNumber < portionNumber
         ? Number(0).toFixed(2)
         : _portionPrice.toFixed(2)
@@ -105,6 +107,7 @@ const AddListing = () => {
     setTotalPrice(
       isNaN(_totalPrice) ||
         !isFinite(_totalPrice) ||
+        _totalPrice < 0 ||
         divisionNumber < portionNumber
         ? Number(0).toFixed(2)
         : _totalPrice.toFixed(2)
@@ -117,7 +120,10 @@ const AddListing = () => {
       placeValue &&
       category &&
       meetupDate &&
-      meetupTime
+      meetupTime &&
+      0 < divisionNumber &&
+      0 < portionNumber &&
+      portionNumber <= divisionNumber
     ) {
       const [year, month, day] = meetupDate.split("-");
       const [hours, minutes] = meetupTime.split(":");

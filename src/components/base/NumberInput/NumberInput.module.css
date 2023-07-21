@@ -17,11 +17,15 @@
   display: grid;
   align-items: center;
   justify-items: center;
+  cursor: pointer;
 }
 
 .btn:hover {
   background-color: var(--black);
-  color: var(--white);
+}
+
+.btn:hover > svg {
+  fill: var(--white);
 }
 
 .minus {

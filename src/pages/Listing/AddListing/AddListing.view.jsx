@@ -200,14 +200,14 @@ const AddListing = (props) => {
                       </div>
 
                       <NumberInput
-                        minValue={1}
                         inputNumber={divisionNumber}
                         setInputNumber={setDivisionNumber}
+                        minValue={portionNumber}
                         nanErrMsg={
-                          "The number of portions to divide should be a number."
+                          "The number of portions to divide into should be a number."
                         }
                         minErrMsg={
-                          "The number of portions to divide should be larger than 0."
+                          "The number of portions to divide into should be larger than 0."
                         }
                       />
                     </div>
@@ -231,6 +231,7 @@ const AddListing = (props) => {
                       <NumberInput
                         inputNumber={portionNumber}
                         setInputNumber={setPortionNumber}
+                        minValue={1}
                         maxValue={divisionNumber}
                         nanErrMsg={
                           "The number of portions to sell should be a number."
@@ -553,14 +554,14 @@ const AddListing = (props) => {
                         </Typography>
                       </div>
                       <NumberInput
-                        minValue={1}
                         inputNumber={divisionNumber}
                         setInputNumber={setDivisionNumber}
+                        minValue={portionNumber}
                         nanErrMsg={
-                          "The number of portions to divide should be a number."
+                          "The number of portions to divide into should be a number."
                         }
                         minErrMsg={
-                          "The number of portions to divide should be larger than 0."
+                          "The number of portions to divide into should be larger than 0."
                         }
                       />
                     </div>
@@ -583,6 +584,7 @@ const AddListing = (props) => {
                       <NumberInput
                         inputNumber={portionNumber}
                         setInputNumber={setPortionNumber}
+                        minValue={1}
                         maxValue={divisionNumber}
                         nanErrMsg={
                           "The number of portions to sell should be a number."
