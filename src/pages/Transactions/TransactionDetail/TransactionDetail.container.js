@@ -70,8 +70,8 @@ const TransactionDetail = () => {
     console.log("Declined");
     try {
       await updateDoc(orderStatusRef, {
-        updatedAt: serverTimestamp(),
         orderStatus: "cancelled",
+        updatedAt: serverTimestamp(), // Include the updated date with serverTimestamp()
       });
       setOrder((oldData) => ({ ...oldData, orderStatus: "cancelled" }));
 
@@ -86,9 +86,11 @@ const TransactionDetail = () => {
       const docRef = doc(db, "product", order.productId);
       await updateDoc(docRef, {
         updatedAt: serverTimestamp(),
-        qty: increment(order.qty),
       });
-      await updateDoc(orderStatusRef, { orderStatus: "cancelled" });
+      await updateDoc(orderStatusRef, {
+        orderStatus: "cancelled",
+        updatedAt: serverTimestamp(),
+      });
       setOrder((oldData) => ({ ...oldData, orderStatus: "cancelled" }));
 
       console.log("Order status and quantity updated successfully");
@@ -103,6 +105,9 @@ const TransactionDetail = () => {
       const docRef = doc(db, "product", order.productId);
       await updateDoc(docRef, {
         qty: increment(-order.qty),
+      });
+      await updateDoc(orderStatusRef, {
+        orderStatus: "confirmed",
         updatedAt: serverTimestamp(),
       });
       await updateDoc(orderStatusRef, { orderStatus: "confirmed" });
@@ -118,7 +123,7 @@ const TransactionDetail = () => {
     try {
       await updateDoc(orderStatusRef, {
         orderStatus: "completed",
-        updatedAt: serverTimestamp(),
+        updatedAt: serverTimestamp(), // Include the updated date with serverTimestamp()
       });
       setOrder((oldData) => ({ ...oldData, orderStatus: "completed" }));
       console.log("Order status updated successfully");
