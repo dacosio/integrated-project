@@ -323,7 +323,7 @@ const AddListing = (props) => {
                         <MapSearch bottom />
                       </div>
                       <div className={styles.meetUpMap}>
-                        {placeValue && (
+                        {placeValue ? (
                           <MapLeaflet
                             // zoom={zoom}
                             markerData={[
@@ -346,6 +346,11 @@ const AddListing = (props) => {
                               ],
                             ]}
                             showActiveListing={false}
+                          />
+                        ) : (
+                          <img
+                            className={styles.map_placeholder}
+                            src="https://firebasestorage.googleapis.com/v0/b/splitshare-67496.appspot.com/o/system-image%2Fplaceholder.png?alt=media&token=45187290-cc41-4764-b1ea-986633ce69e4"
                           />
                         )}
                       </div>
@@ -655,7 +660,7 @@ const AddListing = (props) => {
                         <MapSearch bottom />
                       </div>
                       <div className={styles.meetUpMap}>
-                        {placeValue && (
+                        {placeValue ? (
                           <MapLeaflet
                             // zoom={zoom}
                             markerData={[
@@ -678,6 +683,11 @@ const AddListing = (props) => {
                               ],
                             ]}
                             showActiveListing={false}
+                          />
+                        ) : (
+                          <img
+                            className={styles.map_placeholder}
+                            src="https://firebasestorage.googleapis.com/v0/b/splitshare-67496.appspot.com/o/system-image%2Fplaceholder.png?alt=media&token=45187290-cc41-4764-b1ea-986633ce69e4"
                           />
                         )}
                       </div>

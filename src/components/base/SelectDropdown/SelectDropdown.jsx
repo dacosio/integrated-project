@@ -10,7 +10,7 @@ const SelectDropdown = (props) => {
     paddingLeft: "15px",
     border: "2px solid var(--black)",
     backgroundColor: "var(--white)",
-    zIndex: "99",
+    zIndex: "50",
     minWidth: "250px",
   };
 

@@ -5,7 +5,6 @@ import db from "../../../config/firebaseConfig";
 import { UserAuth } from "../../../context/AuthContext";
 import TransactionDetailView from "./TransactionDetail.view";
 
-
 const TransactionDetail = () => {
   const location = useLocation();
   const [order, setOrder] = useState(location.state);
@@ -15,6 +14,29 @@ const TransactionDetail = () => {
   const { user } = UserAuth();
   const [meetUpDate, setMeetUpDate] = useState();
   const [meetUpTime, setMeetUpTime] = useState();
+  const [dateApproved, setdateApproved] = useState();
+
+  useEffect(() => {
+    console.log(order);
+    if (order && order.updatedAt) {
+      setdateApproved(
+        new Date(order.updatedAt.seconds * 1000).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
+      );
+    }
+  }, [order]);
+
+  // const dateApprovedFormatted =
+  // order && order.updatedAt
+  //   ? order.updatedAt.toDate().toLocaleDateString("en-US", {
+  //       year: "numeric",
+  //       month: "short",
+  //       day: "numeric",
+  //     })
+  //   : "";
 
   useEffect(() => {
     if (order && order.meetUpInfo) {
@@ -35,7 +57,6 @@ const TransactionDetail = () => {
       );
     }
   }, [order]);
-
 
   useEffect(() => {
     if (user) {
@@ -137,7 +158,8 @@ const TransactionDetail = () => {
     handleOnComplete,
     handleOnCancel,
     meetUpDate,
-    meetUpTime
+    meetUpTime,
+    dateApproved,
   };
 
   return <TransactionDetailView {...generatedProps} />;
