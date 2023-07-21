@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { doc, updateDoc, increment } from "firebase/firestore";
+import { doc, updateDoc, increment, serverTimestamp } from "firebase/firestore";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import db from "../../../config/firebaseConfig";
 import { UserAuth } from "../../../context/AuthContext";
@@ -69,7 +69,10 @@ const TransactionDetail = () => {
   const handleOnDecline = async () => {
     console.log("Declined");
     try {
-      await updateDoc(orderStatusRef, { orderStatus: "cancelled" });
+      await updateDoc(orderStatusRef, {
+        updatedAt: serverTimestamp(),
+        orderStatus: "cancelled",
+      });
       setOrder((oldData) => ({ ...oldData, orderStatus: "cancelled" }));
 
       console.log("Order status and quantity updated successfully");
@@ -82,6 +85,7 @@ const TransactionDetail = () => {
     try {
       const docRef = doc(db, "product", order.productId);
       await updateDoc(docRef, {
+        updatedAt: serverTimestamp(),
         qty: increment(order.qty),
       });
       await updateDoc(orderStatusRef, { orderStatus: "cancelled" });
@@ -99,6 +103,7 @@ const TransactionDetail = () => {
       const docRef = doc(db, "product", order.productId);
       await updateDoc(docRef, {
         qty: increment(-order.qty),
+        updatedAt: serverTimestamp(),
       });
       await updateDoc(orderStatusRef, { orderStatus: "confirmed" });
       setOrder((oldData) => ({ ...oldData, orderStatus: "confirmed" }));
@@ -111,7 +116,10 @@ const TransactionDetail = () => {
 
   const handleOnComplete = async () => {
     try {
-      await updateDoc(orderStatusRef, { orderStatus: "completed" });
+      await updateDoc(orderStatusRef, {
+        orderStatus: "completed",
+        updatedAt: serverTimestamp(),
+      });
       setOrder((oldData) => ({ ...oldData, orderStatus: "completed" }));
       console.log("Order status updated successfully");
     } catch (error) {
