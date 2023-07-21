@@ -125,7 +125,12 @@ const Home = () => {
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      query(collection(db, "product"), sorting(sortValue)),
+      query(
+        collection(db, "product"),
+        where("qty", "!=", 0),
+        orderBy("qty"),
+        sorting(sortValue)
+      ),
       (snapshot) => {
         let newProducts = snapshot.docs.map((doc) => ({
           ...doc.data(),
@@ -133,6 +138,8 @@ const Home = () => {
         }));
 
         let result = newProducts;
+
+        console.log(result);
 
         if (!!debouncedValue) {
           result = result.filter((n) =>
@@ -148,13 +155,6 @@ const Home = () => {
           );
         }
 
-        // if (sortValue) {
-        //   if (sortValue === "lowToHigh") {
-        //     result.sort((a, b) => a.price - b.price);
-        //   } else if (sortValue === "highToLow") {
-        //     result.sort((a, b) => b.price - a.price);
-        //   }
-        // }
         if (locationFilter.latitude && locationFilter.longitude) {
           result = result.filter((product) => {
             let tmp = {
@@ -168,11 +168,8 @@ const Home = () => {
             };
             const distance = getPreciseDistance(locFilter, tmp);
 
-            // console.log(tmp, locFilter, distance);
             return distance <= 25000;
           });
-
-          // console.log(result);
         }
 
         if (currentAddress && sortValue === "") {
@@ -203,11 +200,6 @@ const Home = () => {
     currentAddress,
     locationFilter,
   ]);
-
-  // console.log("locationFilter", locationFilter);
-  // console.log("currentAddress", { longitude, latitude });
-
-  // ********************************
 
   const desktopProducts = products;
 

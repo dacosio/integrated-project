@@ -102,7 +102,6 @@ const Home = (props) => {
                       locationFilter.latitude === "" &&
                       locationFilter.longitude === ""
                     ) {
-                      // console.log("inside distance");
                       distance = getPreciseDistance(tmp, {
                         latitude,
                         longitude,
@@ -117,6 +116,7 @@ const Home = (props) => {
                     }
                     return (
                       <Link
+                        key={product.id}
                         to={`/listing/${product.id}`}
                         state={{
                           id: product.id,
@@ -135,7 +135,6 @@ const Home = (props) => {
                         }}
                       >
                         <ActiveListingCard
-                          key={product.id}
                           distance={!!error ? 0 : distance}
                           source={
                             product.images
@@ -234,6 +233,7 @@ const Home = (props) => {
 
                       return (
                         <Link
+                          key={product.id}
                           to={`/listing/${product.id}`}
                           state={{
                             id: product.id,
@@ -252,7 +252,6 @@ const Home = (props) => {
                           }}
                         >
                           <ActiveListingCard
-                            key={product.id}
                             distance={!!error ? 0 : distance}
                             source={
                               product.images
