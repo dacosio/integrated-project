@@ -146,7 +146,6 @@ const Home = (props) => {
                           price={product.price}
                           stock={product.qty}
                           alt={product.name}
-                          onClick={() => console.log(product.id)}
                           maxwidth={xl || lg ? "185px" : "150px"}
                           width={"100%"}
                           height={"auto"}
@@ -264,7 +263,6 @@ const Home = (props) => {
                             price={product.price}
                             stock={product.qty}
                             alt={product.name}
-                            onClick={() => console.log(product.id)}
                             maxwidth={xl || lg ? "185px" : "150px"}
                             width={"100%"}
                             height={"auto"}

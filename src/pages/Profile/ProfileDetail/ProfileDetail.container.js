@@ -22,10 +22,6 @@ const ProfileDetail = () => {
   const [product, setProduct] = useState();
 
   useEffect(() => {
-    console.log(latitude, longitude);
-  }, [latitude, longitude]);
-
-  useEffect(() => {
     const getUserById = async (userId) => {
       try {
         const userDocRef = doc(db, "user", userId);
@@ -33,7 +29,6 @@ const ProfileDetail = () => {
 
         if (userSnapshot.exists()) {
           const _user = userSnapshot.data();
-          console.log(userId);
           getDocs(
             query(
               collection(db, "order"),
@@ -57,8 +52,6 @@ const ProfileDetail = () => {
           );
           const productData = userProductSnapshot.docs.map((doc) => doc.data());
 
-          console.log(productData);
-
           setProduct(productData);
         } else {
           console.log("User not found");
@@ -66,16 +59,12 @@ const ProfileDetail = () => {
       } catch (error) {
         console.error("Error retrieving user:", error);
       }
-      // console.log("here", user.uid);
     };
 
     if (user && user.uid) {
       getUserById(user.uid);
     }
   }, [user]);
-
-  // console.log(data);
-  // console.log(product);
 
   const sm = useMediaQuery("(min-width: 360px) and (max-width:600px)");
   const md = useMediaQuery("(min-width: 601px) and (max-width:1020px)");
