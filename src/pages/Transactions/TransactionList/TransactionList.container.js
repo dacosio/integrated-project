@@ -84,6 +84,11 @@ const TransactionList = () => {
         orderStatus,
         updatedAt: serverTimestamp(),
       });
+    } else if (orderStatus === "declined") {
+      await updateDoc(orderDocRef, {
+        orderStatus: "cancelled",
+        updatedAt: serverTimestamp(),
+      });
     } else if (orderStatus === "cancelled") {
       payload = {
         qty: productQty + orderQty,
@@ -103,7 +108,7 @@ const TransactionList = () => {
 
   const onDecline = (orderId, productId) => {
     // console.log("decline");
-    clickHandler(orderId, "cancelled", productId);
+    clickHandler(orderId, "declined", productId);
   };
   const onAccept = (orderId, productId) => {
     // console.log("accepted", orderId, productId);

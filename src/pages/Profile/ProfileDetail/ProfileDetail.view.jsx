@@ -24,7 +24,7 @@ const ProfileDetail = ({
     <>
       <div
         style={{
-          height: "200px",
+          height: lg || xl ? "200px" : "125px",
           width: "100%",
           backgroundColor: "var(--light-blue)",
           borderBottom: "2px solid black",
