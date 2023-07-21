@@ -19,7 +19,7 @@ const TransactionList = () => {
   const orderTabs = ["Pending", "Confirmed", "Completed", "Cancelled"];
   const [selectedTab, setSelectedTab] = useState(orderTabs[0]);
 
-  const [orderResults, setOrderResults] = useState([]);
+  const [orderResults, setOrderResults] = useState();
   const orderTypeOptions = [
     { value: "selling", label: "Selling" },
     { value: "buying", label: "Buying" },

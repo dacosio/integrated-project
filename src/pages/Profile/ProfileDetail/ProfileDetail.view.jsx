@@ -69,8 +69,7 @@ const ProfileDetail = ({
         <Typography
           variant="h1-graphik-bold"
           style={{
-            gridColumn: "1/-1",
-            justifySelf: "flex-start",
+            marginTop: "-25px",
             marginBottom: "24px",
           }}
         >
@@ -151,7 +150,7 @@ const ProfileDetail = ({
             </div>
           )
         ) : (
-          <div style={{ textAlign: "center" }}>
+          <div style={{ textAlign: "center", padding: "20px" }}>
             <BeatLoader color="#1c2aae" />
           </div>
         )}
