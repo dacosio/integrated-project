@@ -43,7 +43,7 @@ const NumberInput = ({
             }
           }}
         >
-          <Minus width={16} height={16} fill="black" />
+          <Minus width={16} height={16} />
         </div>
         <input
           className={`${styles.ipt}`}

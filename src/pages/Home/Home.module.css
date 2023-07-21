@@ -21,7 +21,7 @@
 }
 
 /* Desktop 1200px */
-.picksDesktop {
+.desktopListing {
   /* grid-column: span 3; */
   border: 2px solid var(--black);
   border-radius: 20px;
@@ -34,7 +34,7 @@
   flex-direction: column;
 }
 
-.picksDesktop > div:last-of-type::-webkit-scrollbar {
+.desktopListing > div:last-of-type::-webkit-scrollbar {
   width: 0;
 }
 
@@ -67,15 +67,15 @@
   padding: 60px calc(60px + ((100vw - 768px) / 672) * 100);
 }
 
-@media (max-width: 769px) {
+/* @media (max-width: 769px) {
   .desktopWrapper {
     padding: 60px;
   }
-}
+} */
 
-.container {
+/* .container {
   position: relative;
-}
+} */
 
 /* .displayButton {
   position: absolute;
@@ -97,9 +97,9 @@
   padding: 16px;
 } */
 
-.mobileWrapper {
+/* .mobileWrapper {
   position: relative;
-}
+} */
 
 .mobileListing {
   padding: 24px;

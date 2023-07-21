@@ -22,10 +22,7 @@
 
 .btn:hover {
   background-color: var(--black);
-}
-
-.btn:hover > svg {
-  fill: var(--white);
+  color: white;
 }
 
 .minus {

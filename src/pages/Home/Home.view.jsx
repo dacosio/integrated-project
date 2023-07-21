@@ -42,11 +42,11 @@ const Home = (props) => {
   }
 
   return (
-    <div className={style.container}>
+    <>
       {xl || lg ? (
         <div className={style.desktopWrapper}>
           <div
-            className={style.picksDesktop}
+            className={style.desktopListing}
             style={{
               padding: toggleDisplay ? "28px 36px 0 36px" : "28px 36px",
               boxSizing: "border-box",
@@ -81,8 +81,6 @@ const Home = (props) => {
                 gap="20px"
                 style={{
                   overflow: "auto",
-                  height: "100%",
-                  scrollbarWidth: "none",
                 }}
               >
                 {desktopProducts &&
@@ -151,7 +149,7 @@ const Home = (props) => {
                           onClick={() => console.log(product.id)}
                           maxwidth={xl || lg ? "185px" : "150px"}
                           width={"100%"}
-                          height={"100%"}
+                          height={"auto"}
                           ratio={1}
                           style={{ marginBottom: "1rem" }}
                         />
@@ -269,7 +267,7 @@ const Home = (props) => {
                             onClick={() => console.log(product.id)}
                             maxwidth={xl || lg ? "185px" : "150px"}
                             width={"100%"}
-                            height={"100%"}
+                            height={"auto"}
                             ratio={1}
                             style={{ marginBottom: "1rem" }}
                           />
@@ -300,7 +298,7 @@ const Home = (props) => {
           </div>
         </>
       )}
-    </div>
+    </>
   );
 };
 
