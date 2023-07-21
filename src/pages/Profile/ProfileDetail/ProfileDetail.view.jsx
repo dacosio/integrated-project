@@ -7,7 +7,7 @@ import ActiveListingCard from "../../../components/base/ActiveListingCard/Active
 import Grid from "../../../components/layout/Grid/Grid";
 import getDistance from "geolib/es/getDistance";
 import { Link } from "react-router-dom";
-// import { BeatLoader } from "react-spinners";
+import { BeatLoader } from "react-spinners";
 
 const ProfileDetail = ({
   data,
@@ -22,7 +22,7 @@ const ProfileDetail = ({
   navigate,
 }) => {
   return (
-    <div className={style.wrapper}>
+    <>
       {/* <div>
         <ProfilePatternSVG />
       </div> */}
@@ -34,70 +34,56 @@ const ProfileDetail = ({
           borderBottom: "2px solid black",
         }}
       ></div>
-      <div
-        className={lg || xl ? style.headerWrapperDesktop : style.headerWrapper}
-        style={xl ? { paddingLeft: "180px" } : { paddingLeft: "16px" }}
-      >
-        <Avatar
-          className={style.avatar}
-          email={data?.email}
-          name={data?.displayName}
-          size={sm || md ? "80" : lg ? "150" : "200"}
-          src={data?.imageUrl}
-          round
-          style={{ border: "2px solid var(--black)", objectFit: "cover" }}
-        />
+      <div className={lg || xl ? style.desktopWrapper : style.mobileWrapper}>
         <div
-          style={
-            lg || xl
-              ? { transform: "translateY(50%)" }
-              : { transform: "translateY(0%)" }
+          className={
+            lg || xl ? style.headerWrapperDesktop : style.headerWrapperMobile
           }
         >
-          <Typography variant="h3-graphik-bold" style={{ marginTop: "25px" }}>
-            {data?.displayName}
-          </Typography>
-          {data?.address && (
-            <div className={style.location}>
-              <MarkerSmallSVG />
-              <Typography variant="body-3-medium">{data?.address}</Typography>
-            </div>
-          )}
-          <div className={style.sold}>
-            <OrderSmallSVG />
-            <Typography variant="body-3-medium">
-              {data?.qty} items sold
+          <Avatar
+            className={style.avatar}
+            email={data?.email}
+            name={data?.displayName}
+            size={sm || md ? "80" : lg || xl ? "200" : "80"}
+            src={data?.imageUrl}
+            round
+            style={{
+              border: "2px solid var(--black)",
+              objectFit: "cover",
+            }}
+          />
+          <div style={{ alignSelf: "flex-end" }}>
+            <Typography variant="h3-graphik-bold" style={{ marginTop: "25px" }}>
+              {data?.displayName}
             </Typography>
+            {data?.address && (
+              <div className={style.location}>
+                <MarkerSmallSVG />
+                <Typography variant="body-3-medium">{data?.address}</Typography>
+              </div>
+            )}
+            <div className={style.sold}>
+              <OrderSmallSVG />
+              <Typography variant="body-3-medium">
+                {data?.qty} items sold
+              </Typography>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div className={style.listings}>
-        {product ? (
-          product.length > 0 ? (
-            <div
-              style={
-                sm || md || lg ? { padding: "0 16px" } : { margin: "0 180px" }
-              }
-            >
-              <Grid
-                columns={sm ? 2 : md ? 3 : lg ? 4 : 4}
-                style={{
-                  justifySelf: "flex-start",
-                  margin: "auto",
-                  marginBottom: "50px",
-                }}
-              >
-                <Typography
-                  variant="h1-graphik-bold"
-                  style={{
-                    gridColumn: "1/-1",
-                    justifySelf: "flex-start",
-                    marginBottom: "24px",
-                  }}
-                >
-                  Active Listings
-                </Typography>
+        <Typography
+          variant="h1-graphik-bold"
+          style={{
+            gridColumn: "1/-1",
+            justifySelf: "flex-start",
+            marginBottom: "24px",
+          }}
+        >
+          Active Listings
+        </Typography>
+        <div className={style.listings}>
+          {product ? (
+            0 < product.length ? (
+              <Grid columns={sm ? 2 : md ? 3 : lg ? 4 : xl ? 5 : 2} gap="20px">
                 {product.map((product) => {
                   let tmp = {
                     latitude: product.lat,
@@ -123,7 +109,7 @@ const ProfileDetail = ({
                   const dateDiff = Math.abs(
                     Math.floor(timeDiff / (1000 * 60 * 60 * 24))
                   );
-                  console.log(dateDiff);
+                  // console.log(dateDiff);
 
                   return (
                     <ActiveListingCard
@@ -140,7 +126,7 @@ const ProfileDetail = ({
                       stock={product.qty}
                       alt={product.name}
                       onClick={() => {
-                        console.log(product);
+                        // console.log(product);
                         navigate(`/listing/${product.productId}`, {
                           state: {
                             id: product.productId,
@@ -159,27 +145,29 @@ const ProfileDetail = ({
                           },
                         });
                       }}
-                      height={sm || md || lg ? "160px" : "256px"}
-                      width={sm || md || lg ? "160px" : "256px"}
+                      width={"100%"}
+                      height={"100%"}
+                      ratio={1}
+                      style={{ marginBottom: "1rem" }}
                     />
                   );
                 })}
               </Grid>
-            </div>
+            ) : (
+              <div style={{ textAlign: "center" }}>
+                <Typography variant="h4-graphik-bold" color="error">
+                  No listings available
+                </Typography>
+              </div>
+            )
           ) : (
             <div style={{ textAlign: "center" }}>
-              <Typography variant="h4-graphik-bold" color="error">
-                No listings available
-              </Typography>
+              <BeatLoader color="#1c2aae" />
             </div>
-          )
-        ) : (
-          <div style={{ textAlign: "center" }}>
-            {/* <BeatLoader color="#1c2aae" /> */}
-          </div>
-        )}
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
