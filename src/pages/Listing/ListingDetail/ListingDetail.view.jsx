@@ -197,6 +197,7 @@ const ListingDetail = (props) => {
                   <NumberInput
                     inputNumber={quantity}
                     setInputNumber={setQuantity}
+                    justify="center"
                     minValue={1}
                     maxValue={product.qty}
                     nanErrMsg={"Please enter a number."}
@@ -413,6 +414,7 @@ const ListingDetail = (props) => {
                   <NumberInput
                     inputNumber={quantity}
                     setInputNumber={setQuantity}
+                    justify="center"
                     minValue={1}
                     maxValue={product.qty}
                     nanErrMsg={"Please enter a number."}

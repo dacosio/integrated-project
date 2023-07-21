@@ -6,6 +6,7 @@ import styles from "./NumberInput.module.css";
 const NumberInput = ({
   inputNumber,
   setInputNumber,
+  justify = "left",
   minValue = 0,
   maxValue = 1000,
   nanErrMsg,
@@ -35,7 +36,7 @@ const NumberInput = ({
 
   return (
     <div className={`${styles["wrapper"]}`}>
-      <div className={`${styles["header"]}`}>
+      <div className={`${styles["header"]}`} style={{ justifySelf: justify }}>
         <div
           className={`${styles["btn"]} ${styles["minus"]}`}
           onClick={() => {
