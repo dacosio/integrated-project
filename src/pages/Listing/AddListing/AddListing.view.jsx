@@ -209,6 +209,9 @@ const AddListing = (props) => {
                         minErrMsg={
                           "The number of portions to divide into should be larger than 0."
                         }
+                        maxErrMsg={
+                          "The number of portions to divide into should be smaller than or equal to 1000."
+                        }
                       />
                     </div>
 
@@ -562,6 +565,9 @@ const AddListing = (props) => {
                         }
                         minErrMsg={
                           "The number of portions to divide into should be larger than 0."
+                        }
+                        maxErrMsg={
+                          "The number of portions to divide into should be smaller than or equal to 1000."
                         }
                       />
                     </div>

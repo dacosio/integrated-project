@@ -62,7 +62,7 @@ const NumberInput = ({
           <Plus width={16} height={16} />
         </div>
       </div>
-      <div className={`${styles.footer}`}>
+      <div className={`${styles.footer}`} style={{ justifySelf: justify }}>
         {error && (
           <Typography
             variant="body-4-regular"

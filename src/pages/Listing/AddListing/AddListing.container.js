@@ -54,7 +54,7 @@ async function getWebpFile(source) {
 
 const AddListing = () => {
   const { user } = UserAuth();
-  const { placeValue } = Place();
+  const { placeValue, updatePlaceValue } = Place();
   const [meetupDate, setMeetupDate] = useState();
   const [meetupTime, setMeetupTime] = useState();
   const [divisionNumber, setDivisionNumber] = useState(1);
@@ -81,6 +81,10 @@ const AddListing = () => {
       .required("Your item price is required.")
       .typeError("Your item price should be a number."),
   });
+
+  useEffect(() => {
+    updatePlaceValue("");
+  }, []);
 
   useEffect(() => {
     getDocs(collection(db, "category")).then((categoriesResponse) => {

@@ -14,7 +14,9 @@ function ProductInfoCard({
   return (
     <div className={`${styles.wrapper}`}>
       <div className={`${styles.grid}`}>
-        <Typography variant="h2-graphik-bold">{title}</Typography>
+        <Typography variant="h2-graphik-bold" color="dark-blue">
+          {title}
+        </Typography>
         <div className={`${styles.flex}`}>
           <Typography variant="h2-graphik-bold">$ {price}</Typography>
           <Typography variant="body-1-medium" color="gray">
