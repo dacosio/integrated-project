@@ -336,7 +336,7 @@ const AddListing = (props) => {
                         Meet-up Location
                       </Typography>
                       <div className={styles.sectionGap}>
-                        <MapSearch bottom />
+                        <MapSearch bottom resetAddressInfo={() => null} />
                       </div>
                       <div className={styles.meetUpMap}>
                         {placeValue ? (
@@ -364,10 +364,16 @@ const AddListing = (props) => {
                             showActiveListing={false}
                           />
                         ) : (
-                          <img
-                            className={styles.map_placeholder}
-                            src="https://firebasestorage.googleapis.com/v0/b/splitshare-67496.appspot.com/o/system-image%2Fplaceholder.png?alt=media&token=45187290-cc41-4764-b1ea-986633ce69e4"
-                          />
+                          <>
+                            {placeValue === undefined ? (
+                              <></>
+                            ) : (
+                              <img
+                                className={styles.map_placeholder}
+                                src="https://firebasestorage.googleapis.com/v0/b/splitshare-67496.appspot.com/o/system-image%2Fmap-placeholder.png?alt=media&token=42d26c1a-fd6c-4dda-bcf3-1f7f19560717"
+                              />
+                            )}
+                          </>
                         )}
                       </div>
                     </div>
@@ -691,7 +697,7 @@ const AddListing = (props) => {
                         Meet-up Location
                       </Typography>
                       <div className={styles.sectionGap}>
-                        <MapSearch bottom />
+                        <MapSearch bottom resetAddressInfo={() => null} />
                       </div>
                       <div className={styles.meetUpMap}>
                         {placeValue ? (
@@ -719,10 +725,16 @@ const AddListing = (props) => {
                             showActiveListing={false}
                           />
                         ) : (
-                          <img
-                            className={styles.map_placeholder}
-                            src="https://firebasestorage.googleapis.com/v0/b/splitshare-67496.appspot.com/o/system-image%2Fplaceholder.png?alt=media&token=45187290-cc41-4764-b1ea-986633ce69e4"
-                          />
+                          <>
+                            {placeValue === undefined ? (
+                              <></>
+                            ) : (
+                              <img
+                                className={styles.map_placeholder}
+                                src="https://firebasestorage.googleapis.com/v0/b/splitshare-67496.appspot.com/o/system-image%2Fmap-placeholder.png?alt=media&token=42d26c1a-fd6c-4dda-bcf3-1f7f19560717"
+                              />
+                            )}
+                          </>
                         )}
                       </div>
                     </div>
