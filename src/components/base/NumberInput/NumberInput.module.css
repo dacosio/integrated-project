@@ -1,9 +1,9 @@
 .wrapper {
   display: grid;
-  width: 50%;
 }
 
 .header {
+  width: 50%;
   border: none;
   display: flex;
   align-content: stretch;
@@ -17,11 +17,12 @@
   display: grid;
   align-items: center;
   justify-items: center;
+  cursor: pointer;
 }
 
 .btn:hover {
   background-color: var(--black);
-  color: var(--white);
+  color: white;
 }
 
 .minus {
@@ -52,4 +53,8 @@
 
 .ipt:focus {
   outline: none;
+}
+
+.footer {
+  word-break: break-all;
 }

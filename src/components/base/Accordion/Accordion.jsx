@@ -1,5 +1,5 @@
 import React from "react";
-import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
+import { ArrowUp, ArrowDown } from "../SVG";
 import Typography from "../Typography/Typography";
 import styles from "./accordion.module.css";
 
@@ -10,9 +10,9 @@ const Accordion = ({ children, visibility, onToggle, id, label, ...props }) => {
         <div className={`${styles["header"]}`} id={id} onClick={onToggle}>
           <Typography variant="h4-graphik-bold">{label}</Typography>
           {visibility ? (
-            <MdKeyboardArrowUp size={24} />
+            <ArrowUp width={24} height={24} fill="black" />
           ) : (
-            <MdKeyboardArrowDown size={24} />
+            <ArrowDown width={24} height={24} fill="black" />
           )}
         </div>
         <div
