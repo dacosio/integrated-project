@@ -206,7 +206,6 @@ const Home = (props) => {
                         locationFilter.latitude === "" &&
                         locationFilter.longitude === ""
                       ) {
-                        console.log("test");
                         distance = getPreciseDistance(tmp, {
                           latitude,
                           longitude,
