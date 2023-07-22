@@ -125,21 +125,16 @@ const Home = () => {
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      query(
-        collection(db, "product"),
-        where("qty", "!=", 0),
-        orderBy("qty"),
-        sorting(sortValue)
-      ),
+      query(collection(db, "product"), sorting(sortValue)),
       (snapshot) => {
-        let newProducts = snapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
+        let newProducts = snapshot.docs
+          .filter((doc) => doc.data().qty !== 0)
+          .map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
 
         let result = newProducts;
-
-        console.log(result);
 
         if (!!debouncedValue) {
           result = result.filter((n) =>
@@ -186,6 +181,7 @@ const Home = () => {
             return distanceA - distanceB;
           });
         }
+        console.table(result);
         setProducts(result);
       }
     );
