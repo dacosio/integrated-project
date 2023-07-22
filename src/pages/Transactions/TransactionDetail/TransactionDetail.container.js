@@ -17,7 +17,6 @@ const TransactionDetail = () => {
   const [dateApproved, setdateApproved] = useState();
 
   useEffect(() => {
-    console.log(order);
     if (order && order.updatedAt) {
       setdateApproved(
         new Date(order.updatedAt.seconds * 1000).toLocaleDateString("en-US", {
@@ -28,15 +27,6 @@ const TransactionDetail = () => {
       );
     }
   }, [order]);
-
-  // const dateApprovedFormatted =
-  // order && order.updatedAt
-  //   ? order.updatedAt.toDate().toLocaleDateString("en-US", {
-  //       year: "numeric",
-  //       month: "short",
-  //       day: "numeric",
-  //     })
-  //   : "";
 
   useEffect(() => {
     if (order && order.meetUpInfo) {
@@ -60,7 +50,6 @@ const TransactionDetail = () => {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
     } else {
       console.log("error");
     }
@@ -71,7 +60,7 @@ const TransactionDetail = () => {
     try {
       await updateDoc(orderStatusRef, {
         orderStatus: "cancelled",
-        updatedAt: serverTimestamp(), // Include the updated date with serverTimestamp()
+        updatedAt: serverTimestamp(),
       });
       setOrder((oldData) => ({ ...oldData, orderStatus: "cancelled" }));
 

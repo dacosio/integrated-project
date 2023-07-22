@@ -10,8 +10,6 @@ import { BeatLoader } from "react-spinners";
 
 const TransactionList = (props) => {
   const {
-    orderStatus,
-    setOrderStatus,
     orderTypeOptions,
     onCancel,
     onDecline,
@@ -34,7 +32,7 @@ const TransactionList = (props) => {
   return (
     <div className={style.ordersList}>
       <div className={style.titleWrapper}>
-        <Typography variant="h3-graphik-bold">Orders</Typography>
+        <Typography variant="h2-graphik-bold">Orders</Typography>
         <SelectDropdown
           options={orderTypeOptions}
           onChange={onChange}

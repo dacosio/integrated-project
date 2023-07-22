@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import SearchSVG from "../SVG/SearchSVG";
 import styles from "./searchField.module.css";
 import { AiOutlineCloseCircle, AiOutlineSearch } from "react-icons/ai";
 import { CiLocationOn } from "react-icons/ci";
-import { useContext } from "react";
-import { SearchContext } from "../../../context/SearchContext";
 
 const SearchField = ({
   value,

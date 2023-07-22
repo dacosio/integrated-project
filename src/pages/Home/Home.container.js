@@ -9,7 +9,6 @@ import {
   onSnapshot,
   orderBy,
   query,
-  where,
 } from "firebase/firestore";
 import db from "../../config/firebaseConfig";
 import { SearchContext } from "../../context/SearchContext";
@@ -181,7 +180,6 @@ const Home = () => {
             return distanceA - distanceB;
           });
         }
-        console.table(result);
         setProducts(result);
       }
     );

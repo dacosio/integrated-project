@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Typography from "../Typography/Typography";
 import styles from "./meetUpInfoCard.module.css";
 import CalendarSVG from "../SVG/CalendarSVG";

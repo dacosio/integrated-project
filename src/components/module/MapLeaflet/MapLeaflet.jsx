@@ -5,15 +5,10 @@ import {
   TileLayer,
   Marker,
   Tooltip,
-  useMap,
-  Popup,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import ActiveListingCard from "../../base/ActiveListingCard/ActiveListingCard";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useLayoutEffect } from "react";
 
 delete L.Icon.Default.prototype._getIconUrl;
 

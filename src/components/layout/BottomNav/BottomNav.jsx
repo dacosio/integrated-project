@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from "react";
+import React from "react";
 import styles from "./bottomNav.module.css";
 import { Link, useLocation } from "react-router-dom";
 import PlusSVG from "../../base/SVG/PlusSVG";
