@@ -5,7 +5,6 @@ import {
   doc,
   getDoc,
   onSnapshot,
-  setDoc,
   updateDoc,
   serverTimestamp,
 } from "@firebase/firestore";
@@ -14,7 +13,6 @@ import db from "../../../config/firebaseConfig";
 
 const TransactionList = () => {
   const { user } = UserAuth();
-  const [orders, setOrders] = useState([]);
   const [orderStatus, setOrderStatus] = useState("pending");
   const orderTabs = ["Pending", "Confirmed", "Completed", "Cancelled"];
   const [selectedTab, setSelectedTab] = useState(orderTabs[0]);
@@ -107,7 +105,6 @@ const TransactionList = () => {
   };
 
   const onDecline = (orderId, productId) => {
-    // console.log("decline");
     clickHandler(orderId, "declined", productId);
   };
   const onAccept = (orderId, productId) => {
@@ -123,7 +120,6 @@ const TransactionList = () => {
   };
 
   const generatedProps = {
-    // generated props here
     orderStatus,
     setOrderStatus,
     orderTypeOptions,

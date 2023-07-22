@@ -1,10 +1,14 @@
 .desktopWrapper {
-  padding: 0 calc(60px + ((100vw - 768px) / 672) * 100);
+  padding: 0 59.5px;
   margin-bottom: 15%;
 }
+/* .desktopWrapper {
+  padding: 0 calc(60px + ((100vw - 768px) / 672) * 100);
+  margin-bottom: 15%;
+} */
 
 .mobileWrapper {
-  padding: 0 24px 24px 24px;
+  padding: 0 16px 16px 16px;
   margin-bottom: 20%;
 }
 

@@ -66,10 +66,10 @@ const ProfileDetail = () => {
     }
   }, [user]);
 
-  const sm = useMediaQuery("(min-width: 360px) and (max-width:600px)");
-  const md = useMediaQuery("(min-width: 601px) and (max-width:1020px)");
-  const lg = useMediaQuery("(min-width: 1024px) and (max-width:1400px)");
-  const xl = useMediaQuery("(min-width: 1401px)");
+  const sm = useMediaQuery("(min-width: 360px) and (max-width:576px)");
+  const md = useMediaQuery("(min-width: 577px) and (max-width:769px)");
+  const lg = useMediaQuery("(min-width: 770px) and (max-width:1270px)");
+  const xl = useMediaQuery("(min-width: 1271px)");
   const navigate = useNavigate();
 
   const generatedProps = {

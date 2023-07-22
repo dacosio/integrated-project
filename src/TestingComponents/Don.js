@@ -1,40 +1,24 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import FirebaseSample from "../config/FirebaseSample";
 import SearchField from "../components/base/SearchField/SearchField";
 import ActiveListingCard from "../components/base/ActiveListingCard/ActiveListingCard";
 import Badge from "../components/base/Badge/Badge";
-import MapLeaflet from "../components/module/MapLeaflet/MapLeaflet";
-import Autocomplete from "react-google-autocomplete";
-import usePlacesService from "react-google-autocomplete/lib/usePlacesAutocompleteService";
 import MapSearch from "../components/base/MapSearch/MapSearch";
-import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import SellerInfoCard from "../components/base/SellerInfoCard/SellerInfoCard";
 import Grid from "../components/layout/Grid/Grid";
 import useMediaQuery from "../utils/useMediaQuery";
 import SelectDropdown from "../components/base/SelectDropdown/SelectDropdown";
-import Button from "../components/base/Button/Button";
-import ImageLabel from "../components/base/ImageLabel/imageLabel";
 import BottomNav from "../components/layout/BottomNav/BottomNav";
 import Filter from "../components/module/Filter/Filter";
 import CarouselSwiper from "../components/module/CarouselSwiper/CarouselSwiper";
-import { Place } from "../context/PlaceContext";
 
 const wrapper = {
   padding: "1rem",
 };
 
 const Don = (props) => {
-  const [zoom, setZoom] = useState(100);
   const [selected, setSelected] = useState(false);
   const [selected1, setSelected1] = useState(false);
-
-  const data = [
-    { id: 1, lat: 49.225, long: -123.107, location: "Langara" },
-    { id: 2, lat: 49.19, long: -123.122, location: "Bridgeport" },
-    { id: 3, lat: 49.19, long: -123.122, location: "Bridgeport" },
-    { id: 4, lat: 49.19, long: -123.122, location: "Bridgeport" },
-  ];
 
   const options = [
     {

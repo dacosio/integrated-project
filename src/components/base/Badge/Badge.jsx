@@ -1,9 +1,6 @@
 import React from "react";
 import Typography from "../Typography/Typography";
 import styles from "./badge.module.css";
-import { useState } from "react";
-import { P } from "@storybook/components";
-import { useRef } from "react";
 import useHover from "../../../utils/useHover";
 
 const Badge = (props) => {
