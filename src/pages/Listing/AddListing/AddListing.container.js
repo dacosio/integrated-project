@@ -154,7 +154,7 @@ const AddListing = () => {
           meetUpAddress: placeValue.formatted_address,
           meetUpInfo: new Date(year, month - 1, day, hours, minutes),
           name: itemName,
-          price: portionPrice,
+          price: Number(portionPrice),
           qty: portionNumber,
         }).then(async (productResponse) => {
           const _images = [];
@@ -184,24 +184,6 @@ const AddListing = () => {
               getDoc(doc(db, "product", productResponse.id)).then(
                 (_productResponse) => {
                   navigate("/user");
-                  // navigate(`/listing/${_productResponse.id}`, {
-                  //   state: {
-                  //     id: _productResponse.id,
-                  //     createdAt: _productResponse.data().createdAt,
-                  //     createdByDisplayName:
-                  //       _productResponse.data().createdByNickName,
-                  //     createdByIdent: _productResponse.data().createdByIdent,
-                  //     description: _productResponse.data().description,
-                  //     images: _productResponse.data().images,
-                  //     latitude: _productResponse.data().lat,
-                  //     longitude: _productResponse.data().long,
-                  //     meetUpAddress: _productResponse.data().meetUpAddress,
-                  //     meetUpInfo: _productResponse.data().meetUpInfo,
-                  //     name: _productResponse.data().name,
-                  //     price: _productResponse.data().price,
-                  //     qty: _productResponse.data().qty,
-                  //   },
-                  // });
                 }
               );
             });
