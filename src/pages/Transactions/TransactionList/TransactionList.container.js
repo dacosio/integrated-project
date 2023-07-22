@@ -19,7 +19,7 @@ const TransactionList = () => {
   const orderTabs = ["Pending", "Confirmed", "Completed", "Cancelled"];
   const [selectedTab, setSelectedTab] = useState(orderTabs[0]);
 
-  const [orderResults, setOrderResults] = useState([]);
+  const [orderResults, setOrderResults] = useState();
   const orderTypeOptions = [
     { value: "selling", label: "Selling" },
     { value: "buying", label: "Buying" },
@@ -84,6 +84,11 @@ const TransactionList = () => {
         orderStatus,
         updatedAt: serverTimestamp(),
       });
+    } else if (orderStatus === "declined") {
+      await updateDoc(orderDocRef, {
+        orderStatus: "cancelled",
+        updatedAt: serverTimestamp(),
+      });
     } else if (orderStatus === "cancelled") {
       payload = {
         qty: productQty + orderQty,
@@ -102,7 +107,8 @@ const TransactionList = () => {
   };
 
   const onDecline = (orderId, productId) => {
-    clickHandler(orderId, "cancelled", productId);
+    // console.log("decline");
+    clickHandler(orderId, "declined", productId);
   };
   const onAccept = (orderId, productId) => {
     clickHandler(orderId, "confirmed", productId);

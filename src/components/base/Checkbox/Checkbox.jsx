@@ -1,6 +1,6 @@
 import React from "react";
 import Typography from "../Typography/Typography";
-import "./checkbox.css";
+import style from "./checkbox.module.css";
 
 const Checkbox = ({
   selectedOptions,
@@ -22,9 +22,9 @@ const Checkbox = ({
     <>
       {options.map((option, index) => {
         return (
-          <div className="checkbox-wrapper" key={index} style={props}>
+          <div className={style.checkbox_wrapper} key={index} style={props}>
             <input
-              className="checkbox"
+              className={style.checkbox}
               type="checkbox"
               value={option.value}
               onChange={handleOnChange}

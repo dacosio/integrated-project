@@ -202,9 +202,13 @@ const AddListing = (props) => {
                       <NumberInput
                         inputNumber={divisionNumber}
                         setInputNumber={setDivisionNumber}
-                        nanErrMsg={"test1"}
-                        minErrMsg={"test2"}
-                        maxErrMsg={"test3"}
+                        minValue={portionNumber}
+                        nanErrMsg={
+                          "The number of portions to divide into should be a number."
+                        }
+                        minErrMsg={
+                          "The number of portions to divide into should be larger than 0."
+                        }
                       />
                     </div>
 
@@ -227,8 +231,17 @@ const AddListing = (props) => {
                       <NumberInput
                         inputNumber={portionNumber}
                         setInputNumber={setPortionNumber}
+                        minValue={1}
                         maxValue={divisionNumber}
-                        style={{ width: "100%" }}
+                        nanErrMsg={
+                          "The number of portions to sell should be a number."
+                        }
+                        minErrMsg={
+                          "The number of portions to sell should be larger than 0."
+                        }
+                        maxErrMsg={
+                          "The number of portions to sell should be smaller than or equal to the number of portions to divide."
+                        }
                       />
                     </div>
 
@@ -323,7 +336,7 @@ const AddListing = (props) => {
                         <MapSearch bottom />
                       </div>
                       <div className={styles.meetUpMap}>
-                        {placeValue && (
+                        {placeValue ? (
                           <MapLeaflet
                             // zoom={zoom}
                             markerData={[
@@ -346,6 +359,11 @@ const AddListing = (props) => {
                               ],
                             ]}
                             showActiveListing={false}
+                          />
+                        ) : (
+                          <img
+                            className={styles.map_placeholder}
+                            src="https://firebasestorage.googleapis.com/v0/b/splitshare-67496.appspot.com/o/system-image%2Fplaceholder.png?alt=media&token=45187290-cc41-4764-b1ea-986633ce69e4"
                           />
                         )}
                       </div>
@@ -538,7 +556,13 @@ const AddListing = (props) => {
                       <NumberInput
                         inputNumber={divisionNumber}
                         setInputNumber={setDivisionNumber}
-                        style={{ width: "100%", marginBottom: "24px" }}
+                        minValue={portionNumber}
+                        nanErrMsg={
+                          "The number of portions to divide into should be a number."
+                        }
+                        minErrMsg={
+                          "The number of portions to divide into should be larger than 0."
+                        }
                       />
                     </div>
                     <div className={styles.sectionGap}>
@@ -560,8 +584,17 @@ const AddListing = (props) => {
                       <NumberInput
                         inputNumber={portionNumber}
                         setInputNumber={setPortionNumber}
+                        minValue={1}
                         maxValue={divisionNumber}
-                        style={{ width: "100%" }}
+                        nanErrMsg={
+                          "The number of portions to sell should be a number."
+                        }
+                        minErrMsg={
+                          "The number of portions to sell should be larger than 0."
+                        }
+                        maxErrMsg={
+                          "The number of portions to sell should be smaller than or equal to the number of portions to divide."
+                        }
                       />
                     </div>
                     <div className={styles.priceDisplayWrapper}>
@@ -655,7 +688,7 @@ const AddListing = (props) => {
                         <MapSearch bottom />
                       </div>
                       <div className={styles.meetUpMap}>
-                        {placeValue && (
+                        {placeValue ? (
                           <MapLeaflet
                             // zoom={zoom}
                             markerData={[
@@ -678,6 +711,11 @@ const AddListing = (props) => {
                               ],
                             ]}
                             showActiveListing={false}
+                          />
+                        ) : (
+                          <img
+                            className={styles.map_placeholder}
+                            src="https://firebasestorage.googleapis.com/v0/b/splitshare-67496.appspot.com/o/system-image%2Fplaceholder.png?alt=media&token=45187290-cc41-4764-b1ea-986633ce69e4"
                           />
                         )}
                       </div>

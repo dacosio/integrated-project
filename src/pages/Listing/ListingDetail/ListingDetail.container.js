@@ -42,10 +42,11 @@ const ListingDetail = (props) => {
     } else {
       getDoc(doc(store, "user", product.createdByIdent))
         .then((sellerResponse) => {
+          console.log(product.createdByIdent);
           getDocs(
             query(
               collection(store, "order"),
-              where("createdById", "==", product.createdByIdent),
+              where("splitterId", "==", product.createdByIdent),
               where("orderStatus", "==", "completed")
             )
           ).then((itemsResponse) => {

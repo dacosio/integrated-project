@@ -20,6 +20,7 @@
   background-color: var(--bg-gray);
   border-radius: 8px;
   margin-bottom: 0.3rem;
+  z-index: 65;
 }
 
 .predictionItem {

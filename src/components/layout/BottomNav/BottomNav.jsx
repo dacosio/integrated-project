@@ -74,7 +74,10 @@ const BottomNav = (props) => {
                 {user ? (
                   <Link to="listing/add">
                     <PlusSVG height={30} width={30} fill="var(--dark-blue)" />
-                    <Typography variant="body-3-medium" color="light-gray">
+                    <Typography
+                      variant="body-3-medium"
+                      color={colorTypo("/listing/add")}
+                    >
                       Post
                     </Typography>
                   </Link>
@@ -95,10 +98,10 @@ const BottomNav = (props) => {
               <li>
                 {user ? (
                   <Link to="settings">
-                    <SettingsSVG stroke={colorSVG("/register")} />
+                    <SettingsSVG stroke={colorSVG("/settings")} />
                     <Typography
                       variant="body-3-medium"
-                      color={colorTypo("/register")}
+                      color={colorTypo("/settings")}
                     >
                       Settings
                     </Typography>
@@ -110,10 +113,10 @@ const BottomNav = (props) => {
                       toast.warning("Log in to view settings");
                     }}
                   >
-                    <SettingsSVG stroke={colorSVG("/register")} />
+                    <SettingsSVG stroke={colorSVG("/settings")} />
                     <Typography
                       variant="body-3-medium"
-                      color={colorTypo("/register")}
+                      color={colorTypo("/settings")}
                     >
                       Settings
                     </Typography>

@@ -21,21 +21,11 @@ const TransactionDetail = (props) => {
     handleOnComplete,
     handleOnCancel,
     meetUpDate,
-    meetUpTime
+    meetUpTime,
+    dateApproved
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
-
-  const dateApprovedFormatted =
-    order && order.updatedAt
-      ? order.updatedAt.toDate().toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        })
-      : "";
-
-  // return { meetUpDate, meetUpTime };
 
   return (
     <div style={{ backgroundColor: "var(--bg-gray)", minHeight: "100vh" }}>
@@ -75,7 +65,7 @@ const TransactionDetail = (props) => {
                   source={order.imageUrl}
                   alt={order.name}
                   itemName={order.name}
-                  dateApproved={dateApprovedFormatted}
+                  dateApproved={dateApproved}
                   price={order.price}
                   quantity={order.qty}
                 />
@@ -241,7 +231,7 @@ const TransactionDetail = (props) => {
                   source={order.imageUrl}
                   alt={order.name}
                   itemName={order.name}
-                  dateApproved={dateApprovedFormatted}
+                  dateApproved={dateApproved}
                   price={order.price}
                   quantity={order.qty}
                 />

@@ -32,7 +32,12 @@ const MapSearch = ({
 
   const handleReset = () => {
     setValue("");
-    getPlacePredictions({ input: "" });
+    getPlacePredictions({
+      input: "",
+      options: {
+        componentRestrictions: { country: "CA" },
+      },
+    });
     updatePlaceValue("");
     resetAddressInfo();
   };

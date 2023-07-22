@@ -169,7 +169,7 @@ const Settings = (props) => {
         <Accordion
           visibility={aboutUsVisibility}
           onToggle={() => setAboutUsVisibility(!aboutUsVisibility)}
-          label="About Us"
+          label="About SplitShare"
           id="aboutUs"
         >
           <hr />

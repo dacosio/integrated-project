@@ -6,12 +6,14 @@ import { MapMarkerSVG } from "../../components/base/SVG";
 import ActiveListingCard from "../../components/base/ActiveListingCard/ActiveListingCard";
 import getPreciseDistance from "geolib/es/getDistance";
 import Button from "../../components/base/Button/Button";
+import Grid from "../../components/layout/Grid/Grid";
 import { Link } from "react-router-dom";
 
 const Home = (props) => {
   const {
     lg,
     xl,
+    columns,
     zoom,
     desktopProducts,
     latitude,
@@ -39,10 +41,16 @@ const Home = (props) => {
   }
 
   return (
-    <div className={style.container}>
+    <>
       {xl || lg ? (
         <div className={style.desktopWrapper}>
-          <div className={style.picksDesktop}>
+          <div
+            className={style.desktopListing}
+            style={{
+              padding: toggleDisplay ? "28px 36px 0 36px" : "28px 36px",
+              boxSizing: "border-box",
+            }}
+          >
             <div>
               <div className={style.title}>
                 <Typography variant="h2-graphik-bold" color="black">
@@ -67,7 +75,13 @@ const Home = (props) => {
               )}
             </div>
             {toggleDisplay ? (
-              <div className={style.resultContainer}>
+              <Grid
+                columns={columns}
+                gap="20px"
+                style={{
+                  overflow: "auto",
+                }}
+              >
                 {desktopProducts &&
                   desktopProducts.map((product, index) => {
                     let tmp = {
@@ -101,6 +115,7 @@ const Home = (props) => {
                     }
                     return (
                       <Link
+                        key={product.id}
                         to={`/listing/${product.id}`}
                         state={{
                           id: product.id,
@@ -119,7 +134,6 @@ const Home = (props) => {
                         }}
                       >
                         <ActiveListingCard
-                          key={product.id}
                           distance={!!error ? 0 : distance}
                           source={
                             product.images
@@ -130,31 +144,29 @@ const Home = (props) => {
                           price={product.price}
                           stock={product.qty}
                           alt={product.name}
-                          onClick={() => console.log(product.id)}
-                          // maxwidth={xl || lg ? "185px" : "250px"}
-                          // width={xl || lg ? "185px" : "150px"}
-                          // height={xl || lg ? "185px" : "150px"}
-                          // style={{ marginBottom: "1rem" }}
+                          maxwidth={xl || lg ? "185px" : "150px"}
+                          width={"100%"}
+                          height={"auto"}
+                          ratio={1}
+                          style={{ marginBottom: "1rem" }}
                         />
                       </Link>
                     );
                   })}
-              </div>
+              </Grid>
             ) : (
-              <div style={{ height: "90%" }}>
-                <MapLeaflet
-                  zoom={zoom}
-                  markerData={desktopProducts}
-                  direction="top"
-                  // width="100%"
-                  height="100%"
-                  borderRadius="20px"
-                  zIndex={2}
-                  bounds={desktopBounds}
-                  showActiveListing={true}
-                  currentAddress={currentAddress}
-                />
-              </div>
+              <MapLeaflet
+                zoom={zoom}
+                markerData={desktopProducts}
+                direction="top"
+                // width="100%"
+                height="100%"
+                borderRadius="20px"
+                zIndex={2}
+                bounds={desktopBounds}
+                showActiveListing={true}
+                currentAddress={currentAddress}
+              />
             )}
           </div>
         </div>
@@ -186,7 +198,7 @@ const Home = (props) => {
                 )}
               </div>
               {toggleDisplay ? (
-                <div className={style.mobileResults}>
+                <Grid columns={columns} gap="20px">
                   {desktopProducts &&
                     desktopProducts.map((product, index) => {
                       let tmp = {
@@ -220,6 +232,7 @@ const Home = (props) => {
 
                       return (
                         <Link
+                          key={product.id}
                           to={`/listing/${product.id}`}
                           state={{
                             id: product.id,
@@ -238,7 +251,6 @@ const Home = (props) => {
                           }}
                         >
                           <ActiveListingCard
-                            key={product.id}
                             distance={!!error ? 0 : distance}
                             source={
                               product.images
@@ -249,16 +261,16 @@ const Home = (props) => {
                             price={product.price}
                             stock={product.qty}
                             alt={product.name}
-                            onClick={() => console.log(product.id)}
-                            // maxwidth={xl || lg ? "185px" : "150px"}
-                            // width={xl || lg ? "185px" : "150px"}
-                            // height={xl || lg ? "185px" : "150px"}
-                            // style={{ marginBottom: "1rem" }}
+                            maxwidth={xl || lg ? "185px" : "150px"}
+                            width={"100%"}
+                            height={"auto"}
+                            ratio={1}
+                            style={{ marginBottom: "1rem" }}
                           />
                         </Link>
                       );
                     })}
-                </div>
+                </Grid>
               ) : (
                 <div
                   style={{
@@ -282,7 +294,7 @@ const Home = (props) => {
           </div>
         </>
       )}
-    </div>
+    </>
   );
 };
 

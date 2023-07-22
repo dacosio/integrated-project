@@ -197,6 +197,7 @@ const ListingDetail = (props) => {
                   <NumberInput
                     inputNumber={quantity}
                     setInputNumber={setQuantity}
+                    justify="center"
                     minValue={1}
                     maxValue={product.qty}
                     nanErrMsg={"Please enter a number."}
@@ -205,7 +206,10 @@ const ListingDetail = (props) => {
                       "Number cannot be larger than available portions."
                     }
                   />
-                  <div>${Number((quantity * product.price).toFixed(2))}</div>
+                  <Typography variant="h4-graphik-bold">
+                    Total Price : $
+                    {Number((quantity * product.price).toFixed(2))}
+                  </Typography>
                 </div>
                 <div style={{ display: "flex", gap: "20px" }}>
                   <Button
@@ -410,6 +414,7 @@ const ListingDetail = (props) => {
                   <NumberInput
                     inputNumber={quantity}
                     setInputNumber={setQuantity}
+                    justify="center"
                     minValue={1}
                     maxValue={product.qty}
                     nanErrMsg={"Please enter a number."}
@@ -418,6 +423,10 @@ const ListingDetail = (props) => {
                       "Number cannot be larger than available portions."
                     }
                   />
+                  <Typography variant="h4-graphik-bold">
+                    Total Price : $
+                    {Number((quantity * product.price).toFixed(2))}
+                  </Typography>
                 </div>
                 <div style={{ display: "flex", gap: "20px" }}>
                   <Button
