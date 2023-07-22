@@ -44,9 +44,7 @@ const ListingDetail = (props) => {
 
   const navigate = useNavigate();
 
-  const isDesktop = useMediaQuery("(min-width: 1200px)");
-  const isTablet = useMediaQuery("(min-width: 1200px)");
-  const isMobile = useMediaQuery("(min-width: 360px)");
+  const lg = useMediaQuery("(min-width: 769px)");
 
   const getDate = (seconds) => {
     const _createdAt = new Date(seconds * 1000);
@@ -59,7 +57,7 @@ const ListingDetail = (props) => {
 
   return (
     <>
-      {isDesktop ? (
+      {lg ? (
         <>
           <div className={`${styles.wrapper}`}>
             <div className={styles.btn}>
