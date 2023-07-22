@@ -47,6 +47,7 @@ const ProfileDetail = () => {
             query(
               productDocRef,
               where("createdByIdent", "==", userId),
+              where("qty", ">", 0),
               orderBy("createdAt", "desc")
             )
           );
