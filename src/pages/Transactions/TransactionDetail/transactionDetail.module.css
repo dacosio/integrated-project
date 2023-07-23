@@ -4,7 +4,7 @@
 
 .backButtonWrapper {
   padding-left: 20px;
-  padding-top: 100px;
+  padding-top: 16px;
 }
 
 @media screen and (min-width: 1440px) {

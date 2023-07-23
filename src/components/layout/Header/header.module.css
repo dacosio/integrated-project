@@ -7,8 +7,8 @@
   color: var(--white);
   display: flex;
   justify-content: space-between;
-  max-width: 375px;
-  margin: auto;
+  /* max-width: 375px;
+  margin: auto; */
 }
 
 .mobileFilter {
@@ -16,8 +16,8 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 21px;
-  max-width: 375px;
-  margin: auto;
+  /* max-width: 375px;
+  margin: auto; */
 }
 
 .filterSVG {
@@ -28,14 +28,14 @@
 .mdWrapper {
   background-color: var(--dark-blue);
   border-bottom: 2px solid var(--black);
-  padding: 28px 24px;
+  padding: 20px 24px;
 }
 
 .mdTop {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 600px;
+  max-width: 650px;
   margin: auto;
 }
 
@@ -53,7 +53,7 @@
 .mdMid {
   display: flex;
   justify-content: center;
-  max-width: 600px;
+  max-width: 650px;
   margin: auto;
 }
 
@@ -79,7 +79,7 @@
   justify-content: center;
   align-items: center;
   gap: 12px;
-  max-width: 600px;
+  max-width: 650px;
   margin: auto;
 }
 
@@ -88,7 +88,7 @@
 .lgWrapper {
   background-color: var(--dark-blue);
   border-bottom: 2px solid var(--black);
-  padding: 28px 24px;
+  padding: 28px calc(-54.28571px + 14.88095vw);
 }
 
 .lgTop {

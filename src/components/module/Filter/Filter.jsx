@@ -4,7 +4,6 @@ import Badge from "../../base/Badge/Badge";
 import MapSearch from "../../base/MapSearch/MapSearch";
 import SelectDropdown from "../../base/SelectDropdown/SelectDropdown";
 import style from "./filter.module.css";
-import useMediaQuery from "../../../utils/useMediaQuery";
 import { useState } from "react";
 import { Sort } from "../../../context/SortContext";
 import { useEffect } from "react";

@@ -14,7 +14,6 @@ import {
   RightHandSVG,
 } from "../../../components/base/SVG";
 import Grid from "../../../components/layout/Grid/Grid";
-import WaveSVG from "../../../components/base/SVG/WaveSVG";
 
 const LoginView = (props) => {
   const { initialValues, validationSchema, loginWithGoogle, onSubmit, lg, xl } =

@@ -48,6 +48,7 @@ function ImageInput({ images, setImages, maxImageNumber = 12, ...props }) {
           onImageRemove,
           isDragging,
           dragProps,
+          alt,
         }) => (
           <div>
             <div className={`${styles["header"]}`}>
@@ -107,6 +108,7 @@ function ImageInput({ images, setImages, maxImageNumber = 12, ...props }) {
                   className={`${styles["image"]}`}
                   src={image.data_url}
                   onClick={onImageRemove}
+                  alt={alt}
                 />
               ))}
             </div>

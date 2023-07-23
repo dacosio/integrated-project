@@ -1,7 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Header from "../Header/Header";
 import BottomNav from "../BottomNav/BottomNav";
-import useWindowSize from "../../../utils/useWindowSize";
 import { useEffect, useState } from "react";
 import useMediaQuery from "../../../utils/useMediaQuery";
 import Typography from "../../base/Typography/Typography";

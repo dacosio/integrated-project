@@ -27,7 +27,6 @@ const Home = (props) => {
     categoryValue,
     locationFilter,
   } = props;
-  // console.log(latitude, longitude, locationFilter);
   if (
     desktopProducts.length === 0 &&
     (debouncedValue || categoryValue.length > 0)
@@ -78,7 +77,7 @@ const Home = (props) => {
             {toggleDisplay ? (
               <Grid
                 columns={columns}
-                gap="20px"
+                gap="16px"
                 style={{
                   overflow: "auto",
                 }}
@@ -149,7 +148,6 @@ const Home = (props) => {
                           width={"100%"}
                           height={"auto"}
                           ratio={1}
-                          style={{ marginBottom: "1rem" }}
                         />
                       </Link>
                     );
@@ -199,7 +197,7 @@ const Home = (props) => {
                 )}
               </div>
               {toggleDisplay ? (
-                <Grid columns={columns} gap="20px">
+                <Grid columns={columns} gap="16px">
                   {desktopProducts &&
                     desktopProducts.map((product, index) => {
                       let tmp = {
@@ -266,7 +264,6 @@ const Home = (props) => {
                             width={"100%"}
                             height={"auto"}
                             ratio={1}
-                            style={{ marginBottom: "1rem" }}
                           />
                         </Link>
                       );

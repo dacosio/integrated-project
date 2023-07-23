@@ -1,8 +1,6 @@
 import React from "react";
 
 const FilterSVG = ({ width, height, fill, selected, onClick, ...props }) => {
-  let bgColor;
-
   let selectedStyles = {
     border: "2px solid var(--black)",
     backgroundColor: "var(--light-blue)",

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./PageTabs.module.css";
 
-const { ordertabs, active } = styles;
+const { active } = styles;
 
 const PageTabs = ({ tabs, onTabChange }) => {
   const [activeLink, setActiveLink] = useState(tabs[0]);

@@ -49,25 +49,25 @@ const ProfileDetail = ({
             }}
           />
           <div style={{ alignSelf: "flex-end" }}>
-            <Typography variant="h3-graphik-bold" style={{ marginTop: "25px" }}>
+            <Typography variant="h2-graphik-bold" style={{ marginTop: "25px" }}>
               {data?.displayName}
             </Typography>
             {data?.address && (
               <div className={style.location}>
                 <MarkerSmallSVG />
-                <Typography variant="body-3-medium">{data?.address}</Typography>
+                <Typography variant="body-1-medium">{data?.address}</Typography>
               </div>
             )}
             <div className={style.sold}>
               <OrderSmallSVG />
-              <Typography variant="body-3-medium">
+              <Typography variant="body-1-medium">
                 {data?.qty} items sold
               </Typography>
             </div>
           </div>
         </div>
         <Typography
-          variant="h1-graphik-bold"
+          variant="h2-graphik-bold"
           style={{
             marginTop: "-25px",
             marginBottom: "24px",
