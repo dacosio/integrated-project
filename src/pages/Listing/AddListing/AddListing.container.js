@@ -106,7 +106,7 @@ const AddListing = () => {
         _portionPrice < 0 ||
         divisionNumber < portionNumber
         ? Number(0).toFixed(2)
-        : _portionPrice.toFixed(2)
+        : Number(_portionPrice).toFixed(2)
     );
     setTotalPrice(
       isNaN(_totalPrice) ||
@@ -114,7 +114,7 @@ const AddListing = () => {
         _totalPrice < 0 ||
         divisionNumber < portionNumber
         ? Number(0).toFixed(2)
-        : _totalPrice.toFixed(2)
+        : Number(_totalPrice).toFixed(2)
     );
   }, [originalPrice, divisionNumber, portionNumber]);
 

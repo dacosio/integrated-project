@@ -211,7 +211,7 @@ const ListingDetail = (props) => {
                     quantity < 0 ||
                     product.qty < quantity
                       ? Number(0).toFixed(2)
-                      : Number(quantity * product.price).toFixed(2)}
+                      : (Number(quantity) * Number(product.price)).toFixed(2)}
                   </Typography>
                 </div>
                 <div style={{ display: "flex", gap: "20px" }}>
@@ -433,7 +433,7 @@ const ListingDetail = (props) => {
                     quantity < 0 ||
                     product.qty < quantity
                       ? Number(0).toFixed(2)
-                      : Number(quantity * product.price).toFixed(2)}
+                      : (Number(quantity) * Number(product.price)).toFixed(2)}
                   </Typography>
                 </div>
                 <div style={{ display: "flex", gap: "20px" }}>
