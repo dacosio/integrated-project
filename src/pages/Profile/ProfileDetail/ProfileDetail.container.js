@@ -10,6 +10,7 @@ import {
   where,
   query,
   orderBy,
+  onSnapshot,
 } from "@firebase/firestore";
 import useMediaQuery from "../../../utils/useMediaQuery";
 import { usePosition } from "../../../utils/usePosition";
@@ -43,15 +44,22 @@ const ProfileDetail = () => {
           });
 
           const productDocRef = collection(db, "product");
-          const userProductSnapshot = await getDocs(
+          const querySnapshot = await getDocs(
             query(
               productDocRef,
               where("createdByIdent", "==", userId),
-              where("qty", ">", 0),
               orderBy("createdAt", "desc")
             )
           );
-          const productData = userProductSnapshot.docs.map((doc) => doc.data());
+
+          const productData = querySnapshot.docs
+            .filter((doc) => doc.data().qty !== 0)
+            .map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+            }));
+
+          console.log(productData);
 
           setProduct(productData);
         } else {
