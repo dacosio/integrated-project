@@ -44,9 +44,7 @@ const ListingDetail = (props) => {
 
   const navigate = useNavigate();
 
-  const isDesktop = useMediaQuery("(min-width: 1200px)");
-  const isTablet = useMediaQuery("(min-width: 1200px)");
-  const isMobile = useMediaQuery("(min-width: 360px)");
+  const lg = useMediaQuery("(min-width: 769px)");
 
   const getDate = (seconds) => {
     const _createdAt = new Date(seconds * 1000);
@@ -59,7 +57,7 @@ const ListingDetail = (props) => {
 
   return (
     <>
-      {isDesktop ? (
+      {lg ? (
         <>
           <div className={`${styles.wrapper}`}>
             <div className={styles.btn}>
@@ -208,7 +206,12 @@ const ListingDetail = (props) => {
                   />
                   <Typography variant="h4-graphik-bold">
                     Total Price : $
-                    {Number((quantity * product.price).toFixed(2))}
+                    {isNaN(quantity) ||
+                    !isFinite(quantity) ||
+                    quantity < 0 ||
+                    product.qty < quantity
+                      ? Number(0).toFixed(2)
+                      : (Number(quantity) * Number(product.price)).toFixed(2)}
                   </Typography>
                 </div>
                 <div style={{ display: "flex", gap: "20px" }}>
@@ -425,7 +428,12 @@ const ListingDetail = (props) => {
                   />
                   <Typography variant="h4-graphik-bold">
                     Total Price : $
-                    {Number((quantity * product.price).toFixed(2))}
+                    {isNaN(quantity) ||
+                    !isFinite(quantity) ||
+                    quantity < 0 ||
+                    product.qty < quantity
+                      ? Number(0).toFixed(2)
+                      : (Number(quantity) * Number(product.price)).toFixed(2)}
                   </Typography>
                 </div>
                 <div style={{ display: "flex", gap: "20px" }}>
