@@ -54,7 +54,7 @@ async function getWebpFile(source) {
 
 const AddListing = () => {
   const { user } = UserAuth();
-  const { placeValue } = Place();
+  const { placeValue, updatePlaceValue } = Place();
   const [meetupDate, setMeetupDate] = useState();
   const [meetupTime, setMeetupTime] = useState();
   const [divisionNumber, setDivisionNumber] = useState(1);
@@ -83,6 +83,10 @@ const AddListing = () => {
   });
 
   useEffect(() => {
+    updatePlaceValue("");
+  }, []);
+
+  useEffect(() => {
     getDocs(collection(db, "category")).then((categoriesResponse) => {
       setCategories(
         categoriesResponse.docs.map((doc) => {
@@ -102,7 +106,7 @@ const AddListing = () => {
         _portionPrice < 0 ||
         divisionNumber < portionNumber
         ? Number(0).toFixed(2)
-        : _portionPrice.toFixed(2)
+        : Number(_portionPrice).toFixed(2)
     );
     setTotalPrice(
       isNaN(_totalPrice) ||
@@ -110,7 +114,7 @@ const AddListing = () => {
         _totalPrice < 0 ||
         divisionNumber < portionNumber
         ? Number(0).toFixed(2)
-        : _totalPrice.toFixed(2)
+        : Number(_totalPrice).toFixed(2)
     );
   }, [originalPrice, divisionNumber, portionNumber]);
 
