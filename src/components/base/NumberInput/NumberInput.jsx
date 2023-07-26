@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { FaMinus, FaPlus } from "react-icons/fa";
+import { Minus, Plus } from "../SVG";
 import Typography from "../Typography/Typography";
 import styles from "./NumberInput.module.css";
 
 const NumberInput = ({
   inputNumber,
   setInputNumber,
+  justify = "left",
   minValue = 0,
   maxValue = 1000,
   nanErrMsg,
@@ -15,18 +16,16 @@ const NumberInput = ({
 }) => {
   const [error, setError] = useState("");
 
-  const handleOnChange = (event) => {
-    const input = event.target.value;
-
+  const handleOnChange = (input) => {
     if (isNaN(input)) {
       setError(nanErrMsg);
       setInputNumber(input);
     } else if (Number(input) < minValue) {
       setError(minErrMsg);
-      setInputNumber(input);
+      setInputNumber(Number(input));
     } else if (maxValue < Number(input)) {
       setError(maxErrMsg);
-      setInputNumber(input);
+      setInputNumber(Number(input));
     } else {
       setError("");
       setInputNumber(Number(input));
@@ -34,36 +33,36 @@ const NumberInput = ({
   };
 
   return (
-    <div className={`${styles["wrapper"]}`}>
-      <div className={`${styles["header"]}`}>
+    <div className={`${styles.wrapper}`}>
+      <div className={`${styles.header}`} style={{ justifySelf: justify }}>
         <div
-          className={`${styles["btn"]} ${styles["minus"]}`}
+          className={`${styles.btn} ${styles.minus}`}
           onClick={() => {
             if (minValue <= inputNumber - 1) {
-              setInputNumber((value) => value - 1);
+              handleOnChange(inputNumber - 1);
             }
           }}
         >
-          <FaMinus size={16} />
+          <Minus width={16} height={16} />
         </div>
         <input
-          className={`${styles["ipt"]}`}
+          className={`${styles.ipt}`}
           type="text"
           value={inputNumber}
-          onChange={handleOnChange}
+          onChange={(event) => handleOnChange(event.target.value)}
         />
         <div
-          className={`${styles["btn"]} ${styles["plus"]}`}
+          className={`${styles.btn} ${styles.plus}`}
           onClick={() => {
             if (inputNumber + 1 <= maxValue) {
-              setInputNumber((value) => value + 1);
+              handleOnChange(inputNumber + 1);
             }
           }}
         >
-          <FaPlus size={16} />
+          <Plus width={16} height={16} />
         </div>
       </div>
-      <div className={`${styles["footer"]}`}>
+      <div className={`${styles.footer}`} style={{ justifySelf: justify }}>
         {error && (
           <Typography
             variant="body-4-regular"

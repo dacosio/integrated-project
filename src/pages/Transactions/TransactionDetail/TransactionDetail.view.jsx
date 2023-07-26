@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Grid from "../../../components/layout/Grid/Grid";
 import SellingItemCard from "../../../components/base/SellingItemCard/SellingItemCard";
 import BuyerContactCard from "../../../components/base/BuyerContactCard/BuyerContactCard";
@@ -8,7 +8,6 @@ import Card from "../../../components/base/Card/Card";
 import useMediaQuery from "../../../utils/useMediaQuery";
 import BackButton from "../../../components/base/BackButton/BackButton";
 import styles from "./transactionDetail.module.css";
-import { userEvent } from "@storybook/testing-library";
 import Typography from "../../../components/base/Typography/Typography";
 
 const TransactionDetail = (props) => {
@@ -22,7 +21,7 @@ const TransactionDetail = (props) => {
     handleOnCancel,
     meetUpDate,
     meetUpTime,
-    dateApproved
+    dateApproved,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
@@ -104,9 +103,11 @@ const TransactionDetail = (props) => {
                       order.orderStatus === "confirmed" ? (
                         order.splitteeContactNumber
                       ) : (
-                        order.splitterContactNumber
+                        order.splitteeContactNumber
                       )
-                    ) : null
+                    ) : (
+                      order.splitterContactNumber
+                    )
                   }
                   email={
                     order.orderStatus === "pending" ? (
@@ -121,9 +122,11 @@ const TransactionDetail = (props) => {
                       order.orderStatus === "confirmed" ? (
                         order.splitteeEmail
                       ) : (
-                        order.splitterEmail
+                        order.splitteeEmail
                       )
-                    ) : null
+                    ) : (
+                      order.splitterEmail
+                    )
                   }
                 />
               </Grid>
@@ -220,7 +223,7 @@ const TransactionDetail = (props) => {
       ) : (
         <div style={{ minHeight: "100vh", backgroundColor: "var(--bg-gray)" }}>
           {order && (
-            <div style={{ padding: "3rem 20px 130px" }}>
+            <div style={{ padding: "16px 16px 125px" }}>
               <div style={{ marginBottom: "20px" }}>
                 <SellingItemCard
                   label={
@@ -272,9 +275,11 @@ const TransactionDetail = (props) => {
                       order.orderStatus === "confirmed" ? (
                         order.splitteeContactNumber
                       ) : (
-                        order.splitterContactNumber
+                        order.splitteeContactNumber
                       )
-                    ) : null
+                    ) : (
+                      order.splitterContactNumber
+                    )
                   }
                   email={
                     order.orderStatus === "pending" ? (
@@ -289,9 +294,11 @@ const TransactionDetail = (props) => {
                       order.orderStatus === "confirmed" ? (
                         order.splitteeEmail
                       ) : (
-                        order.splitterEmail
+                        order.splitteeEmail
                       )
-                    ) : null
+                    ) : (
+                      order.splitterEmail
+                    )
                   }
                 />
               </div>

@@ -9,8 +9,6 @@ export default {
   argTypes: {},
 };
 
-// More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-
 export const Desktop = (props) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(15);
   const [maxPageNumber, setMaxPageNumber] = useState(5);

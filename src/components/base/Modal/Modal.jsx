@@ -1,5 +1,5 @@
 import React from "react";
-import { GrClose } from "react-icons/gr";
+import Close from "../SVG/Close";
 import styles from "./Modal.module.css";
 
 const Modal = ({
@@ -19,10 +19,12 @@ const Modal = ({
               !noBackground ? styles["inner-background"] : null
             }`}
           >
-            <div className={`${styles["btn-wrapper"]} `}>
-              <GrClose
-                size={24}
-                className={`${styles.btn}`}
+            <div className={`${styles["btn-wrapper"]}`}>
+              <Close
+                width={24}
+                height={24}
+                fill="black"
+                className={styles.btn}
                 onClick={onClose}
               />
             </div>

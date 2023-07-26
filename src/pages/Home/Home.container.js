@@ -9,7 +9,6 @@ import {
   onSnapshot,
   orderBy,
   query,
-  where,
 } from "firebase/firestore";
 import db from "../../config/firebaseConfig";
 import { SearchContext } from "../../context/SearchContext";
@@ -127,10 +126,12 @@ const Home = () => {
     const unsubscribe = onSnapshot(
       query(collection(db, "product"), sorting(sortValue)),
       (snapshot) => {
-        let newProducts = snapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
+        let newProducts = snapshot.docs
+          .filter((doc) => doc.data().qty !== 0)
+          .map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
 
         let result = newProducts;
 
@@ -148,13 +149,6 @@ const Home = () => {
           );
         }
 
-        // if (sortValue) {
-        //   if (sortValue === "lowToHigh") {
-        //     result.sort((a, b) => a.price - b.price);
-        //   } else if (sortValue === "highToLow") {
-        //     result.sort((a, b) => b.price - a.price);
-        //   }
-        // }
         if (locationFilter.latitude && locationFilter.longitude) {
           result = result.filter((product) => {
             let tmp = {
@@ -168,11 +162,8 @@ const Home = () => {
             };
             const distance = getPreciseDistance(locFilter, tmp);
 
-            // console.log(tmp, locFilter, distance);
             return distance <= 25000;
           });
-
-          // console.log(result);
         }
 
         if (currentAddress && sortValue === "") {
@@ -203,11 +194,6 @@ const Home = () => {
     currentAddress,
     locationFilter,
   ]);
-
-  // console.log("locationFilter", locationFilter);
-  // console.log("currentAddress", { longitude, latitude });
-
-  // ********************************
 
   const desktopProducts = products;
 

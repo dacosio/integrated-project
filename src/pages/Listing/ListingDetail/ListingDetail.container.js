@@ -42,7 +42,6 @@ const ListingDetail = (props) => {
     } else {
       getDoc(doc(store, "user", product.createdByIdent))
         .then((sellerResponse) => {
-          console.log(product.createdByIdent);
           getDocs(
             query(
               collection(store, "order"),
@@ -118,7 +117,7 @@ const ListingDetail = (props) => {
           orderStatus: "pending",
           price: product.price,
           productId: product.id,
-          qty: quantity,
+          qty: Number(quantity),
           splitteeContactNumber: userResponse.data().contactNumber,
           splitteeEmail: userResponse.data().email,
           splitteeId: userResponse.data().id,

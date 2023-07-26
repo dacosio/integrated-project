@@ -57,8 +57,8 @@ const Header = () => {
   };
 
   const sm = useMediaQuery("(min-width: 360px) and (max-width:576px)");
-  const md = useMediaQuery("(min-width: 577px) and (max-width:799px)");
-  const lg = useMediaQuery("(min-width: 800px) and (max-width:1270px)");
+  const md = useMediaQuery("(min-width: 577px) and (max-width:768px)");
+  const lg = useMediaQuery("(min-width: 769px) and (max-width:1270px)");
   const xl = useMediaQuery("(min-width: 1271px)");
 
   useEffect(() => {
@@ -138,7 +138,12 @@ const Header = () => {
                 <Link
                   style={
                     location.pathname === "/"
-                      ? { color: "var(--yellow)", fontWeight: "bold" }
+                      ? {
+                          color: "var(--yellow)",
+                          fontWeight: "bold",
+                          borderBottom: "2px solid var(--yellow)",
+                          paddingBottom: "6px",
+                        }
                       : { color: "var(--white)" }
                   }
                   to="/"
@@ -152,7 +157,12 @@ const Header = () => {
                 <Link
                   style={
                     location.pathname === "/transaction"
-                      ? { color: "var(--yellow)", fontWeight: "bold" }
+                      ? {
+                          color: "var(--yellow)",
+                          fontWeight: "bold",
+                          borderBottom: "2px solid var(--yellow)",
+                          paddingBottom: "6px",
+                        }
                       : { color: "var(--white)" }
                   }
                   to="transaction"
@@ -166,7 +176,12 @@ const Header = () => {
                 <Link
                   style={
                     location.pathname === "/settings"
-                      ? { color: "var(--yellow)", fontWeight: "bold" }
+                      ? {
+                          color: "var(--yellow)",
+                          fontWeight: "bold",
+                          borderBottom: "2px solid var(--yellow)",
+                          paddingBottom: "6px",
+                        }
                       : { color: "var(--white)" }
                   }
                   to="settings"
@@ -180,7 +195,12 @@ const Header = () => {
                 <Link
                   style={
                     location.pathname === "/user"
-                      ? { color: "var(--yellow)", fontWeight: "bold" }
+                      ? {
+                          color: "var(--yellow)",
+                          fontWeight: "bold",
+                          borderBottom: "2px solid var(--yellow)",
+                          paddingBottom: "6px",
+                        }
                       : { color: "var(--white)" }
                   }
                   to="user"
@@ -248,7 +268,12 @@ const Header = () => {
                   <Link
                     style={
                       location.pathname === "/"
-                        ? { color: "var(--yellow)", fontWeight: "bold" }
+                        ? {
+                            color: "var(--yellow)",
+                            fontWeight: "bold",
+                            borderBottom: "2px solid var(--yellow)",
+                            paddingBottom: "6px",
+                          }
                         : { color: "var(--white)" }
                     }
                     to="/"
@@ -262,7 +287,12 @@ const Header = () => {
                   <Link
                     style={
                       location.pathname === "/transaction"
-                        ? { color: "var(--yellow)", fontWeight: "bold" }
+                        ? {
+                            color: "var(--yellow)",
+                            fontWeight: "bold",
+                            borderBottom: "2px solid var(--yellow)",
+                            paddingBottom: "6px",
+                          }
                         : { color: "var(--white)" }
                     }
                     to="transaction"
@@ -276,7 +306,12 @@ const Header = () => {
                   <Link
                     style={
                       location.pathname === "/settings"
-                        ? { color: "var(--yellow)", fontWeight: "bold" }
+                        ? {
+                            color: "var(--yellow)",
+                            fontWeight: "bold",
+                            borderBottom: "2px solid var(--yellow)",
+                            paddingBottom: "6px",
+                          }
                         : { color: "var(--white)" }
                     }
                     to="settings"
@@ -290,7 +325,12 @@ const Header = () => {
                   <Link
                     style={
                       location.pathname === "/user"
-                        ? { color: "var(--yellow)", fontWeight: "bold" }
+                        ? {
+                            color: "var(--yellow)",
+                            fontWeight: "bold",
+                            borderBottom: "2px solid var(--yellow)",
+                            paddingBottom: "6px",
+                          }
                         : { color: "var(--white)" }
                     }
                     to="user"
@@ -357,7 +397,12 @@ const Header = () => {
                 <Link
                   style={
                     location.pathname === "/"
-                      ? { color: "var(--yellow)", fontWeight: "bold" }
+                      ? {
+                          color: "var(--yellow)",
+                          fontWeight: "bold",
+                          borderBottom: "2px solid var(--yellow)",
+                          paddingBottom: "6px",
+                        }
                       : { color: "var(--white)" }
                   }
                   to="/"
@@ -371,7 +416,12 @@ const Header = () => {
                 <Link
                   style={
                     location.pathname === "/transaction"
-                      ? { color: "var(--yellow)", fontWeight: "bold" }
+                      ? {
+                          color: "var(--yellow)",
+                          fontWeight: "bold",
+                          borderBottom: "2px solid var(--yellow)",
+                          paddingBottom: "6px",
+                        }
                       : { color: "var(--white)" }
                   }
                   to="transaction"
@@ -386,7 +436,12 @@ const Header = () => {
                 <Link
                   style={
                     location.pathname === "/settings"
-                      ? { color: "var(--yellow)", fontWeight: "bold" }
+                      ? {
+                          color: "var(--yellow)",
+                          fontWeight: "bold",
+                          borderBottom: "2px solid var(--yellow)",
+                          paddingBottom: "6px",
+                        }
                       : { color: "var(--white)" }
                   }
                   to="settings"
@@ -400,7 +455,12 @@ const Header = () => {
                 <Link
                   style={
                     location.pathname === "/user"
-                      ? { color: "var(--yellow)", fontWeight: "bold" }
+                      ? {
+                          color: "var(--yellow)",
+                          fontWeight: "bold",
+                          borderBottom: "2px solid var(--yellow)",
+                          paddingBottom: "6px",
+                        }
                       : { color: "var(--white)" }
                   }
                   to="user"

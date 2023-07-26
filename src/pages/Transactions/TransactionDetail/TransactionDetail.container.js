@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { doc, updateDoc, increment } from "firebase/firestore";
+import { doc, updateDoc, increment, serverTimestamp } from "firebase/firestore";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import db from "../../../config/firebaseConfig";
 import { UserAuth } from "../../../context/AuthContext";
@@ -17,7 +17,6 @@ const TransactionDetail = () => {
   const [dateApproved, setdateApproved] = useState();
 
   useEffect(() => {
-    console.log(order);
     if (order && order.updatedAt) {
       setdateApproved(
         new Date(order.updatedAt.seconds * 1000).toLocaleDateString("en-US", {
@@ -28,15 +27,6 @@ const TransactionDetail = () => {
       );
     }
   }, [order]);
-
-  // const dateApprovedFormatted =
-  // order && order.updatedAt
-  //   ? order.updatedAt.toDate().toLocaleDateString("en-US", {
-  //       year: "numeric",
-  //       month: "short",
-  //       day: "numeric",
-  //     })
-  //   : "";
 
   useEffect(() => {
     if (order && order.meetUpInfo) {
@@ -60,7 +50,6 @@ const TransactionDetail = () => {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
     } else {
       console.log("error");
     }
@@ -69,7 +58,10 @@ const TransactionDetail = () => {
   const handleOnDecline = async () => {
     console.log("Declined");
     try {
-      await updateDoc(orderStatusRef, { orderStatus: "cancelled" });
+      await updateDoc(orderStatusRef, {
+        orderStatus: "cancelled",
+        updatedAt: serverTimestamp(),
+      });
       setOrder((oldData) => ({ ...oldData, orderStatus: "cancelled" }));
 
       console.log("Order status and quantity updated successfully");
@@ -82,9 +74,12 @@ const TransactionDetail = () => {
     try {
       const docRef = doc(db, "product", order.productId);
       await updateDoc(docRef, {
-        qty: increment(order.qty),
+        updatedAt: serverTimestamp(),
       });
-      await updateDoc(orderStatusRef, { orderStatus: "cancelled" });
+      await updateDoc(orderStatusRef, {
+        orderStatus: "cancelled",
+        updatedAt: serverTimestamp(),
+      });
       setOrder((oldData) => ({ ...oldData, orderStatus: "cancelled" }));
 
       console.log("Order status and quantity updated successfully");
@@ -100,6 +95,10 @@ const TransactionDetail = () => {
       await updateDoc(docRef, {
         qty: increment(-order.qty),
       });
+      await updateDoc(orderStatusRef, {
+        orderStatus: "confirmed",
+        updatedAt: serverTimestamp(),
+      });
       await updateDoc(orderStatusRef, { orderStatus: "confirmed" });
       setOrder((oldData) => ({ ...oldData, orderStatus: "confirmed" }));
 
@@ -111,7 +110,10 @@ const TransactionDetail = () => {
 
   const handleOnComplete = async () => {
     try {
-      await updateDoc(orderStatusRef, { orderStatus: "completed" });
+      await updateDoc(orderStatusRef, {
+        orderStatus: "completed",
+        updatedAt: serverTimestamp(), // Include the updated date with serverTimestamp()
+      });
       setOrder((oldData) => ({ ...oldData, orderStatus: "completed" }));
       console.log("Order status updated successfully");
     } catch (error) {

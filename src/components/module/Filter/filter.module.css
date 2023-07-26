@@ -25,3 +25,9 @@
   gap: 3rem;
   align-items: center;
 }
+
+@media screen and (min-width: 770px) {
+.filterWrapper {
+  padding: 24px calc(-54.28571px + 14.88095vw);
+}
+}

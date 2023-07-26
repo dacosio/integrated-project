@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import PageTabs from "./../components/base/PageTabs/PageTabs";
 import ActiveListingCard from "../components/base/ActiveListingCard/ActiveListingCard";
 import TransactionCard from "../components/base/TransactionCard/TransactionCard";
 import TransactionList from "../pages/Transactions/TransactionList/TransactionList.view";
 
 const Cylvia = (props) => {
-  const [first, setfirst] = useState();
   return (
     <div>
       <h1>Cylvia</h1>

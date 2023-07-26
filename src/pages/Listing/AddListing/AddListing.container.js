@@ -54,7 +54,7 @@ async function getWebpFile(source) {
 
 const AddListing = () => {
   const { user } = UserAuth();
-  const { placeValue } = Place();
+  const { placeValue, updatePlaceValue } = Place();
   const [meetupDate, setMeetupDate] = useState();
   const [meetupTime, setMeetupTime] = useState();
   const [divisionNumber, setDivisionNumber] = useState(1);
@@ -77,9 +77,14 @@ const AddListing = () => {
     itemName: Yup.string().required("Your item name is required."),
     description: Yup.string().required("Your item description is required."),
     originalPrice: Yup.number()
+      .positive("Your item price should be larger than 0.")
       .required("Your item price is required.")
       .typeError("Your item price should be a number."),
   });
+
+  useEffect(() => {
+    updatePlaceValue("");
+  }, []);
 
   useEffect(() => {
     getDocs(collection(db, "category")).then((categoriesResponse) => {
@@ -92,8 +97,25 @@ const AddListing = () => {
   }, []);
 
   useEffect(() => {
-    setPortionPrice((originalPrice / divisionNumber).toFixed(2));
-    setTotalPrice((originalPrice / divisionNumber).toFixed(2) * portionNumber);
+    const _portionPrice = originalPrice / divisionNumber;
+    const _totalPrice = _portionPrice * portionNumber;
+
+    setPortionPrice(
+      isNaN(_portionPrice) ||
+        !isFinite(_portionPrice) ||
+        _portionPrice < 0 ||
+        divisionNumber < portionNumber
+        ? Number(0).toFixed(2)
+        : Number(_portionPrice).toFixed(2)
+    );
+    setTotalPrice(
+      isNaN(_totalPrice) ||
+        !isFinite(_totalPrice) ||
+        _totalPrice < 0 ||
+        divisionNumber < portionNumber
+        ? Number(0).toFixed(2)
+        : Number(_totalPrice).toFixed(2)
+    );
   }, [originalPrice, divisionNumber, portionNumber]);
 
   const handleOnSubmit = ({ itemName, description, originalPrice }) => {
@@ -102,7 +124,10 @@ const AddListing = () => {
       placeValue &&
       category &&
       meetupDate &&
-      meetupTime
+      meetupTime &&
+      0 < divisionNumber &&
+      0 < portionNumber &&
+      portionNumber <= divisionNumber
     ) {
       const [year, month, day] = meetupDate.split("-");
       const [hours, minutes] = meetupTime.split(":");
@@ -133,7 +158,7 @@ const AddListing = () => {
           meetUpAddress: placeValue.formatted_address,
           meetUpInfo: new Date(year, month - 1, day, hours, minutes),
           name: itemName,
-          price: portionPrice,
+          price: Number(portionPrice),
           qty: portionNumber,
         }).then(async (productResponse) => {
           const _images = [];
@@ -163,24 +188,6 @@ const AddListing = () => {
               getDoc(doc(db, "product", productResponse.id)).then(
                 (_productResponse) => {
                   navigate("/user");
-                  // navigate(`/listing/${_productResponse.id}`, {
-                  //   state: {
-                  //     id: _productResponse.id,
-                  //     createdAt: _productResponse.data().createdAt,
-                  //     createdByDisplayName:
-                  //       _productResponse.data().createdByNickName,
-                  //     createdByIdent: _productResponse.data().createdByIdent,
-                  //     description: _productResponse.data().description,
-                  //     images: _productResponse.data().images,
-                  //     latitude: _productResponse.data().lat,
-                  //     longitude: _productResponse.data().long,
-                  //     meetUpAddress: _productResponse.data().meetUpAddress,
-                  //     meetUpInfo: _productResponse.data().meetUpInfo,
-                  //     name: _productResponse.data().name,
-                  //     price: _productResponse.data().price,
-                  //     qty: _productResponse.data().qty,
-                  //   },
-                  // });
                 }
               );
             });

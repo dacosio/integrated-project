@@ -1,5 +1,5 @@
 .ordersList {
-  padding: 32px 16px;
+  padding: 16px;
 }
 
 .titleWrapper {
@@ -39,7 +39,7 @@
 
 @media screen and (min-width: 576px) {
   .ordersList {
-    padding: 5% 7%;
+    padding: 24px;
   }
 }
 
@@ -47,7 +47,7 @@
   .titleWrapper {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     width: 100%;
     margin: auto;
     gap: 16px;

@@ -10,6 +10,7 @@ import {
   where,
   query,
   orderBy,
+  onSnapshot,
 } from "@firebase/firestore";
 import useMediaQuery from "../../../utils/useMediaQuery";
 import { usePosition } from "../../../utils/usePosition";
@@ -22,10 +23,6 @@ const ProfileDetail = () => {
   const [product, setProduct] = useState();
 
   useEffect(() => {
-    console.log(latitude, longitude);
-  }, [latitude, longitude]);
-
-  useEffect(() => {
     const getUserById = async (userId) => {
       try {
         const userDocRef = doc(db, "user", userId);
@@ -33,7 +30,6 @@ const ProfileDetail = () => {
 
         if (userSnapshot.exists()) {
           const _user = userSnapshot.data();
-          console.log(userId);
           getDocs(
             query(
               collection(db, "order"),
@@ -48,14 +44,20 @@ const ProfileDetail = () => {
           });
 
           const productDocRef = collection(db, "product");
-          const userProductSnapshot = await getDocs(
+          const querySnapshot = await getDocs(
             query(
               productDocRef,
               where("createdByIdent", "==", userId),
               orderBy("createdAt", "desc")
             )
           );
-          const productData = userProductSnapshot.docs.map((doc) => doc.data());
+
+          const productData = querySnapshot.docs
+            .filter((doc) => doc.data().qty !== 0)
+            .map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+            }));
 
           console.log(productData);
 
@@ -66,7 +68,6 @@ const ProfileDetail = () => {
       } catch (error) {
         console.error("Error retrieving user:", error);
       }
-      // console.log("here", user.uid);
     };
 
     if (user && user.uid) {
@@ -74,13 +75,10 @@ const ProfileDetail = () => {
     }
   }, [user]);
 
-  // console.log(data);
-  // console.log(product);
-
-  const sm = useMediaQuery("(min-width: 360px) and (max-width:600px)");
-  const md = useMediaQuery("(min-width: 601px) and (max-width:1020px)");
-  const lg = useMediaQuery("(min-width: 1024px) and (max-width:1400px)");
-  const xl = useMediaQuery("(min-width: 1401px)");
+  const sm = useMediaQuery("(min-width: 360px) and (max-width:576px)");
+  const md = useMediaQuery("(min-width: 577px) and (max-width:769px)");
+  const lg = useMediaQuery("(min-width: 770px) and (max-width:1270px)");
+  const xl = useMediaQuery("(min-width: 1271px)");
   const navigate = useNavigate();
 
   const generatedProps = {
