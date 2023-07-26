@@ -96,7 +96,7 @@ const TransactionList = (props) => {
                         splitteeContactNumber: o.splitteeContactNumber,
                         splitteeEmail: o.splitteeEmail,
                         splitteeImageUrl: o.splitteeImageUrl,
-                        splitterContactNumber: o.splitteeContactNumber,
+                        splitterContactNumber: o.splitterContactNumber,
                         splitterEmail: o.splitterEmail,
                         splitterId: o.splitterId,
                         splitterImageUrl: o.splitterImageUrl,
