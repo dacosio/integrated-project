@@ -21,7 +21,7 @@ const TransactionDetail = (props) => {
     handleOnCancel,
     meetUpDate,
     meetUpTime,
-    dateApproved
+    dateApproved,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
@@ -101,11 +101,13 @@ const TransactionDetail = (props) => {
                       <Typography color="error">order is cancelled</Typography>
                     ) : order.splitterId === user.uid ? (
                       order.orderStatus === "confirmed" ? (
-                        order.splitteeContactNumber
+                        <Typography>{order.splitterContactNumber}</Typography>
                       ) : (
-                        order.splitterContactNumber
+                        <Typography>{order.splitterContactNumber}</Typography>
                       )
-                    ) : null
+                    ) : (
+                      <Typography>{order.splitteeContactNumber}</Typography>
+                    )
                   }
                   email={
                     order.orderStatus === "pending" ? (
@@ -118,11 +120,13 @@ const TransactionDetail = (props) => {
                       <Typography color="error">order is cancelled</Typography>
                     ) : order.splitterId === user.uid ? (
                       order.orderStatus === "confirmed" ? (
-                        order.splitteeEmail
+                        <Typography>{order.splitterEmail}</Typography>
                       ) : (
-                        order.splitterEmail
+                        <Typography>{order.splitterEmail}</Typography>
                       )
-                    ) : null
+                    ) : (
+                      <Typography>{order.splitteeEmail}</Typography>
+                    )
                   }
                 />
               </Grid>
@@ -269,11 +273,13 @@ const TransactionDetail = (props) => {
                       <Typography color="error">order is cancelled</Typography>
                     ) : order.splitterId === user.uid ? (
                       order.orderStatus === "confirmed" ? (
-                        order.splitteeContactNumber
+                        <Typography>{order.splitterContactNumber}</Typography>
                       ) : (
-                        order.splitterContactNumber
+                        <Typography>{order.splitterContactNumber}</Typography>
                       )
-                    ) : null
+                    ) : (
+                      <Typography>{order.splitteeContactNumber}</Typography>
+                    )
                   }
                   email={
                     order.orderStatus === "pending" ? (
@@ -286,11 +292,13 @@ const TransactionDetail = (props) => {
                       <Typography color="error">order is cancelled</Typography>
                     ) : order.splitterId === user.uid ? (
                       order.orderStatus === "confirmed" ? (
-                        order.splitteeEmail
+                        <Typography>{order.splitterEmail}</Typography>
                       ) : (
-                        order.splitterEmail
+                        <Typography>{order.splitterEmail}</Typography>
                       )
-                    ) : null
+                    ) : (
+                      <Typography>{order.splitteeEmail}</Typography>
+                    )
                   }
                 />
               </div>
