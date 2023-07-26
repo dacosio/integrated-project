@@ -20,7 +20,7 @@ const Accordion = ({ children, visibility, onToggle, id, label, ...props }) => {
             visibility ? styles["expand"] : ""
           }`}
         >
-          <div style={{ padding: "0 16px 32px 16px" }}>{children}</div>
+          <div style={{ padding: "0 24px 32px" }}>{children}</div>
         </div>
       </div>
     </>

@@ -1,5 +1,6 @@
+
 .desktopWrapper {
-  padding: 0 64px;
+  padding: 0 calc(60px + ((100vw - 768px) / 672) * 100);
   margin-bottom: 15%;
 }
 /* .desktopWrapper {

@@ -26,7 +26,7 @@
 
 .titleWrapper {
   margin: 16px;
-  padding: 20px 16px;
+  padding: 20px 24px;
   border: 2px solid black;
   box-shadow: 2px 2px black;
   border-radius: 20px;
@@ -36,10 +36,6 @@
 .settingsItem {
   margin: 16px;
   transition: max-height 0.3s ease; 
-}
-
-.single-image-input_wrapper {
-  background-color: hotpink;
 }
 
 hr {
@@ -84,7 +80,7 @@ input {
   #settings {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    margin: 32px 64px;
+    margin: 60px calc(40px + ((100vw - 768px) / 672) * 100);
     column-gap: 16px;
   }
 
@@ -106,7 +102,7 @@ input {
 @media screen and (min-width: 1270px) {
   #settings {
     grid-template-columns: repeat(3, 1fr);
-    margin: 3% 5%;
+    margin: 60px calc(60px + ((100vw - 768px) / 672) * 100);
     column-gap: 16px;
   }
 

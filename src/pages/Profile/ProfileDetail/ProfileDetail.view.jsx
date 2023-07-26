@@ -1,6 +1,7 @@
 import React from "react";
 import style from "./ProfileDetails.module.css";
-import { MarkerSmallSVG, OrderSmallSVG, ProfileBackgroundSVG } from "../../../components/base/SVG";
+import { MarkerSmallSVG, OrderSmallSVG } from "../../../components/base/SVG";
+import { ProfileBackgroundSVG } from "./../../../components/base/SVG";
 import Avatar from "react-avatar";
 import Typography from "../../../components/base/Typography/Typography";
 import ActiveListingCard from "../../../components/base/ActiveListingCard/ActiveListingCard";
@@ -27,7 +28,10 @@ const ProfileDetail = ({
           height: lg || xl ? "200px" : "125px",
           width: "100%",
           backgroundColor: "var(--light-blue)",
-          backgroundImage: `url(${ProfileBackgroundSVG})`,
+          backgroundImage: `url("https://firebasestorage.googleapis.com/v0/b/splitshare-67496.appspot.com/o/system-image%2FProfile-page-pattern-light.png?alt=media&token=65ee1c9f-f4cc-4564-9829-51203a2b4869")`,
+          backgroundSize: "auto 250%",
+          backgroundPosition: "left center",
+          backgroundRepeat: "repeat",
           borderBottom: "2px solid black",
         }}
       ></div>

@@ -93,7 +93,7 @@ const TransactionCard = (props) => {
       <div className={style.productInformation} onClick={onClick}>
         <div>
           <Typography variant="h4-graphik-bold" color="dark-blue">
-            {itemName}
+            {itemName.length > 20 ? itemName.substring(0,20)+"..." : itemName}
           </Typography>
           <Typography variant="h3-graphik-bold">
             ${Number(price).toFixed(2)}
