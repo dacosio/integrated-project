@@ -101,12 +101,12 @@ const TransactionDetail = (props) => {
                       <Typography color="error">order is cancelled</Typography>
                     ) : order.splitterId === user.uid ? (
                       order.orderStatus === "confirmed" ? (
-                        <Typography>{order.splitterContactNumber}</Typography>
+                        order.splitteeContactNumber
                       ) : (
-                        <Typography>{order.splitterContactNumber}</Typography>
+                        order.splitteeContactNumber
                       )
                     ) : (
-                      <Typography>{order.splitteeContactNumber}</Typography>
+                      order.splitterContactNumber
                     )
                   }
                   email={
@@ -120,12 +120,12 @@ const TransactionDetail = (props) => {
                       <Typography color="error">order is cancelled</Typography>
                     ) : order.splitterId === user.uid ? (
                       order.orderStatus === "confirmed" ? (
-                        <Typography>{order.splitterEmail}</Typography>
+                        order.splitteeEmail
                       ) : (
-                        <Typography>{order.splitterEmail}</Typography>
+                        order.splitteeEmail
                       )
                     ) : (
-                      <Typography>{order.splitteeEmail}</Typography>
+                      order.splitterEmail
                     )
                   }
                 />
@@ -273,12 +273,12 @@ const TransactionDetail = (props) => {
                       <Typography color="error">order is cancelled</Typography>
                     ) : order.splitterId === user.uid ? (
                       order.orderStatus === "confirmed" ? (
-                        <Typography>{order.splitterContactNumber}</Typography>
+                        order.splitteeContactNumber
                       ) : (
-                        <Typography>{order.splitterContactNumber}</Typography>
+                        order.splitteeContactNumber
                       )
                     ) : (
-                      <Typography>{order.splitteeContactNumber}</Typography>
+                      order.splitterContactNumber
                     )
                   }
                   email={
@@ -292,12 +292,12 @@ const TransactionDetail = (props) => {
                       <Typography color="error">order is cancelled</Typography>
                     ) : order.splitterId === user.uid ? (
                       order.orderStatus === "confirmed" ? (
-                        <Typography>{order.splitterEmail}</Typography>
+                        order.splitteeEmail
                       ) : (
-                        <Typography>{order.splitterEmail}</Typography>
+                        order.splitteeEmail
                       )
                     ) : (
-                      <Typography>{order.splitteeEmail}</Typography>
+                      order.splitterEmail
                     )
                   }
                 />
