@@ -40,7 +40,7 @@ const AddListing = (props) => {
     navigate,
   } = props;
 
-  const isDesktop = useMediaQuery("(min-width: 1440px)");
+  const isDesktop = useMediaQuery("(min-width: 1000px)");
 
   return (
     <div className={styles.contentWrapper}>

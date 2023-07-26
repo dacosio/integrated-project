@@ -1,5 +1,5 @@
 .desktopWrapper {
-  padding: 0 59.5px;
+  padding: 0 64px;
   margin-bottom: 15%;
 }
 /* .desktopWrapper {
@@ -19,7 +19,7 @@
 }
 
 .headerWrapperDesktop {
-  transform: translateY(-50%);
+  transform: translateY(-30%);
   /* padding: 0 16px; */
 
   display: flex;

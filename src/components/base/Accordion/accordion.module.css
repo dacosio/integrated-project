@@ -19,10 +19,11 @@
   box-sizing: border-box;
   max-height: 0;
   overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
 }
 
 .expand {
   overflow: unset;
-  max-height: unset;
-  transition-duration: 0.3s;
+  max-height: 1000px;
+  transition: max-height 0.3s ease-in-out;
 }
