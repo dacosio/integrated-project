@@ -8,7 +8,13 @@ import { useState } from "react";
 import { Sort } from "../../../context/SortContext";
 import { useEffect } from "react";
 
-const Filter = ({ onChange, options, placeholder, screenSize }) => {
+const Filter = ({
+  onChange,
+  options,
+  placeholder,
+  screenSize,
+  dropdownPosition,
+}) => {
   const [highActive, setHighActive] = useState(false);
   const [lowActive, setLowActive] = useState(false);
 
@@ -73,6 +79,7 @@ const Filter = ({ onChange, options, placeholder, screenSize }) => {
             backspaceDelete
             onChange={onChange}
             searchable={false}
+            dropdownPosition={dropdownPosition}
           />
         </div>
       </div>

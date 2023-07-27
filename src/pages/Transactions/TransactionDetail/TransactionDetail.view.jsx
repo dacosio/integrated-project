@@ -21,7 +21,7 @@ const TransactionDetail = (props) => {
     handleOnCancel,
     meetUpDate,
     meetUpTime,
-    dateApproved
+    dateApproved,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
@@ -102,9 +102,11 @@ const TransactionDetail = (props) => {
                       order.orderStatus === "confirmed" ? (
                         order.splitteeContactNumber
                       ) : (
-                        order.splitterContactNumber
+                        order.splitteeContactNumber
                       )
-                    ) : null
+                    ) : (
+                      order.splitterContactNumber
+                    )
                   }
                   email={
                     order.orderStatus === "pending" ? (
@@ -119,9 +121,11 @@ const TransactionDetail = (props) => {
                       order.orderStatus === "confirmed" ? (
                         order.splitteeEmail
                       ) : (
-                        order.splitterEmail
+                        order.splitteeEmail
                       )
-                    ) : null
+                    ) : (
+                      order.splitterEmail
+                    )
                   }
                 />
               </Grid>
@@ -270,9 +274,11 @@ const TransactionDetail = (props) => {
                       order.orderStatus === "confirmed" ? (
                         order.splitteeContactNumber
                       ) : (
-                        order.splitterContactNumber
+                        order.splitteeContactNumber
                       )
-                    ) : null
+                    ) : (
+                      order.splitterContactNumber
+                    )
                   }
                   email={
                     order.orderStatus === "pending" ? (
@@ -287,9 +293,11 @@ const TransactionDetail = (props) => {
                       order.orderStatus === "confirmed" ? (
                         order.splitteeEmail
                       ) : (
-                        order.splitterEmail
+                        order.splitteeEmail
                       )
-                    ) : null
+                    ) : (
+                      order.splitterEmail
+                    )
                   }
                 />
               </div>
