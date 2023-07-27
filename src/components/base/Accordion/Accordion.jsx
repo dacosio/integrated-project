@@ -28,3 +28,4 @@ const Accordion = ({ children, visibility, onToggle, id, label, ...props }) => {
 };
 
 export default React.memo(Accordion);
+
