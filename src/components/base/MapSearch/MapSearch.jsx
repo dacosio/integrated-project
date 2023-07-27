@@ -43,6 +43,7 @@ const MapSearch = ({
   };
 
   const handleSelectPlace = (item) => {
+    updatePlaceValue();
     getPlacePredictions({ input: "" });
     setValue(item.description);
     placesService?.getDetails(
