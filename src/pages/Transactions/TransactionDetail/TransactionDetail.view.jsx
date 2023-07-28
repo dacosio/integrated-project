@@ -27,7 +27,7 @@ const TransactionDetail = (props) => {
   const isDesktop = useMediaQuery("(min-width: 1440px)");
 
   return (
-    <div style={{ backgroundColor: "var(--bg-gray)", minHeight: "100vh" }}>
+    <div className={styles.wrapper} style={{ backgroundColor: "var(--bg-gray)", minHeight: "100vh" }}>
       <div className={styles.backButtonWrapper}>
         <BackButton
           onClick={() => navigate("/transaction", { replace: true })}
@@ -40,7 +40,6 @@ const TransactionDetail = (props) => {
           columns={1}
           gap="24px"
           style={{
-            padding: "30px 157px 157px",
             justifyContent: "center",
             boxSizing: "border-box",
           }}
@@ -223,7 +222,7 @@ const TransactionDetail = (props) => {
       ) : (
         <div style={{ minHeight: "100vh", backgroundColor: "var(--bg-gray)" }}>
           {order && (
-            <div style={{ padding: "16px 16px 125px" }}>
+            <div>
               <div style={{ marginBottom: "20px" }}>
                 <SellingItemCard
                   label={

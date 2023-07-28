@@ -74,12 +74,12 @@
 
 .backButtonWrap {
   margin-bottom: 20px;
-  margin-top: 60px;
+  margin-top: 20px;
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 768px) {
   .contentWrapper {
-    padding: 16px 10rem;
+    padding: 60px calc(60px + ((100vw - 768px) / 672) * 100);
   }
 }
 
