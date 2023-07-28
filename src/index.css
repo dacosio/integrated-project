@@ -1,19 +1,19 @@
 @font-face {
   font-family: "Graphik";
-  font-weight: "bold";
+  font-weight: 700;
   src: local("GraphikBold"), url("./fonts/GraphikBold.otf") format("opentype");
 }
 
 @font-face {
   font-family: "Graphik";
-  font-weight: "medium";
+  font-weight: 500;
   src: local("GraphikMedium"), url("./fonts/GraphikMedium.otf") format("opentype");
 }
 
 @font-face {
   font-family: "Graphik";
-  font-weight: "normal";
-  src: local("GraphikRegular"), url("./fonts/GraphikRegular.otf") format("opentype");
+  font-weight: 400;
+  src: local("GraphikNormal"), url("./fonts/GraphikRegular.otf") format("opentype");
 }
 
 html,
