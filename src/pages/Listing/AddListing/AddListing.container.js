@@ -195,12 +195,9 @@ const AddListing = () => {
         });
       });
     } else if (images.length === 0) {
-      if (!toast.isActive()) {
-        toast.error("At least one photo is required.", {
-          toastId: 0,
-          autoClose: 3000,
-        });
-      }
+      toast.error("At least one photo is required.", {
+        autoClose: 1500,
+      });
     }
   };
 

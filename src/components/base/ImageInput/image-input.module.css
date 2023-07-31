@@ -12,6 +12,7 @@
   border-radius: 8px;
   box-sizing: border-box;
   border: 2px solid black;
+  cursor: pointer;
 }
 
 .image {
