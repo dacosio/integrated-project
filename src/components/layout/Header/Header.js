@@ -29,9 +29,6 @@ const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [sortHigh, setSortHigh] = useState(false);
-  const [sortLow, setSortLow] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(false);
   const [options, setOptions] = useState([]);
 
   useEffect(
@@ -60,7 +57,8 @@ const Header = () => {
   const md = useMediaQuery("(min-width: 577px) and (max-width:768px)");
   const lg = useMediaQuery("(min-width: 769px) and (max-width:1270px)");
   const xl = useMediaQuery("(min-width: 1271px)");
-
+  const selectPosition = useMediaQuery("(max-width:768px)");
+  console.log(selectPosition);
   useEffect(() => {
     if (location.pathname !== "/") {
       setFilterSelected(false);
@@ -521,6 +519,7 @@ const Header = () => {
             options={options}
             placeholder="All Categories"
             screenSize={filterSize}
+            dropdownPosition={selectPosition ? "top" : undefined}
           />
         )}
       </div>
