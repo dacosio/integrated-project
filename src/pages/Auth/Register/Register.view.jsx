@@ -159,15 +159,16 @@ const RegisterView = (props) => {
                     placeholder="Type your number"
                     style={formikStyle}
                   />
-                  {/* <div>
+                  <div>
                     <Typography
                       variant="h4-graphik-bold"
                       style={{ paddingBottom: "8px" }}
                     >
                       Address
                     </Typography>
+                    {/* Uncomment to see the mapsearch but ensure that the key is in env */}
                     <MapSearch placeholder="Type your address" />
-                  </div> */}
+                  </div>
                   <div className={style.buttonWrapper}>
                     <Button
                       variant="white"
