@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "../Button/Button";
 import ImageUploading from "react-images-uploading";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./single-image-input.module.css";
 
@@ -12,20 +12,10 @@ function SingleImageInput({ images, setImages, disableLabel, ...props }) {
 
   const onError = (error) => {
     if (error.acceptType) {
-      toast.error(
-        "The file format is not supported. Only files with the following extensions are allowed: jpg, png.",
-        {
-          autoClose: 1500,
-        }
-      );
+      toast.error("You can upload jpg, png only!");
     }
     if (error.maxFileSize) {
-      toast.error(
-        "The file is too large and cannot be uploaded. The maximum file size per image is 10MB.",
-        {
-          autoClose: 1500,
-        }
-      );
+      toast.error("The maximum file size is 10MB!");
     }
   };
 
@@ -39,7 +29,7 @@ function SingleImageInput({ images, setImages, disableLabel, ...props }) {
         dataURLKey="data_url"
         acceptType={["jpg", "png"]}
       >
-        {({ imageList, onImageUpload }) => (
+        {({ imageList, onImageUpload, onImageRemove }) => (
           <div className={`${styles["wrapper"]}`}>
             {images.length === 0 ? (
               <div
@@ -83,6 +73,9 @@ function SingleImageInput({ images, setImages, disableLabel, ...props }) {
           </div>
         )}
       </ImageUploading>
+      <div>
+        <ToastContainer position="top-center" />
+      </div>
     </>
   );
 }

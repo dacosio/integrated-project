@@ -161,6 +161,7 @@ const Settings = (props) => {
                 );
               }}
             </Formik>
+            <ToastContainer />
           </div>
         </Accordion>
       </div>
@@ -184,7 +185,6 @@ const Settings = (props) => {
           </Typography>
         </Accordion>
       </div>
-      <ToastContainer position="top-center" />
     </div>
   );
 };

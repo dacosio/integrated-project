@@ -15,7 +15,6 @@ import FormikControl from "../../../components/base/FormikControl/FormikControl"
 import BackButton from "../../../components/base/BackButton/BackButton";
 import MapLeaflet from "../../../components/module/MapLeaflet/MapLeaflet";
 import MapSearch from "../../../components/base/MapSearch/MapSearch";
-import { ToastContainer } from "react-toastify";
 
 const AddListing = (props) => {
   const {
@@ -768,7 +767,6 @@ const AddListing = (props) => {
           </Formik>
         </div>
       )}
-      <ToastContainer position="top-center" />
     </div>
   );
 };

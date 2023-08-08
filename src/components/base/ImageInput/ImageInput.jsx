@@ -16,24 +16,16 @@ function ImageInput({ images, setImages, maxImageNumber = 12, ...props }) {
 
   const onError = (error) => {
     if (error.maxNumber) {
-      toast.error(`You can add up to ${maxImageNumber} photos.`, {
-        autoClose: 1500,
-      });
+      toast.error(`You can add up to ${maxImageNumber} photos.`);
     }
     if (error.acceptType) {
       toast.error(
-        "The file format is not supported. Only files with the following extensions are allowed: jpg, png.",
-        {
-          autoClose: 1500,
-        }
+        "The file format is not supported. Only files with the following extensions are allowed: jpg, png."
       );
     }
     if (error.maxFileSize) {
       toast.error(
-        "The file is too large and cannot be uploaded. The maximum file size per image is 10MB.",
-        {
-          autoClose: 1500,
-        }
+        "The file is too large and cannot be uploaded. The maximum file size per image is 10MB."
       );
     }
   };
@@ -144,6 +136,9 @@ function ImageInput({ images, setImages, maxImageNumber = 12, ...props }) {
           </div>
         )}
       </ImageUploading>
+      <div>
+        <ToastContainer position="top-center" />
+      </div>
     </>
   );
 }
